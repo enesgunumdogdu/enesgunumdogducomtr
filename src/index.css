@@ -116,6 +116,51 @@ button {
   background-clip: text;
 }
 
+/* Animated Gradient Text - for page headers */
+.gradient-text-animated {
+  background: linear-gradient(
+    90deg,
+    #7c3aed 0%,
+    #a855f7 20%,
+    #ec4899 40%,
+    #f472b6 60%,
+    #a855f7 80%,
+    #7c3aed 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-flow 4s linear infinite;
+}
+
+@keyframes gradient-flow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Shimmer effect for gradient text */
+.gradient-text-shimmer {
+  background: linear-gradient(
+    110deg,
+    #7c3aed 0%,
+    #7c3aed 40%,
+    #f0abfc 50%,
+    #7c3aed 60%,
+    #ec4899 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -100% center; }
+  100% { background-position: 100% center; }
+}
+
 .gradient-text-aurora {
   background: var(--gradient-aurora);
   background-size: 300% 300%;

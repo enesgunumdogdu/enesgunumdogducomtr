@@ -1,5 +1,5 @@
-import { Box, Typography, Grid, Chip, Link } from '@mui/material'
-import { WorkOutline, School, AutoAwesome, OpenInNew } from '@mui/icons-material'
+import { Box, Typography, Chip, Link } from '@mui/material'
+import { School, OpenInNew } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function About() {
@@ -16,30 +16,30 @@ function About() {
 
   const experiences = [
     {
-      icon: <WorkOutline sx={{ fontSize: 24 }} />,
+      logo: '/logos/avevrak.ico',
       title: 'Avevrak.com',
       subtitle: 'Software Developer',
       period: 'June 2025 - August 2025',
-      description: 'Automated demo document generation pipeline using GCP and Python with 95% improvement in tag consistency. Merged 20+ pull requests into production.',
+      description: 'Built an AI-powered document generation system using LLMs and vector search. Architected cloud pipelines on GCP that achieved 95% accuracy in automated tagging.',
       tags: ['GCP', 'Python', 'LLM', 'FAISS'],
       link: 'https://avevrak.com'
     },
     {
-      icon: <AutoAwesome sx={{ fontSize: 24 }} />,
+      logo: '/logos/toucancodelabs.png',
       title: 'Toucan Code Labs',
       subtitle: 'Software Developer',
       period: 'August 2023 - November 2024',
-      description: 'Integrated 10+ microservices for RoboNimbus mobile application. Enhanced UI/UX and resolved microservice-related issues.',
+      description: 'Developed and integrated microservices for the RoboNimbus mobile platform. Designed RESTful APIs and improved system reliability through performance optimization.',
       tags: ['Microservices', 'Mobile', 'API'],
       link: 'https://toucancodelabs.com'
     },
     {
-      icon: <WorkOutline sx={{ fontSize: 24 }} />,
+      logo: '/logos/bionluk.ico',
       title: 'Bionluk.com',
-      subtitle: 'Freelance Software Developer',
+      subtitle: 'Freelance Developer',
       period: 'June 2021 - June 2025',
-      description: 'Delivered 25+ custom projects using Java, Python, C#, and WordPress — including OOP solutions and fully customized web applications.',
-      tags: ['Freelance', 'Java', 'Python', 'WordPress'],
+      description: 'Completed 25+ client projects ranging from backend APIs to full-stack web applications. Specialized in Java, Python, and custom WordPress solutions.',
+      tags: ['Freelance', 'Java', 'Python', 'Full-Stack'],
       link: 'https://bionluk.com/enesgunumdogdu'
     }
   ]
@@ -60,7 +60,7 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">About Me</Box>
           <Typography variant="h1" className="section-title">
-            I'm <span className="gradient-text">Enes Günümdoğdu</span>
+            I'm <span className="gradient-text-animated">Enes Günümdoğdu</span>
           </Typography>
           <Typography className="section-subtitle">
             Backend Developer passionate about building scalable systems
@@ -136,7 +136,7 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">Tech Stack</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text">Technologies I Use</span>
+            <span className="gradient-text-shimmer">Technologies I Use</span>
           </Typography>
           <Typography className="section-subtitle">
             Modern tools and frameworks for building production-ready applications
@@ -184,62 +184,79 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">Experience</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text">My Journey</span>
+            <span className="gradient-text-shimmer">My Journey</span>
           </Typography>
         </Box>
 
-        <Grid container spacing={{ xs: 2, md: 3 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+            gap: { xs: 2, md: 3 },
+            width: '100%'
+          }}
+        >
           {experiences.map((exp, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Box
+              key={index}
+              sx={{
+                background: 'rgba(17, 17, 17, 0.7)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: { xs: '20px', md: '24px' },
+                p: { xs: 2.5, md: 3 },
+                height: '100%',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'flex',
+                flexDirection: 'column',
+                minHeight: { md: 320 },
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '3px',
+                  background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                  transform: 'scaleX(0)',
+                  transformOrigin: 'left',
+                  transition: 'transform 0.4s ease',
+                },
+                '&:hover': {
+                  transform: { xs: 'none', md: 'translateY(-8px)' },
+                  borderColor: 'rgba(124, 58, 237, 0.3)',
+                  '&::before': {
+                    transform: 'scaleX(1)',
+                  }
+                }
+              }}
+            >
               <Box
                 sx={{
-                  background: 'rgba(17, 17, 17, 0.7)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: { xs: '20px', md: '24px' },
-                  p: { xs: 2.5, md: 3 },
-                  height: '100%',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  position: 'relative',
-                  overflow: 'hidden',
+                  width: { xs: 48, md: 56 },
+                  height: { xs: 48, md: 56 },
+                  borderRadius: '14px',
+                  background: 'rgba(255, 255, 255, 0.95)',
                   display: 'flex',
-                  flexDirection: 'column',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '3px',
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-                    transform: 'scaleX(0)',
-                    transformOrigin: 'left',
-                    transition: 'transform 0.4s ease',
-                  },
-                  '&:hover': {
-                    transform: { xs: 'none', md: 'translateY(-8px)' },
-                    borderColor: 'rgba(124, 58, 237, 0.3)',
-                    '&::before': {
-                      transform: 'scaleX(1)',
-                    }
-                  }
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 2,
+                  p: 1
                 }}
               >
                 <Box
+                  component="img"
+                  src={exp.logo}
+                  alt={exp.title}
                   sx={{
-                    width: { xs: 48, md: 56 },
-                    height: { xs: 48, md: 56 },
-                    borderRadius: '16px',
-                    background: 'rgba(124, 58, 237, 0.1)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mb: 2,
-                    color: '#a855f7'
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain'
                   }}
-                >
-                  {exp.icon}
-                </Box>
+                />
+              </Box>
 
                 <Link
                   href={exp.link}
@@ -324,9 +341,8 @@ function About() {
                   ))}
                 </Box>
               </Box>
-            </Grid>
           ))}
-        </Grid>
+        </Box>
       </Box>
 
       {/* Education Section */}
@@ -334,7 +350,7 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">Education</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text">Academic Background</span>
+            <span className="gradient-text-shimmer">Academic Background</span>
           </Typography>
         </Box>
 

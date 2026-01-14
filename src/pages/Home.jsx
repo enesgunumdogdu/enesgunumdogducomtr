@@ -49,12 +49,6 @@ function Home() {
 
         <Container maxWidth="lg">
           <Box className="hero-content">
-            {/* Badge */}
-            <Box className="hero-badge">
-              <span className="hero-badge-dot" />
-              Open to new opportunities
-            </Box>
-
             {/* Title */}
             <Typography
               variant="h1"
@@ -68,6 +62,7 @@ function Home() {
             >
               <span>Hi, I'm </span>
               <span className="gradient-text">Enes</span>
+              <span> 👋🏾</span>
             </Typography>
 
             {/* Typing Effect */}

@@ -107,7 +107,7 @@ function Contact() {
         <Box className="section-header">
           <Box className="section-label">Contact</Box>
           <Typography variant="h1" className="section-title">
-            <span className="gradient-text">Get In Touch</span>
+            <span className="gradient-text-animated">Get In Touch</span>
           </Typography>
           <Typography className="section-subtitle">
             Have a project in mind? Let's build something great together.
@@ -188,7 +188,7 @@ function Contact() {
                     name="contact"
                     method="POST"
                     data-netlify="true"
-                    netlify-honeypot="bot-field"
+                    data-netlify-honeypot="bot-field"
                     onSubmit={handleSubmit}
                   >
                     <input type="hidden" name="form-name" value="contact" />

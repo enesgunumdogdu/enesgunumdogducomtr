@@ -11,7 +11,8 @@
   </head>
   <body>
     <!-- Netlify Forms - Hidden form for build detection -->
-    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+    <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="bot-field" />
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="text" name="subject" />

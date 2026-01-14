@@ -68,7 +68,7 @@ function Projects() {
         <Box className="section-header">
           <Box className="section-label">Portfolio</Box>
           <Typography variant="h1" className="section-title">
-            <span className="gradient-text">My Projects</span>
+            <span className="gradient-text-animated">My Projects</span>
           </Typography>
           <Typography className="section-subtitle">
             A collection of projects showcasing my expertise in backend development,
