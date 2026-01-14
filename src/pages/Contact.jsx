@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
 import { Send, Email, GitHub, LinkedIn, CheckCircle } from '@mui/icons-material'
+import ReCAPTCHA from 'react-google-recaptcha'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function Contact() {
@@ -14,6 +15,8 @@ function Contact() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [captchaValue, setCaptchaValue] = useState(null)
+  const recaptchaRef = useRef(null)
 
   const handleChange = (e) => {
     setFormData({
@@ -24,6 +27,17 @@ function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    // Validate required fields
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      return
+    }
+
+    // Validate reCAPTCHA
+    if (!captchaValue) {
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -32,6 +46,7 @@ function Contact() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({
           'form-name': 'contact',
+          'g-recaptcha-response': captchaValue,
           ...formData
         }).toString()
       })
@@ -39,6 +54,8 @@ function Contact() {
       if (response.ok) {
         setSubmitted(true)
         setFormData({ name: '', email: '', subject: '', message: '' })
+        setCaptchaValue(null)
+        recaptchaRef.current?.reset()
         setTimeout(() => setSubmitted(false), 4000)
       }
     } catch (error) {
@@ -254,11 +271,19 @@ function Contact() {
                         rows={5}
                         sx={inputStyles}
                       />
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                          onChange={setCaptchaValue}
+                          theme="dark"
+                        />
+                      </Box>
                       <Button
                         type="submit"
                         fullWidth
                         variant="contained"
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !captchaValue}
                         endIcon={!isSubmitting && <Send />}
                         sx={{
                           background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
