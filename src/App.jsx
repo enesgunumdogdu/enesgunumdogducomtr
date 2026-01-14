@@ -6,6 +6,8 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
+import CartoonWeatherPrivacyPolicy from './pages/CartoonWeatherPrivacyPolicy'
+import CartoonWeatherTermsOfUse from './pages/CartoonWeatherTermsOfUse'
 import './App.css'
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/cartoon-weather-privacy-policy" element={<CartoonWeatherPrivacyPolicy />} />
+            <Route path="/cartoon-weather-terms-of-use" element={<CartoonWeatherTermsOfUse />} />
           </Routes>
         </main>
         <Footer />
