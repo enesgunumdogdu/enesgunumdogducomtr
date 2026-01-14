@@ -193,7 +193,13 @@ function Contact() {
                     onSubmit={handleSubmit}
                   >
                     <input type="hidden" name="form-name" value="contact" />
-                    <input type="hidden" name="bot-field" />
+                    {/* Honeypot field - hidden by CSS, bots will fill it */}
+                    <p style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                      <label>
+                        Don't fill this out if you're human:
+                        <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                      </label>
+                    </p>
                     <Typography
                       variant="h5"
                       sx={{

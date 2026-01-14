@@ -12,11 +12,11 @@
   <body>
     <!-- Netlify Forms - Hidden form for build detection -->
     <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-      <input type="hidden" name="bot-field" />
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="subject" />
-      <textarea name="message"></textarea>
+      <input name="bot-field" />
+      <input type="text" name="name" required />
+      <input type="email" name="email" required />
+      <input type="text" name="subject" required />
+      <textarea name="message" required></textarea>
     </form>
 
     <div id="root"></div>
