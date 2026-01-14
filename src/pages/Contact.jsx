@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
-import { Send, Email, GitHub, LinkedIn, CheckCircle, LocationOn } from '@mui/icons-material'
+import { Send, Email, GitHub, LinkedIn, CheckCircle } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function Contact() {
@@ -286,7 +286,7 @@ function Contact() {
                   I'm always open to discussing new projects and opportunities.
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 3 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                   {socialLinks.map((social, index) => (
                     <Box
                       key={index}
@@ -337,50 +337,6 @@ function Contact() {
                       </Typography>
                     </Box>
                   ))}
-                </Box>
-
-                {/* Location */}
-                <Box
-                  sx={{
-                    mt: 'auto',
-                    p: 2.5,
-                    background: 'rgba(17, 17, 17, 0.5)',
-                    border: '1px solid rgba(255,255,255,0.06)',
-                    borderRadius: '14px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 2
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: '12px',
-                      background: 'rgba(124, 58, 237, 0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#a855f7',
-                      flexShrink: 0
-                    }}
-                  >
-                    <LocationOn sx={{ fontSize: 22 }} />
-                  </Box>
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontSize: '0.8rem',
-                        color: 'rgba(255,255,255,0.5)',
-                        mb: 0.25
-                      }}
-                    >
-                      Location
-                    </Typography>
-                    <Typography sx={{ fontWeight: 500, color: 'white' }}>
-                      Turkey
-                    </Typography>
-                  </Box>
                 </Box>
               </Box>
             </Box>
