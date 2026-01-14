@@ -274,7 +274,7 @@ function Contact() {
                       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                         <ReCAPTCHA
                           ref={recaptchaRef}
-                          sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+                          sitekey="6Lfnw0osAAAAAJkVJJkdS9R2oFWznsihBAtf7xWf"
                           onChange={setCaptchaValue}
                           theme="dark"
                         />
