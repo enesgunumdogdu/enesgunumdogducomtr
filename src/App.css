@@ -616,12 +616,18 @@
 }
 
 /* Large variant - for pages with shorter titles (Projects, Contact) */
+.hero-name--large {
+  line-height: 0.75;
+}
+
 .hero-name--large .hero-name-first {
   font-size: clamp(5rem, 16vw, 10rem);
+  margin-bottom: -0.1em;
 }
 
 .hero-name--large .hero-name-surname {
   font-size: clamp(3.5rem, 12vw, 7.5rem);
+  margin-top: -0.05em;
 }
 
 @media (max-width: 1024px) {
