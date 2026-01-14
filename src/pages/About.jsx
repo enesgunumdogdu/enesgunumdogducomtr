@@ -1,5 +1,5 @@
-import { Box, Typography, Grid, Chip } from '@mui/material'
-import { WorkOutline, School, AutoAwesome } from '@mui/icons-material'
+import { Box, Typography, Grid, Chip, Link } from '@mui/material'
+import { WorkOutline, School, AutoAwesome, OpenInNew } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function About() {
@@ -21,7 +21,8 @@ function About() {
       subtitle: 'Software Developer',
       period: 'June 2025 - August 2025',
       description: 'Automated demo document generation pipeline using GCP and Python with 95% improvement in tag consistency. Merged 20+ pull requests into production.',
-      tags: ['GCP', 'Python', 'LLM', 'FAISS']
+      tags: ['GCP', 'Python', 'LLM', 'FAISS'],
+      link: 'https://avevrak.com'
     },
     {
       icon: <AutoAwesome sx={{ fontSize: 24 }} />,
@@ -29,7 +30,8 @@ function About() {
       subtitle: 'Software Developer',
       period: 'August 2023 - November 2024',
       description: 'Integrated 10+ microservices for RoboNimbus mobile application. Enhanced UI/UX and resolved microservice-related issues.',
-      tags: ['Microservices', 'Mobile', 'API']
+      tags: ['Microservices', 'Mobile', 'API'],
+      link: 'https://toucancodelabs.com'
     },
     {
       icon: <WorkOutline sx={{ fontSize: 24 }} />,
@@ -37,7 +39,8 @@ function About() {
       subtitle: 'Freelance Software Developer',
       period: 'June 2021 - June 2025',
       description: 'Delivered 25+ custom projects using Java, Python, C#, and WordPress — including OOP solutions and fully customized web applications.',
-      tags: ['Freelance', 'Java', 'Python', 'WordPress']
+      tags: ['Freelance', 'Java', 'Python', 'WordPress'],
+      link: 'https://bionluk.com/enesgunumdogdu'
     }
   ]
 
@@ -57,7 +60,7 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">About Me</Box>
           <Typography variant="h1" className="section-title">
-            I'm <span className="gradient-text">Enes Gunumdogdu</span>
+            I'm <span className="gradient-text">Enes Günümdoğdu</span>
           </Typography>
           <Typography className="section-subtitle">
             Backend Developer passionate about building scalable systems
@@ -69,7 +72,7 @@ function About() {
             <Box className="about-image-glow" />
             <Box className="about-image-ring" />
             <Box className="about-image">
-              👨‍💻
+              👨🏾‍💻
             </Box>
           </Box>
 
@@ -92,7 +95,7 @@ function About() {
                 color: 'rgba(255,255,255,0.7)',
                 lineHeight: 1.9,
                 mb: 2,
-                fontSize: '1.05rem'
+                fontSize: { xs: '0.95rem', md: '1.05rem' }
               }}
             >
               I'm a backend developer specialized in Java and the Spring Boot ecosystem.
@@ -105,7 +108,7 @@ function About() {
                 color: 'rgba(255,255,255,0.7)',
                 lineHeight: 1.9,
                 mb: 2,
-                fontSize: '1.05rem'
+                fontSize: { xs: '0.95rem', md: '1.05rem' }
               }}
             >
               My journey includes working with cutting-edge technologies like Spring Cloud,
@@ -117,7 +120,7 @@ function About() {
               sx={{
                 color: 'rgba(255,255,255,0.7)',
                 lineHeight: 1.9,
-                fontSize: '1.05rem'
+                fontSize: { xs: '0.95rem', md: '1.05rem' }
               }}
             >
               In my spare time, I enjoy developing native iOS applications with Swift and
@@ -144,7 +147,7 @@ function About() {
           sx={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: 1.5,
+            gap: { xs: 1, md: 1.5 },
             justifyContent: 'center',
             maxWidth: 900,
             mx: 'auto'
@@ -155,9 +158,9 @@ function About() {
               key={index}
               label={skill}
               sx={{
-                px: 2,
-                py: 2.5,
-                fontSize: '0.95rem',
+                px: { xs: 1.5, md: 2 },
+                py: { xs: 2, md: 2.5 },
+                fontSize: { xs: '0.85rem', md: '0.95rem' },
                 fontWeight: 500,
                 background: 'rgba(124, 58, 237, 0.08)',
                 border: '1px solid rgba(124, 58, 237, 0.15)',
@@ -185,7 +188,7 @@ function About() {
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
           {experiences.map((exp, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Box
@@ -193,12 +196,14 @@ function About() {
                   background: 'rgba(17, 17, 17, 0.7)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: '24px',
-                  p: 3,
+                  borderRadius: { xs: '20px', md: '24px' },
+                  p: { xs: 2.5, md: 3 },
                   height: '100%',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   position: 'relative',
                   overflow: 'hidden',
+                  display: 'flex',
+                  flexDirection: 'column',
                   '&::before': {
                     content: '""',
                     position: 'absolute',
@@ -212,7 +217,7 @@ function About() {
                     transition: 'transform 0.4s ease',
                   },
                   '&:hover': {
-                    transform: 'translateY(-8px)',
+                    transform: { xs: 'none', md: 'translateY(-8px)' },
                     borderColor: 'rgba(124, 58, 237, 0.3)',
                     '&::before': {
                       transform: 'scaleX(1)',
@@ -222,38 +227,56 @@ function About() {
               >
                 <Box
                   sx={{
-                    width: 56,
-                    height: 56,
+                    width: { xs: 48, md: 56 },
+                    height: { xs: 48, md: 56 },
                     borderRadius: '16px',
                     background: 'rgba(124, 58, 237, 0.1)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    mb: 2.5,
+                    mb: 2,
                     color: '#a855f7'
                   }}
                 >
                   {exp.icon}
                 </Box>
 
-                <Typography
-                  variant="h5"
+                <Link
+                  href={exp.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  underline="none"
                   sx={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 600,
-                    mb: 0.5,
-                    color: 'white'
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 0.75,
+                    color: 'white',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      color: '#a855f7'
+                    }
                   }}
                 >
-                  {exp.title}
-                </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontWeight: 600,
+                      fontSize: { xs: '1.1rem', md: '1.25rem' }
+                    }}
+                  >
+                    {exp.title}
+                  </Typography>
+                  <OpenInNew sx={{ fontSize: 16, opacity: 0.7 }} />
+                </Link>
 
                 <Typography
                   sx={{
                     color: '#a855f7',
-                    fontSize: '0.9rem',
+                    fontSize: { xs: '0.85rem', md: '0.9rem' },
                     fontWeight: 500,
-                    mb: 0.5
+                    mb: 0.5,
+                    mt: 0.5
                   }}
                 >
                   {exp.subtitle}
@@ -262,7 +285,7 @@ function About() {
                 <Typography
                   sx={{
                     color: 'rgba(255,255,255,0.4)',
-                    fontSize: '0.8rem',
+                    fontSize: { xs: '0.75rem', md: '0.8rem' },
                     mb: 1.5
                   }}
                 >
@@ -274,23 +297,24 @@ function About() {
                     color: 'rgba(255,255,255,0.6)',
                     lineHeight: 1.7,
                     mb: 2,
-                    fontSize: '0.9rem'
+                    fontSize: { xs: '0.85rem', md: '0.9rem' },
+                    flex: 1
                   }}
                 >
                   {exp.description}
                 </Typography>
 
-                <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap' }}>
+                <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
                   {exp.tags.map((tag, tagIndex) => (
                     <Box
                       key={tagIndex}
                       sx={{
-                        px: 1.5,
-                        py: 0.5,
+                        px: 1.25,
+                        py: 0.4,
                         borderRadius: '8px',
                         background: 'rgba(124, 58, 237, 0.1)',
                         border: '1px solid rgba(124, 58, 237, 0.15)',
-                        fontSize: '0.75rem',
+                        fontSize: { xs: '0.7rem', md: '0.75rem' },
                         fontWeight: 500,
                         color: '#c4b5fd'
                       }}
@@ -319,8 +343,8 @@ function About() {
             background: 'rgba(17, 17, 17, 0.7)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: '24px',
-            p: 4,
+            borderRadius: { xs: '20px', md: '24px' },
+            p: { xs: 3, md: 4 },
             maxWidth: 700,
             mx: 'auto',
             position: 'relative',
@@ -336,11 +360,11 @@ function About() {
             }
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 3 }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: { xs: 2, md: 3 }, flexDirection: { xs: 'column', sm: 'row' } }}>
             <Box
               sx={{
-                width: 64,
-                height: 64,
+                width: { xs: 56, md: 64 },
+                height: { xs: 56, md: 64 },
                 borderRadius: '16px',
                 background: 'rgba(124, 58, 237, 0.1)',
                 display: 'flex',
@@ -353,14 +377,15 @@ function About() {
               {education.icon}
             </Box>
 
-            <Box>
+            <Box sx={{ flex: 1 }}>
               <Typography
                 variant="h5"
                 sx={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 600,
                   mb: 0.5,
-                  color: 'white'
+                  color: 'white',
+                  fontSize: { xs: '1.1rem', md: '1.25rem' }
                 }}
               >
                 {education.title}
@@ -369,7 +394,7 @@ function About() {
               <Typography
                 sx={{
                   color: '#a855f7',
-                  fontSize: '1rem',
+                  fontSize: { xs: '0.9rem', md: '1rem' },
                   fontWeight: 500,
                   mb: 0.5
                 }}
@@ -380,7 +405,7 @@ function About() {
               <Typography
                 sx={{
                   color: 'rgba(255,255,255,0.4)',
-                  fontSize: '0.85rem',
+                  fontSize: { xs: '0.8rem', md: '0.85rem' },
                   mb: 2
                 }}
               >
@@ -391,23 +416,24 @@ function About() {
                 sx={{
                   color: 'rgba(255,255,255,0.6)',
                   lineHeight: 1.8,
-                  mb: 2
+                  mb: 2,
+                  fontSize: { xs: '0.9rem', md: '1rem' }
                 }}
               >
                 {education.description}
               </Typography>
 
-              <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
                 {education.tags.map((tag, tagIndex) => (
                   <Box
                     key={tagIndex}
                     sx={{
-                      px: 1.5,
-                      py: 0.5,
+                      px: 1.25,
+                      py: 0.4,
                       borderRadius: '8px',
                       background: 'rgba(124, 58, 237, 0.1)',
                       border: '1px solid rgba(124, 58, 237, 0.15)',
-                      fontSize: '0.75rem',
+                      fontSize: { xs: '0.7rem', md: '0.75rem' },
                       fontWeight: 500,
                       color: '#c4b5fd'
                     }}

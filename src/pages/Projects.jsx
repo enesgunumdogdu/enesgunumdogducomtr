@@ -12,7 +12,7 @@ function Projects() {
       tags: ['Java 24', 'Spring Boot', 'Spring Cloud', 'RabbitMQ', 'Gemini API', 'Keycloak'],
       icon: '💪',
       gradient: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-      github: 'https://github.com/enesgunumdogdu',
+      github: 'https://github.com/enesgunumdogdu/fitness-microservice',
       live: null
     },
     {
@@ -21,7 +21,7 @@ function Projects() {
       tags: ['Java 24', 'Spring Boot', 'Spring Security', 'Vue.js', 'PostgreSQL', 'Docker'],
       icon: '🏥',
       gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-      github: 'https://github.com/enesgunumdogdu',
+      github: 'https://github.com/enesgunumdogdu/hospital-management',
       live: null
     },
     {
@@ -30,7 +30,7 @@ function Projects() {
       tags: ['Java 24', 'Spring Boot', 'PostgreSQL', 'Maven', 'Docker'],
       icon: '📋',
       gradient: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)',
-      github: 'https://github.com/enesgunumdogdu',
+      github: 'https://github.com/enesgunumdogdu/task-management-api',
       live: null
     },
     {
@@ -40,7 +40,7 @@ function Projects() {
       icon: '🎬',
       gradient: 'linear-gradient(135deg, #f43f5e 0%, #ff6b6b 100%)',
       github: null,
-      live: null
+      live: 'https://youtube.com/@enesgunumdogdu'
     },
     {
       title: 'AI Style Transfer Project',
@@ -48,7 +48,7 @@ function Projects() {
       tags: ['Python', 'Machine Learning', 'AI', 'TUBITAK'],
       icon: '🎨',
       gradient: 'linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)',
-      github: 'https://github.com/enesgunumdogdu',
+      github: 'https://github.com/enesgunumdogdu/style-transfer',
       live: null
     },
     {
@@ -57,7 +57,7 @@ function Projects() {
       tags: ['React', 'MUI', 'Vite', 'Responsive'],
       icon: '🌐',
       gradient: 'linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)',
-      github: 'https://github.com/enesgunumdogdu',
+      github: 'https://github.com/enesgunumdogdu/enesgunumdogdu.com.tr',
       live: 'https://enesgunumdogdu.com.tr'
     }
   ]

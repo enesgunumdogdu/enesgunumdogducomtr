@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Typography, TextField, Button, Grid } from '@mui/material'
+import { Box, Typography, TextField, Button } from '@mui/material'
 import { Send, Email, GitHub, LinkedIn, CheckCircle, LocationOn } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
@@ -56,24 +56,29 @@ function Contact() {
   const inputStyles = {
     '& .MuiOutlinedInput-root': {
       background: 'rgba(255, 255, 255, 0.03)',
-      borderRadius: '12px',
+      borderRadius: '14px',
       color: 'white',
+      fontSize: { xs: '0.95rem', md: '1rem' },
+      transition: 'all 0.3s ease',
       '& fieldset': {
-        borderColor: 'rgba(255, 255, 255, 0.08)'
+        borderColor: 'rgba(255, 255, 255, 0.08)',
+        transition: 'all 0.3s ease'
       },
       '&:hover fieldset': {
-        borderColor: 'rgba(124, 58, 237, 0.3)'
+        borderColor: 'rgba(124, 58, 237, 0.4)'
       },
       '&.Mui-focused fieldset': {
         borderColor: '#7c3aed',
-        borderWidth: '1px'
+        borderWidth: '2px',
+        boxShadow: '0 0 20px rgba(124, 58, 237, 0.15)'
       },
       '&.Mui-focused': {
-        background: 'rgba(124, 58, 237, 0.05)'
+        background: 'rgba(124, 58, 237, 0.08)'
       }
     },
     '& .MuiInputLabel-root': {
       color: 'rgba(255, 255, 255, 0.5)',
+      fontSize: { xs: '0.9rem', md: '1rem' },
       '&.Mui-focused': {
         color: '#a855f7'
       }
@@ -94,20 +99,44 @@ function Contact() {
         </Box>
 
         <Box sx={{ maxWidth: 1000, mx: 'auto' }}>
-          <Grid container spacing={4}>
+          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4 }}>
             {/* Contact Form */}
-            <Grid item xs={12} md={7}>
+            <Box sx={{ flex: { xs: '1', md: '1.4' } }}>
               <Box
                 sx={{
                   background: 'rgba(17, 17, 17, 0.7)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.06)',
                   borderRadius: '24px',
-                  p: { xs: 3, md: 4 }
+                  p: { xs: 3, md: 4 },
+                  position: 'relative',
+                  overflow: 'hidden',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '3px',
+                    background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                  }
                 }}
               >
+                {/* Decorative glow */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '20%',
+                    right: '-10%',
+                    width: 200,
+                    height: 200,
+                    background: 'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
+                    filter: 'blur(40px)',
+                    pointerEvents: 'none'
+                  }}
+                />
                 {submitted ? (
-                  <Box sx={{ textAlign: 'center', py: 6 }}>
+                  <Box sx={{ textAlign: 'center', py: 6, position: 'relative' }}>
                     <Box
                       sx={{
                         width: 80,
@@ -140,8 +169,20 @@ function Contact() {
                   </Box>
                 ) : (
                   <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2.5}>
-                      <Grid item xs={12} sm={6}>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontWeight: 600,
+                        mb: 3,
+                        color: 'white',
+                        fontSize: { xs: '1.1rem', md: '1.25rem' }
+                      }}
+                    >
+                      Send Me a Message
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2.5 }}>
                         <TextField
                           fullWidth
                           label="Your Name"
@@ -151,8 +192,6 @@ function Contact() {
                           required
                           sx={inputStyles}
                         />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
                         <TextField
                           fullWidth
                           label="Your Email"
@@ -163,67 +202,66 @@ function Contact() {
                           required
                           sx={inputStyles}
                         />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          label="Subject"
-                          name="subject"
-                          value={formData.subject}
-                          onChange={handleChange}
-                          required
-                          sx={inputStyles}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          fullWidth
-                          label="Your Message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleChange}
-                          required
-                          multiline
-                          rows={5}
-                          sx={inputStyles}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <Button
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          disabled={isSubmitting}
-                          endIcon={!isSubmitting && <Send />}
-                          sx={{
+                      </Box>
+                      <TextField
+                        fullWidth
+                        label="Subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        sx={inputStyles}
+                      />
+                      <TextField
+                        fullWidth
+                        label="Your Message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        multiline
+                        rows={5}
+                        sx={inputStyles}
+                      />
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        disabled={isSubmitting}
+                        endIcon={!isSubmitting && <Send />}
+                        sx={{
+                          background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                          py: { xs: 1.5, md: 1.75 },
+                          borderRadius: '14px',
+                          fontSize: { xs: '0.95rem', md: '1.05rem' },
+                          fontWeight: 600,
+                          textTransform: 'none',
+                          boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          '&:hover': {
+                            transform: 'translateY(-3px)',
+                            boxShadow: '0 12px 35px rgba(124, 58, 237, 0.5)'
+                          },
+                          '&:active': {
+                            transform: 'translateY(-1px)'
+                          },
+                          '&:disabled': {
                             background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-                            py: 1.5,
-                            borderRadius: '12px',
-                            fontSize: '1rem',
-                            fontWeight: 600,
-                            textTransform: 'none',
-                            '&:hover': {
-                              transform: 'translateY(-2px)',
-                              boxShadow: '0 8px 30px rgba(124, 58, 237, 0.5)'
-                            },
-                            '&:disabled': {
-                              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-                              opacity: 0.7,
-                              color: 'white'
-                            }
-                          }}
-                        >
-                          {isSubmitting ? 'Sending...' : 'Send Message'}
-                        </Button>
-                      </Grid>
-                    </Grid>
+                            opacity: 0.7,
+                            color: 'white'
+                          }
+                        }}
+                      >
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                      </Button>
+                    </Box>
                   </form>
                 )}
               </Box>
-            </Grid>
+            </Box>
 
             {/* Contact Info */}
-            <Grid item xs={12} md={5}>
+            <Box sx={{ flex: '1' }}>
               <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography
                   variant="h5"
@@ -345,8 +383,8 @@ function Contact() {
                   </Box>
                 </Box>
               </Box>
-            </Grid>
-          </Grid>
+            </Box>
+          </Box>
         </Box>
       </Box>
     </Box>
