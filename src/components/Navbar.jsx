@@ -14,11 +14,15 @@ function Navbar() {
   }, [])
 
   const toggleMenu = () => setIsOpen(!isOpen)
-  const closeMenu = () => setIsOpen(false)
+
+  const handleNavClick = () => {
+    setIsOpen(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <NavLink to="/" className="nav-logo" onClick={closeMenu}>
+      <NavLink to="/" className="nav-logo" onClick={handleNavClick}>
         3nes
       </NavLink>
 
@@ -34,22 +38,22 @@ function Navbar() {
 
       <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
         <li>
-          <NavLink to="/" onClick={closeMenu}>
+          <NavLink to="/" onClick={handleNavClick}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/about" onClick={closeMenu}>
+          <NavLink to="/about" onClick={handleNavClick}>
             About
           </NavLink>
         </li>
         <li>
-          <NavLink to="/projects" onClick={closeMenu}>
+          <NavLink to="/projects" onClick={handleNavClick}>
             Projects
           </NavLink>
         </li>
         <li>
-          <NavLink to="/contact" onClick={closeMenu}>
+          <NavLink to="/contact" onClick={handleNavClick}>
             Contact
           </NavLink>
         </li>
