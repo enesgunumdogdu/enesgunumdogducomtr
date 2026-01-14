@@ -530,12 +530,89 @@
 
 .section-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: 800;
   margin-bottom: 1.25rem;
   letter-spacing: -1px;
   text-align: center;
   text-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
+  line-height: 1.3;
+}
+
+/* ==================== HERO NAME - RESPONSIVE TYPOGRAPHY ==================== */
+/*
+ * Robust solution for long names that must never overflow.
+ * Uses modern CSS techniques with graceful fallbacks.
+ */
+.hero-name {
+  /* Container constraints - prevents overflow */
+  display: block;
+  width: 100%;
+  max-width: 100%;
+
+  /* Modern text wrapping - balances lines evenly */
+  text-wrap: balance;
+
+  /* Fluid typography that respects container width */
+  /* Formula: min(viewport-based, container-safe maximum) */
+  /* At 1200px container: ensures name fits within ~1000px usable width */
+  font-size: clamp(2rem, 6vw, 4rem);
+
+  /* Safety net - prevents hard clips */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  /* Maintain visual hierarchy */
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  text-align: center;
+
+  /* Animation compatibility */
+  margin-bottom: 1rem;
+}
+
+/* First name - larger for emphasis */
+.hero-name-first {
+  display: block;
+  font-size: clamp(3.75rem, 12vw, 7.5rem);
+  margin-bottom: 0.25rem;
+}
+
+/* Surname - scales proportionally to always fit */
+.hero-name-surname {
+  display: block;
+  font-size: clamp(2.5rem, 8vw, 5.25rem);
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+
+/* Tablet and laptop adjustments */
+@media (max-width: 1024px) {
+  .hero-name-first {
+    font-size: clamp(3rem, 10.5vw, 5.25rem);
+  }
+
+  .hero-name-surname {
+    font-size: clamp(2.25rem, 7.5vw, 4rem);
+  }
+}
+
+/* Mobile - stack gracefully */
+@media (max-width: 600px) {
+  .hero-name {
+    letter-spacing: -1px;
+  }
+
+  .hero-name-first {
+    font-size: clamp(2.5rem, 15vw, 3.75rem);
+  }
+
+  .hero-name-surname {
+    font-size: clamp(1.875rem, 12vw, 3rem);
+    letter-spacing: -0.5px;
+  }
 }
 
 .section-subtitle {

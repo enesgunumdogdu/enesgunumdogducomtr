@@ -73,8 +73,11 @@ function About() {
       <Box className="section">
         <Box className="section-header">
           <Box className="section-label">About Me</Box>
-          <Typography variant="h1" className="section-title">
-            I'm <span className="gradient-text-animated">Enes Günümdoğdu</span>
+          <Typography variant="h1" component="h1" className="hero-name">
+            <span className="hero-name-first">
+              I'm <span className="gradient-text-animated">Enes</span>
+            </span>
+            <span className="hero-name-surname gradient-text-animated">Günümdoğdu</span>
           </Typography>
           <Typography className="section-subtitle">
             Backend Developer passionate about building scalable systems
