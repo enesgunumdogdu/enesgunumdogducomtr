@@ -483,10 +483,11 @@
 .section-title {
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
+  font-weight: 800;
   margin-bottom: 1.25rem;
   letter-spacing: -1px;
   text-align: center;
+  text-shadow: 0 0 40px rgba(168, 85, 247, 0.3);
 }
 
 .section-subtitle {

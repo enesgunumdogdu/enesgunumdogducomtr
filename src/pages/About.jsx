@@ -5,13 +5,27 @@ import useDocumentTitle from '../hooks/useDocumentTitle'
 function About() {
   useDocumentTitle('About')
 
-  const skills = [
-    'Java', 'Spring Boot', 'Spring Security', 'Spring Cloud',
-    'Python', 'TypeScript', 'C#', 'SQL', 'PLSQL',
-    'React', 'Vue.js', 'Swift',
-    'PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch',
-    'Docker', 'GCP', 'RabbitMQ', 'Terraform',
-    'Git', 'Swagger', 'Postman'
+  const skillCategories = [
+    {
+      title: 'Languages',
+      skills: ['Java', 'Python', 'TypeScript', 'C#', 'Swift', 'SQL', 'PLSQL']
+    },
+    {
+      title: 'Frameworks',
+      skills: ['Spring Boot', 'Spring Security', 'Spring Cloud', 'React', 'Vue.js']
+    },
+    {
+      title: 'Databases',
+      skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch']
+    },
+    {
+      title: 'DevOps & Cloud',
+      skills: ['Docker', 'GCP', 'RabbitMQ', 'Terraform']
+    },
+    {
+      title: 'Tools',
+      skills: ['Git', 'Swagger', 'Postman']
+    }
   ]
 
   const experiences = [
@@ -34,7 +48,7 @@ function About() {
       link: 'https://toucancodelabs.com'
     },
     {
-      logo: '/logos/bionluk.ico',
+      logo: '/logos/bionluk.png',
       title: 'Bionluk.com',
       subtitle: 'Freelance Developer',
       period: 'June 2021 - June 2025',
@@ -145,36 +159,68 @@ function About() {
 
         <Box
           sx={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: { xs: 1, md: 1.5 },
-            justifyContent: 'center',
-            maxWidth: 900,
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
+            gap: { xs: 2, md: 2.5 },
+            maxWidth: 1000,
             mx: 'auto'
           }}
         >
-          {skills.map((skill, index) => (
-            <Chip
-              key={index}
-              label={skill}
+          {skillCategories.map((category, categoryIndex) => (
+            <Box
+              key={categoryIndex}
               sx={{
-                px: { xs: 1.5, md: 2 },
-                py: { xs: 2, md: 2.5 },
-                fontSize: { xs: '0.85rem', md: '0.95rem' },
-                fontWeight: 500,
-                background: 'rgba(124, 58, 237, 0.08)',
-                border: '1px solid rgba(124, 58, 237, 0.15)',
-                color: 'rgba(255,255,255,0.8)',
-                borderRadius: '12px',
+                background: 'rgba(17, 17, 17, 0.7)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255,255,255,0.06)',
+                borderRadius: '20px',
+                p: { xs: 2.5, md: 3 },
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  background: 'rgba(124, 58, 237, 0.2)',
-                  borderColor: '#7c3aed',
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 10px 30px rgba(124, 58, 237, 0.2)'
+                  borderColor: 'rgba(124, 58, 237, 0.3)',
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 15px 40px rgba(124, 58, 237, 0.1)'
                 }
               }}
-            />
+            >
+              <Typography
+                sx={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 600,
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  color: '#a855f7',
+                  mb: 2,
+                  pb: 1.5,
+                  borderBottom: '1px solid rgba(124, 58, 237, 0.15)'
+                }}
+              >
+                {category.title}
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {category.skills.map((skill, skillIndex) => (
+                  <Chip
+                    key={skillIndex}
+                    label={skill}
+                    sx={{
+                      px: 1.5,
+                      py: 2,
+                      fontSize: { xs: '0.8rem', md: '0.85rem' },
+                      fontWeight: 500,
+                      background: 'rgba(124, 58, 237, 0.08)',
+                      border: '1px solid rgba(124, 58, 237, 0.12)',
+                      color: 'rgba(255,255,255,0.85)',
+                      borderRadius: '10px',
+                      transition: 'all 0.25s ease',
+                      '&:hover': {
+                        background: 'rgba(124, 58, 237, 0.2)',
+                        borderColor: '#7c3aed',
+                        transform: 'translateY(-2px)'
+                      }
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
           ))}
         </Box>
       </Box>

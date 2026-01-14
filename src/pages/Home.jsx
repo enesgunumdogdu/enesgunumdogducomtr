@@ -207,7 +207,7 @@ function Home() {
         <Box className="section-header">
           <Box className="section-label">Expertise</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text">What I Do</span>
+            <span className="gradient-text-shimmer">What I Do</span>
           </Typography>
           <Typography className="section-subtitle">
             Specializing in backend development, cloud infrastructure, and AI integration

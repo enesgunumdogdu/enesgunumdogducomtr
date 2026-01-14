@@ -120,45 +120,49 @@ button {
 .gradient-text-animated {
   background: linear-gradient(
     90deg,
-    #7c3aed 0%,
-    #a855f7 20%,
-    #ec4899 40%,
-    #f472b6 60%,
-    #a855f7 80%,
-    #7c3aed 100%
+    #a855f7 0%,
+    #c084fc 15%,
+    #e879f9 30%,
+    #f472b6 50%,
+    #e879f9 70%,
+    #c084fc 85%,
+    #a855f7 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradient-flow 4s linear infinite;
+  animation: gradient-flow 4s ease infinite;
+  filter: brightness(1.1);
 }
 
 @keyframes gradient-flow {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 /* Shimmer effect for gradient text */
 .gradient-text-shimmer {
   background: linear-gradient(
-    110deg,
-    #7c3aed 0%,
-    #7c3aed 40%,
-    #f0abfc 50%,
-    #7c3aed 60%,
-    #ec4899 100%
+    90deg,
+    #a855f7 0%,
+    #c084fc 20%,
+    #e879f9 40%,
+    #f472b6 60%,
+    #e879f9 80%,
+    #a855f7 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer 3s linear infinite;
+  animation: shimmer 3s ease infinite;
+  filter: brightness(1.1);
 }
 
 @keyframes shimmer {
-  0% { background-position: -100% center; }
-  100% { background-position: 100% center; }
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
 }
 
 .gradient-text-aurora {
