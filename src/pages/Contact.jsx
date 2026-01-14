@@ -163,7 +163,7 @@ function Contact() {
                     >
                       Message Sent!
                     </Typography>
-                    <Typography sx={{ color: 'rgba(255,255,255,0.6)' }}>
+                    <Typography sx={{ color: 'rgba(255,255,255,0.8)' }}>
                       I'll get back to you as soon as possible.
                     </Typography>
                   </Box>
@@ -277,7 +277,7 @@ function Contact() {
 
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.6)',
+                    color: 'rgba(255,255,255,0.8)',
                     lineHeight: 1.8,
                     mb: 3
                   }}

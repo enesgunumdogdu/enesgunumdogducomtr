@@ -94,11 +94,12 @@ function Home() {
               className="hero-subtitle"
               sx={{
                 fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-                color: 'rgba(255,255,255,0.6)',
+                color: 'rgba(255,255,255,0.8)',
                 maxWidth: 600,
                 mx: 'auto',
                 lineHeight: 1.8,
-                mb: 4
+                mb: 4,
+                textAlign: 'center'
               }}
             >
               Backend developer specialized in Java & Spring Boot ecosystem.
@@ -284,9 +285,10 @@ function Home() {
                   </Typography>
                   <Typography
                     sx={{
-                      color: 'rgba(255,255,255,0.6)',
-                      lineHeight: 1.7,
-                      mb: 2
+                      color: 'rgba(255,255,255,0.75)',
+                      lineHeight: 1.8,
+                      mb: 2,
+                      fontSize: '0.95rem'
                     }}
                   >
                     {feature.description}
@@ -350,8 +352,9 @@ function Home() {
                 </Typography>
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.5)',
-                    fontSize: '0.9rem'
+                    color: 'rgba(255,255,255,0.7)',
+                    fontSize: '0.9rem',
+                    fontWeight: 500
                   }}
                 >
                   {stat.label}

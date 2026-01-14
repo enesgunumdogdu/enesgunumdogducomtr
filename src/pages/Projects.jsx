@@ -209,8 +209,8 @@ function Projects() {
 
                   <Typography
                     sx={{
-                      color: 'rgba(255,255,255,0.6)',
-                      lineHeight: 1.7,
+                      color: 'rgba(255,255,255,0.75)',
+                      lineHeight: 1.8,
                       mb: 2,
                       flex: 1,
                       fontSize: '0.9rem'
@@ -305,12 +305,13 @@ function Projects() {
 
           <Typography
             sx={{
-              color: 'rgba(255,255,255,0.6)',
+              color: 'rgba(255,255,255,0.8)',
               maxWidth: 500,
               mx: 'auto',
               mb: 4,
-              lineHeight: 1.7,
-              position: 'relative'
+              lineHeight: 1.8,
+              position: 'relative',
+              fontSize: '1rem'
             }}
           >
             I'm constantly working on new projects and exploring technologies.

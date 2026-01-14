@@ -92,7 +92,7 @@ function About() {
 
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.7)',
+                color: 'rgba(255,255,255,0.8)',
                 lineHeight: 1.9,
                 mb: 2,
                 fontSize: { xs: '0.95rem', md: '1.05rem' }
@@ -105,7 +105,7 @@ function About() {
 
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.7)',
+                color: 'rgba(255,255,255,0.8)',
                 lineHeight: 1.9,
                 mb: 2,
                 fontSize: { xs: '0.95rem', md: '1.05rem' }
@@ -118,7 +118,7 @@ function About() {
 
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.7)',
+                color: 'rgba(255,255,255,0.8)',
                 lineHeight: 1.9,
                 fontSize: { xs: '0.95rem', md: '1.05rem' }
               }}
@@ -294,7 +294,7 @@ function About() {
 
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.6)',
+                    color: 'rgba(255,255,255,0.75)',
                     lineHeight: 1.7,
                     mb: 2,
                     fontSize: { xs: '0.85rem', md: '0.9rem' },
@@ -414,7 +414,7 @@ function About() {
 
               <Typography
                 sx={{
-                  color: 'rgba(255,255,255,0.6)',
+                  color: 'rgba(255,255,255,0.75)',
                   lineHeight: 1.8,
                   mb: 2,
                   fontSize: { xs: '0.9rem', md: '1rem' }
