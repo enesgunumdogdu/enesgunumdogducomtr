@@ -123,7 +123,7 @@ function Home() {
                   }
                 }}
               >
-                View My Work
+                View My Projects
               </Button>
 
               <Button
@@ -316,48 +316,54 @@ function Home() {
 
       {/* Stats Section */}
       <Box className="section" sx={{ pt: 0 }}>
-        <Grid container spacing={3}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+            gap: { xs: 2, md: 3 },
+            width: '100%'
+          }}
+        >
           {stats.map((stat, index) => (
-            <Grid item xs={6} md={3} key={index}>
-              <Box
-                className="stat-item"
+            <Box
+              key={index}
+              className="stat-item"
+              sx={{
+                textAlign: 'center',
+                p: { xs: 2.5, md: 3 },
+                background: 'rgba(17, 17, 17, 0.5)',
+                borderRadius: '20px',
+                border: '1px solid rgba(255,255,255,0.06)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  borderColor: 'rgba(124, 58, 237, 0.3)',
+                  transform: 'translateY(-5px)',
+                }
+              }}
+            >
+              <Typography
+                className="stat-number gradient-text"
                 sx={{
-                  textAlign: 'center',
-                  p: 3,
-                  background: 'rgba(17, 17, 17, 0.5)',
-                  borderRadius: '20px',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    borderColor: 'rgba(124, 58, 237, 0.3)',
-                    transform: 'translateY(-5px)',
-                  }
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
+                  fontWeight: 700,
+                  mb: 0.5
                 }}
               >
-                <Typography
-                  className="stat-number gradient-text"
-                  sx={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: 'clamp(2rem, 4vw, 2.5rem)',
-                    fontWeight: 700,
-                    mb: 0.5
-                  }}
-                >
-                  {stat.number}
-                </Typography>
-                <Typography
-                  sx={{
-                    color: 'rgba(255,255,255,0.7)',
-                    fontSize: '0.9rem',
-                    fontWeight: 500
-                  }}
-                >
-                  {stat.label}
-                </Typography>
-              </Box>
-            </Grid>
+                {stat.number}
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'rgba(255,255,255,0.7)',
+                  fontSize: { xs: '0.8rem', md: '0.9rem' },
+                  fontWeight: 500
+                }}
+              >
+                {stat.label}
+              </Typography>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Box>
     </Box>
   )
