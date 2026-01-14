@@ -79,7 +79,7 @@ function Projects() {
 
         <Grid container spacing={3}>
           {projects.map((project, index) => (
-            <Grid item xs={12} md={6} lg={4} key={index}>
+            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
               <Box
                 sx={{
                   background: 'rgba(17, 17, 17, 0.7)',
