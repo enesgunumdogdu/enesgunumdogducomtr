@@ -1,19 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const toggleMenu = () => setIsOpen(!isOpen)
   const closeMenu = () => setIsOpen(false)
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <NavLink to="/" className="nav-logo" onClick={closeMenu}>
-        EG
+        3nes
       </NavLink>
 
-      <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle menu">
+      <button
+        className={`mobile-menu-btn ${isOpen ? 'open' : ''}`}
+        onClick={toggleMenu}
+        aria-label="Toggle menu"
+      >
         <span></span>
         <span></span>
         <span></span>
@@ -22,22 +35,22 @@ function Navbar() {
       <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
         <li>
           <NavLink to="/" onClick={closeMenu}>
-            Ana Sayfa
+            Home
           </NavLink>
         </li>
         <li>
           <NavLink to="/about" onClick={closeMenu}>
-            Hakkımda
+            About
           </NavLink>
         </li>
         <li>
           <NavLink to="/projects" onClick={closeMenu}>
-            Projeler
+            Projects
           </NavLink>
         </li>
         <li>
           <NavLink to="/contact" onClick={closeMenu}>
-            İletişim
+            Contact
           </NavLink>
         </li>
       </ul>
