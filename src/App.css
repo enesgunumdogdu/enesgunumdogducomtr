@@ -615,6 +615,35 @@
   }
 }
 
+/* Large variant - for pages with shorter titles (Projects, Contact) */
+.hero-name--large .hero-name-first {
+  font-size: clamp(5rem, 16vw, 10rem);
+}
+
+.hero-name--large .hero-name-surname {
+  font-size: clamp(3.5rem, 12vw, 7.5rem);
+}
+
+@media (max-width: 1024px) {
+  .hero-name--large .hero-name-first {
+    font-size: clamp(4rem, 14vw, 7rem);
+  }
+
+  .hero-name--large .hero-name-surname {
+    font-size: clamp(3rem, 10vw, 5.5rem);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-name--large .hero-name-first {
+    font-size: clamp(3rem, 18vw, 5rem);
+  }
+
+  .hero-name--large .hero-name-surname {
+    font-size: clamp(2.5rem, 15vw, 4rem);
+  }
+}
+
 .section-subtitle {
   color: rgba(255, 255, 255, 0.75);
   max-width: 650px;

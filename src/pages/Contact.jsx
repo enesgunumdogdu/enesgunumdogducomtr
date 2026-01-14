@@ -106,8 +106,9 @@ function Contact() {
       <Box className="section">
         <Box className="section-header">
           <Box className="section-label">Contact</Box>
-          <Typography variant="h1" className="section-title">
-            <span className="gradient-text-animated">Get In Touch</span>
+          <Typography variant="h1" component="h1" className="hero-name hero-name--large">
+            <span className="hero-name-first gradient-text-animated">Get In</span>
+            <span className="hero-name-surname gradient-text-animated">Touch</span>
           </Typography>
           <Typography className="section-subtitle">
             Have a project in mind? Let's build something great together.
