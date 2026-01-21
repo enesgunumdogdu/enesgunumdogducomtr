@@ -191,8 +191,6 @@ function Projects() {
     fetchRepos()
   }, [])
 
-  // Handle filter toggle
-  // Toggle category filter
   const toggleFilter = (filterId) => {
     if (filterId === 'all') {
       setActiveFilters(['all'])
