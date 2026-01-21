@@ -96,6 +96,7 @@ function Projects() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [activeFilters, setActiveFilters] = useState(['all'])
+  const [activeLanguages, setActiveLanguages] = useState(['all'])
 
   // Featured projects (curated) - only projects with valid links
   const featuredProjects = [
@@ -191,6 +192,7 @@ function Projects() {
   }, [])
 
   // Handle filter toggle
+  // Toggle category filter
   const toggleFilter = (filterId) => {
     if (filterId === 'all') {
       setActiveFilters(['all'])
@@ -208,10 +210,38 @@ function Projects() {
     }
   }
 
-  // Filter repos based on active filters
-  const filteredRepos = activeFilters.includes('all')
-    ? repos
-    : repos.filter(repo => repo.categories.some(cat => activeFilters.includes(cat)))
+  // Toggle language filter
+  const toggleLanguage = (lang) => {
+    if (lang === 'all') {
+      setActiveLanguages(['all'])
+    } else {
+      setActiveLanguages(prev => {
+        const newLangs = prev.filter(l => l !== 'all')
+
+        if (newLangs.includes(lang)) {
+          const result = newLangs.filter(l => l !== lang)
+          return result.length === 0 ? ['all'] : result
+        } else {
+          return [...newLangs, lang]
+        }
+      })
+    }
+  }
+
+  // Get unique languages from repos, sorted by count (most used first)
+  const availableLanguages = [...new Set(repos.map(r => r.language).filter(Boolean))]
+    .sort((a, b) => {
+      const countA = repos.filter(r => r.language === a).length
+      const countB = repos.filter(r => r.language === b).length
+      return countB - countA
+    })
+
+  // Filter repos based on active filters and languages
+  const filteredRepos = repos.filter(repo => {
+    const categoryMatch = activeFilters.includes('all') || repo.categories.some(cat => activeFilters.includes(cat))
+    const languageMatch = activeLanguages.includes('all') || activeLanguages.includes(repo.language)
+    return categoryMatch && languageMatch
+  })
 
   // Format date
   const formatDate = (dateString) => {
@@ -240,16 +270,20 @@ function Projects() {
             // Determine primary link: live takes priority, then github
             const primaryLink = project.live || project.github
 
+            const handleCardClick = () => {
+              window.open(primaryLink, '_blank', 'noopener,noreferrer')
+            }
+
+            const handleGitHubClick = (e) => {
+              e.stopPropagation()
+              window.open(project.github, '_blank', 'noopener,noreferrer')
+            }
+
             return (
             <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
               <Box
-                component="a"
-                href={primaryLink}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={handleCardClick}
                 sx={{
-                  display: 'block',
-                  textDecoration: 'none',
                   background: 'rgba(17, 17, 17, 0.7)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.06)',
@@ -389,11 +423,7 @@ function Projects() {
                   <Box sx={{ display: 'flex', gap: 1.5, mt: 'auto', alignItems: 'center' }}>
                     {project.github && (
                       <IconButton
-                        component="a"
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={handleGitHubClick}
                         size="small"
                         sx={{
                           color: 'rgba(255,255,255,0.6)',
@@ -470,70 +500,164 @@ function Projects() {
             <span className="gradient-text-shimmer">GitHub Repositories</span>
           </Typography>
           <Typography className="section-subtitle">
-            All my public repositories from GitHub. Use filters to explore by category.
+            All my <strong>public</strong> repositories from GitHub. Use filters to explore by category or language.
           </Typography>
         </Box>
 
-        {/* Filters */}
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 1,
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            mb: 4
-          }}
-        >
-          {filterCategories.map((filter) => {
-            const isActive = activeFilters.includes(filter.id)
-            const count = filter.id === 'all'
-              ? repos.length
-              : repos.filter(r => r.categories.includes(filter.id)).length
+        {/* Category Filters */}
+        <Box sx={{ mb: 2 }}>
+          <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', mb: 1.5, textAlign: 'center' }}>
+            Category
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 1,
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
+          >
+            {filterCategories.map((filter) => {
+              const isActive = activeFilters.includes(filter.id)
+              const count = filter.id === 'all'
+                ? repos.length
+                : repos.filter(r => r.categories.includes(filter.id)).length
 
-            return (
-              <Chip
-                key={filter.id}
-                label={
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-                    {filter.icon && <span>{filter.icon}</span>}
-                    <span>{filter.label}</span>
-                    <Box
-                      component="span"
-                      sx={{
-                        fontSize: '0.7rem',
-                        opacity: 0.7,
-                        ml: 0.5
-                      }}
-                    >
-                      ({count})
+              return (
+                <Chip
+                  key={filter.id}
+                  label={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+                      {filter.icon && <span>{filter.icon}</span>}
+                      <span>{filter.label}</span>
+                      <Box
+                        component="span"
+                        sx={{
+                          fontSize: '0.7rem',
+                          opacity: 0.7,
+                          ml: 0.5
+                        }}
+                      >
+                        ({count})
+                      </Box>
                     </Box>
-                  </Box>
-                }
-                onClick={() => toggleFilter(filter.id)}
-                sx={{
-                  px: 1,
-                  py: 2.5,
-                  fontSize: '0.9rem',
-                  fontWeight: 500,
-                  borderRadius: '12px',
-                  border: '1px solid',
-                  borderColor: isActive ? 'rgba(168, 85, 247, 0.5)' : 'rgba(255,255,255,0.1)',
-                  background: isActive
-                    ? 'rgba(168, 85, 247, 0.2)'
-                    : 'rgba(255,255,255,0.03)',
-                  color: isActive ? '#c4b5fd' : 'rgba(255,255,255,0.7)',
-                  transition: 'all 0.2s ease',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    borderColor: 'rgba(168, 85, 247, 0.4)',
-                    background: isActive
-                      ? 'rgba(168, 85, 247, 0.25)'
-                      : 'rgba(168, 85, 247, 0.1)',
                   }
-                }}
-              />
-            )
-          })}
+                  onClick={() => toggleFilter(filter.id)}
+                  sx={{
+                    px: 1,
+                    py: 2.5,
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    borderRadius: '12px',
+                    border: '1px solid',
+                    borderColor: isActive ? 'rgba(168, 85, 247, 0.5)' : 'rgba(255,255,255,0.1)',
+                    background: isActive
+                      ? 'rgba(168, 85, 247, 0.2)'
+                      : 'rgba(255,255,255,0.03)',
+                    color: isActive ? '#c4b5fd' : 'rgba(255,255,255,0.7)',
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      borderColor: 'rgba(168, 85, 247, 0.4)',
+                      background: isActive
+                        ? 'rgba(168, 85, 247, 0.25)'
+                        : 'rgba(168, 85, 247, 0.1)',
+                    }
+                  }}
+                />
+              )
+            })}
+          </Box>
+        </Box>
+
+        {/* Language Filters */}
+        <Box sx={{ mb: 4 }}>
+          <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', mb: 1.5, textAlign: 'center' }}>
+            Language
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 0.75,
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
+          >
+            <Chip
+              label="All"
+              onClick={() => toggleLanguage('all')}
+              size="small"
+              sx={{
+                px: 0.5,
+                fontSize: '0.8rem',
+                fontWeight: 500,
+                borderRadius: '8px',
+                border: '1px solid',
+                borderColor: activeLanguages.includes('all') ? 'rgba(168, 85, 247, 0.5)' : 'rgba(255,255,255,0.1)',
+                background: activeLanguages.includes('all')
+                  ? 'rgba(168, 85, 247, 0.2)'
+                  : 'rgba(255,255,255,0.03)',
+                color: activeLanguages.includes('all') ? '#c4b5fd' : 'rgba(255,255,255,0.7)',
+                transition: 'all 0.2s ease',
+                cursor: 'pointer',
+                '&:hover': {
+                  borderColor: 'rgba(168, 85, 247, 0.4)',
+                  background: activeLanguages.includes('all')
+                    ? 'rgba(168, 85, 247, 0.25)'
+                    : 'rgba(168, 85, 247, 0.1)',
+                }
+              }}
+            />
+            {availableLanguages.map((lang) => {
+              const isActive = activeLanguages.includes(lang)
+              const count = repos.filter(r => r.language === lang).length
+              const color = languageColors[lang] || '#8b8b8b'
+
+              return (
+                <Chip
+                  key={lang}
+                  label={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      <Box
+                        sx={{
+                          width: 8,
+                          height: 8,
+                          borderRadius: '50%',
+                          background: color
+                        }}
+                      />
+                      <span>{lang}</span>
+                      <Box component="span" sx={{ fontSize: '0.65rem', opacity: 0.7 }}>
+                        ({count})
+                      </Box>
+                    </Box>
+                  }
+                  onClick={() => toggleLanguage(lang)}
+                  size="small"
+                  sx={{
+                    px: 0.5,
+                    fontSize: '0.8rem',
+                    fontWeight: 500,
+                    borderRadius: '8px',
+                    border: '1px solid',
+                    borderColor: isActive ? `${color}80` : 'rgba(255,255,255,0.1)',
+                    background: isActive
+                      ? `${color}20`
+                      : 'rgba(255,255,255,0.03)',
+                    color: isActive ? color : 'rgba(255,255,255,0.7)',
+                    transition: 'all 0.2s ease',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      borderColor: `${color}60`,
+                      background: isActive
+                        ? `${color}30`
+                        : `${color}15`,
+                    }
+                  }}
+                />
+              )
+            })}
+          </Box>
         </Box>
 
         {/* Loading State */}
