@@ -1,11 +1,104 @@
-import { Box, Typography, Grid, Button, IconButton } from '@mui/material'
-import { GitHub, Launch, ArrowForward } from '@mui/icons-material'
+import { useState, useEffect } from 'react'
+import { Box, Typography, Grid, Button, IconButton, Chip, CircularProgress } from '@mui/material'
+import { GitHub, Launch, ArrowForward, Star, Code } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
+
+// Language colors (GitHub style)
+const languageColors = {
+  JavaScript: '#f1e05a',
+  TypeScript: '#3178c6',
+  Python: '#3572A5',
+  Java: '#b07219',
+  'C#': '#178600',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  HCL: '#844FBA',
+  Assembly: '#6E4C13',
+  'Jupyter Notebook': '#DA5B0B',
+  Swift: '#F05138',
+  Kotlin: '#A97BFF',
+  Go: '#00ADD8',
+  Rust: '#dea584',
+  Ruby: '#701516',
+  PHP: '#4F5D95'
+}
+
+// Category definitions based on topics and languages
+const categorizeRepo = (repo) => {
+  const topics = repo.topics || []
+  const lang = repo.language?.toLowerCase() || ''
+  const name = repo.name.toLowerCase()
+  const desc = (repo.description || '').toLowerCase()
+
+  const categories = []
+
+  // Backend/Spring
+  if (topics.some(t => ['spring-boot', 'api', 'microservices', 'postgresql', 'mongodb', 'docker', 'keycloak', 'oauth2'].includes(t)) ||
+      lang === 'java' && (name.includes('api') || name.includes('management') || desc.includes('api')) ||
+      topics.includes('dotnet') || topics.includes('asp-net-core')) {
+    categories.push('Backend')
+  }
+
+  // Web
+  if (topics.some(t => ['react', 'vue', 'nextjs', 'flask', 'django', 'web', 'mvc', 'html'].includes(t)) ||
+      lang === 'html' || name.includes('web') || topics.includes('csharp') && topics.includes('mvc')) {
+    categories.push('Web')
+  }
+
+  // AI/ML
+  if (topics.some(t => ['machine-learning', 'deep-learning', 'keras', 'cnn', 'image-classification', 'keras-tensorflow', 'random-forest-classifier'].includes(t)) ||
+      name.includes('ml') || name.includes('cnn') || desc.includes('machine learning') || desc.includes('neural') ||
+      name.includes('emotion') || name.includes('classifier')) {
+    categories.push('AI/ML')
+  }
+
+  // Mobile
+  if (topics.some(t => ['android', 'ios', 'mobile', 'swift', 'kotlin', 'libgdx-game'].includes(t)) ||
+      lang === 'swift' || lang === 'kotlin') {
+    categories.push('Mobile')
+  }
+
+  // DevOps
+  if (topics.some(t => ['docker', 'terraform', 'kubernetes', 'ci-cd', 'devops', 'gcp', 'aws'].includes(t)) ||
+      lang === 'hcl') {
+    categories.push('DevOps')
+  }
+
+  // Tools/Bots
+  if (topics.some(t => ['discord-bot', 'bot', 'automation', 'tkinter', 'gui-application'].includes(t)) ||
+      name.includes('bot') || name.includes('clicker') || name.includes('speech')) {
+    categories.push('Tools')
+  }
+
+  // If no category matched, assign "Other"
+  if (categories.length === 0) {
+    categories.push('Other')
+  }
+
+  return categories
+}
+
+const filterCategories = [
+  { id: 'all', label: 'All', icon: null },
+  { id: 'Backend', label: 'Backend', icon: '🔧' },
+  { id: 'Web', label: 'Web', icon: '🌐' },
+  { id: 'AI/ML', label: 'AI/ML', icon: '🤖' },
+  { id: 'Mobile', label: 'Mobile', icon: '📱' },
+  { id: 'DevOps', label: 'DevOps', icon: '☁️' },
+  { id: 'Tools', label: 'Tools', icon: '🛠️' },
+  { id: 'Other', label: 'Other', icon: '📦' }
+]
 
 function Projects() {
   useDocumentTitle('Projects')
 
-  const projects = [
+  const [repos, setRepos] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [activeFilters, setActiveFilters] = useState(['all'])
+
+  // Featured projects (curated)
+  const featuredProjects = [
     {
       title: 'Fitness Microservice App',
       description: 'Cloud-native fitness tracking platform built on Spring Boot microservices with Spring Cloud ecosystem. Features OAuth2/OIDC via Keycloak, polyglot persistence, and AI-powered recommendations.',
@@ -62,23 +155,86 @@ function Projects() {
     }
   ]
 
+  // Fetch GitHub repos
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        setLoading(true)
+        const response = await fetch('https://api.github.com/users/enesgunumdogdu/repos?per_page=100&sort=updated')
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch repositories')
+        }
+
+        const data = await response.json()
+
+        // Filter out forks and profile repo, add categories
+        const processedRepos = data
+          .filter(repo => !repo.fork && repo.name !== 'enesgunumdogdu')
+          .map(repo => ({
+            ...repo,
+            categories: categorizeRepo(repo)
+          }))
+
+        setRepos(processedRepos)
+        setError(null)
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchRepos()
+  }, [])
+
+  // Handle filter toggle
+  const toggleFilter = (filterId) => {
+    if (filterId === 'all') {
+      setActiveFilters(['all'])
+    } else {
+      setActiveFilters(prev => {
+        const newFilters = prev.filter(f => f !== 'all')
+
+        if (newFilters.includes(filterId)) {
+          const result = newFilters.filter(f => f !== filterId)
+          return result.length === 0 ? ['all'] : result
+        } else {
+          return [...newFilters, filterId]
+        }
+      })
+    }
+  }
+
+  // Filter repos based on active filters
+  const filteredRepos = activeFilters.includes('all')
+    ? repos
+    : repos.filter(repo => repo.categories.some(cat => activeFilters.includes(cat)))
+
+  // Format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+  }
+
   return (
     <Box className="page">
+      {/* Featured Projects Section */}
       <Box className="section">
         <Box className="section-header">
           <Box className="section-label">Portfolio</Box>
           <Typography variant="h1" component="h1" className="hero-name hero-name--large">
-            <span className="hero-name-first gradient-text-animated">My</span>
+            <span className="hero-name-first gradient-text-animated">Featured</span>
             <span className="hero-name-surname gradient-text-animated">Projects</span>
           </Typography>
           <Typography className="section-subtitle">
-            A collection of projects showcasing my expertise in backend development,
+            A curated collection of projects showcasing my expertise in backend development,
             microservices, and cloud technologies.
           </Typography>
         </Box>
 
         <Grid container spacing={3}>
-          {projects.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
               <Box
                 sx={{
@@ -261,8 +417,248 @@ function Projects() {
         </Grid>
       </Box>
 
+      {/* GitHub Repositories Section */}
+      <Box className="section" sx={{ pt: 2 }}>
+        <Box className="section-header">
+          <Box className="section-label">Open Source</Box>
+          <Typography variant="h2" className="section-title">
+            <span className="gradient-text-shimmer">GitHub Repositories</span>
+          </Typography>
+          <Typography className="section-subtitle">
+            All my public repositories from GitHub. Use filters to explore by category.
+          </Typography>
+        </Box>
+
+        {/* Filters */}
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 1,
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            mb: 4
+          }}
+        >
+          {filterCategories.map((filter) => {
+            const isActive = activeFilters.includes(filter.id)
+            const count = filter.id === 'all'
+              ? repos.length
+              : repos.filter(r => r.categories.includes(filter.id)).length
+
+            return (
+              <Chip
+                key={filter.id}
+                label={
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+                    {filter.icon && <span>{filter.icon}</span>}
+                    <span>{filter.label}</span>
+                    <Box
+                      component="span"
+                      sx={{
+                        fontSize: '0.7rem',
+                        opacity: 0.7,
+                        ml: 0.5
+                      }}
+                    >
+                      ({count})
+                    </Box>
+                  </Box>
+                }
+                onClick={() => toggleFilter(filter.id)}
+                sx={{
+                  px: 1,
+                  py: 2.5,
+                  fontSize: '0.9rem',
+                  fontWeight: 500,
+                  borderRadius: '12px',
+                  border: '1px solid',
+                  borderColor: isActive ? 'rgba(168, 85, 247, 0.5)' : 'rgba(255,255,255,0.1)',
+                  background: isActive
+                    ? 'rgba(168, 85, 247, 0.2)'
+                    : 'rgba(255,255,255,0.03)',
+                  color: isActive ? '#c4b5fd' : 'rgba(255,255,255,0.7)',
+                  transition: 'all 0.2s ease',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    borderColor: 'rgba(168, 85, 247, 0.4)',
+                    background: isActive
+                      ? 'rgba(168, 85, 247, 0.25)'
+                      : 'rgba(168, 85, 247, 0.1)',
+                  }
+                }}
+              />
+            )
+          })}
+        </Box>
+
+        {/* Loading State */}
+        {loading && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
+            <CircularProgress sx={{ color: '#a855f7' }} />
+          </Box>
+        )}
+
+        {/* Error State */}
+        {error && (
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: 8,
+              color: 'rgba(255,255,255,0.6)'
+            }}
+          >
+            <Typography sx={{ mb: 2 }}>Failed to load repositories</Typography>
+            <Button
+              variant="outlined"
+              onClick={() => window.location.reload()}
+              sx={{
+                borderColor: 'rgba(255,255,255,0.2)',
+                color: 'white',
+                '&:hover': {
+                  borderColor: '#a855f7'
+                }
+              }}
+            >
+              Retry
+            </Button>
+          </Box>
+        )}
+
+        {/* Repos Grid */}
+        {!loading && !error && (
+          <>
+            <Typography
+              sx={{
+                textAlign: 'center',
+                mb: 3,
+                color: 'rgba(255,255,255,0.5)',
+                fontSize: '0.9rem'
+              }}
+            >
+              Showing {filteredRepos.length} of {repos.length} repositories
+            </Typography>
+
+            <Grid container spacing={2}>
+              {filteredRepos.map((repo) => (
+                <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={repo.id}>
+                  <Box
+                    component="a"
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      display: 'block',
+                      background: 'rgba(17, 17, 17, 0.5)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      borderRadius: '16px',
+                      p: 2.5,
+                      height: '100%',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        borderColor: 'rgba(124, 58, 237, 0.3)',
+                        boxShadow: '0 10px 40px rgba(124, 58, 237, 0.1)',
+                      }
+                    }}
+                  >
+                    {/* Header */}
+                    <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, mb: 1.5 }}>
+                      <GitHub sx={{ color: 'rgba(255,255,255,0.5)', fontSize: 20, mt: 0.25 }} />
+                      <Box sx={{ flex: 1, minWidth: 0 }}>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontWeight: 600,
+                            color: 'white',
+                            fontSize: '0.95rem',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          {repo.name}
+                        </Typography>
+                      </Box>
+                      {repo.stargazers_count > 0 && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#fbbf24' }}>
+                          <Star sx={{ fontSize: 14 }} />
+                          <Typography sx={{ fontSize: '0.75rem' }}>{repo.stargazers_count}</Typography>
+                        </Box>
+                      )}
+                    </Box>
+
+                    {/* Description */}
+                    <Typography
+                      sx={{
+                        color: 'rgba(255,255,255,0.6)',
+                        fontSize: '0.8rem',
+                        lineHeight: 1.6,
+                        mb: 2,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        minHeight: '2.5rem'
+                      }}
+                    >
+                      {repo.description || 'No description available'}
+                    </Typography>
+
+                    {/* Footer */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
+                      {/* Language */}
+                      {repo.language && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+                          <Box
+                            sx={{
+                              width: 10,
+                              height: 10,
+                              borderRadius: '50%',
+                              background: languageColors[repo.language] || '#8b8b8b'
+                            }}
+                          />
+                          <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>
+                            {repo.language}
+                          </Typography>
+                        </Box>
+                      )}
+
+                      {/* Categories */}
+                      <Box sx={{ display: 'flex', gap: 0.5 }}>
+                        {repo.categories.slice(0, 2).map((cat) => (
+                          <Box
+                            key={cat}
+                            sx={{
+                              px: 1,
+                              py: 0.25,
+                              borderRadius: '4px',
+                              background: 'rgba(124, 58, 237, 0.1)',
+                              fontSize: '0.65rem',
+                              color: '#c4b5fd'
+                            }}
+                          >
+                            {cat}
+                          </Box>
+                        ))}
+                      </Box>
+
+                      {/* Updated date */}
+                      <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)' }}>
+                        {formatDate(repo.updated_at)}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </>
+        )}
+      </Box>
+
       {/* CTA Section */}
-      <Box className="section" sx={{ pt: 0 }}>
+      <Box className="section" sx={{ pt: 2 }}>
         <Box
           sx={{
             background: 'rgba(17, 17, 17, 0.7)',
@@ -301,7 +697,7 @@ function Projects() {
               fontSize: { xs: '1.5rem', md: '2rem' }
             }}
           >
-            More Projects <span className="gradient-text">Coming Soon!</span>
+            Let's <span className="gradient-text">Collaborate!</span>
           </Typography>
 
           <Typography
@@ -315,8 +711,8 @@ function Projects() {
               fontSize: '1rem'
             }}
           >
-            I'm constantly working on new projects and exploring technologies.
-            Check out my GitHub for the latest updates and contributions.
+            Interested in working together? Check out my GitHub for more projects
+            or reach out to discuss potential collaborations.
           </Typography>
 
           <Button
@@ -341,7 +737,7 @@ function Projects() {
               }
             }}
           >
-            Visit GitHub
+            Visit GitHub Profile
           </Button>
         </Box>
       </Box>
