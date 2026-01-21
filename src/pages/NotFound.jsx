@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Box, Container, Typography, Button } from '@mui/material'
-import { Home, ArrowBack } from '@mui/icons-material'
+import { Home } from '@mui/icons-material'
 import { useRive } from '@rive-app/react-canvas'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
@@ -17,11 +17,17 @@ function NotFound() {
     "Looks like you've wandered into the void...",
     "This page took a coffee break and never came back.",
     "Houston, we have a problem. This page doesn't exist.",
-    "The page you're looking for is probably coding somewhere else.",
     "404: Page not found. But hey, you found this cute friend!"
   ]
 
   const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)]
+
+  const quickLinks = [
+    { to: '/', label: 'Home' },
+    { to: '/about', label: 'About' },
+    { to: '/projects', label: 'Projects' },
+    { to: '/contact', label: 'Contact' }
+  ]
 
   return (
     <Box className="page not-found-page">
@@ -80,74 +86,84 @@ function NotFound() {
             {randomMessage}
           </Typography>
 
-          {/* Action Buttons */}
-          <Box className="not-found-buttons">
-            <Button
-              component={Link}
-              to="/"
-              variant="contained"
-              startIcon={<Home />}
-              sx={{
-                background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-                px: 4,
-                py: 1.5,
-                borderRadius: '12px',
-                fontSize: '1rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
-                '&:hover': {
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 8px 30px rgba(124, 58, 237, 0.5)',
-                }
-              }}
-            >
-              Back to Home
-            </Button>
-
-            <Button
-              onClick={() => window.history.back()}
-              variant="outlined"
-              startIcon={<ArrowBack />}
-              sx={{
-                px: 4,
-                py: 1.5,
-                borderRadius: '12px',
-                fontSize: '1rem',
-                fontWeight: 600,
-                textTransform: 'none',
-                borderColor: 'rgba(255,255,255,0.15)',
-                color: 'white',
-                backdropFilter: 'blur(10px)',
-                '&:hover': {
-                  borderColor: '#7c3aed',
-                  backgroundColor: 'rgba(124, 58, 237, 0.1)',
-                  transform: 'translateY(-3px)',
-                }
-              }}
-            >
-              Go Back
-            </Button>
-          </Box>
-
-          {/* Fun Hint */}
-          <Typography
+          {/* Action Button */}
+          <Button
+            component={Link}
+            to="/"
+            variant="contained"
+            startIcon={<Home />}
             sx={{
-              mt: 6,
-              fontSize: '0.85rem',
-              color: 'rgba(255,255,255,0.4)',
-              textAlign: 'center'
+              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+              px: 4,
+              py: 1.5,
+              borderRadius: '12px',
+              fontSize: '1rem',
+              fontWeight: 600,
+              textTransform: 'none',
+              boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
+              '&:hover': {
+                transform: 'translateY(-3px)',
+                boxShadow: '0 8px 30px rgba(124, 58, 237, 0.5)',
+              }
             }}
           >
-            Lost? Try one of these:{' '}
-            <Link to="/" style={{ color: '#a855f7' }}>Home</Link>
-            {' '}/{' '}
-            <Link to="/about" style={{ color: '#a855f7' }}>About</Link>
-            {' '}/{' '}
-            <Link to="/projects" style={{ color: '#a855f7' }}>Projects</Link>
-            {' '}/{' '}
-            <Link to="/contact" style={{ color: '#a855f7' }}>Contact</Link>
-          </Typography>
+            Back to Home
+          </Button>
+
+          {/* Quick Links */}
+          <Box
+            sx={{
+              mt: 6,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 1.5
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: '0.9rem',
+                color: 'rgba(255,255,255,0.5)'
+              }}
+            >
+              Lost? Try one of these:
+            </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 1,
+                flexWrap: 'wrap',
+                justifyContent: 'center'
+              }}
+            >
+              {quickLinks.map((link) => (
+                <Button
+                  key={link.to}
+                  component={Link}
+                  to={link.to}
+                  variant="text"
+                  sx={{
+                    color: '#a855f7',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    textTransform: 'none',
+                    px: 2,
+                    py: 0.75,
+                    borderRadius: '8px',
+                    border: '1px solid rgba(168, 85, 247, 0.2)',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                      borderColor: 'rgba(168, 85, 247, 0.4)',
+                      transform: 'translateY(-2px)'
+                    }
+                  }}
+                >
+                  {link.label}
+                </Button>
+              ))}
+            </Box>
+          </Box>
         </Box>
       </Container>
     </Box>
