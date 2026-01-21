@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Box, Typography, Grid, Button, IconButton, Chip, CircularProgress } from '@mui/material'
-import { GitHub, Launch, ArrowForward, Star, Code } from '@mui/icons-material'
+import { Box, Typography, Grid, Button, Chip, CircularProgress, IconButton } from '@mui/material'
+import { GitHub, ArrowForward, Star, Launch, YouTube } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 // Language colors (GitHub style)
@@ -97,16 +97,25 @@ function Projects() {
   const [error, setError] = useState(null)
   const [activeFilters, setActiveFilters] = useState(['all'])
 
-  // Featured projects (curated)
+  // Featured projects (curated) - only projects with valid links
   const featuredProjects = [
     {
       title: 'Fitness Microservice App',
       description: 'Cloud-native fitness tracking platform built on Spring Boot microservices with Spring Cloud ecosystem. Features OAuth2/OIDC via Keycloak, polyglot persistence, and AI-powered recommendations.',
       tags: ['Java 24', 'Spring Boot', 'Spring Cloud', 'RabbitMQ', 'Gemini API', 'Keycloak'],
-      icon: '💪',
+      icon: '💪🏾',
       gradient: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
       github: 'https://github.com/enesgunumdogdu/fitness-microservice',
-      live: null
+      live: 'https://aeg.fitness'
+    },
+    {
+      title: 'Güzel Hatırla',
+      description: 'A digital memory garden where we can collect and share the beautiful moments we lived with the people we lost. Built with Next.js and TypeScript.',
+      tags: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
+      icon: '🕊️',
+      gradient: 'linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)',
+      github: 'https://github.com/enesgunumdogdu/guzelhatirlacom',
+      live: 'https://guzelhatirla.com'
     },
     {
       title: 'Hospital Management System',
@@ -123,35 +132,28 @@ function Projects() {
       tags: ['Java 24', 'Spring Boot', 'PostgreSQL', 'Maven', 'Docker'],
       icon: '📋',
       gradient: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)',
-      github: 'https://github.com/enesgunumdogdu/task-management-api',
+      github: 'https://github.com/enesgunumdogdu/Task-Management-API',
       live: null
     },
     {
       title: 'YouTube Channel',
       description: 'Educational content on Data Structures and Algorithms — one of the core subjects of computer engineering. Simplifying complex concepts for students with 50K+ total views.',
       tags: ['Education', 'DSA', 'Content Creation'],
-      icon: '🎬',
-      gradient: 'linear-gradient(135deg, #f43f5e 0%, #ff6b6b 100%)',
+      icon: '▶️',
+      gradient: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
       github: null,
-      live: 'https://youtube.com/@enesgunumdogdu'
-    },
-    {
-      title: 'AI Style Transfer Project',
-      description: 'TUBITAK 2209-A funded Python-based machine learning project that produces paintings in the drawing styles of deceased artists using advanced style transfer techniques.',
-      tags: ['Python', 'Machine Learning', 'AI', 'TUBITAK'],
-      icon: '🎨',
-      gradient: 'linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)',
-      github: 'https://github.com/enesgunumdogdu/style-transfer',
-      live: null
+      live: 'https://youtube.com/@enesgunumdogdu',
+      isYouTube: true
     },
     {
       title: 'Portfolio Website',
       description: 'This website! Built with React, Material UI, and modern gradient design. Fully responsive with typing effects and smooth animations.',
       tags: ['React', 'MUI', 'Vite', 'Responsive'],
-      icon: '🌐',
+      icon: '3nes',
       gradient: 'linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)',
       github: 'https://github.com/enesgunumdogdu/enesgunumdogdu.com.tr',
-      live: 'https://enesgunumdogdu.com.tr'
+      live: 'https://enesgunumdogdu.com.tr',
+      isLogo: true
     }
   ]
 
@@ -234,10 +236,20 @@ function Projects() {
         </Box>
 
         <Grid container spacing={3}>
-          {featuredProjects.map((project, index) => (
+          {featuredProjects.map((project, index) => {
+            // Determine primary link: live takes priority, then github
+            const primaryLink = project.live || project.github
+
+            return (
             <Grid size={{ xs: 12, md: 6, lg: 4 }} key={index}>
               <Box
+                component="a"
+                href={primaryLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 sx={{
+                  display: 'block',
+                  textDecoration: 'none',
                   background: 'rgba(17, 17, 17, 0.7)',
                   backdropFilter: 'blur(20px)',
                   border: '1px solid rgba(255,255,255,0.06)',
@@ -245,22 +257,18 @@ function Projects() {
                   overflow: 'hidden',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
+                  cursor: 'pointer',
                   '&:hover': {
                     transform: 'translateY(-8px)',
                     borderColor: 'rgba(124, 58, 237, 0.3)',
                     boxShadow: '0 20px 60px rgba(124, 58, 237, 0.15)',
                     '& .project-image': {
-                      transform: 'scale(1.05)'
-                    },
-                    '& .project-links': {
-                      opacity: 1
+                      transform: 'scale(1.1)'
                     }
                   }
                 }}
               >
-                {/* Project Image */}
+                {/* Project Header */}
                 <Box
                   sx={{
                     position: 'relative',
@@ -277,64 +285,30 @@ function Projects() {
                     sx={{
                       fontSize: '4rem',
                       transition: 'transform 0.4s ease',
-                      filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))'
+                      filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
                     }}
                   >
-                    {project.icon}
+                    {project.isYouTube ? (
+                      <YouTube sx={{ fontSize: '5rem', color: 'white' }} />
+                    ) : project.isLogo ? (
+                      <Typography
+                        sx={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: '3.5rem',
+                          fontWeight: 800,
+                          color: 'white',
+                          textShadow: '0 4px 20px rgba(0,0,0,0.3)'
+                        }}
+                      >
+                        {project.icon}
+                      </Typography>
+                    ) : (
+                      project.icon
+                    )}
                   </Box>
-
-                  {/* Overlay with links */}
-                  {(project.github || project.live) && (
-                    <Box
-                      className="project-links"
-                      sx={{
-                        position: 'absolute',
-                        inset: 0,
-                        background: 'rgba(0,0,0,0.6)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 1.5,
-                        opacity: 0,
-                        transition: 'opacity 0.3s ease'
-                      }}
-                    >
-                      {project.github && (
-                        <IconButton
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{
-                            background: 'rgba(255,255,255,0.1)',
-                            backdropFilter: 'blur(10px)',
-                            color: 'white',
-                            '&:hover': {
-                              background: 'rgba(255,255,255,0.2)'
-                            }
-                          }}
-                        >
-                          <GitHub />
-                        </IconButton>
-                      )}
-                      {project.live && (
-                        <IconButton
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{
-                            background: 'rgba(255,255,255,0.1)',
-                            backdropFilter: 'blur(10px)',
-                            color: 'white',
-                            '&:hover': {
-                              background: 'rgba(255,255,255,0.2)'
-                            }
-                          }}
-                        >
-                          <Launch />
-                        </IconButton>
-                      )}
-                    </Box>
-                  )}
 
                   {/* Gradient overlay */}
                   <Box
@@ -350,7 +324,7 @@ function Projects() {
                 </Box>
 
                 {/* Content */}
-                <Box sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <Typography
                     variant="h5"
                     sx={{
@@ -376,7 +350,7 @@ function Projects() {
                     {project.description}
                   </Typography>
 
-                  <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                  <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', mb: 2 }}>
                     {project.tags.slice(0, 4).map((tag, tagIndex) => (
                       <Box
                         key={tagIndex}
@@ -410,10 +384,81 @@ function Projects() {
                       </Box>
                     )}
                   </Box>
+
+                  {/* Action Links */}
+                  <Box sx={{ display: 'flex', gap: 1.5, mt: 'auto', alignItems: 'center' }}>
+                    {project.github && (
+                      <IconButton
+                        component="a"
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        size="small"
+                        sx={{
+                          color: 'rgba(255,255,255,0.6)',
+                          border: '1px solid rgba(255,255,255,0.1)',
+                          borderRadius: '10px',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            color: 'white',
+                            borderColor: '#7c3aed',
+                            backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                          }
+                        }}
+                      >
+                        <GitHub fontSize="small" />
+                      </IconButton>
+                    )}
+                    {project.live && (
+                      <Box
+                        component="span"
+                        onClick={(e) => e.stopPropagation()}
+                        className="live-badge"
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 0.75,
+                          px: 1.5,
+                          py: 0.75,
+                          borderRadius: '8px',
+                          fontSize: '0.8rem',
+                          fontWeight: 600,
+                          background: 'linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(236,72,153,0.15) 100%)',
+                          border: '1px solid rgba(168,85,247,0.3)',
+                          color: '#c4b5fd',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.2), rgba(236,72,153,0.2), transparent)',
+                            animation: 'shimmer-slide 2.5s ease-in-out infinite',
+                          },
+                          '@keyframes shimmer-slide': {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100%)' }
+                          }
+                        }}
+                      >
+                        {project.live.includes('youtube') ? (
+                          <YouTube sx={{ fontSize: 16, position: 'relative', zIndex: 1, color: '#ff4444' }} />
+                        ) : (
+                          <Launch sx={{ fontSize: 14, position: 'relative', zIndex: 1 }} />
+                        )}
+                        <span style={{ position: 'relative', zIndex: 1 }}>
+                          {project.live.includes('youtube')
+                            ? 'YouTube'
+                            : project.live.replace('https://', '').replace('http://', '').split('/')[0]}
+                        </span>
+                      </Box>
+                    )}
+                  </Box>
                 </Box>
               </Box>
             </Grid>
-          ))}
+          )})}
         </Grid>
       </Box>
 
