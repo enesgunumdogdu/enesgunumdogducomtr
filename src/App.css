@@ -1150,3 +1150,79 @@
     display: none;
   }
 }
+
+/* ==================== 404 NOT FOUND PAGE ==================== */
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.not-found-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.not-found-animation {
+  width: clamp(280px, 50vw, 400px);
+  height: clamp(280px, 50vw, 400px);
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 40px rgba(168, 85, 247, 0.3));
+  transition: transform 0.3s ease;
+}
+
+.not-found-animation:hover {
+  transform: scale(1.05);
+}
+
+.not-found-animation > canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.not-found-title {
+  font-size: clamp(6rem, 15vw, 12rem);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 60px rgba(168, 85, 247, 0.5);
+}
+
+.not-found-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Mobile Responsive for 404 */
+@media (max-width: 480px) {
+  .not-found-page {
+    padding: 100px 1rem 2rem;
+  }
+
+  .not-found-animation {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 0.5rem;
+  }
+
+  .not-found-title {
+    font-size: 5rem;
+  }
+
+  .not-found-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .not-found-buttons button {
+    width: 100%;
+  }
+}
