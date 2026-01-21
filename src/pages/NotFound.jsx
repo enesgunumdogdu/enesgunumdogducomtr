@@ -17,7 +17,10 @@ function NotFound() {
     "Looks like you've wandered into the void...",
     "This page took a coffee break and never came back.",
     "Houston, we have a problem. This page doesn't exist.",
-    "404: Page not found. But hey, you found this cute friend!"
+    "404: Page not found. But hey, you found this cute friend!",
+    "This page went out for milk and never returned.",
+    "Oops! This page is playing hide and seek. It's winning.",
+    "Plot twist: The page was never here to begin with."
   ]
 
   const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)]
