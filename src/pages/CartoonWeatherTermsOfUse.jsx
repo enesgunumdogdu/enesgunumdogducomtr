@@ -228,7 +228,7 @@ function CartoonWeatherTermsOfUse() {
               borderBottom: '1px solid rgba(255,255,255,0.1)'
             }}
           >
-            Last Updated: January 14, 2026
+            Last Updated: January 23, 2026
           </Typography>
 
           <Typography
@@ -360,7 +360,7 @@ function CartoonWeatherTermsOfUse() {
                 fontSize: '0.85rem'
               }}
             >
-              © 2026 Cartoon Weather. All rights reserved.
+              © 2026 Enes Günümdoğdu. All rights reserved.
             </Typography>
           </Box>
         </Box>
