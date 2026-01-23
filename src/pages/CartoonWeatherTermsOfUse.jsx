@@ -17,7 +17,7 @@ function CartoonWeatherTermsOfUse() {
       title: '2. Description of Service',
       content: [
         {
-          text: 'Cartoon Weather is a mobile application that provides weather forecasts with unique animated themes. The App offers both free and premium features through subscription plans.'
+          text: 'Cartoon Weather is an application that provides weather forecasts with unique animated themes. The App offers both free and premium features through subscription plans.'
         }
       ]
     },
@@ -26,7 +26,7 @@ function CartoonWeatherTermsOfUse() {
       content: [
         {
           subtitle: '3.1 Account Creation',
-          text: 'You may use the App as a guest or create an account. Account creation requires a valid email address or authentication through Google/Apple.'
+          text: 'You may use the App as a guest or create an account. Account creation requires a valid email address or authentication through Google/Apple. Guest users have limited features, including saving only one location. Creating an account unlocks additional features such as saving up to 5 locations.'
         },
         {
           subtitle: '3.2 Account Responsibility',
@@ -119,7 +119,15 @@ function CartoonWeatherTermsOfUse() {
       ]
     },
     {
-      title: '8. Disclaimers',
+      title: '8. Third-Party Services',
+      content: [
+        {
+          text: 'The App uses third-party services including Firebase (Google), RevenueCat, and weather data providers. Your use of the App is subject to these providers\' terms of service.'
+        }
+      ]
+    },
+    {
+      title: '9. Disclaimers',
       content: [
         {
           subtitle: '8.1 "As Is" Service',
@@ -132,7 +140,7 @@ function CartoonWeatherTermsOfUse() {
       ]
     },
     {
-      title: '9. Limitation of Liability',
+      title: '10. Limitation of Liability',
       content: [
         {
           text: 'To the maximum extent permitted by law, Cartoon Weather shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of the App.'
@@ -140,7 +148,7 @@ function CartoonWeatherTermsOfUse() {
       ]
     },
     {
-      title: '10. Indemnification',
+      title: '11. Indemnification',
       content: [
         {
           text: 'You agree to indemnify and hold harmless Cartoon Weather from any claims, damages, or expenses arising from your violation of these Terms.'
@@ -148,7 +156,7 @@ function CartoonWeatherTermsOfUse() {
       ]
     },
     {
-      title: '11. Changes to Terms',
+      title: '12. Changes to Terms',
       content: [
         {
           text: 'We may modify these Terms at any time. Continued use of the App after changes constitutes acceptance of the modified Terms.'
@@ -156,7 +164,7 @@ function CartoonWeatherTermsOfUse() {
       ]
     },
     {
-      title: '12. Governing Law',
+      title: '13. Governing Law',
       content: [
         {
           text: 'These Terms are governed by the laws of Turkey, without regard to conflict of law principles.'
@@ -164,7 +172,7 @@ function CartoonWeatherTermsOfUse() {
       ]
     },
     {
-      title: '13. Contact',
+      title: '14. Contact',
       content: [
         {
           text: 'For questions about these Terms:',

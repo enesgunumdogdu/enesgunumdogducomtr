@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography, Link } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function CartoonWeatherPrivacyPolicy() {
@@ -19,8 +20,11 @@ function CartoonWeatherPrivacyPolicy() {
           subtitle: '1.2 Automatically Collected Information',
           items: [
             'Location Data: With your permission, we collect your device\'s location to provide accurate weather information. You can disable location access at any time through your device settings.',
-            'Device Information: We collect device type, operating system version, and app version for troubleshooting and improvement purposes.',
-            'Usage Data: We collect anonymous usage statistics to improve our app experience.'
+            'Device Information: We collect device identifiers, device type, operating system version, and app version for troubleshooting and improvement purposes.',
+            'Usage Data: We collect anonymous usage statistics and product interaction data to improve our app experience.',
+            'Crash Data: We automatically collect crash logs and diagnostic reports through Firebase Crashlytics to identify and fix technical issues.',
+            'Performance Data: We collect app performance metrics including launch times, response times, and resource usage to maintain and improve app stability.',
+            'User Identifiers: We generate and store unique user identifiers to manage your account, preferences, and provide personalized services.'
           ]
         },
         {
@@ -65,7 +69,8 @@ function CartoonWeatherPrivacyPolicy() {
         {
           text: 'We use the following third-party services:',
           items: [
-            'Firebase (Google): Authentication, analytics, and cloud storage',
+            'Firebase (Google): Authentication, analytics, crash reporting, and cloud storage',
+            'RevenueCat: Subscription management and purchase verification',
             'Apple StoreKit: In-app purchase processing',
             'Weather API: Weather data retrieval (only location coordinates are shared)'
           ],
@@ -98,7 +103,7 @@ function CartoonWeatherPrivacyPolicy() {
             'Opt-out of analytics collection',
             'Withdraw consent for location access'
           ],
-          note: 'To exercise these rights, contact us at support@enesgunumdogdu.com.tr'
+          note: 'contact-link'
         }
       ]
     },
@@ -142,11 +147,7 @@ function CartoonWeatherPrivacyPolicy() {
       title: '11. Contact Us',
       content: [
         {
-          text: 'If you have questions about this Privacy Policy, please contact us at:',
-          items: [
-            'Email: support@enesgunumdogdu.com.tr',
-            'Website: https://enesgunumdogdu.com.tr/cartoon-weather-privacy-policy'
-          ]
+          contactLink: true
         }
       ]
     }
@@ -285,7 +286,49 @@ function CartoonWeatherPrivacyPolicy() {
                         fontSize: { xs: '0.85rem', md: '0.9rem' }
                       }}
                     >
-                      {block.note}
+                      {block.note === 'contact-link' ? (
+                        <>
+                          To exercise these rights, please visit our{' '}
+                          <Link
+                            component={RouterLink}
+                            to="/contact"
+                            sx={{
+                              color: '#a855f7',
+                              textDecoration: 'underline',
+                              '&:hover': { color: '#c084fc' }
+                            }}
+                          >
+                            contact page
+                          </Link>
+                          .
+                        </>
+                      ) : (
+                        block.note
+                      )}
+                    </Typography>
+                  )}
+
+                  {block.contactLink && (
+                    <Typography
+                      sx={{
+                        color: 'rgba(255,255,255,0.75)',
+                        lineHeight: 1.8,
+                        fontSize: { xs: '0.9rem', md: '0.95rem' }
+                      }}
+                    >
+                      If you have questions about this Privacy Policy, please visit our{' '}
+                      <Link
+                        component={RouterLink}
+                        to="/contact"
+                        sx={{
+                          color: '#a855f7',
+                          textDecoration: 'underline',
+                          '&:hover': { color: '#c084fc' }
+                        }}
+                      >
+                        contact page
+                      </Link>
+                      .
                     </Typography>
                   )}
                 </Box>
