@@ -122,7 +122,7 @@ function CartoonWeatherTermsOfUse() {
       title: '8. Third-Party Services',
       content: [
         {
-          text: 'The App uses third-party services including Firebase (Google), RevenueCat, and weather data providers. Your use of the App is subject to these providers\' terms of service.'
+          text: 'The App uses third-party services including Firebase (Google) and weather data providers. Your use of the App is subject to these providers\' terms of service.'
         }
       ]
     },
@@ -130,11 +130,11 @@ function CartoonWeatherTermsOfUse() {
       title: '9. Disclaimers',
       content: [
         {
-          subtitle: '8.1 "As Is" Service',
+          subtitle: '9.1 "As Is" Service',
           text: 'The App is provided "as is" without warranties of any kind, either express or implied.'
         },
         {
-          subtitle: '8.2 Service Availability',
+          subtitle: '9.2 Service Availability',
           text: 'We do not guarantee uninterrupted or error-free service. The App may be temporarily unavailable for maintenance or updates.'
         }
       ]
