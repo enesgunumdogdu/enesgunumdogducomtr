@@ -339,7 +339,7 @@ function Projects() {
                       bottom: 0,
                       left: 0,
                       right: 0,
-                      height: '50%',
+                      height: '5%',
                       background: 'linear-gradient(180deg, transparent 0%, rgba(17,17,17,0.9) 100%)'
                     }}
                   />
