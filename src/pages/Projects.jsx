@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography, Grid, Button, Chip, CircularProgress, IconButton } from '@mui/material'
-import { GitHub, ArrowForward, Star, Launch, YouTube } from '@mui/icons-material'
+import { GitHub, ArrowForward, Star, Launch, YouTube, Apple } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 // Language colors (GitHub style)
@@ -101,6 +101,16 @@ function Projects() {
   // Featured projects (curated) - only projects with valid links
   const featuredProjects = [
     {
+      title: 'Cartoon Weather',
+      description: 'Fun weather app that transforms forecasts into an entertaining experience with animated characters reacting to real-time conditions. Features 6 character themes, widgets, hourly & 7-day forecasts, and supports 13 languages.',
+      tags: ['Swift', 'iOS', 'SwiftUI'],
+      icon: '🌤️',
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #3b82f6 100%)',
+      github: null,
+      live: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
+      isAppStore: true
+    },
+    {
       title: 'Fitness Microservice App',
       description: 'Cloud-native fitness tracking platform built on Spring Boot microservices with Spring Cloud ecosystem. Features OAuth2/OIDC via Keycloak, polyglot persistence, and AI-powered recommendations.',
       tags: ['Java 24', 'Spring Boot', 'Spring Cloud', 'RabbitMQ', 'Gemini API', 'Keycloak'],
@@ -145,16 +155,6 @@ function Projects() {
       github: null,
       live: 'https://youtube.com/@enesgunumdogdu',
       isYouTube: true
-    },
-    {
-      title: 'Portfolio Website',
-      description: 'This website! Built with React, Material UI, and modern gradient design. Fully responsive with typing effects and smooth animations.',
-      tags: ['React', 'MUI', 'Vite', 'Responsive'],
-      icon: '3nes',
-      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%)',
-      github: 'https://github.com/enesgunumdogdu/enesgunumdogdu.com.tr',
-      live: 'https://enesgunumdogdu.com.tr',
-      isLogo: true
     }
   ]
 
@@ -325,18 +325,8 @@ function Projects() {
                   >
                     {project.isYouTube ? (
                       <YouTube sx={{ fontSize: '5rem', color: 'white' }} />
-                    ) : project.isLogo ? (
-                      <Typography
-                        sx={{
-                          fontFamily: "'Space Grotesk', sans-serif",
-                          fontSize: '3.5rem',
-                          fontWeight: 800,
-                          color: 'white',
-                          textShadow: '0 4px 20px rgba(0,0,0,0.3)'
-                        }}
-                      >
-                        {project.icon}
-                      </Typography>
+                    ) : project.isAppStore ? (
+                      <Apple sx={{ fontSize: '5rem', color: 'white' }} />
                     ) : (
                       project.icon
                     )}
@@ -441,7 +431,10 @@ function Projects() {
                     {project.live && (
                       <Box
                         component="span"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          window.open(project.live, '_blank', 'noopener,noreferrer')
+                        }}
                         className="live-badge"
                         sx={{
                           display: 'inline-flex',
@@ -472,12 +465,16 @@ function Projects() {
                       >
                         {project.live.includes('youtube') ? (
                           <YouTube sx={{ fontSize: 16, position: 'relative', zIndex: 1, color: '#ff4444' }} />
+                        ) : project.isAppStore ? (
+                          <Apple sx={{ fontSize: 16, position: 'relative', zIndex: 1 }} />
                         ) : (
                           <Launch sx={{ fontSize: 14, position: 'relative', zIndex: 1 }} />
                         )}
                         <span style={{ position: 'relative', zIndex: 1 }}>
                           {project.live.includes('youtube')
                             ? 'YouTube'
+                            : project.isAppStore
+                            ? 'App Store'
                             : project.live.replace('https://', '').replace('http://', '').split('/')[0]}
                         </span>
                       </Box>
