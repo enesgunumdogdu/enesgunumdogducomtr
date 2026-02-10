@@ -422,22 +422,19 @@ function Home() {
             {/* App Icon */}
             <Box
               className="app-icon"
+              component="img"
+              src="/logos/cartoon-weather.png"
+              alt="Cartoon Weather"
               sx={{
                 width: { xs: 80, md: 90 },
                 height: { xs: 80, md: 90 },
                 minWidth: { xs: 80, md: 90 },
                 borderRadius: '22px',
-                background: 'linear-gradient(135deg, #f59e0b 0%, #3b82f6 100%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '2.8rem',
                 boxShadow: '0 8px 32px rgba(245, 158, 11, 0.3)',
                 transition: 'transform 0.4s ease',
+                objectFit: 'cover',
               }}
-            >
-              🌤️
-            </Box>
+            />
 
             {/* Content */}
             <Box sx={{ flex: 1 }}>
@@ -487,7 +484,7 @@ function Home() {
                   mb: 0.75,
                 }}
               >
-                Cartoon Weather — Fun Forecast
+                Cartoon Weather: Cute Forecast
               </Typography>
 
               <Typography
@@ -498,12 +495,12 @@ function Home() {
                   maxWidth: 600,
                 }}
               >
-                Say goodbye to boring weather apps! Animated characters react to real-time conditions — sunbathing on clear days, grabbing umbrellas in the rain.
+                Say goodbye to boring weather apps! 7 animated character themes with full-screen video wallpapers react to real-time conditions. Track up to 5 locations with widgets, AQI, and more.
               </Typography>
 
               {/* Tags */}
               <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
-                {['Swift', 'iOS', 'SwiftUI', '13 Languages', '5.0 ★'].map((tag, i) => (
+                {['Swift', 'iOS', 'SwiftUI', '19 Languages', '5.0 ★'].map((tag, i) => (
                   <Box
                     key={i}
                     sx={{

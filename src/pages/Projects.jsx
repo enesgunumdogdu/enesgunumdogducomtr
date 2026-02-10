@@ -102,7 +102,7 @@ function Projects() {
   const featuredProjects = [
     {
       title: 'Cartoon Weather',
-      description: 'Fun weather app that transforms forecasts into an entertaining experience with animated characters reacting to real-time conditions. Features 6 character themes, widgets, hourly & 7-day forecasts, and supports 13 languages.',
+      description: 'Cute weather app with 7 animated character themes and full-screen video wallpapers that react to real-time conditions. Features multi-location tracking, home screen widgets, AQI, hourly & 7-day forecasts, and supports 19 languages.',
       tags: ['Swift', 'iOS', 'SwiftUI'],
       icon: '🌤️',
       gradient: 'linear-gradient(135deg, #f59e0b 0%, #3b82f6 100%)',
