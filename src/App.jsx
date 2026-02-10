@@ -8,6 +8,8 @@ import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import CartoonWeatherPrivacyPolicy from './pages/CartoonWeatherPrivacyPolicy'
 import CartoonWeatherTermsOfUse from './pages/CartoonWeatherTermsOfUse'
+import SeasonsPrivacyPolicy from './pages/SeasonsPrivacyPolicy'
+import SeasonsTermsOfUse from './pages/SeasonsTermsOfUse'
 import NotFound from './pages/NotFound'
 import './App.css'
 
@@ -25,6 +27,8 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/cartoon-weather-privacy-policy" element={<CartoonWeatherPrivacyPolicy />} />
             <Route path="/cartoon-weather-terms-of-use" element={<CartoonWeatherTermsOfUse />} />
+            <Route path="/seasons-privacy-policy" element={<SeasonsPrivacyPolicy />} />
+            <Route path="/seasons-terms-of-use" element={<SeasonsTermsOfUse />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
