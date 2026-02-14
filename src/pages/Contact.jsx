@@ -98,22 +98,22 @@ function Contact() {
         transition: 'all 0.3s ease'
       },
       '&:hover fieldset': {
-        borderColor: 'rgba(139, 92, 246, 0.4)'
+        borderColor: 'rgba(16, 185, 129, 0.4)'
       },
       '&.Mui-focused fieldset': {
-        borderColor: '#8b5cf6',
+        borderColor: '#10b981',
         borderWidth: '2px',
-        boxShadow: '0 0 20px rgba(139, 92, 246, 0.1)'
+        boxShadow: '0 0 20px rgba(16, 185, 129, 0.1)'
       },
       '&.Mui-focused': {
-        background: 'rgba(139, 92, 246, 0.05)'
+        background: 'rgba(16, 185, 129, 0.05)'
       }
     },
     '& .MuiInputLabel-root': {
       color: '#555555',
       fontSize: { xs: '0.9rem', md: '1rem' },
       '&.Mui-focused': {
-        color: '#8b5cf6'
+        color: '#10b981'
       }
     }
   }
@@ -124,8 +124,8 @@ function Contact() {
         <Box className="section-header">
           <Box className="section-label">Contact</Box>
           <Typography variant="h1" component="h1" className="hero-name hero-name--large">
-            <span className="hero-name-first" style={{ color: '#8b5cf6' }}>Get In</span>
-            <span className="hero-name-surname" style={{ color: '#8b5cf6' }}>Touch</span>
+            <span className="hero-name-first" style={{ color: '#10b981' }}>Get In</span>
+            <span className="hero-name-surname" style={{ color: '#10b981' }}>Touch</span>
           </Typography>
           <Typography className="section-subtitle">
             Have a project in mind? Let's build something great together.
@@ -151,7 +151,7 @@ function Contact() {
                     left: 0,
                     right: 0,
                     height: '3px',
-                    background: '#8b5cf6',
+                    background: '#10b981',
                   }
                 }}
               >
@@ -272,24 +272,24 @@ function Contact() {
                         disabled={isSubmitting || !captchaValue}
                         endIcon={!isSubmitting && <Send />}
                         sx={{
-                          background: '#8b5cf6',
+                          background: '#10b981',
                           py: { xs: 1.5, md: 1.75 },
                           borderRadius: '14px',
                           fontSize: { xs: '0.95rem', md: '1.05rem' },
                           fontWeight: 600,
                           textTransform: 'none',
-                          boxShadow: '0 4px 20px rgba(139, 92, 246, 0.3)',
+                          boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
                           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                           '&:hover': {
-                            background: '#7c3aed',
+                            background: '#059669',
                             transform: 'translateY(-3px)',
-                            boxShadow: '0 12px 35px rgba(139, 92, 246, 0.4)'
+                            boxShadow: '0 12px 35px rgba(16, 185, 129, 0.4)'
                           },
                           '&:active': {
                             transform: 'translateY(-1px)'
                           },
                           '&:disabled': {
-                            background: '#8b5cf6',
+                            background: '#10b981',
                             opacity: 0.7,
                             color: 'white'
                           }
@@ -349,9 +349,9 @@ function Contact() {
                         textDecoration: 'none',
                         transition: 'all 0.3s ease',
                         '&:hover': {
-                          borderColor: 'rgba(139, 92, 246, 0.3)',
+                          borderColor: 'rgba(16, 185, 129, 0.3)',
                           transform: 'translateX(8px)',
-                          background: 'rgba(139, 92, 246, 0.08)',
+                          background: 'rgba(16, 185, 129, 0.08)',
                           '& .social-icon': {
                             color: social.color
                           }
@@ -364,7 +364,7 @@ function Contact() {
                           width: 44,
                           height: 44,
                           borderRadius: '12px',
-                          background: 'rgba(139, 92, 246, 0.1)',
+                          background: 'rgba(16, 185, 129, 0.1)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',

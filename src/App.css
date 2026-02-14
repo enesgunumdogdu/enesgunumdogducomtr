@@ -813,9 +813,9 @@
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--accent-tertiary);
-  background: rgba(139, 92, 246, 0.05);
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+  border-color: var(--accent-primary);
+  background: rgba(16, 185, 129, 0.05);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
 }
 
 .form-group textarea {
@@ -846,8 +846,8 @@
 
 .contact-link:hover {
   color: var(--text-primary);
-  border-color: var(--accent-tertiary);
-  background: rgba(139, 92, 246, 0.1);
+  border-color: var(--accent-primary);
+  background: rgba(16, 185, 129, 0.1);
   transform: translateY(-3px);
 }
 
