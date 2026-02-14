@@ -41,7 +41,6 @@ function Home() {
     <Box className="page">
       {/* Hero Section */}
       <Box className="hero">
-        <Box className="hero-bg" />
 
         <Container maxWidth="lg">
           <Box className="hero-content">
@@ -374,13 +373,13 @@ function Home() {
             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             '&:hover': {
               transform: 'translateY(-4px)',
-              borderColor: 'rgba(245, 158, 11, 0.3)',
-              boxShadow: '0 20px 60px rgba(245, 158, 11, 0.08)',
+              borderColor: 'rgba(16, 185, 129, 0.3)',
+              boxShadow: '0 20px 60px rgba(16, 185, 129, 0.08)',
               '& .app-icon': {
                 transform: 'scale(1.1) rotate(-3deg)',
               },
               '& .app-cta': {
-                background: 'linear-gradient(135deg, #f59e0b 0%, #3b82f6 100%)',
+                background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
                 color: 'white',
               }
             }
@@ -394,7 +393,7 @@ function Home() {
               left: 0,
               right: 0,
               height: '3px',
-              background: 'linear-gradient(90deg, #f59e0b, #3b82f6, #f59e0b)',
+              background: 'linear-gradient(90deg, #10b981, #06b6d4, #10b981)',
               backgroundSize: '200% 100%',
               animation: 'gradientSlide 3s linear infinite',
               '@keyframes gradientSlide': {
@@ -424,7 +423,7 @@ function Home() {
                 height: { xs: 80, md: 90 },
                 minWidth: { xs: 80, md: 90 },
                 borderRadius: '22px',
-                boxShadow: '0 8px 32px rgba(245, 158, 11, 0.2)',
+                boxShadow: '0 8px 32px rgba(16, 185, 129, 0.2)',
                 transition: 'transform 0.4s ease',
                 objectFit: 'cover',
               }}
@@ -501,11 +500,11 @@ function Home() {
                       px: 1.25,
                       py: 0.35,
                       borderRadius: '6px',
-                      background: i === 4 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(245, 158, 11, 0.08)',
-                      border: `1px solid ${i === 4 ? 'rgba(245, 158, 11, 0.2)' : 'rgba(245, 158, 11, 0.15)'}`,
+                      background: i === 4 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(16, 185, 129, 0.08)',
+                      border: `1px solid ${i === 4 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.15)'}`,
                       fontSize: '0.7rem',
                       fontWeight: 500,
-                      color: i === 4 ? '#fbbf24' : '#f59e0b',
+                      color: i === 4 ? '#6ee7b7' : '#10b981',
                     }}
                   >
                     {tag}
