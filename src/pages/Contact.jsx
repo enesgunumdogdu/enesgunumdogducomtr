@@ -90,30 +90,30 @@ function Contact() {
     '& .MuiOutlinedInput-root': {
       background: 'rgba(255, 255, 255, 0.03)',
       borderRadius: '14px',
-      color: 'white',
+      color: '#ededed',
       fontSize: { xs: '0.95rem', md: '1rem' },
       transition: 'all 0.3s ease',
       '& fieldset': {
-        borderColor: 'rgba(255, 255, 255, 0.08)',
+        borderColor: '#1e1e1e',
         transition: 'all 0.3s ease'
       },
       '&:hover fieldset': {
-        borderColor: 'rgba(124, 58, 237, 0.4)'
+        borderColor: 'rgba(139, 92, 246, 0.4)'
       },
       '&.Mui-focused fieldset': {
-        borderColor: '#7c3aed',
+        borderColor: '#8b5cf6',
         borderWidth: '2px',
-        boxShadow: '0 0 20px rgba(124, 58, 237, 0.15)'
+        boxShadow: '0 0 20px rgba(139, 92, 246, 0.1)'
       },
       '&.Mui-focused': {
-        background: 'rgba(124, 58, 237, 0.08)'
+        background: 'rgba(139, 92, 246, 0.05)'
       }
     },
     '& .MuiInputLabel-root': {
-      color: 'rgba(255, 255, 255, 0.5)',
+      color: '#555555',
       fontSize: { xs: '0.9rem', md: '1rem' },
       '&.Mui-focused': {
-        color: '#a855f7'
+        color: '#8b5cf6'
       }
     }
   }
@@ -124,8 +124,8 @@ function Contact() {
         <Box className="section-header">
           <Box className="section-label">Contact</Box>
           <Typography variant="h1" component="h1" className="hero-name hero-name--large">
-            <span className="hero-name-first gradient-text-animated">Get In</span>
-            <span className="hero-name-surname gradient-text-animated">Touch</span>
+            <span className="hero-name-first" style={{ color: '#8b5cf6' }}>Get In</span>
+            <span className="hero-name-surname" style={{ color: '#8b5cf6' }}>Touch</span>
           </Typography>
           <Typography className="section-subtitle">
             Have a project in mind? Let's build something great together.
@@ -138,9 +138,8 @@ function Contact() {
             <Box sx={{ flex: { xs: '1', md: '1.4' } }}>
               <Box
                 sx={{
-                  background: 'rgba(17, 17, 17, 0.7)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: '#161616',
+                  border: '1px solid #1e1e1e',
                   borderRadius: '24px',
                   p: { xs: 3, md: 4 },
                   position: 'relative',
@@ -152,23 +151,10 @@ function Contact() {
                     left: 0,
                     right: 0,
                     height: '3px',
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                    background: '#8b5cf6',
                   }
                 }}
               >
-                {/* Decorative glow */}
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: '20%',
-                    right: '-10%',
-                    width: 200,
-                    height: 200,
-                    background: 'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
-                    filter: 'blur(40px)',
-                    pointerEvents: 'none'
-                  }}
-                />
                 {submitted ? (
                   <Box sx={{ textAlign: 'center', py: 6, position: 'relative' }}>
                     <Box
@@ -176,7 +162,7 @@ function Contact() {
                         width: 80,
                         height: 80,
                         borderRadius: '50%',
-                        background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                        background: '#10b981',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -192,12 +178,12 @@ function Contact() {
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontWeight: 600,
                         mb: 1,
-                        color: 'white'
+                        color: '#ededed'
                       }}
                     >
                       Message Sent!
                     </Typography>
-                    <Typography sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                    <Typography sx={{ color: '#888888' }}>
                       I'll get back to you as soon as possible.
                     </Typography>
                   </Box>
@@ -223,7 +209,7 @@ function Contact() {
                         fontFamily: "'Space Grotesk', sans-serif",
                         fontWeight: 600,
                         mb: 3,
-                        color: 'white',
+                        color: '#ededed',
                         fontSize: { xs: '1.1rem', md: '1.25rem' }
                       }}
                     >
@@ -286,23 +272,24 @@ function Contact() {
                         disabled={isSubmitting || !captchaValue}
                         endIcon={!isSubmitting && <Send />}
                         sx={{
-                          background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                          background: '#8b5cf6',
                           py: { xs: 1.5, md: 1.75 },
                           borderRadius: '14px',
                           fontSize: { xs: '0.95rem', md: '1.05rem' },
                           fontWeight: 600,
                           textTransform: 'none',
-                          boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
+                          boxShadow: '0 4px 20px rgba(139, 92, 246, 0.3)',
                           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                           '&:hover': {
+                            background: '#7c3aed',
                             transform: 'translateY(-3px)',
-                            boxShadow: '0 12px 35px rgba(124, 58, 237, 0.5)'
+                            boxShadow: '0 12px 35px rgba(139, 92, 246, 0.4)'
                           },
                           '&:active': {
                             transform: 'translateY(-1px)'
                           },
                           '&:disabled': {
-                            background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                            background: '#8b5cf6',
                             opacity: 0.7,
                             color: 'white'
                           }
@@ -325,7 +312,7 @@ function Contact() {
                     fontFamily: "'Space Grotesk', sans-serif",
                     fontWeight: 600,
                     mb: 2,
-                    color: 'white'
+                    color: '#ededed'
                   }}
                 >
                   Other Ways to Connect
@@ -333,7 +320,7 @@ function Contact() {
 
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.8)',
+                    color: '#888888',
                     lineHeight: 1.8,
                     mb: 3
                   }}
@@ -355,16 +342,16 @@ function Contact() {
                         alignItems: 'center',
                         gap: 2,
                         p: 2,
-                        background: 'rgba(17, 17, 17, 0.7)',
-                        border: '1px solid rgba(255,255,255,0.06)',
+                        background: '#161616',
+                        border: '1px solid #1e1e1e',
                         borderRadius: '14px',
-                        color: 'rgba(255,255,255,0.8)',
+                        color: '#888888',
                         textDecoration: 'none',
                         transition: 'all 0.3s ease',
                         '&:hover': {
-                          borderColor: 'rgba(124, 58, 237, 0.3)',
+                          borderColor: 'rgba(139, 92, 246, 0.3)',
                           transform: 'translateX(8px)',
-                          background: 'rgba(124, 58, 237, 0.1)',
+                          background: 'rgba(139, 92, 246, 0.08)',
                           '& .social-icon': {
                             color: social.color
                           }
@@ -377,11 +364,11 @@ function Contact() {
                           width: 44,
                           height: 44,
                           borderRadius: '12px',
-                          background: 'rgba(124, 58, 237, 0.1)',
+                          background: 'rgba(139, 92, 246, 0.1)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: 'rgba(255,255,255,0.7)',
+                          color: '#888888',
                           transition: 'color 0.3s ease',
                           flexShrink: 0
                         }}

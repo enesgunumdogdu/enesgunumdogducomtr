@@ -80,13 +80,13 @@ const categorizeRepo = (repo) => {
 
 const filterCategories = [
   { id: 'all', label: 'All', icon: null },
-  { id: 'Backend', label: 'Backend', icon: '🔧' },
-  { id: 'Web', label: 'Web', icon: '🌐' },
-  { id: 'AI/ML', label: 'AI/ML', icon: '🤖' },
-  { id: 'Mobile', label: 'Mobile', icon: '📱' },
-  { id: 'DevOps', label: 'DevOps', icon: '☁️' },
-  { id: 'Tools', label: 'Tools', icon: '🛠️' },
-  { id: 'Other', label: 'Other', icon: '📦' }
+  { id: 'Backend', label: 'Backend', icon: null },
+  { id: 'Web', label: 'Web', icon: null },
+  { id: 'AI/ML', label: 'AI/ML', icon: null },
+  { id: 'Mobile', label: 'Mobile', icon: null },
+  { id: 'DevOps', label: 'DevOps', icon: null },
+  { id: 'Tools', label: 'Tools', icon: null },
+  { id: 'Other', label: 'Other', icon: null }
 ]
 
 function Projects() {
@@ -104,7 +104,7 @@ function Projects() {
       title: 'Cartoon Weather',
       description: 'Cute weather app with 7 animated character themes and full-screen video wallpapers that react to real-time conditions. Features multi-location tracking, home screen widgets, AQI, hourly & 7-day forecasts, and supports 19 languages.',
       tags: ['Swift', 'iOS', 'SwiftUI'],
-      icon: '🌤️',
+      icon: null,
       gradient: 'linear-gradient(135deg, #f59e0b 0%, #3b82f6 100%)',
       github: null,
       live: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
@@ -114,17 +114,17 @@ function Projects() {
       title: 'Fitness Microservice App',
       description: 'Cloud-native fitness tracking platform built on Spring Boot microservices with Spring Cloud ecosystem. Features OAuth2/OIDC via Keycloak, polyglot persistence, and AI-powered recommendations.',
       tags: ['Java 24', 'Spring Boot', 'Spring Cloud', 'RabbitMQ', 'Gemini API', 'Keycloak'],
-      icon: '💪🏾',
-      gradient: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+      icon: null,
+      gradient: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
       github: 'https://github.com/enesgunumdogdu/fitness-microservice',
       live: 'https://aeg.fitness'
     },
     {
-      title: 'Güzel Hatırla',
+      title: 'Guzel Hatirla',
       description: 'A digital memory garden where we can collect and share the beautiful moments we lived with the people we lost. Built with Next.js and TypeScript.',
       tags: ['Next.js', 'TypeScript', 'React', 'Tailwind CSS'],
-      icon: '🕊️',
-      gradient: 'linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)',
+      icon: null,
+      gradient: 'linear-gradient(135deg, #06b6d4 0%, #10b981 100%)',
       github: 'https://github.com/enesgunumdogdu/guzelhatirlacom',
       live: 'https://guzelhatirla.com'
     },
@@ -132,8 +132,8 @@ function Projects() {
       title: 'Hospital Management System',
       description: 'Full-stack hospital management using Layered Architecture pattern with RESTful APIs, DTO pattern with MapStruct, and modern Vue.js 3 SPA frontend.',
       tags: ['Java 24', 'Spring Boot', 'Spring Security', 'Vue.js', 'PostgreSQL', 'Docker'],
-      icon: '🏥',
-      gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+      icon: null,
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)',
       github: 'https://github.com/enesgunumdogdu/hospital-management',
       live: null
     },
@@ -141,17 +141,17 @@ function Projects() {
       title: 'Task Management API',
       description: 'RESTful CRUD operations for TaskList and Task entities using Layered Architecture pattern, DTO-based clean API design, and global exception handling.',
       tags: ['Java 24', 'Spring Boot', 'PostgreSQL', 'Maven', 'Docker'],
-      icon: '📋',
-      gradient: 'linear-gradient(135deg, #ec4899 0%, #f43f5e 100%)',
+      icon: null,
+      gradient: 'linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)',
       github: 'https://github.com/enesgunumdogdu/Task-Management-API',
       live: null
     },
     {
       title: 'YouTube Channel',
-      description: 'Educational content on Data Structures and Algorithms — one of the core subjects of computer engineering. Simplifying complex concepts for students with 50K+ total views.',
+      description: 'Educational content on Data Structures and Algorithms \u2014 one of the core subjects of computer engineering. Simplifying complex concepts for students with 50K+ total views.',
       tags: ['Education', 'DSA', 'Content Creation'],
-      icon: '▶️',
-      gradient: 'linear-gradient(135deg, #ff0000 0%, #cc0000 100%)',
+      icon: null,
+      gradient: 'linear-gradient(135deg, #ef4444 0%, #f59e0b 100%)',
       github: null,
       live: 'https://youtube.com/@enesgunumdogdu',
       isYouTube: true
@@ -282,9 +282,9 @@ function Projects() {
               <Box
                 onClick={handleCardClick}
                 sx={{
-                  background: 'rgba(17, 17, 17, 0.7)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: '#161616',
+                  border: '1px solid #1e1e1e',
+                  borderLeft: '3px solid #10b981',
                   borderRadius: '24px',
                   overflow: 'hidden',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -292,8 +292,9 @@ function Projects() {
                   cursor: 'pointer',
                   '&:hover': {
                     transform: 'translateY(-8px)',
-                    borderColor: 'rgba(124, 58, 237, 0.3)',
-                    boxShadow: '0 20px 60px rgba(124, 58, 237, 0.15)',
+                    borderColor: 'rgba(16, 185, 129, 0.3)',
+                    borderLeftColor: '#10b981',
+                    boxShadow: '0 20px 60px rgba(16, 185, 129, 0.08)',
                     '& .project-image': {
                       transform: 'scale(1.1)'
                     }
@@ -328,7 +329,9 @@ function Projects() {
                     ) : project.isAppStore ? (
                       <Apple sx={{ fontSize: '5rem', color: 'white' }} />
                     ) : (
-                      project.icon
+                      <Box sx={{ fontSize: '5rem', color: 'white', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif" }}>
+                        {project.title.charAt(0)}
+                      </Box>
                     )}
                   </Box>
 
@@ -340,7 +343,7 @@ function Projects() {
                       left: 0,
                       right: 0,
                       height: '5%',
-                      background: 'linear-gradient(180deg, transparent 0%, rgba(17,17,17,0.9) 100%)'
+                      background: 'linear-gradient(180deg, transparent 0%, #161616 100%)'
                     }}
                   />
                 </Box>
@@ -353,7 +356,7 @@ function Projects() {
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontWeight: 600,
                       mb: 1,
-                      color: 'white',
+                      color: '#ededed',
                       fontSize: '1.1rem'
                     }}
                   >
@@ -362,7 +365,7 @@ function Projects() {
 
                   <Typography
                     sx={{
-                      color: 'rgba(255,255,255,0.75)',
+                      color: '#888888',
                       lineHeight: 1.8,
                       mb: 2,
                       flex: 1,
@@ -380,11 +383,11 @@ function Projects() {
                           px: 1.25,
                           py: 0.4,
                           borderRadius: '6px',
-                          background: 'rgba(124, 58, 237, 0.1)',
-                          border: '1px solid rgba(124, 58, 237, 0.15)',
+                          background: 'rgba(16, 185, 129, 0.08)',
+                          border: '1px solid rgba(16, 185, 129, 0.15)',
                           fontSize: '0.7rem',
                           fontWeight: 500,
-                          color: '#c4b5fd'
+                          color: '#6ee7b7'
                         }}
                       >
                         {tag}
@@ -396,10 +399,10 @@ function Projects() {
                           px: 1.25,
                           py: 0.4,
                           borderRadius: '6px',
-                          background: 'rgba(124, 58, 237, 0.05)',
+                          background: 'rgba(16, 185, 129, 0.05)',
                           fontSize: '0.7rem',
                           fontWeight: 500,
-                          color: 'rgba(255,255,255,0.4)'
+                          color: '#555555'
                         }}
                       >
                         +{project.tags.length - 4}
@@ -414,14 +417,14 @@ function Projects() {
                         onClick={handleGitHubClick}
                         size="small"
                         sx={{
-                          color: 'rgba(255,255,255,0.6)',
-                          border: '1px solid rgba(255,255,255,0.1)',
+                          color: '#888888',
+                          border: '1px solid #2a2a2a',
                           borderRadius: '10px',
                           transition: 'all 0.2s ease',
                           '&:hover': {
-                            color: 'white',
-                            borderColor: '#7c3aed',
-                            backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                            color: '#ededed',
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
                           }
                         }}
                       >
@@ -445,32 +448,19 @@ function Projects() {
                           borderRadius: '8px',
                           fontSize: '0.8rem',
                           fontWeight: 600,
-                          background: 'linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(236,72,153,0.15) 100%)',
-                          border: '1px solid rgba(168,85,247,0.3)',
-                          color: '#c4b5fd',
-                          position: 'relative',
-                          overflow: 'hidden',
-                          '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            inset: 0,
-                            background: 'linear-gradient(90deg, transparent, rgba(168,85,247,0.2), rgba(236,72,153,0.2), transparent)',
-                            animation: 'shimmer-slide 2.5s ease-in-out infinite',
-                          },
-                          '@keyframes shimmer-slide': {
-                            '0%': { transform: 'translateX(-100%)' },
-                            '100%': { transform: 'translateX(100%)' }
-                          }
+                          background: 'rgba(16, 185, 129, 0.1)',
+                          border: '1px solid rgba(16, 185, 129, 0.2)',
+                          color: '#6ee7b7',
                         }}
                       >
                         {project.live.includes('youtube') ? (
-                          <YouTube sx={{ fontSize: 16, position: 'relative', zIndex: 1, color: '#ff4444' }} />
+                          <YouTube sx={{ fontSize: 16, color: '#ef4444' }} />
                         ) : project.isAppStore ? (
-                          <Apple sx={{ fontSize: 16, position: 'relative', zIndex: 1 }} />
+                          <Apple sx={{ fontSize: 16 }} />
                         ) : (
-                          <Launch sx={{ fontSize: 14, position: 'relative', zIndex: 1 }} />
+                          <Launch sx={{ fontSize: 14 }} />
                         )}
-                        <span style={{ position: 'relative', zIndex: 1 }}>
+                        <span>
                           {project.live.includes('youtube')
                             ? 'YouTube'
                             : project.isAppStore
@@ -501,7 +491,7 @@ function Projects() {
 
         {/* Category Filters */}
         <Box sx={{ mb: 2 }}>
-          <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', mb: 1.5, textAlign: 'center' }}>
+          <Typography sx={{ fontSize: '0.8rem', color: '#555555', mb: 1.5, textAlign: 'center' }}>
             Category
           </Typography>
           <Box
@@ -523,7 +513,6 @@ function Projects() {
                   key={filter.id}
                   label={
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-                      {filter.icon && <span>{filter.icon}</span>}
                       <span>{filter.label}</span>
                       <Box
                         component="span"
@@ -545,18 +534,18 @@ function Projects() {
                     fontWeight: 500,
                     borderRadius: '12px',
                     border: '1px solid',
-                    borderColor: isActive ? 'rgba(168, 85, 247, 0.5)' : 'rgba(255,255,255,0.1)',
+                    borderColor: isActive ? 'rgba(16, 185, 129, 0.5)' : '#2a2a2a',
                     background: isActive
-                      ? 'rgba(168, 85, 247, 0.2)'
-                      : 'rgba(255,255,255,0.03)',
-                    color: isActive ? '#c4b5fd' : 'rgba(255,255,255,0.7)',
+                      ? 'rgba(16, 185, 129, 0.15)'
+                      : '#161616',
+                    color: isActive ? '#6ee7b7' : '#888888',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
                     '&:hover': {
-                      borderColor: 'rgba(168, 85, 247, 0.4)',
+                      borderColor: 'rgba(16, 185, 129, 0.4)',
                       background: isActive
-                        ? 'rgba(168, 85, 247, 0.25)'
-                        : 'rgba(168, 85, 247, 0.1)',
+                        ? 'rgba(16, 185, 129, 0.2)'
+                        : 'rgba(16, 185, 129, 0.08)',
                     }
                   }}
                 />
@@ -567,7 +556,7 @@ function Projects() {
 
         {/* Language Filters */}
         <Box sx={{ mb: 4 }}>
-          <Typography sx={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', mb: 1.5, textAlign: 'center' }}>
+          <Typography sx={{ fontSize: '0.8rem', color: '#555555', mb: 1.5, textAlign: 'center' }}>
             Language
           </Typography>
           <Box
@@ -588,18 +577,18 @@ function Projects() {
                 fontWeight: 500,
                 borderRadius: '8px',
                 border: '1px solid',
-                borderColor: activeLanguages.includes('all') ? 'rgba(168, 85, 247, 0.5)' : 'rgba(255,255,255,0.1)',
+                borderColor: activeLanguages.includes('all') ? 'rgba(16, 185, 129, 0.5)' : '#2a2a2a',
                 background: activeLanguages.includes('all')
-                  ? 'rgba(168, 85, 247, 0.2)'
-                  : 'rgba(255,255,255,0.03)',
-                color: activeLanguages.includes('all') ? '#c4b5fd' : 'rgba(255,255,255,0.7)',
+                  ? 'rgba(16, 185, 129, 0.15)'
+                  : '#161616',
+                color: activeLanguages.includes('all') ? '#6ee7b7' : '#888888',
                 transition: 'all 0.2s ease',
                 cursor: 'pointer',
                 '&:hover': {
-                  borderColor: 'rgba(168, 85, 247, 0.4)',
+                  borderColor: 'rgba(16, 185, 129, 0.4)',
                   background: activeLanguages.includes('all')
-                    ? 'rgba(168, 85, 247, 0.25)'
-                    : 'rgba(168, 85, 247, 0.1)',
+                    ? 'rgba(16, 185, 129, 0.2)'
+                    : 'rgba(16, 185, 129, 0.08)',
                 }
               }}
             />
@@ -635,11 +624,11 @@ function Projects() {
                     fontWeight: 500,
                     borderRadius: '8px',
                     border: '1px solid',
-                    borderColor: isActive ? `${color}80` : 'rgba(255,255,255,0.1)',
+                    borderColor: isActive ? `${color}80` : '#2a2a2a',
                     background: isActive
                       ? `${color}20`
-                      : 'rgba(255,255,255,0.03)',
-                    color: isActive ? color : 'rgba(255,255,255,0.7)',
+                      : '#161616',
+                    color: isActive ? color : '#888888',
                     transition: 'all 0.2s ease',
                     cursor: 'pointer',
                     '&:hover': {
@@ -658,7 +647,7 @@ function Projects() {
         {/* Loading State */}
         {loading && (
           <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-            <CircularProgress sx={{ color: '#a855f7' }} />
+            <CircularProgress sx={{ color: '#10b981' }} />
           </Box>
         )}
 
@@ -668,7 +657,7 @@ function Projects() {
             sx={{
               textAlign: 'center',
               py: 8,
-              color: 'rgba(255,255,255,0.6)'
+              color: '#888888'
             }}
           >
             <Typography sx={{ mb: 2 }}>Failed to load repositories</Typography>
@@ -676,10 +665,10 @@ function Projects() {
               variant="outlined"
               onClick={() => window.location.reload()}
               sx={{
-                borderColor: 'rgba(255,255,255,0.2)',
-                color: 'white',
+                borderColor: '#2a2a2a',
+                color: '#ededed',
                 '&:hover': {
-                  borderColor: '#a855f7'
+                  borderColor: '#10b981'
                 }
               }}
             >
@@ -695,7 +684,7 @@ function Projects() {
               sx={{
                 textAlign: 'center',
                 mb: 3,
-                color: 'rgba(255,255,255,0.5)',
+                color: '#555555',
                 fontSize: '0.9rem'
               }}
             >
@@ -712,9 +701,8 @@ function Projects() {
                     rel="noopener noreferrer"
                     sx={{
                       display: 'block',
-                      background: 'rgba(17, 17, 17, 0.5)',
-                      backdropFilter: 'blur(10px)',
-                      border: '1px solid rgba(255,255,255,0.06)',
+                      background: '#161616',
+                      border: '1px solid #1e1e1e',
                       borderRadius: '16px',
                       p: 2.5,
                       height: '100%',
@@ -722,20 +710,20 @@ function Projects() {
                       transition: 'all 0.3s ease',
                       '&:hover': {
                         transform: 'translateY(-4px)',
-                        borderColor: 'rgba(124, 58, 237, 0.3)',
-                        boxShadow: '0 10px 40px rgba(124, 58, 237, 0.1)',
+                        borderColor: 'rgba(16, 185, 129, 0.3)',
+                        boxShadow: '0 10px 40px rgba(16, 185, 129, 0.06)',
                       }
                     }}
                   >
                     {/* Header */}
                     <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, mb: 1.5 }}>
-                      <GitHub sx={{ color: 'rgba(255,255,255,0.5)', fontSize: 20, mt: 0.25 }} />
+                      <GitHub sx={{ color: '#555555', fontSize: 20, mt: 0.25 }} />
                       <Box sx={{ flex: 1, minWidth: 0 }}>
                         <Typography
                           sx={{
                             fontFamily: "'Space Grotesk', sans-serif",
                             fontWeight: 600,
-                            color: 'white',
+                            color: '#ededed',
                             fontSize: '0.95rem',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -756,7 +744,7 @@ function Projects() {
                     {/* Description */}
                     <Typography
                       sx={{
-                        color: 'rgba(255,255,255,0.6)',
+                        color: '#666666',
                         fontSize: '0.8rem',
                         lineHeight: 1.6,
                         mb: 2,
@@ -783,7 +771,7 @@ function Projects() {
                               background: languageColors[repo.language] || '#8b8b8b'
                             }}
                           />
-                          <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>
+                          <Typography sx={{ fontSize: '0.75rem', color: '#666666' }}>
                             {repo.language}
                           </Typography>
                         </Box>
@@ -798,9 +786,9 @@ function Projects() {
                               px: 1,
                               py: 0.25,
                               borderRadius: '4px',
-                              background: 'rgba(124, 58, 237, 0.1)',
+                              background: 'rgba(16, 185, 129, 0.08)',
                               fontSize: '0.65rem',
-                              color: '#c4b5fd'
+                              color: '#6ee7b7'
                             }}
                           >
                             {cat}
@@ -809,7 +797,7 @@ function Projects() {
                       </Box>
 
                       {/* Updated date */}
-                      <Typography sx={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)' }}>
+                      <Typography sx={{ fontSize: '0.7rem', color: '#555555' }}>
                         {formatDate(repo.updated_at)}
                       </Typography>
                     </Box>
@@ -825,9 +813,8 @@ function Projects() {
       <Box className="section" sx={{ pt: 2 }}>
         <Box
           sx={{
-            background: 'rgba(17, 17, 17, 0.7)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: '#161616',
+            border: '1px solid #1e1e1e',
             borderRadius: '24px',
             p: { xs: 4, md: 6 },
             textAlign: 'center',
@@ -835,21 +822,6 @@ function Projects() {
             overflow: 'hidden'
           }}
         >
-          {/* Background glow */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: 400,
-              height: 400,
-              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%)',
-              filter: 'blur(40px)',
-              pointerEvents: 'none'
-            }}
-          />
-
           <Typography
             variant="h3"
             sx={{
@@ -857,7 +829,7 @@ function Projects() {
               fontWeight: 700,
               mb: 2,
               position: 'relative',
-              color: 'white',
+              color: '#ededed',
               fontSize: { xs: '1.5rem', md: '2rem' }
             }}
           >
@@ -866,7 +838,7 @@ function Projects() {
 
           <Typography
             sx={{
-              color: 'rgba(255,255,255,0.8)',
+              color: '#888888',
               maxWidth: 500,
               mx: 'auto',
               mb: 4,
@@ -886,18 +858,19 @@ function Projects() {
             variant="contained"
             endIcon={<ArrowForward />}
             sx={{
-              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+              background: '#10b981',
               px: 4,
               py: 1.5,
               borderRadius: '12px',
               fontSize: '1rem',
               fontWeight: 600,
               textTransform: 'none',
-              boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
+              boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
               position: 'relative',
               '&:hover': {
+                background: '#059669',
                 transform: 'translateY(-3px)',
-                boxShadow: '0 8px 30px rgba(124, 58, 237, 0.5)',
+                boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)',
               }
             }}
           >

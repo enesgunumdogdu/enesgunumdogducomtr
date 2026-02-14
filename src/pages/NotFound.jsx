@@ -34,12 +34,6 @@ function NotFound() {
 
   return (
     <Box className="page not-found-page">
-      <Box className="hero-bg">
-        <Box className="orb orb-1" />
-        <Box className="orb orb-2" />
-        <Box className="orb orb-3" />
-      </Box>
-
       <Container maxWidth="md">
         <Box className="not-found-content">
           {/* Rive Animation */}
@@ -55,10 +49,11 @@ function NotFound() {
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 800,
               letterSpacing: '-3px',
-              mb: 2
+              mb: 2,
+              color: '#10b981'
             }}
           >
-            <span className="gradient-text-animated">404</span>
+            404
           </Typography>
 
           {/* Subtitle */}
@@ -67,7 +62,7 @@ function NotFound() {
             sx={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 600,
-              color: 'white',
+              color: '#ededed',
               mb: 2
             }}
           >
@@ -78,7 +73,7 @@ function NotFound() {
           <Typography
             sx={{
               fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-              color: 'rgba(255,255,255,0.7)',
+              color: '#888888',
               maxWidth: 500,
               mx: 'auto',
               lineHeight: 1.8,
@@ -96,17 +91,18 @@ function NotFound() {
             variant="contained"
             startIcon={<Home />}
             sx={{
-              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+              background: '#10b981',
               px: 4,
               py: 1.5,
               borderRadius: '12px',
               fontSize: '1rem',
               fontWeight: 600,
               textTransform: 'none',
-              boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
+              boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
               '&:hover': {
+                background: '#059669',
                 transform: 'translateY(-3px)',
-                boxShadow: '0 8px 30px rgba(124, 58, 237, 0.5)',
+                boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)',
               }
             }}
           >
@@ -126,7 +122,7 @@ function NotFound() {
             <Typography
               sx={{
                 fontSize: '0.9rem',
-                color: 'rgba(255,255,255,0.5)'
+                color: '#555555'
               }}
             >
               Lost? Try one of these:
@@ -146,18 +142,18 @@ function NotFound() {
                   to={link.to}
                   variant="text"
                   sx={{
-                    color: '#a855f7',
+                    color: '#10b981',
                     fontSize: '0.9rem',
                     fontWeight: 500,
                     textTransform: 'none',
                     px: 2,
                     py: 0.75,
                     borderRadius: '8px',
-                    border: '1px solid rgba(168, 85, 247, 0.2)',
+                    border: '1px solid rgba(16, 185, 129, 0.2)',
                     transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: 'rgba(168, 85, 247, 0.1)',
-                      borderColor: 'rgba(168, 85, 247, 0.4)',
+                      backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                      borderColor: 'rgba(16, 185, 129, 0.4)',
                       transform: 'translateY(-2px)'
                     }
                   }}

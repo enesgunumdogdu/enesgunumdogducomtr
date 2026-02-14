@@ -41,11 +41,7 @@ function Home() {
     <Box className="page">
       {/* Hero Section */}
       <Box className="hero">
-        <Box className="hero-bg">
-          <Box className="orb orb-1" />
-          <Box className="orb orb-2" />
-          <Box className="orb orb-3" />
-        </Box>
+        <Box className="hero-bg" />
 
         <Container maxWidth="lg">
           <Box className="hero-content">
@@ -62,7 +58,6 @@ function Home() {
             >
               <span>Hi, I'm </span>
               <span className="gradient-text">Enes</span>
-              <span> 👋🏾</span>
             </Typography>
 
             {/* Typing Effect */}
@@ -70,7 +65,7 @@ function Home() {
               sx={{
                 fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
                 fontWeight: 500,
-                color: 'rgba(255,255,255,0.9)',
+                color: '#ededed',
                 mb: 3,
                 minHeight: '2.5rem',
                 display: 'flex',
@@ -79,9 +74,9 @@ function Home() {
                 gap: 1
               }}
             >
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>&lt;</span>
+              <span style={{ color: '#555555' }}>&lt;</span>
               <TypeWriter words={roles} speed={80} deleteSpeed={40} delay={2000} />
-              <span style={{ color: 'rgba(255,255,255,0.5)' }}>/&gt;</span>
+              <span style={{ color: '#555555' }}>/&gt;</span>
             </Box>
 
             {/* Subtitle */}
@@ -89,7 +84,7 @@ function Home() {
               className="hero-subtitle"
               sx={{
                 fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-                color: 'rgba(255,255,255,0.8)',
+                color: '#888888',
                 maxWidth: 600,
                 mx: 'auto',
                 lineHeight: 1.8,
@@ -109,17 +104,18 @@ function Home() {
                 variant="contained"
                 endIcon={<ArrowForward />}
                 sx={{
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                  background: '#10b981',
                   px: 4,
                   py: 1.5,
                   borderRadius: '12px',
                   fontSize: '1rem',
                   fontWeight: 600,
                   textTransform: 'none',
-                  boxShadow: '0 4px 20px rgba(124, 58, 237, 0.4)',
+                  boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
                   '&:hover': {
+                    background: '#059669',
                     transform: 'translateY(-3px)',
-                    boxShadow: '0 8px 30px rgba(124, 58, 237, 0.5)',
+                    boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)',
                   }
                 }}
               >
@@ -137,12 +133,11 @@ function Home() {
                   fontSize: '1rem',
                   fontWeight: 600,
                   textTransform: 'none',
-                  borderColor: 'rgba(255,255,255,0.15)',
-                  color: 'white',
-                  backdropFilter: 'blur(10px)',
+                  borderColor: '#2a2a2a',
+                  color: '#ededed',
                   '&:hover': {
-                    borderColor: '#7c3aed',
-                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     transform: 'translateY(-3px)',
                   }
                 }}
@@ -158,14 +153,14 @@ function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  color: 'rgba(255,255,255,0.5)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: '#888888',
+                  border: '1px solid #2a2a2a',
                   borderRadius: '12px',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    color: 'white',
-                    borderColor: '#7c3aed',
-                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    color: '#ededed',
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     transform: 'translateY(-3px)',
                   }
                 }}
@@ -177,14 +172,14 @@ function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 sx={{
-                  color: 'rgba(255,255,255,0.5)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  color: '#888888',
+                  border: '1px solid #2a2a2a',
                   borderRadius: '12px',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    color: 'white',
-                    borderColor: '#7c3aed',
-                    backgroundColor: 'rgba(124, 58, 237, 0.1)',
+                    color: '#ededed',
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     transform: 'translateY(-3px)',
                   }
                 }}
@@ -220,9 +215,8 @@ function Home() {
               <Card
                 className="feature-card"
                 sx={{
-                  background: 'rgba(17, 17, 17, 0.7)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: '#161616',
+                  border: '1px solid #1e1e1e',
                   borderRadius: '24px',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   height: '100%',
@@ -235,15 +229,15 @@ function Home() {
                     left: 0,
                     right: 0,
                     height: '3px',
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                    background: '#06b6d4',
                     transform: 'scaleX(0)',
                     transformOrigin: 'left',
                     transition: 'transform 0.4s ease',
                   },
                   '&:hover': {
                     transform: 'translateY(-8px)',
-                    borderColor: 'rgba(124, 58, 237, 0.3)',
-                    boxShadow: '0 20px 60px rgba(124, 58, 237, 0.15)',
+                    borderColor: 'rgba(6, 182, 212, 0.3)',
+                    boxShadow: '0 20px 60px rgba(6, 182, 212, 0.1)',
                     '&::before': {
                       transform: 'scaleX(1)',
                     }
@@ -257,12 +251,12 @@ function Home() {
                       width: 60,
                       height: 60,
                       borderRadius: '16px',
-                      background: 'rgba(124, 58, 237, 0.1)',
+                      background: 'rgba(6, 182, 212, 0.1)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       mb: 2.5,
-                      color: '#a855f7'
+                      color: '#06b6d4'
                     }}
                   >
                     {feature.icon}
@@ -273,14 +267,14 @@ function Home() {
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontWeight: 600,
                       mb: 1.5,
-                      color: 'white'
+                      color: '#ededed'
                     }}
                   >
                     {feature.title}
                   </Typography>
                   <Typography
                     sx={{
-                      color: 'rgba(255,255,255,0.75)',
+                      color: '#888888',
                       lineHeight: 1.8,
                       mb: 2,
                       fontSize: '0.95rem'
@@ -296,11 +290,11 @@ function Home() {
                           px: 1.5,
                           py: 0.5,
                           borderRadius: '8px',
-                          background: 'rgba(124, 58, 237, 0.1)',
-                          border: '1px solid rgba(124, 58, 237, 0.15)',
+                          background: 'rgba(6, 182, 212, 0.08)',
+                          border: '1px solid rgba(6, 182, 212, 0.15)',
                           fontSize: '0.75rem',
                           fontWeight: 500,
-                          color: '#c4b5fd'
+                          color: '#22d3ee'
                         }}
                       >
                         {tag}
@@ -331,30 +325,31 @@ function Home() {
               sx={{
                 textAlign: 'center',
                 p: { xs: 2.5, md: 3 },
-                background: 'rgba(17, 17, 17, 0.5)',
+                background: '#161616',
                 borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.06)',
+                border: '1px solid #1e1e1e',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  borderColor: 'rgba(124, 58, 237, 0.3)',
+                  borderColor: 'rgba(16, 185, 129, 0.2)',
                   transform: 'translateY(-5px)',
                 }
               }}
             >
               <Typography
-                className="stat-number gradient-text"
+                className="stat-number"
                 sx={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
                   fontWeight: 700,
-                  mb: 0.5
+                  mb: 0.5,
+                  color: '#10b981'
                 }}
               >
                 {stat.number}
               </Typography>
               <Typography
                 sx={{
-                  color: 'rgba(255,255,255,0.7)',
+                  color: '#888888',
                   fontSize: { xs: '0.8rem', md: '0.9rem' },
                   fontWeight: 500
                 }}
@@ -371,9 +366,8 @@ function Home() {
           onClick={() => window.open('https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541', '_blank', 'noopener,noreferrer')}
           sx={{
             position: 'relative',
-            background: 'rgba(17, 17, 17, 0.7)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: '#161616',
+            border: '1px solid #1e1e1e',
             borderRadius: '28px',
             overflow: 'hidden',
             cursor: 'pointer',
@@ -381,7 +375,7 @@ function Home() {
             '&:hover': {
               transform: 'translateY(-4px)',
               borderColor: 'rgba(245, 158, 11, 0.3)',
-              boxShadow: '0 20px 60px rgba(245, 158, 11, 0.12)',
+              boxShadow: '0 20px 60px rgba(245, 158, 11, 0.08)',
               '& .app-icon': {
                 transform: 'scale(1.1) rotate(-3deg)',
               },
@@ -430,7 +424,7 @@ function Home() {
                 height: { xs: 80, md: 90 },
                 minWidth: { xs: 80, md: 90 },
                 borderRadius: '22px',
-                boxShadow: '0 8px 32px rgba(245, 158, 11, 0.3)',
+                boxShadow: '0 8px 32px rgba(245, 158, 11, 0.2)',
                 transition: 'transform 0.4s ease',
                 objectFit: 'cover',
               }}
@@ -470,7 +464,7 @@ function Home() {
                     Now Live
                   </Typography>
                 </Box>
-                <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)' }}>
+                <Typography sx={{ fontSize: '0.75rem', color: '#555555' }}>
                   App Store
                 </Typography>
               </Box>
@@ -480,7 +474,7 @@ function Home() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 700,
                   fontSize: { xs: '1.3rem', md: '1.5rem' },
-                  color: 'white',
+                  color: '#ededed',
                   mb: 0.75,
                 }}
               >
@@ -489,7 +483,7 @@ function Home() {
 
               <Typography
                 sx={{
-                  color: 'rgba(255,255,255,0.65)',
+                  color: '#888888',
                   fontSize: { xs: '0.85rem', md: '0.9rem' },
                   lineHeight: 1.7,
                   maxWidth: 600,
@@ -507,11 +501,11 @@ function Home() {
                       px: 1.25,
                       py: 0.35,
                       borderRadius: '6px',
-                      background: i === 4 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(124, 58, 237, 0.1)',
-                      border: `1px solid ${i === 4 ? 'rgba(245, 158, 11, 0.2)' : 'rgba(124, 58, 237, 0.15)'}`,
+                      background: i === 4 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(245, 158, 11, 0.08)',
+                      border: `1px solid ${i === 4 ? 'rgba(245, 158, 11, 0.2)' : 'rgba(245, 158, 11, 0.15)'}`,
                       fontSize: '0.7rem',
                       fontWeight: 500,
-                      color: i === 4 ? '#fbbf24' : '#c4b5fd',
+                      color: i === 4 ? '#fbbf24' : '#f59e0b',
                     }}
                   >
                     {tag}
@@ -530,18 +524,18 @@ function Home() {
                 px: 2.5,
                 py: 1.25,
                 borderRadius: '14px',
-                border: '1px solid rgba(255,255,255,0.1)',
-                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid #2a2a2a',
+                background: '#1e1e1e',
                 transition: 'all 0.3s ease',
                 whiteSpace: 'nowrap',
               }}
             >
               <Apple sx={{ fontSize: 22 }} />
               <Box>
-                <Typography sx={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.5)', lineHeight: 1 }}>
+                <Typography sx={{ fontSize: '0.6rem', color: '#555555', lineHeight: 1 }}>
                   Download on the
                 </Typography>
-                <Typography sx={{ fontSize: '0.95rem', fontWeight: 600, color: 'white', lineHeight: 1.3 }}>
+                <Typography sx={{ fontSize: '0.95rem', fontWeight: 600, color: '#ededed', lineHeight: 1.3 }}>
                   App Store
                 </Typography>
               </Box>

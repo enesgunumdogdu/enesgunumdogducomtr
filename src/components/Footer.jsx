@@ -7,9 +7,8 @@ const Footer = () => {
       sx={{
         py: 4,
         mt: 6,
-        borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-        background: "rgba(10, 10, 10, 0.8)",
-        backdropFilter: "blur(10px)",
+        borderTop: "1px solid #1e1e1e",
+        background: "#161616",
       }}
     >
       <Container maxWidth="lg">
@@ -24,7 +23,7 @@ const Footer = () => {
           <Typography
             variant="body2"
             sx={{
-              color: "rgba(255, 255, 255, 0.6)",
+              color: "#888888",
               fontWeight: 500,
               letterSpacing: "0.5px",
             }}
@@ -42,12 +41,12 @@ const Footer = () => {
               },
             }}
           >
-            💜
+            &#x1F49A;
           </Typography>
           <Typography
             variant="body2"
             sx={{
-              color: "rgba(255, 255, 255, 0.6)",
+              color: "#888888",
               fontWeight: 500,
               letterSpacing: "0.5px",
             }}
@@ -59,11 +58,11 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             underline="none"
-            className="gradient-text"
             sx={{
               fontWeight: 700,
               fontSize: "1rem",
               letterSpacing: "0.5px",
+              color: "#10b981",
               transition: "all 0.3s ease",
               "&:hover": {
                 transform: "translateY(-2px)",

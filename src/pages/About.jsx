@@ -77,7 +77,7 @@ function About() {
             <span className="hero-name-first">
               I'm <span className="gradient-text-animated">Enes</span>
             </span>
-            <span className="hero-name-surname gradient-text-animated">Günümdoğdu</span>
+            <span className="hero-name-surname gradient-text-animated">Gunumdogdu</span>
           </Typography>
           <Typography className="section-subtitle">
             Backend Developer passionate about building scalable systems
@@ -89,7 +89,7 @@ function About() {
             <Box className="about-image-glow" />
             <Box className="about-image-ring" />
             <Box className="about-image">
-              👨🏾‍💻
+              <span role="img" aria-label="developer">&#x1F468;&#x1F3FE;&#x200D;&#x1F4BB;</span>
             </Box>
           </Box>
 
@@ -101,15 +101,15 @@ function About() {
                 fontWeight: 600,
                 fontSize: 'clamp(1.5rem, 3vw, 2rem)',
                 mb: 2,
-                color: 'white'
+                color: '#ededed'
               }}
             >
-              Building <span className="gradient-text">Robust</span> Backend Systems
+              Building <span style={{ color: '#f59e0b' }}>Robust</span> Backend Systems
             </Typography>
 
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.8)',
+                color: '#888888',
                 lineHeight: 1.9,
                 mb: 2,
                 fontSize: { xs: '0.95rem', md: '1.05rem' }
@@ -122,7 +122,7 @@ function About() {
 
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.8)',
+                color: '#888888',
                 lineHeight: 1.9,
                 mb: 2,
                 fontSize: { xs: '0.95rem', md: '1.05rem' }
@@ -135,7 +135,7 @@ function About() {
 
             <Typography
               sx={{
-                color: 'rgba(255,255,255,0.8)',
+                color: '#888888',
                 lineHeight: 1.9,
                 fontSize: { xs: '0.95rem', md: '1.05rem' }
               }}
@@ -153,7 +153,7 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">Tech Stack</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text-shimmer">Technologies I Use</span>
+            <span style={{ color: '#f59e0b' }}>Technologies I Use</span>
           </Typography>
           <Typography className="section-subtitle">
             Modern tools and frameworks for building production-ready applications
@@ -173,16 +173,15 @@ function About() {
             <Box
               key={categoryIndex}
               sx={{
-                background: 'rgba(17, 17, 17, 0.7)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#161616',
+                border: '1px solid #1e1e1e',
                 borderRadius: '20px',
                 p: { xs: 2.5, md: 3 },
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  borderColor: 'rgba(124, 58, 237, 0.3)',
+                  borderColor: 'rgba(245, 158, 11, 0.3)',
                   transform: 'translateY(-4px)',
-                  boxShadow: '0 15px 40px rgba(124, 58, 237, 0.1)'
+                  boxShadow: '0 15px 40px rgba(245, 158, 11, 0.06)'
                 }
               }}
             >
@@ -191,10 +190,10 @@ function About() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 600,
                   fontSize: { xs: '0.9rem', md: '1rem' },
-                  color: '#a855f7',
+                  color: '#f59e0b',
                   mb: 2,
                   pb: 1.5,
-                  borderBottom: '1px solid rgba(124, 58, 237, 0.15)'
+                  borderBottom: '1px solid rgba(245, 158, 11, 0.15)'
                 }}
               >
                 {category.title}
@@ -209,14 +208,14 @@ function About() {
                       py: 2,
                       fontSize: { xs: '0.8rem', md: '0.85rem' },
                       fontWeight: 500,
-                      background: 'rgba(124, 58, 237, 0.08)',
-                      border: '1px solid rgba(124, 58, 237, 0.12)',
-                      color: 'rgba(255,255,255,0.85)',
+                      background: 'rgba(245, 158, 11, 0.08)',
+                      border: '1px solid rgba(245, 158, 11, 0.12)',
+                      color: '#ededed',
                       borderRadius: '10px',
                       transition: 'all 0.25s ease',
                       '&:hover': {
-                        background: 'rgba(124, 58, 237, 0.2)',
-                        borderColor: '#7c3aed',
+                        background: 'rgba(245, 158, 11, 0.15)',
+                        borderColor: '#f59e0b',
                         transform: 'translateY(-2px)'
                       }
                     }}
@@ -233,7 +232,7 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">Experience</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text-shimmer">My Journey</span>
+            <span style={{ color: '#f59e0b' }}>My Journey</span>
           </Typography>
         </Box>
 
@@ -249,9 +248,8 @@ function About() {
             <Box
               key={index}
               sx={{
-                background: 'rgba(17, 17, 17, 0.7)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: '#161616',
+                border: '1px solid #1e1e1e',
                 borderRadius: { xs: '20px', md: '24px' },
                 p: { xs: 2.5, md: 3 },
                 height: '100%',
@@ -268,14 +266,14 @@ function About() {
                   left: 0,
                   right: 0,
                   height: '3px',
-                  background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+                  background: '#f59e0b',
                   transform: 'scaleX(0)',
                   transformOrigin: 'left',
                   transition: 'transform 0.4s ease',
                 },
                 '&:hover': {
                   transform: { xs: 'none', md: 'translateY(-8px)' },
-                  borderColor: 'rgba(124, 58, 237, 0.3)',
+                  borderColor: 'rgba(245, 158, 11, 0.3)',
                   '&::before': {
                     transform: 'scaleX(1)',
                   }
@@ -316,10 +314,10 @@ function About() {
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: 0.75,
-                    color: 'white',
+                    color: '#ededed',
                     transition: 'all 0.3s ease',
                     '&:hover': {
-                      color: '#a855f7'
+                      color: '#f59e0b'
                     }
                   }}
                 >
@@ -338,7 +336,7 @@ function About() {
 
                 <Typography
                   sx={{
-                    color: '#a855f7',
+                    color: '#f59e0b',
                     fontSize: { xs: '0.85rem', md: '0.9rem' },
                     fontWeight: 500,
                     mb: 0.5,
@@ -350,7 +348,7 @@ function About() {
 
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.4)',
+                    color: '#555555',
                     fontSize: { xs: '0.75rem', md: '0.8rem' },
                     mb: 1.5
                   }}
@@ -360,7 +358,7 @@ function About() {
 
                 <Typography
                   sx={{
-                    color: 'rgba(255,255,255,0.75)',
+                    color: '#888888',
                     lineHeight: 1.7,
                     mb: 2,
                     fontSize: { xs: '0.85rem', md: '0.9rem' },
@@ -378,11 +376,11 @@ function About() {
                         px: 1.25,
                         py: 0.4,
                         borderRadius: '8px',
-                        background: 'rgba(124, 58, 237, 0.1)',
-                        border: '1px solid rgba(124, 58, 237, 0.15)',
+                        background: 'rgba(245, 158, 11, 0.08)',
+                        border: '1px solid rgba(245, 158, 11, 0.15)',
                         fontSize: { xs: '0.7rem', md: '0.75rem' },
                         fontWeight: 500,
-                        color: '#c4b5fd'
+                        color: '#fbbf24'
                       }}
                     >
                       {tag}
@@ -399,15 +397,14 @@ function About() {
         <Box className="section-header">
           <Box className="section-label">Education</Box>
           <Typography variant="h2" className="section-title">
-            <span className="gradient-text-shimmer">Academic Background</span>
+            <span style={{ color: '#f59e0b' }}>Academic Background</span>
           </Typography>
         </Box>
 
         <Box
           sx={{
-            background: 'rgba(17, 17, 17, 0.7)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.06)',
+            background: '#161616',
+            border: '1px solid #1e1e1e',
             borderRadius: { xs: '20px', md: '24px' },
             p: { xs: 3, md: 4 },
             maxWidth: 700,
@@ -421,7 +418,7 @@ function About() {
               left: 0,
               right: 0,
               height: '3px',
-              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
+              background: '#f59e0b',
             }
           }}
         >
@@ -431,12 +428,12 @@ function About() {
                 width: { xs: 56, md: 64 },
                 height: { xs: 56, md: 64 },
                 borderRadius: '16px',
-                background: 'rgba(124, 58, 237, 0.1)',
+                background: 'rgba(245, 158, 11, 0.1)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
-                color: '#a855f7'
+                color: '#f59e0b'
               }}
             >
               {education.icon}
@@ -449,7 +446,7 @@ function About() {
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontWeight: 600,
                   mb: 0.5,
-                  color: 'white',
+                  color: '#ededed',
                   fontSize: { xs: '1.1rem', md: '1.25rem' }
                 }}
               >
@@ -458,7 +455,7 @@ function About() {
 
               <Typography
                 sx={{
-                  color: '#a855f7',
+                  color: '#f59e0b',
                   fontSize: { xs: '0.9rem', md: '1rem' },
                   fontWeight: 500,
                   mb: 0.5
@@ -469,7 +466,7 @@ function About() {
 
               <Typography
                 sx={{
-                  color: 'rgba(255,255,255,0.4)',
+                  color: '#555555',
                   fontSize: { xs: '0.8rem', md: '0.85rem' },
                   mb: 2
                 }}
@@ -479,7 +476,7 @@ function About() {
 
               <Typography
                 sx={{
-                  color: 'rgba(255,255,255,0.75)',
+                  color: '#888888',
                   lineHeight: 1.8,
                   mb: 2,
                   fontSize: { xs: '0.9rem', md: '1rem' }
@@ -496,11 +493,11 @@ function About() {
                       px: 1.25,
                       py: 0.4,
                       borderRadius: '8px',
-                      background: 'rgba(124, 58, 237, 0.1)',
-                      border: '1px solid rgba(124, 58, 237, 0.15)',
+                      background: 'rgba(245, 158, 11, 0.08)',
+                      border: '1px solid rgba(245, 158, 11, 0.15)',
                       fontSize: { xs: '0.7rem', md: '0.75rem' },
                       fontWeight: 500,
-                      color: '#c4b5fd'
+                      color: '#fbbf24'
                     }}
                   >
                     {tag}
