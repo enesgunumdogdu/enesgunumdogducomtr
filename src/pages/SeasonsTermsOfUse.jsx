@@ -7,67 +7,96 @@ function SeasonsTermsOfUse() {
 
   const sections = [
     {
-      title: '1. Acceptance of Terms',
+      title: '1. App Description',
       content: [
         {
-          text: 'By accessing or using the App, you confirm that you have read, understood, and agree to be bound by these Terms and our Privacy Policy. If you are using the App on behalf of an organization, you represent that you have the authority to bind that organization to these Terms.'
+          text: 'Seasons is a mobile application that provides real-time tracking of seasonal progress, including season countdowns, moon phase information, and customizable widgets. The App is available on iOS devices.'
         }
       ]
     },
     {
-      title: '2. Description of the App',
+      title: '2. License',
       content: [
         {
-          text: 'Seasons is a mobile application designed to:',
+          text: 'We grant you a limited, non-exclusive, non-transferable, revocable license to use the App for personal, non-commercial purposes on any Apple device that you own or control, subject to the Apple Media Services Terms and Conditions.'
+        }
+      ]
+    },
+    {
+      title: '3. Free and Premium Features',
+      content: [
+        {
+          subtitle: 'a) Free Features',
+          text: 'The App provides core functionality at no cost, including:',
           items: [
-            'Track seasonal progress, including the percentage of the current season completed, days passed, and days remaining.',
-            'Display sunrise and sunset times, daylight duration, and daily solar information.',
-            'Show moon phase data, including illumination percentage and upcoming full moon dates.',
-            'Provide information about upcoming astronomical events such as solstices and equinoxes.',
-            'Offer customizable home screen and lock screen widgets.'
-          ],
-          note: 'The App performs all astronomical calculations locally on your device using mathematical algorithms. Results are approximations and may vary slightly from official astronomical data.'
+            'Real-time season progress tracking',
+            'Moon phase information',
+            'Home screen and lock screen widgets (default theme)',
+            'Season change notifications',
+            'Hemisphere selection for 85+ countries'
+          ]
+        },
+        {
+          subtitle: 'b) Seasons Pro (Premium Subscription)',
+          text: 'Additional features are available through a paid subscription:',
+          items: [
+            'Monthly Plan: $0.99/month (with a 3-day free trial for eligible users)',
+            'Annual Plan: $9.99/year'
+          ]
+        },
+        {
+          text: 'Premium features include:',
+          items: [
+            'Access to all premium visual themes (Frost, Bloom, Dusk, Ember)',
+            'All future premium themes'
+          ]
         }
       ]
     },
     {
-      title: '3. Eligibility',
+      title: '4. Subscription Terms',
       content: [
         {
-          text: 'You must be at least 13 years of age (or the minimum age of digital consent in your jurisdiction) to use the App. By using the App, you represent and warrant that you meet this age requirement.'
+          subtitle: 'a) Billing',
+          items: [
+            'Payment is charged to your Apple ID account upon confirmation of purchase.',
+            'Subscriptions automatically renew unless canceled at least 24 hours before the end of the current billing period.',
+            'Your account will be charged for renewal within 24 hours prior to the end of the current period at the same price.'
+          ]
+        },
+        {
+          subtitle: 'b) Free Trial',
+          items: [
+            'Eligible users may receive a 3-day free trial for the monthly plan.',
+            'If you do not cancel before the trial ends, your subscription will automatically convert to a paid subscription.',
+            'Free trial eligibility is determined by Apple and may only be used once per Apple ID.'
+          ]
+        },
+        {
+          subtitle: 'c) Managing Subscriptions',
+          items: [
+            'You can manage or cancel your subscription at any time through your device\'s Settings > Apple ID > Subscriptions.',
+            'Cancellation takes effect at the end of the current billing period. You will retain access to premium features until that date.',
+            'No refunds will be provided for the unused portion of a subscription period.'
+          ]
+        },
+        {
+          subtitle: 'd) Price Changes',
+          text: 'We reserve the right to change subscription prices. Any price changes will take effect at the start of the next subscription period following the date of the price change. Your continued use after a price change constitutes acceptance of the new price.'
         }
       ]
     },
     {
-      title: '4. User Accounts',
+      title: '5. User Responsibilities',
       content: [
         {
-          text: 'The App does not require you to create an account. No registration, login, or personal information submission is needed to use the App.'
-        }
-      ]
-    },
-    {
-      title: '5. In-App Purchases',
-      content: [
-        {
-          subtitle: '5.1 Seasons Pro',
-          text: 'The App offers a one-time, non-recurring in-app purchase called "Seasons Pro" that unlocks premium widget themes (Minimal, Aurora, and Mono). The Classic theme is available to all users at no charge.'
-        },
-        {
-          subtitle: '5.2 Pricing',
-          text: 'The price of Seasons Pro is displayed within the App and is determined by the Apple App Store. Pricing may vary by region and is subject to change.'
-        },
-        {
-          subtitle: '5.3 Payment',
-          text: 'All payments are processed through the Apple App Store. By making a purchase, you agree to Apple\'s terms and conditions for in-app purchases. We do not directly process or store any payment information.'
-        },
-        {
-          subtitle: '5.4 Refunds',
-          text: 'All purchases are final. Refund requests must be directed to Apple through the App Store, as Apple handles all payment processing. We do not have the ability to issue refunds directly.'
-        },
-        {
-          subtitle: '5.5 Restore Purchases',
-          text: 'If you have previously purchased Seasons Pro, you may restore your purchase at no additional cost using the "Restore Purchases" feature in the App\'s settings. This allows you to access premium features on the same Apple ID across multiple devices.'
+          text: 'You agree to:',
+          items: [
+            'Use the App in compliance with all applicable laws and regulations.',
+            'Not attempt to reverse engineer, decompile, or disassemble the App.',
+            'Not use the App for any unlawful or unauthorized purpose.',
+            'Not attempt to interfere with or disrupt the App\'s functionality.'
+          ]
         }
       ]
     },
@@ -75,143 +104,93 @@ function SeasonsTermsOfUse() {
       title: '6. Intellectual Property',
       content: [
         {
-          subtitle: '6.1 Ownership',
-          text: 'The App and all of its content, features, functionality, design, code, graphics, icons, and visual elements are owned by Enes Gunumdogdu and are protected by international copyright, trademark, and other intellectual property laws.'
-        },
+          text: 'All content, features, and functionality of the App — including but not limited to design, graphics, icons, animations, text, and code — are owned by Enes Günümdoğdu and are protected by international copyright, trademark, and other intellectual property laws. The app name "Seasons" and all associated visual assets are trademarks of Enes Günümdoğdu.'
+        }
+      ]
+    },
+    {
+      title: '7. Disclaimer of Warranties',
+      content: [
         {
-          subtitle: '6.2 Limited License',
-          text: 'We grant you a limited, non-exclusive, non-transferable, revocable license to use the App for your personal, non-commercial purposes in accordance with these Terms and Apple\'s standard Licensed Application End User License Agreement (EULA).'
-        },
-        {
-          subtitle: '6.3 Restrictions',
-          text: 'You agree not to:',
+          text: 'The App is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied, including but not limited to:',
           items: [
-            'Copy, modify, distribute, sell, or lease any part of the App.',
-            'Reverse engineer, decompile, or disassemble the App or attempt to extract its source code.',
-            'Remove, alter, or obscure any proprietary notices or labels on the App.',
-            'Use the App for any unlawful purpose or in violation of any applicable laws or regulations.',
-            'Use the App to develop a competing product or service.',
-            'Use automated systems or software to extract data from the App.'
-          ]
-        }
-      ]
-    },
-    {
-      title: '7. Location Services',
-      content: [
-        {
-          text: 'The App may request access to your device\'s location services to provide accurate sunrise and sunset calculations. Location access is optional and the App will function with reduced accuracy if you decline. You can manage location permissions at any time through your device\'s Settings. For more details on how location data is used, please refer to our Privacy Policy.'
-        }
-      ]
-    },
-    {
-      title: '8. Widgets',
-      content: [
-        {
-          text: 'The App provides widgets for your device\'s home screen and lock screen. Widgets rely on Apple\'s WidgetKit framework and update according to system-defined schedules. We do not guarantee real-time accuracy of widget data, as update frequency is managed by the operating system.'
-        }
-      ]
-    },
-    {
-      title: '9. Accuracy Disclaimer',
-      content: [
-        {
-          text: 'The astronomical data provided by the App, including but not limited to seasonal progress, sunrise and sunset times, moon phases, and solstice and equinox dates, are calculated using mathematical approximations. While we strive for accuracy, this data is provided for informational and entertainment purposes only. We do not guarantee the precision of any calculations and recommend consulting official astronomical sources for critical applications such as navigation, scientific research, or professional use.'
-        }
-      ]
-    },
-    {
-      title: '10. Disclaimer of Warranties',
-      content: [
-        {
-          text: 'THE APP IS PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE APP WILL BE UNINTERRUPTED, ERROR-FREE, SECURE, OR FREE OF VIRUSES OR OTHER HARMFUL COMPONENTS.'
-        }
-      ]
-    },
-    {
-      title: '11. Limitation of Liability',
-      content: [
-        {
-          text: 'TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL ENES GUNUMDOGDU BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM:',
-          items: [
-            'Your use of or inability to use the App;',
-            'Any errors, inaccuracies, or omissions in the App\'s content or calculations;',
-            'Unauthorized access to or alteration of your data;',
-            'Any third-party conduct or content on or related to the App;',
-            'Any other matter relating to the App.'
+            'Warranties of merchantability or fitness for a particular purpose.',
+            'Warranties that the App will be uninterrupted, error-free, or secure.',
+            'Warranties regarding the accuracy of season or moon phase calculations.'
           ],
-          note: 'Our total liability to you for all claims arising from or related to the App shall not exceed the amount you paid for the App or in-app purchases in the twelve (12) months preceding the claim.'
+          note: 'Season and astronomical calculations are approximations and may vary slightly from official sources.'
         }
       ]
     },
     {
-      title: '12. Indemnification',
+      title: '8. Limitation of Liability',
       content: [
         {
-          text: 'You agree to defend, indemnify, and hold harmless Enes Gunumdogdu from and against any and all claims, damages, obligations, losses, liabilities, costs, and expenses (including reasonable attorney\'s fees) arising from:',
+          text: 'To the maximum extent permitted by applicable law, Enes Günümdoğdu shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses resulting from:',
           items: [
-            'Your use of the App;',
-            'Your violation of these Terms;',
-            'Your violation of any third-party rights, including intellectual property rights;',
-            'Your violation of any applicable law, rule, or regulation.'
+            'Your use or inability to use the App.',
+            'Any unauthorized access to or use of our services.',
+            'Any bugs, viruses, or other harmful code transmitted through the App.'
           ]
         }
       ]
     },
     {
-      title: '13. Third-Party Services',
+      title: '9. Third-Party Services',
       content: [
         {
-          text: 'The App uses third-party services including Firebase Crashlytics (Google LLC) for crash reporting and RevenueCat, Inc. for in-app purchase management. Your use of the App is also subject to the terms and conditions of these third-party services. We are not responsible for the practices of any third-party services.',
+          text: 'The App uses third-party services including:',
           items: [
-            'Firebase: https://firebase.google.com/support/privacy',
-            'RevenueCat: https://www.revenuecat.com/privacy'
-          ]
+            'Apple StoreKit for in-app purchases',
+            'RevenueCat for subscription management',
+            'Firebase for analytics and crash reporting'
+          ],
+          note: 'Your use of these services is subject to their respective terms and conditions. We are not responsible for the practices of third-party services.'
         }
       ]
     },
     {
-      title: '14. Termination',
+      title: '10. Termination',
       content: [
         {
-          text: 'We reserve the right to terminate or suspend your access to the App at any time, without prior notice or liability, for any reason, including if you breach these Terms. Upon termination, your right to use the App will cease immediately. Provisions of these Terms that by their nature should survive termination shall survive, including but not limited to ownership provisions, warranty disclaimers, indemnity, and limitations of liability.'
+          text: 'We reserve the right to terminate or suspend your access to the App at any time, without prior notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties.'
         }
       ]
     },
     {
-      title: '15. Changes to These Terms',
+      title: '11. Changes to Terms',
       content: [
         {
-          text: 'We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide notice by updating the "Last Updated" date at the top of these Terms. Your continued use of the App after any such changes constitutes your acceptance of the new Terms. It is your responsibility to review these Terms periodically.'
+          text: 'We may modify these Terms at any time. Changes will be effective upon posting the updated Terms. Your continued use of the App after changes are posted constitutes acceptance of the modified Terms.'
         }
       ]
     },
     {
-      title: '16. Governing Law',
+      title: '12. Governing Law',
       content: [
         {
-          text: 'These Terms shall be governed by and construed in accordance with the laws of the Republic of Turkey, without regard to its conflict of law provisions. Any disputes arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts in Turkey.'
+          text: 'These Terms shall be governed by and construed in accordance with the laws of the Republic of Turkey, without regard to conflict of law provisions.'
         }
       ]
     },
     {
-      title: '17. Severability',
+      title: '13. Apple-Specific Terms',
       content: [
         {
-          text: 'If any provision of these Terms is held to be invalid, illegal, or unenforceable, the remaining provisions shall continue in full force and effect. The invalid or unenforceable provision shall be modified to the minimum extent necessary to make it valid and enforceable.'
+          text: 'These Terms are between you and Enes Günümdoğdu, not with Apple. Apple has no obligation to furnish maintenance or support services for the App. In the event of any failure of the App to conform to any applicable warranty, you may notify Apple for a refund of the purchase price (if applicable); beyond that, Apple has no warranty obligation. Apple is not responsible for addressing any claims relating to the App. Apple is a third-party beneficiary of these Terms.'
         }
       ]
     },
     {
-      title: '18. Entire Agreement',
+      title: '14. Severability',
       content: [
         {
-          text: 'These Terms, together with the Privacy Policy, constitute the entire agreement between you and Enes Gunumdogdu regarding the use of the App and supersede all prior agreements and understandings, whether written or oral.'
+          text: 'If any provision of these Terms is found to be unenforceable, the remaining provisions will remain in full force and effect.'
         }
       ]
     },
     {
-      title: '19. Contact Us',
+      title: '15. Contact Us',
       content: [
         {
           contactLink: true
@@ -264,7 +243,7 @@ function SeasonsTermsOfUse() {
               borderBottom: '1px solid rgba(255,255,255,0.1)'
             }}
           >
-            Last Updated: February 10, 2026
+            Last Updated: March 13, 2026
           </Typography>
 
           <Typography
@@ -275,7 +254,7 @@ function SeasonsTermsOfUse() {
               fontSize: { xs: '0.95rem', md: '1rem' }
             }}
           >
-            Please read these Terms of Use ("Terms") carefully before using the Seasons mobile application (the "App") developed by Enes Gunumdogdu ("Developer," "we," "us," or "our"). By downloading, installing, or using the App, you agree to be bound by these Terms. If you do not agree to these Terms, do not use the App.
+            Please read these Terms of Use ("Terms") carefully before using the Seasons app ("App") developed by Enes Günümdoğdu ("we", "us", or "our"). By downloading, installing, or using the App, you agree to be bound by these Terms. If you do not agree, do not use the App.
           </Typography>
 
           {sections.map((section, sectionIndex) => (

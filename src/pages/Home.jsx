@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Box, Container, Typography, Button, Grid, Card, CardContent, IconButton } from '@mui/material'
-import { GitHub, LinkedIn, ArrowForward, Storage, CloudQueue, PhoneIphone, Apple } from '@mui/icons-material'
+import { GitHub, LinkedIn, ArrowForward, Storage, CloudQueue, PhoneIphone, Apple, Build } from '@mui/icons-material'
 import TypeWriter from '../components/TypeWriter'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
@@ -533,6 +533,169 @@ function Home() {
               <Box>
                 <Typography sx={{ fontSize: '0.6rem', color: '#555555', lineHeight: 1 }}>
                   Download on the
+                </Typography>
+                <Typography sx={{ fontSize: '0.95rem', fontWeight: 600, color: '#ededed', lineHeight: 1.3 }}>
+                  App Store
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+
+      {/* Seasons App Showcase Section */}
+      <Box className="section" sx={{ pt: 0 }}>
+        <Box
+          sx={{
+            position: 'relative',
+            background: '#161616',
+            border: '1px solid #1e1e1e',
+            borderRadius: '28px',
+            overflow: 'hidden',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            '&:hover': {
+              transform: 'translateY(-4px)',
+              borderColor: 'rgba(251, 191, 36, 0.3)',
+              boxShadow: '0 20px 60px rgba(251, 191, 36, 0.08)',
+              '& .seasons-icon': {
+                transform: 'scale(1.1) rotate(-3deg)',
+              },
+            }
+          }}
+        >
+          {/* Top gradient bar */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '3px',
+              background: 'linear-gradient(90deg, #f59e0b, #ef4444, #10b981, #3b82f6, #f59e0b)',
+              backgroundSize: '200% 100%',
+              animation: 'seasonsGradientSlide 4s linear infinite',
+              '@keyframes seasonsGradientSlide': {
+                '0%': { backgroundPosition: '0% 0%' },
+                '100%': { backgroundPosition: '200% 0%' },
+              }
+            }}
+          />
+
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: { xs: 'flex-start', md: 'center' },
+              flexDirection: { xs: 'column', md: 'row' },
+              gap: { xs: 3, md: 4 },
+              p: { xs: 3, md: 4 },
+            }}
+          >
+            {/* App Icon */}
+            <Box
+              className="seasons-icon"
+              component="img"
+              src="/logos/seasons.png"
+              alt="Seasons"
+              sx={{
+                width: { xs: 80, md: 90 },
+                height: { xs: 80, md: 90 },
+                minWidth: { xs: 80, md: 90 },
+                borderRadius: '22px',
+                boxShadow: '0 8px 32px rgba(251, 191, 36, 0.2)',
+                transition: 'transform 0.4s ease',
+                objectFit: 'cover',
+              }}
+            />
+
+            {/* Content */}
+            <Box sx={{ flex: 1 }}>
+              {/* In Development badge */}
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+                <Box
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 0.75,
+                    px: 1.25,
+                    py: 0.4,
+                    borderRadius: '20px',
+                    background: 'rgba(251, 191, 36, 0.1)',
+                    border: '1px solid rgba(251, 191, 36, 0.25)',
+                  }}
+                >
+                  <Build sx={{ fontSize: 11, color: '#fbbf24' }} />
+                  <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    In Development
+                  </Typography>
+                </Box>
+                <Typography sx={{ fontSize: '0.75rem', color: '#555555' }}>
+                  Coming Soon
+                </Typography>
+              </Box>
+
+              <Typography
+                sx={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700,
+                  fontSize: { xs: '1.3rem', md: '1.5rem' },
+                  color: '#ededed',
+                  mb: 0.75,
+                }}
+              >
+                Seasons: Solstice & Season Tracker
+              </Typography>
+
+              <Typography
+                sx={{
+                  color: '#888888',
+                  fontSize: { xs: '0.85rem', md: '0.9rem' },
+                  lineHeight: 1.7,
+                  maxWidth: 600,
+                }}
+              >
+                Track your season in real time with beautiful visualizations. Moon phases, solstice & equinox countdowns, customizable widgets for every screen, and 5 stunning themes. Supports 85+ countries and 6 languages.
+              </Typography>
+
+              {/* Tags */}
+              <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
+                {['Swift', 'iOS', 'SwiftUI', 'WidgetKit', '6 Languages'].map((tag, i) => (
+                  <Box
+                    key={i}
+                    sx={{
+                      px: 1.25,
+                      py: 0.35,
+                      borderRadius: '6px',
+                      background: 'rgba(251, 191, 36, 0.08)',
+                      border: '1px solid rgba(251, 191, 36, 0.15)',
+                      fontSize: '0.7rem',
+                      fontWeight: 500,
+                      color: '#fbbf24',
+                    }}
+                  >
+                    {tag}
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+
+            {/* Coming Soon Badge */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                px: 2.5,
+                py: 1.25,
+                borderRadius: '14px',
+                border: '1px solid #2a2a2a',
+                background: '#1e1e1e',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <Apple sx={{ fontSize: 22, color: '#888888' }} />
+              <Box>
+                <Typography sx={{ fontSize: '0.6rem', color: '#555555', lineHeight: 1 }}>
+                  Coming soon on the
                 </Typography>
                 <Typography sx={{ fontSize: '0.95rem', fontWeight: 600, color: '#ededed', lineHeight: 1.3 }}>
                   App Store

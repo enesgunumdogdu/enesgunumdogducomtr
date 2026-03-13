@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Box, Typography, Grid, Button, Chip, CircularProgress, IconButton } from '@mui/material'
-import { GitHub, ArrowForward, Star, Launch, YouTube, Apple } from '@mui/icons-material'
+import { GitHub, ArrowForward, Star, Launch, YouTube, Apple, Build } from '@mui/icons-material'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 // Language colors (GitHub style)
@@ -109,6 +109,17 @@ function Projects() {
       github: null,
       live: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
       isAppStore: true
+    },
+    {
+      title: 'Seasons',
+      description: 'Real-time season progress tracker with moon phases, solstice & equinox countdowns, and customizable widgets for every screen. Features 5 stunning themes, 85+ country support, and 6 languages.',
+      tags: ['Swift', 'iOS', 'SwiftUI', 'WidgetKit'],
+      icon: null,
+      gradient: 'linear-gradient(135deg, #f59e0b 0%, #10b981 50%, #3b82f6 100%)',
+      github: null,
+      live: null,
+      isAppStore: true,
+      isInDevelopment: true
     },
     {
       title: 'Fitness Microservice App',
@@ -269,7 +280,9 @@ function Projects() {
             const primaryLink = project.live || project.github
 
             const handleCardClick = () => {
-              window.open(primaryLink, '_blank', 'noopener,noreferrer')
+              if (primaryLink) {
+                window.open(primaryLink, '_blank', 'noopener,noreferrer')
+              }
             }
 
             const handleGitHubClick = (e) => {
@@ -289,7 +302,7 @@ function Projects() {
                   overflow: 'hidden',
                   transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                   height: '100%',
-                  cursor: 'pointer',
+                  cursor: primaryLink ? 'pointer' : 'default',
                   '&:hover': {
                     transform: 'translateY(-8px)',
                     borderColor: 'rgba(16, 185, 129, 0.3)',
@@ -430,6 +443,28 @@ function Projects() {
                       >
                         <GitHub fontSize="small" />
                       </IconButton>
+                    )}
+                    {project.isInDevelopment && (
+                      <Box
+                        component="span"
+                        className="live-badge"
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 0.75,
+                          px: 1.5,
+                          py: 0.75,
+                          borderRadius: '8px',
+                          fontSize: '0.8rem',
+                          fontWeight: 600,
+                          background: 'rgba(251, 191, 36, 0.1)',
+                          border: '1px solid rgba(251, 191, 36, 0.2)',
+                          color: '#fbbf24',
+                        }}
+                      >
+                        <Build sx={{ fontSize: 14 }} />
+                        <span>In Development</span>
+                      </Box>
                     )}
                     {project.live && (
                       <Box

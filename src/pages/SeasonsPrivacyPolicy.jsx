@@ -10,58 +10,59 @@ function SeasonsPrivacyPolicy() {
       title: '1. Information We Collect',
       content: [
         {
-          subtitle: '1.1 Location Data',
-          text: 'The App may request access to your device\'s location services to provide accurate sunrise and sunset times, daylight duration, and moon phase calculations based on your geographic position. Location data is used solely for these on-device calculations and is not transmitted to our servers or shared with third parties. If you decline location access, the App will use default coordinates and continue to function with reduced accuracy.'
+          text: 'We are committed to minimizing data collection. The Seasons app does NOT require account creation, login, or any personal information to function.'
         },
         {
-          subtitle: '1.2 User Preferences',
-          text: 'The App stores your preferences locally on your device, including:',
+          subtitle: 'a) Information You Provide',
+          text: 'Country/hemisphere selection: During onboarding, you select your country to determine your hemisphere. This data is stored locally on your device only and is never transmitted to our servers.',
           items: [
-            'Hemisphere selection (Northern or Southern)',
-            'App theme preference (System, Light, or Dark)',
-            'Notification settings',
-            'Widget theme and display preferences'
-          ],
-          note: 'These preferences are stored using Apple\'s UserDefaults and App Groups frameworks and remain on your device. They are not transmitted to any external server.'
+            'Notification preferences: Your preference for receiving season change notifications is stored locally on your device.'
+          ]
         },
         {
-          subtitle: '1.3 Purchase Information',
-          text: 'If you choose to make an in-app purchase ("Seasons Pro"), your transaction is processed by Apple\'s App Store and managed through RevenueCat, our purchase management provider. We do not collect or store your payment information (such as credit card numbers) directly. RevenueCat receives transaction data necessary to verify your purchase entitlement.'
-        },
-        {
-          subtitle: '1.4 Crash and Diagnostic Data',
-          text: 'We use Firebase Crashlytics, a service provided by Google LLC, to collect crash reports and diagnostic information. This data helps us identify and fix bugs and improve the App\'s stability. Crash data may include device type, operating system version, app state at the time of the crash, and stack traces. This data does not include personally identifiable information.'
-        }
-      ]
-    },
-    {
-      title: '2. Information We Do Not Collect',
-      content: [
-        {
-          text: 'We want to be transparent about the data we do not collect:',
+          subtitle: 'b) Automatically Collected Information',
           items: [
-            'We do not collect your name, email address, phone number, or any contact information.',
-            'We do not collect health or fitness data.',
-            'We do not collect browsing history or search queries.',
-            'We do not collect photos, videos, or media from your device.',
-            'We do not collect your contacts or address book data.',
-            'We do not use advertising identifiers (IDFA).',
-            'We do not use analytics or tracking tools. Firebase Analytics is disabled in the App.',
-            'We do not display advertisements or use any ad networks.'
+            'Crash data: We use Firebase Crashlytics to collect anonymous crash reports and non-fatal error logs. This helps us identify and fix bugs. Crash data is not linked to your identity.',
+            'Analytics data: We use Firebase Analytics to collect anonymous usage data such as app opens, feature usage (theme changes, settings views), and purchase events. This data is not linked to your identity and is used solely to improve the App.',
+            'Purchase data: When you subscribe to Seasons Pro, your purchase is processed through Apple\'s App Store and managed by RevenueCat. We receive anonymous subscription status information (active, expired, trial) but do NOT have access to your payment details, Apple ID, or any personally identifiable information.'
+          ]
+        },
+        {
+          subtitle: 'c) Information We Do NOT Collect',
+          items: [
+            'We do NOT collect your name, email address, or any contact information.',
+            'We do NOT collect or access your location (no GPS, no IP-based location).',
+            'We do NOT collect device identifiers for tracking purposes.',
+            'We do NOT collect photos, contacts, calendar data, or any other personal files.',
+            'We do NOT use cookies or web tracking technologies.'
           ]
         }
       ]
     },
     {
-      title: '3. How We Use Your Information',
+      title: '2. How We Use Your Information',
       content: [
         {
-          text: 'We use the information described above for the following purposes:',
+          text: 'The limited data we collect is used exclusively for:',
           items: [
-            'To calculate and display accurate seasonal, solar, and lunar data based on your location.',
-            'To remember your preferences and provide a personalized experience.',
-            'To verify your in-app purchase status and provide access to premium features.',
-            'To identify and resolve crashes, bugs, and performance issues.'
+            'Providing and maintaining the App\'s core functionality',
+            'Processing and validating your subscription status',
+            'Improving app stability through crash reporting',
+            'Understanding feature usage to improve the user experience',
+            'Delivering local push notifications about season changes (if enabled)'
+          ]
+        }
+      ]
+    },
+    {
+      title: '3. Data Storage and Security',
+      content: [
+        {
+          items: [
+            'All user preferences (country, theme, language, notification settings) are stored locally on your device using Apple\'s standard storage mechanisms (UserDefaults/AppStorage).',
+            'We do not operate any custom backend servers. Your data is not synced to the cloud.',
+            'Subscription data is managed securely by Apple (StoreKit) and RevenueCat.',
+            'Firebase services (Analytics, Crashlytics) are provided by Google and operate under Google\'s security standards.'
           ]
         }
       ]
@@ -70,39 +71,31 @@ function SeasonsPrivacyPolicy() {
       title: '4. Third-Party Services',
       content: [
         {
-          text: 'The App integrates the following third-party services:'
+          text: 'The App uses the following third-party services, each with their own privacy policies:'
         },
         {
-          subtitle: '4.1 Firebase Crashlytics (Google LLC)',
-          text: 'Purpose: Crash reporting and error diagnostics.',
-          items: [
-            'Data collected: Crash logs, device information, and app state at the time of the crash.',
-            'Privacy Policy: https://firebase.google.com/support/privacy'
-          ]
+          subtitle: 'RevenueCat (subscription management)',
+          text: 'Privacy Policy: https://www.revenuecat.com/privacy'
         },
         {
-          subtitle: '4.2 RevenueCat, Inc.',
-          text: 'Purpose: In-app purchase management, subscription entitlement verification, and purchase restoration.',
-          items: [
-            'Data collected: Transaction and purchase data necessary for entitlement verification.',
-            'Privacy Policy: https://www.revenuecat.com/privacy'
-          ]
+          subtitle: 'Firebase Analytics (usage analytics)',
+          text: 'Privacy Policy: https://firebase.google.com/support/privacy'
         },
         {
-          subtitle: '4.3 Apple App Store (Apple Inc.)',
-          text: 'Purpose: Processing in-app purchase transactions.',
-          items: [
-            'Data collected: Transaction and payment data as governed by Apple\'s terms.',
-            'Privacy Policy: https://www.apple.com/legal/privacy/'
-          ]
+          subtitle: 'Firebase Crashlytics (crash reporting)',
+          text: 'Privacy Policy: https://firebase.google.com/support/privacy'
+        },
+        {
+          subtitle: 'Apple StoreKit (in-app purchases)',
+          text: 'Privacy Policy: https://www.apple.com/legal/privacy'
         }
       ]
     },
     {
-      title: '5. Data Storage and Security',
+      title: '5. Data Sharing',
       content: [
         {
-          text: 'All user preferences, location data, and seasonal calculations are processed and stored locally on your device. We do not operate external servers or databases that store your personal information. We implement reasonable security measures to protect the information processed by the App, but no method of electronic storage is 100% secure.'
+          text: 'We do NOT sell, trade, or rent your information to third parties. Anonymous, aggregated analytics and crash data may be processed by our third-party service providers (Firebase, RevenueCat) solely for the purposes described in this policy.'
         }
       ]
     },
@@ -111,10 +104,10 @@ function SeasonsPrivacyPolicy() {
       content: [
         {
           items: [
-            'Location data is used in real-time for calculations and is not persistently stored by us.',
-            'User preferences are stored locally on your device for as long as the App is installed.',
-            'Purchase entitlement data is managed by RevenueCat and Apple and is retained according to their respective policies.',
-            'Crash reports collected by Firebase Crashlytics are retained for 90 days by default.'
+            'Local data: Stored on your device until you delete the App or clear app data.',
+            'Analytics data: Retained by Firebase for up to 14 months in aggregated, anonymized form.',
+            'Crash data: Retained by Firebase Crashlytics for up to 90 days.',
+            'Purchase data: Retained by RevenueCat and Apple as required for subscription management and financial record-keeping.'
           ]
         }
       ]
@@ -123,51 +116,43 @@ function SeasonsPrivacyPolicy() {
       title: '7. Children\'s Privacy',
       content: [
         {
-          text: 'The App is not directed to children under the age of 13 (or the applicable age of digital consent in your jurisdiction). We do not knowingly collect personal information from children. If you believe that a child has provided us with personal information, please contact us so that we can take appropriate action.'
+          text: 'The App does not knowingly collect personal information from children under 13. Since the App does not require account creation or collect personal data, it is suitable for users of all ages.'
         }
       ]
     },
     {
-      title: '8. Data Sharing and Disclosure',
+      title: '8. Tracking and Advertising',
       content: [
         {
-          text: 'We do not sell, trade, or rent your personal information to third parties. We share data only with the third-party services described in Section 4, and only to the extent necessary to provide the App\'s functionality. We may disclose your information if required to do so by law or in response to valid legal requests by public authorities.'
+          text: 'The App does NOT track you across other companies\' apps or websites. We do NOT display advertisements. The NSPrivacyTracking flag in our App is set to false.'
         }
       ]
     },
     {
-      title: '9. Your Rights and Choices',
+      title: '9. Your Rights',
       content: [
         {
-          text: 'You have the following choices regarding your data:',
+          text: 'Since we do not collect personal data or maintain user accounts, there is minimal data to manage. However, you can:',
           items: [
-            'Location Data: You can enable or disable location access at any time through your device\'s Settings.',
-            'Notifications: You can manage notification preferences within the App or through your device\'s Settings.',
-            'Purchase Data: You can manage your subscriptions and purchase history through the Apple App Store.',
-            'Data Deletion: Since data is stored locally on your device, uninstalling the App will remove all locally stored data. For data held by third-party services (RevenueCat, Firebase), please refer to their respective privacy policies.'
+            'Delete all local data by uninstalling the App.',
+            'Manage or cancel your subscription through Apple\'s subscription settings.',
+            'Disable notifications through your device\'s Settings app.',
+            'Request information about data processing by contacting us.'
           ],
           note: 'contact-link'
         }
       ]
     },
     {
-      title: '10. International Users',
+      title: '10. Changes to This Privacy Policy',
       content: [
         {
-          text: 'If you are accessing the App from outside of Turkey, please be aware that crash report data may be processed and stored in countries where our third-party service providers operate (including the United States). By using the App, you consent to the transfer of this information.'
+          text: 'We may update this Privacy Policy from time to time. Changes will be reflected by updating the "Last Updated" date at the top of this page. We encourage you to review this Privacy Policy periodically.'
         }
       ]
     },
     {
-      title: '11. Changes to This Privacy Policy',
-      content: [
-        {
-          text: 'We may update this Privacy Policy from time to time. We will notify you of any changes by updating the "Last Updated" date at the top of this document. You are advised to review this Privacy Policy periodically for any changes. Changes are effective when they are posted.'
-        }
-      ]
-    },
-    {
-      title: '12. Contact Us',
+      title: '11. Contact Us',
       content: [
         {
           contactLink: true
@@ -220,7 +205,7 @@ function SeasonsPrivacyPolicy() {
               borderBottom: '1px solid rgba(255,255,255,0.1)'
             }}
           >
-            Last Updated: February 10, 2026
+            Last Updated: March 13, 2026
           </Typography>
 
           <Typography
@@ -231,7 +216,7 @@ function SeasonsPrivacyPolicy() {
               fontSize: { xs: '0.95rem', md: '1rem' }
             }}
           >
-            Enes Gunumdogdu ("we," "us," or "our") built the Seasons app (the "App") as a commercial application. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application. Please read this Privacy Policy carefully. By using the App, you agree to the collection and use of information in accordance with this policy.
+            Enes Günümdoğdu ("we", "us", or "our") built the Seasons app ("App") as a commercial application. This Privacy Policy explains how we collect, use, and protect your information when you use our App. By using the App, you agree to the collection and use of information in accordance with this Privacy Policy.
           </Typography>
 
           {sections.map((section, sectionIndex) => (
