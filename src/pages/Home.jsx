@@ -1,510 +1,465 @@
+import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Box, Container, Typography, Button, Grid, Card, CardContent, IconButton } from '@mui/material'
-import { GitHub, LinkedIn, ArrowForward, Storage, CloudQueue, PhoneIphone, Apple, Build } from '@mui/icons-material'
-import TypeWriter from '../components/TypeWriter'
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion'
+import { Box, Container, Typography, IconButton } from '@mui/material'
+import { GitHub, LinkedIn, ArrowForward, Apple, Build, East } from '@mui/icons-material'
+import ScrollReveal from '../components/animations/ScrollReveal'
+import Marquee from '../components/animations/Marquee'
+import MagneticButton from '../components/animations/MagneticButton'
+import { StaggerChildren, StaggerItem } from '../components/animations/StaggerChildren'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function Home() {
   useDocumentTitle(null)
 
-  const roles = ['Backend Developer', 'Spring Boot Expert', 'Cloud Enthusiast', 'AI Explorer']
+  const heroRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start']
+  })
 
-  const features = [
-    {
-      icon: <Storage sx={{ fontSize: 28 }} />,
-      title: 'Backend Development',
-      description: 'Building scalable and robust backend systems with Java, Spring Boot, and microservices architecture.',
-      tags: ['Java', 'Spring Boot', 'PostgreSQL']
-    },
-    {
-      icon: <CloudQueue sx={{ fontSize: 28 }} />,
-      title: 'Cloud & DevOps',
-      description: 'Deploying and managing applications on cloud platforms with Docker, GCP, and modern CI/CD pipelines.',
-      tags: ['Docker', 'GCP', 'RabbitMQ']
-    },
-    {
-      icon: <PhoneIphone sx={{ fontSize: 28 }} />,
-      title: 'iOS Development',
-      description: 'Crafting native iOS applications with Swift in my spare time, combining creativity with technical excellence.',
-      tags: ['Swift', 'iOS', 'Mobile']
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+
+  const techStack = [
+    'Java', 'Spring Boot', 'Python', 'TypeScript', 'Swift',
+    'Docker', 'PostgreSQL', 'MongoDB', 'Redis', 'GCP',
+    'RabbitMQ', 'Terraform', 'React', 'Vue.js', 'SwiftUI',
+    'Elasticsearch', 'Microservices', 'REST APIs', 'Spring Cloud', 'Keycloak'
+  ]
+
+  const [time, setTime] = useState('')
+  useEffect(() => {
+    const update = () => {
+      const now = new Date().toLocaleTimeString('en-US', {
+        timeZone: 'Europe/Istanbul',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })
+      setTime(now)
     }
-  ]
-
-  const stats = [
-    { number: '25+', label: 'Projects Delivered' },
-    { number: '4+', label: 'Years Experience' },
-    { number: '50K+', label: 'YouTube Views' },
-    { number: '10+', label: 'Microservices Built' }
-  ]
+    update()
+    const interval = setInterval(update, 60000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <Box className="page">
-      {/* Hero Section */}
-      <Box className="hero">
+    <Box className="page" sx={{ pt: 0 }}>
+      {/* ============ HERO ============ */}
+      <Box ref={heroRef} className="hero" sx={{ position: 'relative' }}>
+        {/* Background gradient orb */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '20%',
+            right: '-10%',
+            width: '60vw',
+            height: '60vw',
+            maxWidth: 700,
+            maxHeight: 700,
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(37,99,235,0.04) 0%, transparent 70%)',
+            pointerEvents: 'none',
+            filter: 'blur(60px)',
+          }}
+        />
 
-        <Container maxWidth="lg">
-          <Box className="hero-content">
-            {/* Title */}
-            <Typography
-              variant="h1"
-              className="hero-title"
-              sx={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 700,
-                letterSpacing: '-2px',
-                mb: 2
-              }}
-            >
-              <span>Hi, I'm </span>
-              <span className="gradient-text">Enes</span>
-            </Typography>
+        <motion.div style={{ y: heroY, opacity: heroOpacity, width: '100%' }}>
+          <Container maxWidth="lg">
+            <Box className="hero-content" sx={{ gap: 4 }}>
+              {/* Status line */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '0.75rem',
+                    color: 'var(--text-muted)',
+                    letterSpacing: '1px',
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box
+                      sx={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: '50%',
+                        background: 'var(--accent)',
+                        boxShadow: '0 0 10px var(--accent)',
+                      }}
+                    />
+                    <span>AVAILABLE FOR WORK</span>
+                  </Box>
+                  <Box sx={{ width: '1px', height: 12, background: 'var(--border-light)' }} />
+                  <span>ISTANBUL {time}</span>
+                </Box>
+              </motion.div>
 
-            {/* Typing Effect */}
-            <Box
-              sx={{
-                fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
-                fontWeight: 500,
-                color: '#ededed',
-                mb: 3,
-                minHeight: '2.5rem',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 1
-              }}
-            >
-              <span style={{ color: '#555555' }}>&lt;</span>
-              <TypeWriter words={roles} speed={80} deleteSpeed={40} delay={2000} />
-              <span style={{ color: '#555555' }}>/&gt;</span>
+              {/* Main heading */}
+              <Box>
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <Typography
+                    variant="h1"
+                    className="hero-title"
+                    sx={{ color: 'var(--text-primary)', mb: 1 }}
+                  >
+                    I build things
+                  </Typography>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  <Typography
+                    variant="h1"
+                    className="hero-title"
+                    sx={{ color: 'var(--accent)' }}
+                  >
+                    that scale.
+                  </Typography>
+                </motion.div>
+              </Box>
+
+              {/* Description */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.15rem' },
+                    color: 'var(--text-secondary)',
+                    maxWidth: 520,
+                    lineHeight: 1.8,
+                    fontWeight: 400,
+                  }}
+                >
+                  Backend developer crafting microservices, cloud infrastructure,
+                  and the occasional iOS app. Currently deep in Java, Spring Boot,
+                  and making systems talk to each other.
+                </Typography>
+              </motion.div>
+
+              {/* CTA + Socials */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                  <MagneticButton
+                    href="/projects"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      padding: '0.85rem 1.75rem',
+                      background: 'var(--accent)',
+                      color: '#09090b',
+                      borderRadius: '10px',
+                      fontSize: '0.9rem',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      letterSpacing: '-0.3px',
+                    }}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      window.location.href = '/projects'
+                    }}
+                  >
+                    See my work <East sx={{ fontSize: 18 }} />
+                  </MagneticButton>
+
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    {[
+                      { icon: <GitHub sx={{ fontSize: 18 }} />, href: 'https://github.com/enesgunumdogdu' },
+                      { icon: <LinkedIn sx={{ fontSize: 18 }} />, href: 'https://www.linkedin.com/in/enesgunumdogdu/' }
+                    ].map((social, i) => (
+                      <MagneticButton
+                        key={i}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        strength={0.4}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: 42,
+                          height: 42,
+                          borderRadius: '10px',
+                          border: '1px solid var(--border-light)',
+                          background: 'transparent',
+                          color: 'var(--text-muted)',
+                          textDecoration: 'none',
+                          transition: 'color 0.3s ease, border-color 0.3s ease',
+                        }}
+                      >
+                        {social.icon}
+                      </MagneticButton>
+                    ))}
+                  </Box>
+                </Box>
+              </motion.div>
             </Box>
+          </Container>
+        </motion.div>
 
-            {/* Subtitle */}
-            <Typography
-              className="hero-subtitle"
-              sx={{
-                fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-                color: '#888888',
-                maxWidth: 600,
-                mx: 'auto',
-                lineHeight: 1.8,
-                mb: 4,
-                textAlign: 'center'
-              }}
-            >
-              Backend developer specialized in Java & Spring Boot ecosystem.
-              Passionate about AI, cloud technologies, and building scalable microservices.
-            </Typography>
-
-            {/* Buttons */}
-            <Box className="hero-buttons">
-              <Button
-                component={Link}
-                to="/projects"
-                variant="contained"
-                endIcon={<ArrowForward />}
-                sx={{
-                  background: '#10b981',
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: '12px',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                  boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
-                  '&:hover': {
-                    background: '#059669',
-                    transform: 'translateY(-3px)',
-                    boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)',
-                  }
-                }}
-              >
-                View My Projects
-              </Button>
-
-              <Button
-                component={Link}
-                to="/contact"
-                variant="outlined"
-                sx={{
-                  px: 4,
-                  py: 1.5,
-                  borderRadius: '12px',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  textTransform: 'none',
-                  borderColor: '#2a2a2a',
-                  color: '#ededed',
-                  '&:hover': {
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    transform: 'translateY(-3px)',
-                  }
-                }}
-              >
-                Get In Touch
-              </Button>
-            </Box>
-
-            {/* Social Links */}
-            <Box sx={{ display: 'flex', gap: 1.5, justifyContent: 'center', mt: 5 }}>
-              <IconButton
-                href="https://github.com/enesgunumdogdu"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  color: '#888888',
-                  border: '1px solid #2a2a2a',
-                  borderRadius: '12px',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    color: '#ededed',
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    transform: 'translateY(-3px)',
-                  }
-                }}
-              >
-                <GitHub />
-              </IconButton>
-              <IconButton
-                href="https://www.linkedin.com/in/enesgunumdogdu/"
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  color: '#888888',
-                  border: '1px solid #2a2a2a',
-                  borderRadius: '12px',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    color: '#ededed',
-                    borderColor: '#10b981',
-                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                    transform: 'translateY(-3px)',
-                  }
-                }}
-              >
-                <LinkedIn />
-              </IconButton>
-            </Box>
-          </Box>
-        </Container>
-
-        {/* Scroll Indicator */}
-        <Box className="scroll-indicator">
+        {/* Scroll indicator */}
+        <motion.div
+          className="scroll-indicator"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+        >
           <span>Scroll</span>
           <Box className="scroll-indicator-line" />
+        </motion.div>
+      </Box>
+
+      {/* ============ TECH MARQUEE ============ */}
+      <Box sx={{ py: 6, borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+        <Marquee items={techStack} speed={60} />
+        <Box sx={{ mt: 2 }}>
+          <Marquee items={techStack.slice().reverse()} speed={70} reverse />
         </Box>
       </Box>
 
-      {/* Features Section */}
-      <Box className="section">
-        <Box className="section-header">
-          <Box className="section-label">Expertise</Box>
-          <Typography variant="h2" className="section-title">
-            <span className="gradient-text-shimmer">What I Do</span>
-          </Typography>
-          <Typography className="section-subtitle">
-            Specializing in backend development, cloud infrastructure, and AI integration
-          </Typography>
-        </Box>
+      {/* ============ WHAT I DO ============ */}
+      <Box className="section" sx={{ py: 10 }}>
+        <ScrollReveal>
+          <Box className="section-header">
+            <Box className="section-label">What I do</Box>
+            <Typography className="section-title">
+              Three things I'm <br />really good at.
+            </Typography>
+          </Box>
+        </ScrollReveal>
 
-        <Grid container spacing={3}>
-          {features.map((feature, index) => (
-            <Grid size={{ xs: 12, md: 4 }} key={index}>
-              <Card
-                className="feature-card"
+        <StaggerChildren style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1px', background: 'var(--border-subtle)', borderRadius: '20px', overflow: 'hidden' }}>
+          {[
+            {
+              num: '01',
+              title: 'Backend Systems',
+              desc: 'Scalable microservices with Java & Spring Boot. Event-driven architectures, polyglot persistence, and APIs that don\'t break at 3am.',
+              tags: ['Java', 'Spring Boot', 'PostgreSQL', 'RabbitMQ']
+            },
+            {
+              num: '02',
+              title: 'Cloud & DevOps',
+              desc: 'Containerized deployments on GCP. Infrastructure as code, CI/CD pipelines, and the kind of monitoring that lets you sleep at night.',
+              tags: ['Docker', 'GCP', 'Terraform', 'Redis']
+            },
+            {
+              num: '03',
+              title: 'iOS Apps',
+              desc: 'Native Swift apps with SwiftUI. From weather apps with animated characters to season trackers with beautiful widgets.',
+              tags: ['Swift', 'SwiftUI', 'WidgetKit', 'iOS']
+            }
+          ].map((item, i) => (
+            <StaggerItem key={i}>
+              <Box
                 sx={{
-                  background: '#161616',
-                  border: '1px solid #1e1e1e',
-                  borderRadius: '24px',
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  height: '100%',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: '3px',
-                    background: '#06b6d4',
-                    transform: 'scaleX(0)',
-                    transformOrigin: 'left',
-                    transition: 'transform 0.4s ease',
-                  },
+                  background: 'var(--bg-secondary)',
+                  p: { xs: 3, md: 4 },
+                  minHeight: { md: 280 },
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  gap: 3,
+                  transition: 'background 0.4s ease',
+                  cursor: 'pointer',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
-                    borderColor: 'rgba(6, 182, 212, 0.3)',
-                    boxShadow: '0 20px 60px rgba(6, 182, 212, 0.1)',
-                    '&::before': {
-                      transform: 'scaleX(1)',
+                    background: 'var(--bg-tertiary)',
+                    '& .card-num': {
+                      color: 'var(--accent)',
                     }
                   }
                 }}
               >
-                <CardContent sx={{ p: 3 }}>
-                  <Box
-                    className="feature-icon"
+                <Box>
+                  <Typography
+                    className="card-num"
                     sx={{
-                      width: 60,
-                      height: 60,
-                      borderRadius: '16px',
-                      background: 'rgba(6, 182, 212, 0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      mb: 2.5,
-                      color: '#06b6d4'
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: '0.75rem',
+                      color: 'var(--text-dim)',
+                      mb: 2,
+                      transition: 'color 0.4s ease',
                     }}
                   >
-                    {feature.icon}
-                  </Box>
+                    {item.num}
+                  </Typography>
                   <Typography
-                    variant="h5"
                     sx={{
                       fontFamily: "'Space Grotesk', sans-serif",
                       fontWeight: 600,
+                      fontSize: { xs: '1.25rem', md: '1.5rem' },
+                      color: 'var(--text-primary)',
                       mb: 1.5,
-                      color: '#ededed'
+                      letterSpacing: '-0.5px',
                     }}
                   >
-                    {feature.title}
+                    {item.title}
                   </Typography>
                   <Typography
                     sx={{
-                      color: '#888888',
-                      lineHeight: 1.8,
-                      mb: 2,
-                      fontSize: '0.95rem'
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.7,
+                      fontSize: '0.9rem',
                     }}
                   >
-                    {feature.description}
+                    {item.desc}
                   </Typography>
-                  <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap' }}>
-                    {feature.tags.map((tag, tagIndex) => (
-                      <Box
-                        key={tagIndex}
-                        sx={{
-                          px: 1.5,
-                          py: 0.5,
-                          borderRadius: '8px',
-                          background: 'rgba(6, 182, 212, 0.08)',
-                          border: '1px solid rgba(6, 182, 212, 0.15)',
-                          fontSize: '0.75rem',
-                          fontWeight: 500,
-                          color: '#22d3ee'
-                        }}
-                      >
-                        {tag}
-                      </Box>
-                    ))}
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
+                </Box>
+                <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap' }}>
+                  {item.tags.map((tag, ti) => (
+                    <Box
+                      key={ti}
+                      sx={{
+                        fontFamily: "'JetBrains Mono', monospace",
+                        px: 1,
+                        py: 0.35,
+                        fontSize: '0.65rem',
+                        color: 'var(--text-muted)',
+                        border: '1px solid var(--border-light)',
+                        borderRadius: '4px',
+                      }}
+                    >
+                      {tag}
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            </StaggerItem>
           ))}
-        </Grid>
+        </StaggerChildren>
       </Box>
 
-      {/* Stats Section */}
-      <Box className="section" sx={{ pt: 0 }}>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
-            gap: { xs: 2, md: 3 },
-            width: '100%'
-          }}
-        >
-          {stats.map((stat, index) => (
-            <Box
-              key={index}
-              className="stat-item"
-              sx={{
-                textAlign: 'center',
-                p: { xs: 2.5, md: 3 },
-                background: '#161616',
-                borderRadius: '20px',
-                border: '1px solid #1e1e1e',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  borderColor: 'rgba(16, 185, 129, 0.2)',
-                  transform: 'translateY(-5px)',
-                }
-              }}
-            >
-              <Typography
-                className="stat-number"
-                sx={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
-                  fontWeight: 700,
-                  mb: 0.5,
-                  color: '#10b981'
-                }}
-              >
-                {stat.number}
-              </Typography>
-              <Typography
-                sx={{
-                  color: '#888888',
-                  fontSize: { xs: '0.8rem', md: '0.9rem' },
-                  fontWeight: 500
-                }}
-              >
-                {stat.label}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-      </Box>
-      {/* App Showcase Section */}
+      {/* ============ FEATURED APPS ============ */}
       <Box className="section" sx={{ pt: 2 }}>
-        <Box
-          onClick={() => window.open('https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541', '_blank', 'noopener,noreferrer')}
-          sx={{
-            position: 'relative',
-            background: '#161616',
-            border: '1px solid #1e1e1e',
-            borderRadius: '28px',
-            overflow: 'hidden',
-            cursor: 'pointer',
-            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-            '&:hover': {
-              transform: 'translateY(-4px)',
-              borderColor: 'rgba(16, 185, 129, 0.3)',
-              boxShadow: '0 20px 60px rgba(16, 185, 129, 0.08)',
-              '& .app-icon': {
-                transform: 'scale(1.1) rotate(-3deg)',
-              },
-              '& .app-cta': {
-                background: 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)',
-                color: 'white',
-              }
-            }
-          }}
-        >
-          {/* Top gradient bar */}
-          <Box
-            sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: 'linear-gradient(90deg, #10b981, #06b6d4, #10b981)',
-              backgroundSize: '200% 100%',
-              animation: 'gradientSlide 3s linear infinite',
-              '@keyframes gradientSlide': {
-                '0%': { backgroundPosition: '0% 0%' },
-                '100%': { backgroundPosition: '200% 0%' },
-              }
-            }}
-          />
+        <ScrollReveal>
+          <Box className="section-header">
+            <Box className="section-label">Shipped</Box>
+            <Typography className="section-title">
+              Apps people actually use.
+            </Typography>
+          </Box>
+        </ScrollReveal>
 
+        {/* Cartoon Weather */}
+        <ScrollReveal delay={0.1}>
           <Box
+            onClick={() => window.open('https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541', '_blank', 'noopener,noreferrer')}
             sx={{
-              display: 'flex',
-              alignItems: { xs: 'flex-start', md: 'center' },
-              flexDirection: { xs: 'column', md: 'row' },
-              gap: { xs: 3, md: 4 },
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '120px 1fr auto' },
+              alignItems: 'center',
+              gap: { xs: 2, md: 4 },
               p: { xs: 3, md: 4 },
+              background: 'var(--bg-secondary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '16px',
+              cursor: 'pointer',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              mb: 2,
+              '&:hover': {
+                borderColor: 'var(--border-accent)',
+                transform: 'translateY(-2px)',
+                '& .app-arrow': {
+                  transform: 'translateX(4px)',
+                  color: 'var(--accent)',
+                }
+              }
             }}
           >
-            {/* App Icon */}
             <Box
-              className="app-icon"
               component="img"
               src="/logos/cartoon-weather.png"
               alt="Cartoon Weather"
               sx={{
-                width: { xs: 80, md: 90 },
-                height: { xs: 80, md: 90 },
-                minWidth: { xs: 80, md: 90 },
-                borderRadius: '22px',
-                boxShadow: '0 8px 32px rgba(16, 185, 129, 0.2)',
-                transition: 'transform 0.4s ease',
+                width: { xs: 72, md: 88 },
+                height: { xs: 72, md: 88 },
+                borderRadius: '20px',
                 objectFit: 'cover',
               }}
             />
 
-            {/* Content */}
-            <Box sx={{ flex: 1 }}>
-              {/* Live badge */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.75 }}>
+                <Typography
+                  sx={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 600,
+                    fontSize: { xs: '1.2rem', md: '1.4rem' },
+                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  Cartoon Weather
+                </Typography>
                 <Box
                   sx={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 0.75,
-                    px: 1.25,
-                    py: 0.4,
-                    borderRadius: '20px',
+                    gap: 0.5,
+                    px: 1,
+                    py: 0.25,
+                    borderRadius: '4px',
                     background: 'rgba(34, 197, 94, 0.1)',
-                    border: '1px solid rgba(34, 197, 94, 0.25)',
+                    border: '1px solid rgba(34, 197, 94, 0.2)',
                   }}
                 >
                   <Box
                     sx={{
-                      width: 7,
-                      height: 7,
+                      width: 5,
+                      height: 5,
                       borderRadius: '50%',
                       background: '#22c55e',
-                      boxShadow: '0 0 8px #22c55e',
-                      animation: 'livePulse 2s ease-in-out infinite',
-                      '@keyframes livePulse': {
-                        '0%, 100%': { opacity: 1, transform: 'scale(1)' },
-                        '50%': { opacity: 0.5, transform: 'scale(0.8)' },
-                      }
                     }}
                   />
-                  <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    Now Live
+                  <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Live
                   </Typography>
                 </Box>
-                <Typography sx={{ fontSize: '0.75rem', color: '#555555' }}>
-                  App Store
-                </Typography>
               </Box>
-
               <Typography
                 sx={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: { xs: '1.3rem', md: '1.5rem' },
-                  color: '#ededed',
-                  mb: 0.75,
-                }}
-              >
-                Cartoon Weather: Cute Forecast
-              </Typography>
-
-              <Typography
-                sx={{
-                  color: '#888888',
-                  fontSize: { xs: '0.85rem', md: '0.9rem' },
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.9rem',
                   lineHeight: 1.7,
-                  maxWidth: 600,
+                  maxWidth: 550,
                 }}
               >
-                Say goodbye to boring weather apps! 7 animated character themes with full-screen video wallpapers react to real-time conditions. Track up to 5 locations with widgets, AQI, and more.
+                7 animated character themes, full-screen video wallpapers, multi-location tracking.
+                19 languages, 5.0 stars.
               </Typography>
-
-              {/* Tags */}
-              <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
-                {['Swift', 'iOS', 'SwiftUI', '19 Languages', '5.0 ★'].map((tag, i) => (
+              <Box sx={{ display: 'flex', gap: 0.5, mt: 1.5, flexWrap: 'wrap' }}>
+                {['Swift', 'SwiftUI', '19 Languages', '5.0 ★'].map((tag, i) => (
                   <Box
                     key={i}
                     sx={{
-                      px: 1.25,
-                      py: 0.35,
-                      borderRadius: '6px',
-                      background: i === 4 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(16, 185, 129, 0.08)',
-                      border: `1px solid ${i === 4 ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.15)'}`,
-                      fontSize: '0.7rem',
-                      fontWeight: 500,
-                      color: i === 4 ? '#6ee7b7' : '#10b981',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      px: 1,
+                      py: 0.3,
+                      fontSize: '0.65rem',
+                      color: 'var(--text-muted)',
+                      border: '1px solid var(--border-light)',
+                      borderRadius: '4px',
                     }}
                   >
                     {tag}
@@ -513,163 +468,103 @@ function Home() {
               </Box>
             </Box>
 
-            {/* CTA */}
-            <Box
-              className="app-cta"
+            <ArrowForward
+              className="app-arrow"
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                px: 2.5,
-                py: 1.25,
-                borderRadius: '14px',
-                border: '1px solid #2a2a2a',
-                background: '#1e1e1e',
+                fontSize: 24,
+                color: 'var(--text-dim)',
                 transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap',
+                display: { xs: 'none', md: 'block' },
               }}
-            >
-              <Apple sx={{ fontSize: 22 }} />
-              <Box>
-                <Typography sx={{ fontSize: '0.6rem', color: '#555555', lineHeight: 1 }}>
-                  Download on the
-                </Typography>
-                <Typography sx={{ fontSize: '0.95rem', fontWeight: 600, color: '#ededed', lineHeight: 1.3 }}>
-                  App Store
-                </Typography>
-              </Box>
-            </Box>
+            />
           </Box>
-        </Box>
-      </Box>
+        </ScrollReveal>
 
-      {/* Seasons App Showcase Section */}
-      <Box className="section" sx={{ pt: 0 }}>
-        <Box
-          sx={{
-            position: 'relative',
-            background: '#161616',
-            border: '1px solid #1e1e1e',
-            borderRadius: '28px',
-            overflow: 'hidden',
-            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-            '&:hover': {
-              transform: 'translateY(-4px)',
-              borderColor: 'rgba(251, 191, 36, 0.3)',
-              boxShadow: '0 20px 60px rgba(251, 191, 36, 0.08)',
-              '& .seasons-icon': {
-                transform: 'scale(1.1) rotate(-3deg)',
-              },
-            }
-          }}
-        >
-          {/* Top gradient bar */}
+        {/* Seasons */}
+        <ScrollReveal delay={0.2}>
           <Box
             sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: 'linear-gradient(90deg, #f59e0b, #ef4444, #10b981, #3b82f6, #f59e0b)',
-              backgroundSize: '200% 100%',
-              animation: 'seasonsGradientSlide 4s linear infinite',
-              '@keyframes seasonsGradientSlide': {
-                '0%': { backgroundPosition: '0% 0%' },
-                '100%': { backgroundPosition: '200% 0%' },
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '120px 1fr auto' },
+              alignItems: 'center',
+              gap: { xs: 2, md: 4 },
+              p: { xs: 3, md: 4 },
+              background: 'var(--bg-secondary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '16px',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              '&:hover': {
+                borderColor: 'rgba(255, 107, 53, 0.25)',
+                transform: 'translateY(-2px)',
               }
             }}
-          />
-
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: { xs: 'flex-start', md: 'center' },
-              flexDirection: { xs: 'column', md: 'row' },
-              gap: { xs: 3, md: 4 },
-              p: { xs: 3, md: 4 },
-            }}
           >
-            {/* App Icon */}
             <Box
-              className="seasons-icon"
               component="img"
               src="/logos/seasons.png"
               alt="Seasons"
               sx={{
-                width: { xs: 80, md: 90 },
-                height: { xs: 80, md: 90 },
-                minWidth: { xs: 80, md: 90 },
-                borderRadius: '22px',
-                boxShadow: '0 8px 32px rgba(251, 191, 36, 0.2)',
-                transition: 'transform 0.4s ease',
+                width: { xs: 72, md: 88 },
+                height: { xs: 72, md: 88 },
+                borderRadius: '20px',
                 objectFit: 'cover',
               }}
             />
 
-            {/* Content */}
-            <Box sx={{ flex: 1 }}>
-              {/* In Development badge */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1 }}>
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.75 }}>
+                <Typography
+                  sx={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 600,
+                    fontSize: { xs: '1.2rem', md: '1.4rem' },
+                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  Seasons
+                </Typography>
                 <Box
                   sx={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 0.75,
-                    px: 1.25,
-                    py: 0.4,
-                    borderRadius: '20px',
-                    background: 'rgba(251, 191, 36, 0.1)',
-                    border: '1px solid rgba(251, 191, 36, 0.25)',
+                    gap: 0.5,
+                    px: 1,
+                    py: 0.25,
+                    borderRadius: '4px',
+                    background: 'var(--accent-secondary-dim)',
+                    border: '1px solid rgba(255, 107, 53, 0.25)',
                   }}
                 >
-                  <Build sx={{ fontSize: 11, color: '#fbbf24' }} />
-                  <Typography sx={{ fontSize: '0.7rem', fontWeight: 600, color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    In Development
+                  <Build sx={{ fontSize: 10, color: 'var(--accent-secondary)' }} />
+                  <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--accent-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Building
                   </Typography>
                 </Box>
-                <Typography sx={{ fontSize: '0.75rem', color: '#555555' }}>
-                  Coming Soon
-                </Typography>
               </Box>
-
               <Typography
                 sx={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 700,
-                  fontSize: { xs: '1.3rem', md: '1.5rem' },
-                  color: '#ededed',
-                  mb: 0.75,
-                }}
-              >
-                Seasons: Solstice & Season Tracker
-              </Typography>
-
-              <Typography
-                sx={{
-                  color: '#888888',
-                  fontSize: { xs: '0.85rem', md: '0.9rem' },
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.9rem',
                   lineHeight: 1.7,
-                  maxWidth: 600,
+                  maxWidth: 550,
                 }}
               >
-                Track your season in real time with beautiful visualizations. Moon phases, solstice & equinox countdowns, customizable widgets for every screen, and 5 stunning themes. Supports 85+ countries and 6 languages.
+                Real-time season tracker with moon phases, solstice countdowns, and stunning widgets.
+                5 themes, 85+ countries, 6 languages.
               </Typography>
-
-              {/* Tags */}
-              <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', mt: 1.5 }}>
-                {['Swift', 'iOS', 'SwiftUI', 'WidgetKit', '6 Languages'].map((tag, i) => (
+              <Box sx={{ display: 'flex', gap: 0.5, mt: 1.5, flexWrap: 'wrap' }}>
+                {['Swift', 'SwiftUI', 'WidgetKit', '6 Languages'].map((tag, i) => (
                   <Box
                     key={i}
                     sx={{
-                      px: 1.25,
-                      py: 0.35,
-                      borderRadius: '6px',
-                      background: 'rgba(251, 191, 36, 0.08)',
-                      border: '1px solid rgba(251, 191, 36, 0.15)',
-                      fontSize: '0.7rem',
-                      fontWeight: 500,
-                      color: '#fbbf24',
+                      fontFamily: "'JetBrains Mono', monospace",
+                      px: 1,
+                      py: 0.3,
+                      fontSize: '0.65rem',
+                      color: 'var(--text-muted)',
+                      border: '1px solid var(--border-light)',
+                      borderRadius: '4px',
                     }}
                   >
                     {tag}
@@ -678,32 +573,103 @@ function Home() {
               </Box>
             </Box>
 
-            {/* Coming Soon Badge */}
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                px: 2.5,
-                py: 1.25,
-                borderRadius: '14px',
-                border: '1px solid #2a2a2a',
-                background: '#1e1e1e',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <Apple sx={{ fontSize: 22, color: '#888888' }} />
-              <Box>
-                <Typography sx={{ fontSize: '0.6rem', color: '#555555', lineHeight: 1 }}>
-                  Coming soon on the
-                </Typography>
-                <Typography sx={{ fontSize: '0.95rem', fontWeight: 600, color: '#ededed', lineHeight: 1.3 }}>
-                  App Store
-                </Typography>
-              </Box>
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1, color: 'var(--text-dim)', fontSize: '0.8rem' }}>
+              <Apple sx={{ fontSize: 20 }} />
+              <Typography sx={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace" }}>
+                Coming Soon
+              </Typography>
             </Box>
           </Box>
-        </Box>
+        </ScrollReveal>
+      </Box>
+
+      {/* ============ CTA ============ */}
+      <Box className="section" sx={{ pt: 2, pb: 10 }}>
+        <ScrollReveal>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              justifyContent: 'space-between',
+              alignItems: { xs: 'flex-start', md: 'center' },
+              gap: 3,
+              p: { xs: 4, md: 6 },
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '16px',
+              background: 'var(--bg-secondary)',
+            }}
+          >
+            <Box>
+              <Typography
+                sx={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 600,
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  color: 'var(--text-primary)',
+                  letterSpacing: '-0.5px',
+                  mb: 0.5,
+                }}
+              >
+                Want to see more?
+              </Typography>
+              <Typography
+                sx={{
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.95rem',
+                }}
+              >
+                Check out my projects or drop me a message.
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap' }}>
+              <MagneticButton
+                href="/projects"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.75rem 1.5rem',
+                  background: 'var(--accent)',
+                  color: '#09090b',
+                  borderRadius: '10px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.location.href = '/projects'
+                }}
+              >
+                Projects <East sx={{ fontSize: 16 }} />
+              </MagneticButton>
+
+              <MagneticButton
+                href="/contact"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.75rem 1.5rem',
+                  border: '1px solid var(--border-light)',
+                  background: 'transparent',
+                  color: 'var(--text-primary)',
+                  borderRadius: '10px',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.location.href = '/contact'
+                }}
+              >
+                Contact
+              </MagneticButton>
+            </Box>
+          </Box>
+        </ScrollReveal>
       </Box>
     </Box>
   )

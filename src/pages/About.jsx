@@ -1,503 +1,332 @@
 import { Box, Typography, Chip, Link } from '@mui/material'
 import { School, OpenInNew } from '@mui/icons-material'
+import { motion } from 'framer-motion'
+import ScrollReveal from '../components/animations/ScrollReveal'
+import { StaggerChildren, StaggerItem } from '../components/animations/StaggerChildren'
+import Marquee from '../components/animations/Marquee'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function About() {
   useDocumentTitle('About')
 
-  const skillCategories = [
-    {
-      title: 'Languages',
-      skills: ['Java', 'Python', 'TypeScript', 'C#', 'Swift', 'SQL', 'PLSQL']
-    },
-    {
-      title: 'Frameworks',
-      skills: ['Spring Boot', 'Spring Security', 'Spring Cloud', 'React', 'Vue.js']
-    },
-    {
-      title: 'Databases',
-      skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch']
-    },
-    {
-      title: 'DevOps & Cloud',
-      skills: ['Docker', 'GCP', 'RabbitMQ', 'Terraform']
-    },
-    {
-      title: 'Tools',
-      skills: ['Git', 'Swagger', 'Postman']
-    }
+  const allSkills = [
+    'Java', 'Python', 'TypeScript', 'C#', 'Swift', 'SQL', 'PLSQL',
+    'Spring Boot', 'Spring Security', 'Spring Cloud', 'React', 'Vue.js',
+    'PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch',
+    'Docker', 'GCP', 'RabbitMQ', 'Terraform',
+    'Git', 'Swagger', 'Postman'
   ]
 
   const experiences = [
     {
       logo: '/logos/avevrak.ico',
       title: 'Avevrak.com',
-      subtitle: 'Software Developer',
-      period: 'June 2025 - August 2025',
-      description: 'Built an AI-powered document generation system using LLMs and vector search. Architected cloud pipelines on GCP that achieved 95% accuracy in automated tagging.',
+      role: 'Software Developer',
+      period: '2025',
+      description: 'Built an AI-powered document generation system using LLMs and vector search. Cloud pipelines on GCP with 95% accuracy in automated tagging.',
       tags: ['GCP', 'Python', 'LLM', 'FAISS'],
       link: 'https://avevrak.com'
     },
     {
       logo: '/logos/toucancodelabs.png',
       title: 'Toucan Code Labs',
-      subtitle: 'Software Developer',
-      period: 'August 2023 - November 2024',
-      description: 'Developed and integrated microservices for the RoboNimbus mobile platform. Designed RESTful APIs and improved system reliability through performance optimization.',
+      role: 'Software Developer',
+      period: '2023 — 2024',
+      description: 'Developed microservices for the RoboNimbus mobile platform. Designed RESTful APIs and improved system reliability through performance optimization.',
       tags: ['Microservices', 'Mobile', 'API'],
       link: 'https://toucancodelabs.com'
     },
     {
       logo: '/logos/bionluk.png',
       title: 'Bionluk.com',
-      subtitle: 'Freelance Developer',
-      period: 'June 2021 - June 2025',
-      description: 'Completed 25+ client projects ranging from backend APIs to full-stack web applications. Specialized in Java, Python, and custom WordPress solutions.',
-      tags: ['Freelance', 'Java', 'Python', 'Full-Stack'],
+      role: 'Freelance Developer',
+      period: '2021 — 2025',
+      description: 'Completed 25+ client projects ranging from backend APIs to full-stack web applications. Specialized in Java, Python, and custom solutions.',
+      tags: ['Freelance', 'Java', 'Python'],
       link: 'https://bionluk.com/enesgunumdogdu'
     }
   ]
 
-  const education = {
-    icon: <School sx={{ fontSize: 24 }} />,
-    title: 'Erciyes University',
-    subtitle: 'Computer Engineering',
-    period: 'September 2021 - April 2025',
-    description: 'Developed a Python-based machine learning project under TUBITAK 2209-A; produced paintings in the drawing styles of deceased artists using advanced style transfer techniques.',
-    tags: ['Computer Engineering', 'AI/ML', 'TUBITAK']
-  }
-
   return (
     <Box className="page">
-      {/* Hero Section */}
+      {/* Hero */}
+      <Box className="section" sx={{ pb: 4 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          <Box className="section-label">About</Box>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(3rem, 10vw, 6rem)',
+              lineHeight: 0.95,
+              letterSpacing: '-3px',
+              color: 'var(--text-primary)',
+              mb: 3,
+            }}
+          >
+            Enes<br />
+            <Box component="span" sx={{ color: 'var(--text-dim)' }}>Gunumdogdu</Box>
+          </Typography>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+              gap: 4,
+              maxWidth: 900,
+            }}
+          >
+            <Typography
+              sx={{
+                color: 'var(--text-secondary)',
+                lineHeight: 1.9,
+                fontSize: '1rem',
+              }}
+            >
+              Backend developer specialized in Java and the Spring Boot ecosystem.
+              I build scalable microservices, design event-driven architectures,
+              and work with cloud platforms like GCP.
+            </Typography>
+            <Typography
+              sx={{
+                color: 'var(--text-secondary)',
+                lineHeight: 1.9,
+                fontSize: '1rem',
+              }}
+            >
+              In my spare time I build native iOS apps with Swift and create
+              educational content about Data Structures & Algorithms on YouTube
+              with 50K+ views. I have a keen interest in AI and ML.
+            </Typography>
+          </Box>
+        </motion.div>
+      </Box>
+
+      {/* Tech Stack Marquee */}
+      <Box sx={{ py: 5, borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
+        <Marquee items={allSkills} speed={50} />
+      </Box>
+
+      {/* Experience */}
       <Box className="section">
-        <Box className="section-header">
-          <Box className="section-label">About Me</Box>
-          <Typography variant="h1" component="h1" className="hero-name">
-            <span className="hero-name-first">
-              I'm <span className="gradient-text-animated">Enes</span>
-            </span>
-            <span className="hero-name-surname gradient-text-animated">Gunumdogdu</span>
-          </Typography>
-          <Typography className="section-subtitle">
-            Backend Developer passionate about building scalable systems
-          </Typography>
-        </Box>
-
-        <Box className="about-content">
-          <Box className="about-image-wrapper">
-            <Box className="about-image-glow" />
-            <Box className="about-image-ring" />
-            <Box className="about-image">
-              <span role="img" aria-label="developer">&#x1F468;&#x1F3FE;&#x200D;&#x1F4BB;</span>
-            </Box>
-          </Box>
-
-          <Box className="about-text">
-            <Typography
-              variant="h3"
-              sx={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontWeight: 600,
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                mb: 2,
-                color: '#ededed'
-              }}
-            >
-              Building <span style={{ color: '#f59e0b' }}>Robust</span> Backend Systems
-            </Typography>
-
-            <Typography
-              sx={{
-                color: '#888888',
-                lineHeight: 1.9,
-                mb: 2,
-                fontSize: { xs: '0.95rem', md: '1.05rem' }
-              }}
-            >
-              I'm a backend developer specialized in Java and the Spring Boot ecosystem.
-              With experience in microservices architecture, cloud platforms, and AI integration,
-              I build scalable solutions that solve real-world problems.
-            </Typography>
-
-            <Typography
-              sx={{
-                color: '#888888',
-                lineHeight: 1.9,
-                mb: 2,
-                fontSize: { xs: '0.95rem', md: '1.05rem' }
-              }}
-            >
-              My journey includes working with cutting-edge technologies like Spring Cloud,
-              RabbitMQ for event-driven systems, and Google Cloud Platform. I have a keen
-              interest in AI and have worked on projects integrating LLMs and machine learning.
-            </Typography>
-
-            <Typography
-              sx={{
-                color: '#888888',
-                lineHeight: 1.9,
-                fontSize: { xs: '0.95rem', md: '1.05rem' }
-              }}
-            >
-              In my spare time, I enjoy developing native iOS applications with Swift and
-              creating educational content about Data Structures & Algorithms on my YouTube
-              channel with 50K+ views.
+        <ScrollReveal>
+          <Box className="section-header">
+            <Box className="section-label">Experience</Box>
+            <Typography className="section-title">
+              Where I've worked.
             </Typography>
           </Box>
-        </Box>
-      </Box>
+        </ScrollReveal>
 
-      {/* Skills Section */}
-      <Box className="section" sx={{ pt: 0 }}>
-        <Box className="section-header">
-          <Box className="section-label">Tech Stack</Box>
-          <Typography variant="h2" className="section-title">
-            <span style={{ color: '#f59e0b' }}>Technologies I Use</span>
-          </Typography>
-          <Typography className="section-subtitle">
-            Modern tools and frameworks for building production-ready applications
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
-            gap: { xs: 2, md: 2.5 },
-            maxWidth: 1000,
-            mx: 'auto'
-          }}
-        >
-          {skillCategories.map((category, categoryIndex) => (
-            <Box
-              key={categoryIndex}
-              sx={{
-                background: '#161616',
-                border: '1px solid #1e1e1e',
-                borderRadius: '20px',
-                p: { xs: 2.5, md: 3 },
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  borderColor: 'rgba(245, 158, 11, 0.3)',
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 15px 40px rgba(245, 158, 11, 0.06)'
-                }
-              }}
-            >
-              <Typography
-                sx={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 600,
-                  fontSize: { xs: '0.9rem', md: '1rem' },
-                  color: '#f59e0b',
-                  mb: 2,
-                  pb: 1.5,
-                  borderBottom: '1px solid rgba(245, 158, 11, 0.15)'
-                }}
-              >
-                {category.title}
-              </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {category.skills.map((skill, skillIndex) => (
-                  <Chip
-                    key={skillIndex}
-                    label={skill}
-                    sx={{
-                      px: 1.5,
-                      py: 2,
-                      fontSize: { xs: '0.8rem', md: '0.85rem' },
-                      fontWeight: 500,
-                      background: 'rgba(245, 158, 11, 0.08)',
-                      border: '1px solid rgba(245, 158, 11, 0.12)',
-                      color: '#ededed',
-                      borderRadius: '10px',
-                      transition: 'all 0.25s ease',
-                      '&:hover': {
-                        background: 'rgba(245, 158, 11, 0.15)',
-                        borderColor: '#f59e0b',
-                        transform: 'translateY(-2px)'
-                      }
-                    }}
-                  />
-                ))}
-              </Box>
-            </Box>
-          ))}
-        </Box>
-      </Box>
-
-      {/* Experience Section */}
-      <Box className="section" sx={{ pt: 0 }}>
-        <Box className="section-header">
-          <Box className="section-label">Experience</Box>
-          <Typography variant="h2" className="section-title">
-            <span style={{ color: '#f59e0b' }}>My Journey</span>
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-            gap: { xs: 2, md: 3 },
-            width: '100%'
-          }}
-        >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {experiences.map((exp, index) => (
-            <Box
-              key={index}
-              sx={{
-                background: '#161616',
-                border: '1px solid #1e1e1e',
-                borderRadius: { xs: '20px', md: '24px' },
-                p: { xs: 2.5, md: 3 },
-                height: '100%',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                position: 'relative',
-                overflow: 'hidden',
-                display: 'flex',
-                flexDirection: 'column',
-                minHeight: { md: 320 },
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: '3px',
-                  background: '#f59e0b',
-                  transform: 'scaleX(0)',
-                  transformOrigin: 'left',
-                  transition: 'transform 0.4s ease',
-                },
-                '&:hover': {
-                  transform: { xs: 'none', md: 'translateY(-8px)' },
-                  borderColor: 'rgba(245, 158, 11, 0.3)',
-                  '&::before': {
-                    transform: 'scaleX(1)',
-                  }
-                }
-              }}
-            >
-              <Box
-                sx={{
-                  width: { xs: 48, md: 56 },
-                  height: { xs: 48, md: 56 },
-                  borderRadius: '14px',
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  mb: 2,
-                  p: 1
-                }}
+            <ScrollReveal key={index} delay={index * 0.1}>
+              <Link
+                href={exp.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                underline="none"
+                sx={{ display: 'block' }}
               >
                 <Box
-                  component="img"
-                  src={exp.logo}
-                  alt={exp.title}
                   sx={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain'
-                  }}
-                />
-              </Box>
-
-                <Link
-                  href={exp.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  underline="none"
-                  sx={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 0.75,
-                    color: '#ededed',
+                    display: 'grid',
+                    gridTemplateColumns: { xs: '1fr', md: '60px 1fr auto' },
+                    alignItems: { xs: 'flex-start', md: 'center' },
+                    gap: { xs: 2, md: 3 },
+                    py: 3,
+                    px: { xs: 0, md: 2 },
+                    borderBottom: '1px solid var(--border-subtle)',
                     transition: 'all 0.3s ease',
+                    borderRadius: '8px',
                     '&:hover': {
-                      color: '#f59e0b'
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      px: { md: 3 },
+                      '& .exp-title': { color: 'var(--accent)' },
+                      '& .exp-arrow': { opacity: 1, transform: 'translateX(4px)' },
                     }
                   }}
                 >
-                  <Typography
-                    variant="h5"
+                  <Box
                     sx={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontWeight: 600,
-                      fontSize: { xs: '1.1rem', md: '1.25rem' }
+                      width: 48,
+                      height: 48,
+                      borderRadius: '12px',
+                      background: 'rgba(255, 255, 255, 0.95)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      p: 0.75,
+                      flexShrink: 0,
                     }}
                   >
-                    {exp.title}
-                  </Typography>
-                  <OpenInNew sx={{ fontSize: 16, opacity: 0.7 }} />
-                </Link>
-
-                <Typography
-                  sx={{
-                    color: '#f59e0b',
-                    fontSize: { xs: '0.85rem', md: '0.9rem' },
-                    fontWeight: 500,
-                    mb: 0.5,
-                    mt: 0.5
-                  }}
-                >
-                  {exp.subtitle}
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: '#555555',
-                    fontSize: { xs: '0.75rem', md: '0.8rem' },
-                    mb: 1.5
-                  }}
-                >
-                  {exp.period}
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: '#888888',
-                    lineHeight: 1.7,
-                    mb: 2,
-                    fontSize: { xs: '0.85rem', md: '0.9rem' },
-                    flex: 1
-                  }}
-                >
-                  {exp.description}
-                </Typography>
-
-                <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                  {exp.tags.map((tag, tagIndex) => (
                     <Box
-                      key={tagIndex}
-                      sx={{
-                        px: 1.25,
-                        py: 0.4,
-                        borderRadius: '8px',
-                        background: 'rgba(245, 158, 11, 0.08)',
-                        border: '1px solid rgba(245, 158, 11, 0.15)',
-                        fontSize: { xs: '0.7rem', md: '0.75rem' },
-                        fontWeight: 500,
-                        color: '#fbbf24'
-                      }}
-                    >
-                      {tag}
+                      component="img"
+                      src={exp.logo}
+                      alt={exp.title}
+                      sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                  </Box>
+
+                  <Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
+                      <Typography
+                        className="exp-title"
+                        sx={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontWeight: 600,
+                          fontSize: '1.1rem',
+                          color: 'var(--text-primary)',
+                          transition: 'color 0.3s ease',
+                          letterSpacing: '-0.3px',
+                        }}
+                      >
+                        {exp.title}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: '0.7rem',
+                          color: 'var(--text-dim)',
+                        }}
+                      >
+                        {exp.period}
+                      </Typography>
                     </Box>
-                  ))}
+                    <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.85rem', mb: 0.75 }}>
+                      {exp.role}
+                    </Typography>
+                    <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.7, maxWidth: 550 }}>
+                      {exp.description}
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 0.5, mt: 1, flexWrap: 'wrap' }}>
+                      {exp.tags.map((tag, ti) => (
+                        <Box
+                          key={ti}
+                          sx={{
+                            fontFamily: "'JetBrains Mono', monospace",
+                            px: 1,
+                            py: 0.3,
+                            fontSize: '0.6rem',
+                            color: 'var(--text-muted)',
+                            border: '1px solid var(--border-light)',
+                            borderRadius: '4px',
+                          }}
+                        >
+                          {tag}
+                        </Box>
+                      ))}
+                    </Box>
+                  </Box>
+
+                  <OpenInNew
+                    className="exp-arrow"
+                    sx={{
+                      fontSize: 16,
+                      color: 'var(--text-dim)',
+                      opacity: 0,
+                      transition: 'all 0.3s ease',
+                      display: { xs: 'none', md: 'block' },
+                    }}
+                  />
                 </Box>
-              </Box>
+              </Link>
+            </ScrollReveal>
           ))}
         </Box>
       </Box>
 
-      {/* Education Section */}
+      {/* Education */}
       <Box className="section" sx={{ pt: 0 }}>
-        <Box className="section-header">
-          <Box className="section-label">Education</Box>
-          <Typography variant="h2" className="section-title">
-            <span style={{ color: '#f59e0b' }}>Academic Background</span>
-          </Typography>
-        </Box>
+        <ScrollReveal>
+          <Box className="section-header">
+            <Box className="section-label">Education</Box>
+            <Typography className="section-title">
+              Academic background.
+            </Typography>
+          </Box>
+        </ScrollReveal>
 
-        <Box
-          sx={{
-            background: '#161616',
-            border: '1px solid #1e1e1e',
-            borderRadius: { xs: '20px', md: '24px' },
-            p: { xs: 3, md: 4 },
-            maxWidth: 700,
-            mx: 'auto',
-            position: 'relative',
-            overflow: 'hidden',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: '#f59e0b',
-            }
-          }}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: { xs: 2, md: 3 }, flexDirection: { xs: 'column', sm: 'row' } }}>
+        <ScrollReveal delay={0.1}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '60px 1fr' },
+              alignItems: 'flex-start',
+              gap: 3,
+              py: 3,
+              maxWidth: 700,
+            }}
+          >
             <Box
               sx={{
-                width: { xs: 56, md: 64 },
-                height: { xs: 56, md: 64 },
-                borderRadius: '16px',
-                background: 'rgba(245, 158, 11, 0.1)',
+                width: 48,
+                height: 48,
+                borderRadius: '12px',
+                background: 'var(--accent-dim)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                color: 'var(--accent)',
                 flexShrink: 0,
-                color: '#f59e0b'
               }}
             >
-              {education.icon}
+              <School sx={{ fontSize: 22 }} />
             </Box>
 
-            <Box sx={{ flex: 1 }}>
-              <Typography
-                variant="h5"
-                sx={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontWeight: 600,
-                  mb: 0.5,
-                  color: '#ededed',
-                  fontSize: { xs: '1.1rem', md: '1.25rem' }
-                }}
-              >
-                {education.title}
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.5 }}>
+                <Typography
+                  sx={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 600,
+                    fontSize: '1.1rem',
+                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.3px',
+                  }}
+                >
+                  Erciyes University
+                </Typography>
+                <Typography
+                  sx={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '0.7rem',
+                    color: 'var(--text-dim)',
+                  }}
+                >
+                  2021 — 2025
+                </Typography>
+              </Box>
+              <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.85rem', mb: 0.75 }}>
+                Computer Engineering
               </Typography>
-
-              <Typography
-                sx={{
-                  color: '#f59e0b',
-                  fontSize: { xs: '0.9rem', md: '1rem' },
-                  fontWeight: 500,
-                  mb: 0.5
-                }}
-              >
-                {education.subtitle}
+              <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.7, maxWidth: 550 }}>
+                Developed a Python-based ML project under TUBITAK 2209-A — producing paintings
+                in the drawing styles of deceased artists using advanced style transfer techniques.
               </Typography>
-
-              <Typography
-                sx={{
-                  color: '#555555',
-                  fontSize: { xs: '0.8rem', md: '0.85rem' },
-                  mb: 2
-                }}
-              >
-                {education.period}
-              </Typography>
-
-              <Typography
-                sx={{
-                  color: '#888888',
-                  lineHeight: 1.8,
-                  mb: 2,
-                  fontSize: { xs: '0.9rem', md: '1rem' }
-                }}
-              >
-                {education.description}
-              </Typography>
-
-              <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                {education.tags.map((tag, tagIndex) => (
+              <Box sx={{ display: 'flex', gap: 0.5, mt: 1 }}>
+                {['Computer Engineering', 'AI/ML', 'TUBITAK'].map((tag, i) => (
                   <Box
-                    key={tagIndex}
+                    key={i}
                     sx={{
-                      px: 1.25,
-                      py: 0.4,
-                      borderRadius: '8px',
-                      background: 'rgba(245, 158, 11, 0.08)',
-                      border: '1px solid rgba(245, 158, 11, 0.15)',
-                      fontSize: { xs: '0.7rem', md: '0.75rem' },
-                      fontWeight: 500,
-                      color: '#fbbf24'
+                      fontFamily: "'JetBrains Mono', monospace",
+                      px: 1,
+                      py: 0.3,
+                      fontSize: '0.6rem',
+                      color: 'var(--text-muted)',
+                      border: '1px solid var(--border-light)',
+                      borderRadius: '4px',
                     }}
                   >
                     {tag}
@@ -506,7 +335,7 @@ function About() {
               </Box>
             </Box>
           </Box>
-        </Box>
+        </ScrollReveal>
       </Box>
     </Box>
   )

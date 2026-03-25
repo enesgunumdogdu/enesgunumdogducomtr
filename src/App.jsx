@@ -1,7 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence, MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import PageTransition from './components/animations/PageTransition'
 import Home from './pages/Home'
 import About from './pages/About'
 import Projects from './pages/Projects'
@@ -13,28 +15,40 @@ import SeasonsTermsOfUse from './pages/SeasonsTermsOfUse'
 import NotFound from './pages/NotFound'
 import './App.css'
 
+function AnimatedRoutes() {
+  const location = useLocation()
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/cartoon-weather-privacy-policy" element={<PageTransition><CartoonWeatherPrivacyPolicy /></PageTransition>} />
+        <Route path="/cartoon-weather-terms-of-use" element={<PageTransition><CartoonWeatherTermsOfUse /></PageTransition>} />
+        <Route path="/seasons-privacy-policy" element={<PageTransition><SeasonsPrivacyPolicy /></PageTransition>} />
+        <Route path="/seasons-terms-of-use" element={<PageTransition><SeasonsTermsOfUse /></PageTransition>} />
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  )
+}
+
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="app">
-        <Navbar />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/cartoon-weather-privacy-policy" element={<CartoonWeatherPrivacyPolicy />} />
-            <Route path="/cartoon-weather-terms-of-use" element={<CartoonWeatherTermsOfUse />} />
-            <Route path="/seasons-privacy-policy" element={<SeasonsPrivacyPolicy />} />
-            <Route path="/seasons-terms-of-use" element={<SeasonsTermsOfUse />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <MotionConfig reducedMotion="user">
+      <Router>
+        <ScrollToTop />
+        <div className="app">
+          <Navbar />
+          <main>
+            <AnimatedRoutes />
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </MotionConfig>
   )
 }
 

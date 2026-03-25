@@ -36,12 +36,10 @@ function NotFound() {
     <Box className="page not-found-page">
       <Container maxWidth="md">
         <Box className="not-found-content">
-          {/* Rive Animation */}
           <Box className="not-found-animation">
             <RiveComponent />
           </Box>
 
-          {/* 404 Title */}
           <Typography
             variant="h1"
             className="not-found-title"
@@ -50,30 +48,28 @@ function NotFound() {
               fontWeight: 800,
               letterSpacing: '-3px',
               mb: 2,
-              color: '#10b981'
+              color: 'var(--accent)'
             }}
           >
             404
           </Typography>
 
-          {/* Subtitle */}
           <Typography
             variant="h4"
             sx={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 600,
-              color: '#ededed',
+              color: 'var(--text-primary)',
               mb: 2
             }}
           >
             Page Not Found
           </Typography>
 
-          {/* Funny Message */}
           <Typography
             sx={{
-              fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-              color: '#888888',
+              fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+              color: 'var(--text-secondary)',
               maxWidth: 500,
               mx: 'auto',
               lineHeight: 1.8,
@@ -84,77 +80,52 @@ function NotFound() {
             {randomMessage}
           </Typography>
 
-          {/* Action Button */}
           <Button
             component={Link}
             to="/"
-            variant="contained"
             startIcon={<Home />}
             sx={{
-              background: '#10b981',
-              px: 4,
-              py: 1.5,
-              borderRadius: '12px',
-              fontSize: '1rem',
+              background: 'var(--accent)',
+              color: '#09090b',
+              px: 3,
+              py: 1.25,
+              borderRadius: '10px',
+              fontSize: '0.9rem',
               fontWeight: 600,
               textTransform: 'none',
-              boxShadow: '0 4px 20px rgba(16, 185, 129, 0.3)',
               '&:hover': {
-                background: '#059669',
-                transform: 'translateY(-3px)',
-                boxShadow: '0 8px 30px rgba(16, 185, 129, 0.4)',
+                background: 'var(--accent)',
+                opacity: 0.9,
               }
             }}
           >
             Back to Home
           </Button>
 
-          {/* Quick Links */}
-          <Box
-            sx={{
-              mt: 6,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 1.5
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: '0.9rem',
-                color: '#555555'
-              }}
-            >
-              Lost? Try one of these:
+          <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5 }}>
+            <Typography sx={{ fontSize: '0.8rem', color: 'var(--text-dim)', fontFamily: "'JetBrains Mono', monospace" }}>
+              Or try one of these:
             </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                gap: 1,
-                flexWrap: 'wrap',
-                justifyContent: 'center'
-              }}
-            >
+            <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', justifyContent: 'center' }}>
               {quickLinks.map((link) => (
                 <Button
                   key={link.to}
                   component={Link}
                   to={link.to}
-                  variant="text"
                   sx={{
-                    color: '#10b981',
-                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
+                    fontSize: '0.8rem',
                     fontWeight: 500,
                     textTransform: 'none',
-                    px: 2,
-                    py: 0.75,
-                    borderRadius: '8px',
-                    border: '1px solid rgba(16, 185, 129, 0.2)',
+                    px: 1.5,
+                    py: 0.5,
+                    borderRadius: '6px',
+                    border: '1px solid var(--border-light)',
                     transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                      borderColor: 'rgba(16, 185, 129, 0.4)',
-                      transform: 'translateY(-2px)'
+                      borderColor: 'var(--border-accent)',
+                      color: 'var(--accent)',
+                      background: 'var(--accent-glow)',
                     }
                   }}
                 >
