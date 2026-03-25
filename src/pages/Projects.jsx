@@ -104,10 +104,9 @@ function Projects() {
       description: 'Real-time season tracker with moon phases, solstice countdowns, 5 themes, 85+ countries.',
       tags: ['Swift', 'SwiftUI', 'WidgetKit'],
       github: null,
-      live: null,
+      live: 'https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537',
       isAppStore: true,
-      isInDevelopment: true,
-      badge: { label: 'BUILDING', color: '#f97316' }
+      badge: { label: 'LIVE', color: '#22c55e' }
     },
     {
       title: 'Fitness Microservice',

@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion'
 import { Box, Container, Typography, IconButton } from '@mui/material'
-import { GitHub, LinkedIn, ArrowForward, Apple, Build, East } from '@mui/icons-material'
+import { GitHub, LinkedIn, ArrowForward, East } from '@mui/icons-material'
 import ScrollReveal from '../components/animations/ScrollReveal'
 import Marquee from '../components/animations/Marquee'
 import MagneticButton from '../components/animations/MagneticButton'
@@ -483,6 +483,7 @@ function Home() {
         {/* Seasons */}
         <ScrollReveal delay={0.2}>
           <Box
+            onClick={() => window.open('https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537', '_blank', 'noopener,noreferrer')}
             sx={{
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', md: '120px 1fr auto' },
@@ -492,6 +493,7 @@ function Home() {
               background: 'var(--bg-secondary)',
               border: '1px solid var(--border-subtle)',
               borderRadius: '16px',
+              cursor: 'pointer',
               transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
               '&:hover': {
                 borderColor: 'rgba(255, 107, 53, 0.25)',
@@ -532,13 +534,20 @@ function Home() {
                     px: 1,
                     py: 0.25,
                     borderRadius: '4px',
-                    background: 'var(--accent-secondary-dim)',
-                    border: '1px solid rgba(255, 107, 53, 0.25)',
+                    background: 'rgba(34, 197, 94, 0.1)',
+                    border: '1px solid rgba(34, 197, 94, 0.2)',
                   }}
                 >
-                  <Build sx={{ fontSize: 10, color: 'var(--accent-secondary)' }} />
-                  <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: 'var(--accent-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                    Building
+                  <Box
+                    sx={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: '50%',
+                      background: '#22c55e',
+                    }}
+                  />
+                  <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: '#22c55e', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Live
                   </Typography>
                 </Box>
               </Box>
@@ -573,12 +582,15 @@ function Home() {
               </Box>
             </Box>
 
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1, color: 'var(--text-dim)', fontSize: '0.8rem' }}>
-              <Apple sx={{ fontSize: 20 }} />
-              <Typography sx={{ fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace" }}>
-                Coming Soon
-              </Typography>
-            </Box>
+            <ArrowForward
+              className="app-arrow"
+              sx={{
+                fontSize: 24,
+                color: 'var(--text-dim)',
+                transition: 'all 0.3s ease',
+                display: { xs: 'none', md: 'block' },
+              }}
+            />
           </Box>
         </ScrollReveal>
       </Box>
