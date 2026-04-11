@@ -593,6 +593,120 @@ function Home() {
             />
           </Box>
         </ScrollReveal>
+
+        {/* Magnetify */}
+        <ScrollReveal delay={0.3}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: '120px 1fr auto' },
+              alignItems: 'center',
+              gap: { xs: 2, md: 4 },
+              p: { xs: 3, md: 4 },
+              background: 'var(--bg-secondary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '16px',
+              mt: 2,
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              '&:hover': {
+                borderColor: 'rgba(99, 102, 241, 0.25)',
+                transform: 'translateY(-2px)',
+              }
+            }}
+          >
+            <Box
+              component="img"
+              src="/logos/magnetify.png"
+              alt="Magnetify"
+              sx={{
+                width: { xs: 72, md: 88 },
+                height: { xs: 72, md: 88 },
+                borderRadius: '20px',
+                objectFit: 'cover',
+              }}
+            />
+
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.75 }}>
+                <Typography
+                  sx={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontWeight: 600,
+                    fontSize: { xs: '1.2rem', md: '1.4rem' },
+                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  Magnetify
+                </Typography>
+                <Box
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 0.5,
+                    px: 1,
+                    py: 0.25,
+                    borderRadius: '4px',
+                    background: 'rgba(245, 158, 11, 0.1)',
+                    border: '1px solid rgba(245, 158, 11, 0.2)',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 5,
+                      height: 5,
+                      borderRadius: '50%',
+                      background: '#f59e0b',
+                    }}
+                  />
+                  <Typography sx={{ fontSize: '0.65rem', fontWeight: 600, color: '#f59e0b', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    Soon
+                  </Typography>
+                </Box>
+              </Box>
+              <Typography
+                sx={{
+                  color: 'var(--text-secondary)',
+                  fontSize: '0.9rem',
+                  lineHeight: 1.7,
+                  maxWidth: 550,
+                }}
+              >
+                Professional window manager for macOS. Drag-to-snap, keyboard shortcuts,
+                workspace profiles, app rules, and multi-monitor support. 33 languages.
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 0.5, mt: 1.5, flexWrap: 'wrap' }}>
+                {['Swift', 'SwiftUI', 'macOS', '33 Languages'].map((tag, i) => (
+                  <Box
+                    key={i}
+                    sx={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      px: 1,
+                      py: 0.3,
+                      fontSize: '0.65rem',
+                      color: 'var(--text-muted)',
+                      border: '1px solid var(--border-light)',
+                      borderRadius: '4px',
+                    }}
+                  >
+                    {tag}
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+
+            <ArrowForward
+              className="app-arrow"
+              sx={{
+                fontSize: 24,
+                color: 'var(--text-dim)',
+                transition: 'all 0.3s ease',
+                display: { xs: 'none', md: 'block' },
+                opacity: 0.3,
+              }}
+            />
+          </Box>
+        </ScrollReveal>
       </Box>
 
       {/* ============ CTA ============ */}

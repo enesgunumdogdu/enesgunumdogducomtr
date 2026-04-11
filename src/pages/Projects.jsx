@@ -109,6 +109,15 @@ function Projects() {
       badge: { label: 'LIVE', color: '#22c55e' }
     },
     {
+      title: 'Magnetify',
+      description: 'Professional window manager for macOS. Drag-to-snap, 16 positions, keyboard shortcuts, workspace profiles, app rules, 33 languages.',
+      tags: ['Swift', 'SwiftUI', 'macOS', 'AppKit'],
+      github: null,
+      live: null,
+      isAppStore: true,
+      badge: { label: 'SOON', color: '#f59e0b' }
+    },
+    {
       title: 'Fitness Microservice',
       description: 'Cloud-native fitness platform with Spring Cloud, OAuth2 via Keycloak, AI-powered recommendations.',
       tags: ['Java', 'Spring Boot', 'RabbitMQ', 'Keycloak'],
