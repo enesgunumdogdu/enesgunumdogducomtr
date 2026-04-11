@@ -12,6 +12,8 @@ import CartoonWeatherPrivacyPolicy from './pages/CartoonWeatherPrivacyPolicy'
 import CartoonWeatherTermsOfUse from './pages/CartoonWeatherTermsOfUse'
 import SeasonsPrivacyPolicy from './pages/SeasonsPrivacyPolicy'
 import SeasonsTermsOfUse from './pages/SeasonsTermsOfUse'
+import MagnetifyPrivacyPolicy from './pages/MagnetifyPrivacyPolicy'
+import MagnetifyTermsOfUse from './pages/MagnetifyTermsOfUse'
 import NotFound from './pages/NotFound'
 import './App.css'
 
@@ -29,6 +31,8 @@ function AnimatedRoutes() {
         <Route path="/cartoon-weather-terms-of-use" element={<PageTransition><CartoonWeatherTermsOfUse /></PageTransition>} />
         <Route path="/seasons-privacy-policy" element={<PageTransition><SeasonsPrivacyPolicy /></PageTransition>} />
         <Route path="/seasons-terms-of-use" element={<PageTransition><SeasonsTermsOfUse /></PageTransition>} />
+        <Route path="/magnetify-privacy-policy" element={<PageTransition><MagnetifyPrivacyPolicy /></PageTransition>} />
+        <Route path="/magnetify-terms-of-use" element={<PageTransition><MagnetifyTermsOfUse /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>
