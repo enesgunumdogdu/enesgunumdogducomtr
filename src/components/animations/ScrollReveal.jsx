@@ -31,8 +31,8 @@ const presets = {
 
   // New editorial primitives
   clipReveal: {
-    hidden: { clipPath: 'inset(100% 0 0 0)', y: 12 },
-    visible: { clipPath: 'inset(0% 0 0 0)', y: 0 }
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0 }
   },
   inkBleed: {
     hidden: { filter: 'blur(6px)', opacity: 0 },
@@ -56,7 +56,7 @@ function ScrollReveal({
 }) {
   const ref = useRef(null)
   const reduced = useReducedMotion()
-  const isInView = useInView(ref, { once, margin: '-10%' })
+  const isInView = useInView(ref, { once, margin: '0px 0px -80px 0px' })
   const animation = presets[preset] || presets.clipReveal
 
   const Component = motion[as] || motion.div
