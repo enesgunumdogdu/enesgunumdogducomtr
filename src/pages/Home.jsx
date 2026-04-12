@@ -69,7 +69,7 @@ function Home() {
                 </Box>
               </motion.div>
 
-              {/* Main heading — serif display with italic emphasis */}
+              {/* Name as brand — the hero */}
               <Box>
                 <motion.div
                   initial={{ opacity: 0, filter: 'blur(6px)' }}
@@ -81,14 +81,14 @@ function Home() {
                     sx={{
                       fontFamily: 'var(--font-display)',
                       fontVariationSettings: "'opsz' 144, 'wght' 300, 'SOFT' 40",
-                      fontSize: 'clamp(3rem, 9vw, 6.5rem)',
-                      lineHeight: 0.95,
-                      letterSpacing: '-0.035em',
+                      fontSize: 'clamp(3.5rem, 11vw, 7.5rem)',
+                      lineHeight: 0.92,
+                      letterSpacing: '-0.04em',
                       color: 'var(--text-primary)',
                       fontFeatureSettings: "'ss01'",
                     }}
                   >
-                    From <Box component="span" sx={{ fontStyle: 'italic', fontVariationSettings: "'opsz' 144, 'wght' 400" }}>servers</Box>
+                    Enes
                   </Typography>
                 </motion.div>
 
@@ -101,37 +101,71 @@ function Home() {
                     component="h1"
                     sx={{
                       fontFamily: 'var(--font-display)',
-                      fontVariationSettings: "'opsz' 144, 'wght' 300, 'SOFT' 40",
-                      fontSize: 'clamp(3rem, 9vw, 6.5rem)',
-                      lineHeight: 0.95,
+                      fontVariationSettings: "'opsz' 144, 'wght' 400",
+                      fontStyle: 'italic',
+                      fontSize: 'clamp(2.75rem, 9vw, 6rem)',
+                      lineHeight: 0.92,
                       letterSpacing: '-0.035em',
-                      color: 'var(--text-primary)',
+                      color: 'var(--accent)',
                     }}
                   >
-                    to the <Box component="span" sx={{ fontStyle: 'italic', fontVariationSettings: "'opsz' 144, 'wght' 500", color: 'var(--accent)' }}>App Store.</Box>
+                    Günümdoğdu.
                   </Typography>
                 </motion.div>
               </Box>
 
-              {/* Description */}
+              {/* Character tagline — "Java at work. Swift after hours." */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6, ease: ease.draft }}
+                transition={{ duration: 0.7, delay: 0.55, ease: ease.draft }}
               >
                 <Typography
                   sx={{
-                    fontSize: { xs: '1.05rem', md: '1.15rem' },
+                    fontFamily: 'var(--font-display)',
+                    fontVariationSettings: "'opsz' 48, 'wght' 400",
+                    fontSize: { xs: '1.25rem', md: '1.65rem' },
+                    color: 'var(--text-primary)',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Java at work.{' '}
+                  <Box
+                    component="span"
+                    sx={{
+                      fontStyle: 'italic',
+                      fontVariationSettings: "'opsz' 48, 'wght' 500",
+                      color: 'var(--accent)',
+                    }}
+                  >
+                    Swift after hours.
+                  </Box>
+                </Typography>
+              </motion.div>
+
+              {/* Factual sub-copy — the selling */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7, ease: ease.draft }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.1rem' },
                     color: 'var(--text-secondary)',
-                    maxWidth: 560,
-                    lineHeight: 1.7,
+                    maxWidth: 600,
+                    lineHeight: 1.75,
                     fontWeight: 400,
                     fontFamily: 'var(--font-body)',
                   }}
                 >
-                  Java and Spring Boot during the week. Swift and SwiftUI when the idea
-                  won't wait. I build backend systems that power things, and consumer
-                  apps that people actually download.
+                  Backend engineer and iOS developer. The guy behind{' '}
+                  <Box component="span" sx={{ color: 'var(--text-primary)', fontFamily: 'var(--font-display)', fontStyle: 'italic', fontVariationSettings: "'wght' 500" }}>
+                    Cartoon Weather
+                  </Box>
+                  {' '}(5.0 stars, 19 languages) and 50K+ views worth of algorithm
+                  breakdowns on YouTube. Currently building microservices.
                 </Typography>
               </motion.div>
 
@@ -139,7 +173,7 @@ function Home() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.75, ease: ease.draft }}
+                transition={{ duration: 0.6, delay: 0.85, ease: ease.draft }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
                   <MagneticButton
@@ -205,10 +239,10 @@ function Home() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.95, ease: ease.draft }}
+                transition={{ duration: 0.6, delay: 1.05, ease: ease.draft }}
                 style={{ marginTop: '1.5rem' }}
               >
-                <DraftedLine delay={0.95} opacity={0.6} />
+                <DraftedLine delay={1.05} opacity={0.6} />
                 <Box
                   sx={{
                     display: 'flex',
@@ -219,7 +253,7 @@ function Home() {
                 >
                   {[
                     { number: '5.0', label: 'App Store', sub: 'Cartoon Weather' },
-                    { number: '50K+', label: 'Views', sub: 'YouTube DSA' },
+                    { number: '50K+', label: 'Views', sub: 'YouTube' },
                     { number: '25+', label: 'Projects', sub: 'Freelance' },
                     { number: '3', label: 'Apps', sub: 'Shipped & Coming' },
                   ].map((stat, i) => (

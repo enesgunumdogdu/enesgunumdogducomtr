@@ -63,30 +63,23 @@ function About() {
             sx={{
               fontFamily: 'var(--font-display)',
               fontVariationSettings: "'opsz' 144, 'wght' 300, 'SOFT' 40",
-              fontSize: 'clamp(3.5rem, 11vw, 7rem)',
-              lineHeight: 0.92,
-              letterSpacing: '-0.04em',
+              fontSize: 'clamp(2.5rem, 7vw, 5rem)',
+              lineHeight: 1.05,
+              letterSpacing: '-0.035em',
               color: 'var(--text-primary)',
-              mb: 0.5,
+              mb: 4,
               fontFeatureSettings: "'ss01'",
+              maxWidth: 900,
             }}
           >
-            Enes
-          </Typography>
-          <Typography
-            component="h2"
-            sx={{
-              fontFamily: 'var(--font-display)',
-              fontVariationSettings: "'opsz' 96, 'wght' 300",
-              fontStyle: 'italic',
-              fontSize: 'clamp(2.5rem, 8vw, 5.25rem)',
-              lineHeight: 0.92,
-              letterSpacing: '-0.025em',
-              color: 'var(--text-muted)',
-              mb: 3,
-            }}
-          >
-            Gunumdogdu
+            A backend engineer who ships iOS apps{' '}
+            <Box component="em" sx={{ fontStyle: 'italic', fontVariationSettings: "'wght' 400", color: 'var(--text-muted)' }}>
+              on weekends
+            </Box>
+            {' '}and teaches algorithms{' '}
+            <Box component="em" sx={{ fontStyle: 'italic', fontVariationSettings: "'wght' 400", color: 'var(--accent)' }}>
+              on YouTube.
+            </Box>
           </Typography>
 
           {/* Role metadata */}
@@ -103,11 +96,9 @@ function About() {
               textTransform: 'uppercase',
             }}
           >
-            <span>Backend Engineer</span>
+            <span>Enes Günümdoğdu</span>
             <span style={{ color: 'var(--text-dim)' }}>/</span>
-            <span>iOS Developer</span>
-            <span style={{ color: 'var(--text-dim)' }}>/</span>
-            <span>Systems Thinker</span>
+            <span>Antalya, TR</span>
           </Box>
         </motion.div>
 

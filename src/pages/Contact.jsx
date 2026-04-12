@@ -56,7 +56,7 @@ function Contact() {
   }
 
   const socialLinks = [
-    { label: 'enesgunumdogdu0@gmail.com', href: 'mailto:enesgunumdogdu0@gmail.com' },
+    { label: 'Email', href: 'mailto:enesgunumdogdu0@gmail.com' },
     { label: 'GitHub', href: 'https://github.com/enesgunumdogdu' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enesgunumdogdu/' },
     { label: 'YouTube', href: 'https://youtube.com/@enesgunumdogdu' },
