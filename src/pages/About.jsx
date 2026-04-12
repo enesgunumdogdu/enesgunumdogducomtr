@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, Link } from '@mui/material'
+import { Box, Typography, Link } from '@mui/material'
 import { School, OpenInNew } from '@mui/icons-material'
 import { motion } from 'framer-motion'
 import ScrollReveal from '../components/animations/ScrollReveal'
@@ -50,7 +50,7 @@ function About() {
   return (
     <Box className="page">
       {/* Hero */}
-      <Box className="section" sx={{ pb: 4 }}>
+      <Box className="section mesh-bg" sx={{ pb: 4 }}>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,12 +66,45 @@ function About() {
               lineHeight: 0.95,
               letterSpacing: '-3px',
               color: 'var(--text-primary)',
+              mb: 1,
+            }}
+          >
+            Enes
+          </Typography>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontWeight: 300,
+              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              lineHeight: 0.95,
+              letterSpacing: '-2px',
+              color: 'var(--text-muted)',
               mb: 3,
             }}
           >
-            Enes<br />
-            <Box component="span" sx={{ color: 'var(--text-dim)' }}>Gunumdogdu</Box>
+            Gunumdogdu
           </Typography>
+
+          {/* Role metadata in monospace */}
+          <Box
+            sx={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: '0.72rem',
+              color: 'var(--text-muted)',
+              letterSpacing: '0.5px',
+              display: 'flex',
+              gap: 2,
+              flexWrap: 'wrap',
+              mb: 4,
+            }}
+          >
+            <span>backend engineer</span>
+            <span style={{ color: 'var(--text-dim)' }}>/</span>
+            <span>ios developer</span>
+            <span style={{ color: 'var(--text-dim)' }}>/</span>
+            <span>systems thinker</span>
+          </Box>
         </motion.div>
 
         <motion.div
@@ -83,7 +116,7 @@ function About() {
             sx={{
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-              gap: 4,
+              gap: { xs: 3, md: 5 },
               maxWidth: 900,
             }}
           >
@@ -118,18 +151,18 @@ function About() {
         <Marquee items={allSkills} speed={50} />
       </Box>
 
-      {/* Experience */}
+      {/* Experience — editorial table layout */}
       <Box className="section">
         <ScrollReveal>
           <Box className="section-header">
             <Box className="section-label">Experience</Box>
             <Typography className="section-title">
-              Where I've worked.
+              The receipts.
             </Typography>
           </Box>
         </ScrollReveal>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           {experiences.map((exp, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
               <Link
@@ -142,16 +175,16 @@ function About() {
                 <Box
                   sx={{
                     display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', md: '60px 1fr auto' },
+                    gridTemplateColumns: { xs: '1fr', md: '52px 1fr auto' },
                     alignItems: { xs: 'flex-start', md: 'center' },
                     gap: { xs: 2, md: 3 },
                     py: 3,
                     px: { xs: 0, md: 2 },
                     borderBottom: '1px solid var(--border-subtle)',
                     transition: 'all 0.3s ease',
-                    borderRadius: '8px',
+                    borderRadius: '2px',
                     '&:hover': {
-                      background: 'rgba(255, 255, 255, 0.02)',
+                      background: 'rgba(0, 0, 0, 0.015)',
                       px: { md: 3 },
                       '& .exp-title': { color: 'var(--accent)' },
                       '& .exp-arrow': { opacity: 1, transform: 'translateX(4px)' },
@@ -160,14 +193,15 @@ function About() {
                 >
                   <Box
                     sx={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: '12px',
-                      background: 'rgba(255, 255, 255, 0.95)',
+                      width: 44,
+                      height: 44,
+                      borderRadius: '3px',
+                      background: 'var(--bg-secondary)',
+                      border: '1px solid var(--border-light)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      p: 0.75,
+                      p: 0.6,
                       flexShrink: 0,
                     }}
                   >
@@ -197,17 +231,18 @@ function About() {
                       <Typography
                         sx={{
                           fontFamily: "'JetBrains Mono', monospace",
-                          fontSize: '0.7rem',
+                          fontSize: '0.68rem',
                           color: 'var(--text-dim)',
+                          letterSpacing: '0.5px',
                         }}
                       >
                         {exp.period}
                       </Typography>
                     </Box>
-                    <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.85rem', mb: 0.75 }}>
+                    <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.82rem', mb: 0.75, fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.3px' }}>
                       {exp.role}
                     </Typography>
-                    <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.7, maxWidth: 550 }}>
+                    <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.7, maxWidth: 550 }}>
                       {exp.description}
                     </Typography>
                     <Box sx={{ display: 'flex', gap: 0.5, mt: 1, flexWrap: 'wrap' }}>
@@ -221,7 +256,8 @@ function About() {
                             fontSize: '0.6rem',
                             color: 'var(--text-muted)',
                             border: '1px solid var(--border-light)',
-                            borderRadius: '4px',
+                            borderRadius: '2px',
+                            letterSpacing: '0.5px',
                           }}
                         >
                           {tag}
@@ -253,7 +289,7 @@ function About() {
           <Box className="section-header">
             <Box className="section-label">Education</Box>
             <Typography className="section-title">
-              Academic background.
+              Where it started.
             </Typography>
           </Box>
         </ScrollReveal>
@@ -262,7 +298,7 @@ function About() {
           <Box
             sx={{
               display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: '60px 1fr' },
+              gridTemplateColumns: { xs: '1fr', md: '52px 1fr' },
               alignItems: 'flex-start',
               gap: 3,
               py: 3,
@@ -271,9 +307,9 @@ function About() {
           >
             <Box
               sx={{
-                width: 48,
-                height: 48,
-                borderRadius: '12px',
+                width: 44,
+                height: 44,
+                borderRadius: '3px',
                 background: 'var(--accent-dim)',
                 display: 'flex',
                 alignItems: 'center',
@@ -282,7 +318,7 @@ function About() {
                 flexShrink: 0,
               }}
             >
-              <School sx={{ fontSize: 22 }} />
+              <School sx={{ fontSize: 20 }} />
             </Box>
 
             <Box>
@@ -301,22 +337,24 @@ function About() {
                 <Typography
                   sx={{
                     fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '0.7rem',
+                    fontSize: '0.68rem',
                     color: 'var(--text-dim)',
+                    letterSpacing: '0.5px',
                   }}
                 >
                   2021 — 2025
                 </Typography>
               </Box>
-              <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.85rem', mb: 0.75 }}>
+              <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.82rem', mb: 0.75, fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.3px' }}>
                 Computer Engineering
               </Typography>
-              <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: 1.7, maxWidth: 550 }}>
-                Developed a Python-based ML project under TUBITAK 2209-A — producing paintings
-                in the drawing styles of deceased artists using advanced style transfer techniques.
+              <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.88rem', lineHeight: 1.7, maxWidth: 550 }}>
+                During university, I convinced TUBITAK (Turkey's NSF equivalent) to fund a project
+                where I trained ML models to paint in the style of deceased Turkish artists. The idea
+                was simple: what if Osman Hamdi Bey could paint Istanbul in 2024? The implementation was not simple.
               </Typography>
               <Box sx={{ display: 'flex', gap: 0.5, mt: 1 }}>
-                {['Computer Engineering', 'AI/ML', 'TUBITAK'].map((tag, i) => (
+                {['Computer Engineering', 'AI/ML', 'TUBITAK 2209-A'].map((tag, i) => (
                   <Box
                     key={i}
                     sx={{
@@ -326,7 +364,8 @@ function About() {
                       fontSize: '0.6rem',
                       color: 'var(--text-muted)',
                       border: '1px solid var(--border-light)',
-                      borderRadius: '4px',
+                      borderRadius: '2px',
+                      letterSpacing: '0.5px',
                     }}
                   >
                     {tag}

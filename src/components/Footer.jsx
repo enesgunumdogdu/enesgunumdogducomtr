@@ -17,12 +17,12 @@ const Footer = () => {
       <Typography
         sx={{
           fontFamily: "'JetBrains Mono', monospace",
-          fontSize: '0.7rem',
+          fontSize: '0.68rem',
           color: 'var(--text-dim)',
-          letterSpacing: '1px',
+          letterSpacing: '0.5px',
         }}
       >
-        &copy; {new Date().getFullYear()}
+        Designed and built by
       </Typography>
       <Link
         href="https://enesgunumdogdu.com.tr"
@@ -32,7 +32,7 @@ const Footer = () => {
         sx={{
           fontFamily: "'JetBrains Mono', monospace",
           fontWeight: 500,
-          fontSize: '0.7rem',
+          fontSize: '0.68rem',
           color: 'var(--text-muted)',
           transition: 'color 0.3s ease',
           letterSpacing: '0.5px',
@@ -43,6 +43,16 @@ const Footer = () => {
       >
         3nes
       </Link>
+      <Typography
+        sx={{
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: '0.68rem',
+          color: 'var(--text-dim)',
+          letterSpacing: '0.5px',
+        }}
+      >
+        &mdash; Istanbul, {new Date().getFullYear()}
+      </Typography>
     </Box>
   )
 }

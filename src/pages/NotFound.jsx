@@ -86,13 +86,15 @@ function NotFound() {
             startIcon={<Home />}
             sx={{
               background: 'var(--accent)',
-              color: '#09090b',
+              color: '#FFFFFF',
               px: 3,
               py: 1.25,
-              borderRadius: '10px',
-              fontSize: '0.9rem',
+              borderRadius: '3px',
+              fontSize: '0.82rem',
               fontWeight: 600,
-              textTransform: 'none',
+              fontFamily: "'JetBrains Mono', monospace",
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
               '&:hover': {
                 background: 'var(--accent)',
                 opacity: 0.9,
@@ -103,7 +105,7 @@ function NotFound() {
           </Button>
 
           <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5 }}>
-            <Typography sx={{ fontSize: '0.8rem', color: 'var(--text-dim)', fontFamily: "'JetBrains Mono', monospace" }}>
+            <Typography sx={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.5px' }}>
               Or try one of these:
             </Typography>
             <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -114,12 +116,13 @@ function NotFound() {
                   to={link.to}
                   sx={{
                     color: 'var(--text-secondary)',
-                    fontSize: '0.8rem',
+                    fontSize: '0.78rem',
                     fontWeight: 500,
-                    textTransform: 'none',
+                    fontFamily: "'JetBrains Mono', monospace",
+                    textTransform: 'lowercase',
                     px: 1.5,
                     py: 0.5,
-                    borderRadius: '6px',
+                    borderRadius: '2px',
                     border: '1px solid var(--border-light)',
                     transition: 'all 0.2s ease',
                     '&:hover': {

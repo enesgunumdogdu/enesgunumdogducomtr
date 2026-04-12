@@ -55,15 +55,15 @@ function Contact() {
   }
 
   const socialLinks = [
-    { icon: <Email sx={{ fontSize: 18 }} />, label: 'enesgunumdogdu0@gmail.com', href: 'mailto:enesgunumdogdu0@gmail.com' },
-    { icon: <GitHub sx={{ fontSize: 18 }} />, label: 'GitHub', href: 'https://github.com/enesgunumdogdu' },
-    { icon: <LinkedIn sx={{ fontSize: 18 }} />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/enesgunumdogdu/' }
+    { label: 'enesgunumdogdu0@gmail.com', href: 'mailto:enesgunumdogdu0@gmail.com' },
+    { label: 'GitHub', href: 'https://github.com/enesgunumdogdu' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enesgunumdogdu/' }
   ]
 
   const inputStyles = {
     '& .MuiOutlinedInput-root': {
-      background: 'rgba(255, 255, 255, 0.02)',
-      borderRadius: '10px',
+      background: 'var(--bg-secondary)',
+      borderRadius: '3px',
       color: 'var(--text-primary)',
       fontSize: '0.9rem',
       '& fieldset': { borderColor: 'var(--border-light)', transition: 'all 0.3s ease' },
@@ -72,8 +72,9 @@ function Contact() {
       '&.Mui-focused': { background: 'var(--accent-glow)' },
     },
     '& .MuiInputLabel-root': {
-      color: 'var(--text-dim)',
-      fontSize: '0.85rem',
+      color: 'var(--text-muted)',
+      fontSize: '0.82rem',
+      fontFamily: "'JetBrains Mono', monospace",
       '&.Mui-focused': { color: 'var(--accent)' }
     }
   }
@@ -87,12 +88,14 @@ function Contact() {
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <Box className="section-header">
-            <Box className="section-label">Contact</Box>
-            <Typography className="section-title" sx={{ maxWidth: 400 }}>
-              Let's build something together.
+            <Box className="section-label">Say Hello</Box>
+            <Typography className="section-title" sx={{ maxWidth: 500 }}>
+              Let's build something<br />
+              <Box component="span" sx={{ color: 'var(--accent)', fontWeight: 700 }}>worth building.</Box>
             </Typography>
             <Typography className="section-subtitle">
-              Have a project in mind? Send me a message.
+              I read every message. No auto-responders, no forms that go to a void.
+              If you write, I'll write back.
             </Typography>
           </Box>
         </motion.div>
@@ -105,7 +108,7 @@ function Contact() {
                 sx={{
                   background: 'var(--bg-secondary)',
                   border: '1px solid var(--border-subtle)',
-                  borderRadius: '16px',
+                  borderRadius: '3px',
                   p: { xs: 3, md: 4 },
                 }}
               >
@@ -124,7 +127,7 @@ function Contact() {
                         mb: 3,
                       }}
                     >
-                      <CheckCircle sx={{ fontSize: 32, color: '#09090b' }} />
+                      <CheckCircle sx={{ fontSize: 32, color: '#FFFFFF' }} />
                     </Box>
                     <Typography
                       sx={{
@@ -158,23 +161,25 @@ function Contact() {
                       <TextField fullWidth label="Subject" name="subject" value={formData.subject} onChange={handleChange} required sx={inputStyles} />
                       <TextField fullWidth label="Message" name="message" value={formData.message} onChange={handleChange} required multiline rows={5} sx={inputStyles} />
                       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <ReCAPTCHA ref={recaptchaRef} sitekey="6Lfnw0osAAAAAJkVJJkdS9R2oFWznsihBAtf7xWf" onChange={setCaptchaValue} theme="dark" />
+                        <ReCAPTCHA ref={recaptchaRef} sitekey="6Lfnw0osAAAAAJkVJJkdS9R2oFWznsihBAtf7xWf" onChange={setCaptchaValue} theme="light" />
                       </Box>
                       <Button
                         type="submit"
                         fullWidth
                         disabled={isSubmitting || !captchaValue}
-                        endIcon={!isSubmitting && <East sx={{ fontSize: 16 }} />}
+                        endIcon={!isSubmitting && <East sx={{ fontSize: 14 }} />}
                         sx={{
                           background: 'var(--accent)',
-                          color: '#09090b',
+                          color: '#FFFFFF',
                           py: 1.5,
-                          borderRadius: '10px',
-                          fontSize: '0.9rem',
+                          borderRadius: '3px',
+                          fontSize: '0.82rem',
                           fontWeight: 600,
-                          textTransform: 'none',
+                          fontFamily: "'JetBrains Mono', monospace",
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px',
                           '&:hover': { background: 'var(--accent)', opacity: 0.9 },
-                          '&:disabled': { background: 'var(--accent)', opacity: 0.5, color: '#09090b' },
+                          '&:disabled': { background: 'var(--accent)', opacity: 0.4, color: '#FFFFFF' },
                         }}
                       >
                         {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -185,7 +190,7 @@ function Contact() {
               </Box>
             </ScrollReveal>
 
-            {/* Socials */}
+            {/* Socials — text links, no icons */}
             <ScrollReveal delay={0.2} style={{ flex: 1 }}>
               <Box>
                 <Typography
@@ -197,20 +202,21 @@ function Contact() {
                     color: 'var(--text-primary)',
                   }}
                 >
-                  Other ways to connect
+                  Find me elsewhere
                 </Typography>
                 <Typography
                   sx={{
                     color: 'var(--text-secondary)',
                     lineHeight: 1.8,
                     mb: 3,
-                    fontSize: '0.85rem',
+                    fontSize: '0.88rem',
                   }}
                 >
-                  Feel free to reach out through any of these platforms.
+                  Best way to reach me: email. I usually reply within a day,
+                  faster if the project sounds interesting.
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                   {socialLinks.map((social, index) => (
                     <Box
                       key={index}
@@ -219,44 +225,47 @@ function Contact() {
                       target={social.href.startsWith('mailto') ? undefined : '_blank'}
                       rel={social.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
                       sx={{
-                        display: 'flex',
+                        display: 'inline-flex',
                         alignItems: 'center',
-                        gap: 1.5,
-                        p: 1.5,
-                        borderRadius: '10px',
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: '0.82rem',
+                        fontWeight: 500,
+                        py: 1,
                         color: 'var(--text-secondary)',
                         textDecoration: 'none',
                         transition: 'all 0.3s ease',
+                        borderBottom: '1px solid transparent',
                         '&:hover': {
-                          background: 'rgba(255, 255, 255, 0.03)',
-                          color: 'var(--text-primary)',
-                          transform: 'translateX(4px)',
-                          '& .social-icon': { color: 'var(--accent)' },
+                          color: 'var(--accent)',
+                          borderBottomColor: 'var(--accent)',
                         }
                       }}
                     >
-                      <Box
-                        className="social-icon"
-                        sx={{
-                          width: 36,
-                          height: 36,
-                          borderRadius: '8px',
-                          border: '1px solid var(--border-light)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: 'var(--text-dim)',
-                          transition: 'color 0.3s ease',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {social.icon}
-                      </Box>
-                      <Typography sx={{ fontWeight: 500, fontSize: '0.85rem' }}>
-                        {social.label}
-                      </Typography>
+                      {social.label}
                     </Box>
                   ))}
+                </Box>
+
+                {/* Location & timezone */}
+                <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid var(--border-subtle)' }}>
+                  <Typography
+                    sx={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: '0.68rem',
+                      color: 'var(--text-dim)',
+                      letterSpacing: '1px',
+                      textTransform: 'uppercase',
+                      mb: 1,
+                    }}
+                  >
+                    Location
+                  </Typography>
+                  <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
+                    Istanbul, Turkey
+                  </Typography>
+                  <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.78rem', mt: 0.5 }}>
+                    UTC+3 / Turkey Time
+                  </Typography>
                 </Box>
               </Box>
             </ScrollReveal>
