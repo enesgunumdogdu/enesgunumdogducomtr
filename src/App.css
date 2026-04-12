@@ -13,29 +13,30 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 1.25rem 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: transparent;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s var(--ease-draft);
 }
 
 .navbar.scrolled {
-  padding: 0.75rem 2rem;
-  background: rgba(245, 240, 232, 0.9);
+  padding: 0.85rem 2rem;
+  background: rgba(245, 240, 232, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .nav-logo {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.25rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 32, 'wght' 500, 'SOFT' 30;
+  font-size: 1.5rem;
   color: var(--text-primary);
-  letter-spacing: -0.5px;
-  transition: all 0.3s ease;
+  letter-spacing: -0.03em;
+  transition: all 0.3s var(--ease-draft);
+  font-feature-settings: 'ss01';
 }
 
 .nav-logo:hover {
@@ -50,14 +51,15 @@
 
 .nav-links a {
   color: var(--text-secondary);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-weight: 500;
   font-size: 0.78rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--ease-draft);
   padding: 0.5rem 1rem;
-  border-radius: 2px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.05em;
   text-transform: lowercase;
+  position: relative;
+  display: inline-block;
 }
 
 .nav-links a:hover {
@@ -65,7 +67,7 @@
 }
 
 .nav-links a.active {
-  color: var(--accent);
+  color: var(--text-primary);
 }
 
 .nav-links a::after {
@@ -84,14 +86,14 @@
   background: transparent;
   padding: 8px;
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--ease-draft);
 }
 
 .mobile-menu-btn span {
   width: 20px;
   height: 1.5px;
   background: var(--text-primary);
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--ease-draft);
   border-radius: 1px;
 }
 
@@ -107,7 +109,6 @@
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile fullscreen menu */
 .mobile-menu-fullscreen {
   display: none;
 }
@@ -177,19 +178,20 @@
 
   .mobile-menu-links a {
     display: block;
-    font-size: 1.75rem;
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 72, 'wght' 400, 'SOFT' 30;
+    font-size: 2.25rem;
     padding: 0.75rem 2rem;
     color: var(--text-primary);
-    font-family: 'Space Grotesk', sans-serif;
     text-decoration: none;
-    border-radius: 2px;
-    transition: color 0.3s ease;
+    transition: color 0.3s var(--ease-draft);
+    letter-spacing: -0.02em;
   }
 
   .mobile-menu-links a:hover,
   .mobile-menu-links a.active {
     color: var(--accent);
+    font-style: italic;
   }
 
   .mobile-overlay {
@@ -200,20 +202,20 @@
 /* ==================== PAGE CONTAINER ==================== */
 .page {
   min-height: 100vh;
-  padding-top: 80px;
+  padding-top: 88px;
   position: relative;
   overflow-x: hidden;
 }
 
 @media (max-width: 480px) {
   .page {
-    padding-top: 70px;
+    padding-top: 72px;
   }
 }
 
 /* ==================== HERO SECTION ==================== */
 .hero {
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 88px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,7 +227,7 @@
 @media (max-width: 480px) {
   .hero {
     padding: 2rem 1rem;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 72px);
   }
 }
 
@@ -237,26 +239,6 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-}
-
-.hero-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(3rem, 10vw, 7rem);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -3px;
-  text-align: left;
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    letter-spacing: -2px;
-    text-align: left;
-  }
-
-  .hero-content {
-    text-align: left;
-  }
 }
 
 /* ==================== SECTIONS ==================== */
@@ -282,31 +264,44 @@
 }
 
 .section-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
   font-weight: 500;
   color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 1rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  display: inline-block;
 }
 
 .section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 72, 'wght' 400, 'SOFT' 30;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
   color: var(--text-primary);
+  font-feature-settings: 'ss01';
 }
 
 .section-subtitle {
+  font-family: var(--font-body);
   color: var(--text-secondary);
   max-width: 550px;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: 1.05rem;
   line-height: 1.7;
   font-weight: 400;
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 @media (max-width: 768px) {
@@ -315,102 +310,12 @@
   }
 }
 
-/* ==================== HERO NAME ==================== */
-.hero-name {
-  display: block;
-  width: 100%;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  line-height: 0.9;
-  letter-spacing: -3px;
-}
-
-.hero-name-first {
-  display: block;
-  font-size: clamp(3.5rem, 12vw, 8rem);
-}
-
-.hero-name-surname {
-  display: block;
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 600;
-  letter-spacing: -1.5px;
-  color: var(--text-muted);
-}
-
-@media (max-width: 600px) {
-  .hero-name {
-    letter-spacing: -1.5px;
-  }
-
-  .hero-name-first {
-    font-size: clamp(2.5rem, 15vw, 3.75rem);
-  }
-
-  .hero-name-surname {
-    font-size: clamp(1.75rem, 10vw, 2.5rem);
-  }
-}
-
-.hero-name--large .hero-name-first {
-  font-size: clamp(4rem, 14vw, 9rem);
-}
-
-.hero-name--large .hero-name-surname {
-  font-size: clamp(3rem, 10vw, 6rem);
-}
-
-@media (max-width: 600px) {
-  .hero-name--large .hero-name-first {
-    font-size: clamp(3rem, 18vw, 5rem);
-  }
-
-  .hero-name--large .hero-name-surname {
-    font-size: clamp(2rem, 13vw, 3.5rem);
-  }
-}
-
-/* ==================== PENCIL LINE DIVIDER ==================== */
+/* ==================== PENCIL LINE ==================== */
 .pencil-line {
   width: 100%;
   height: 1px;
   background: var(--border-light);
   border: none;
-}
-
-/* ==================== SCROLL INDICATOR ==================== */
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  color: var(--text-dim);
-  font-size: 0.7rem;
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.scroll-indicator-line {
-  width: 1px;
-  height: 50px;
-  background: linear-gradient(180deg, var(--text-dim), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(1.2); }
-}
-
-@media (max-width: 768px) {
-  .scroll-indicator {
-    display: none;
-  }
 }
 
 /* ==================== 404 PAGE ==================== */
@@ -448,9 +353,12 @@
 }
 
 .not-found-title {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 144, 'wght' 300;
   font-size: clamp(6rem, 15vw, 12rem);
   line-height: 1;
   margin-bottom: 0.5rem;
+  letter-spacing: -0.04em;
 }
 
 .not-found-buttons {
@@ -489,34 +397,69 @@
   margin-top: auto;
 }
 
-/* ==================== GRADIENT BORDER HOVER ==================== */
-.gradient-border-card {
-  position: relative;
-}
-
-.gradient-border-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 3px;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--accent), transparent 50%, var(--accent-secondary));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+/* ==================== RULE SWEEP (PAGE TRANSITION) ==================== */
+.rule-sweep {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1.5px;
+  background: var(--text-primary);
+  opacity: 0.7;
+  transform-origin: left;
+  z-index: 9999;
   pointer-events: none;
 }
 
-.gradient-border-card:hover::before {
-  opacity: 1;
+/* ==================== HOVER CARD SYSTEM ==================== */
+.paper-card {
+  position: relative;
+  transition: transform 0.25s var(--ease-draft), box-shadow 0.25s var(--ease-draft);
 }
 
-/* ==================== MESH GRADIENT BACKGROUNDS ==================== */
-.mesh-bg {
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(192, 90, 61, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(42, 111, 111, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(196, 154, 42, 0.03) 0%, transparent 50%);
+.paper-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(80, 60, 30, 0.08);
+}
+
+.paper-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--text-primary);
+  opacity: 0.8;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-draft);
+}
+
+.paper-card:hover::after {
+  transform: scaleX(1);
+}
+
+/* ==================== TEXT LINK HOVER (weight shift) ==================== */
+.link-weight {
+  position: relative;
+  display: inline-block;
+  transition: font-variation-settings 0.22s var(--ease-draft), color 0.22s var(--ease-draft);
+}
+
+.link-weight::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.22s var(--ease-draft);
+}
+
+.link-weight:hover::after {
+  transform: scaleX(1);
 }

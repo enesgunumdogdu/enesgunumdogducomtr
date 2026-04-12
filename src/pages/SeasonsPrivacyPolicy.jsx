@@ -224,7 +224,7 @@ function SeasonsPrivacyPolicy() {
               <Typography
                 variant="h3"
                 sx={{
-                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontFamily: "var(--font-display)",
                   fontWeight: 600,
                   fontSize: { xs: '1.1rem', md: '1.25rem' },
                   color: '#a855f7',

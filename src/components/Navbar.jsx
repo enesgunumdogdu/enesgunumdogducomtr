@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ease } from '../motion/tokens'
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,7 +16,6 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -57,29 +58,44 @@ function Navbar() {
           <span></span>
         </button>
 
-        {/* Desktop nav links - inside navbar */}
+        {/* Desktop nav links with shared layoutId underline */}
         <ul className="nav-links nav-links-desktop">
-          {links.map((link) => (
-            <li key={link.to}>
-              <NavLink to={link.to} onClick={handleNavClick}>
-                {link.label}
-              </NavLink>
-            </li>
-          ))}
+          {links.map((link) => {
+            const isActive = location.pathname === link.to
+            return (
+              <li key={link.to}>
+                <NavLink to={link.to} onClick={handleNavClick}>
+                  {link.label}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-indicator"
+                      style={{
+                        position: 'absolute',
+                        left: '1rem',
+                        right: '1rem',
+                        bottom: '4px',
+                        height: '1px',
+                        background: 'var(--accent)'
+                      }}
+                      transition={{ duration: 0.45, ease: ease.draft }}
+                    />
+                  )}
+                </NavLink>
+              </li>
+            )
+          })}
         </ul>
       </nav>
 
-      {/* Mobile fullscreen menu - OUTSIDE navbar to avoid backdrop-filter containing block issue */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             className="mobile-menu-fullscreen"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.5, ease: ease.paper }}
           >
-            {/* Close button */}
             <button
               className="mobile-menu-close"
               onClick={() => setIsOpen(false)}
@@ -95,10 +111,10 @@ function Navbar() {
               {links.map((link, i) => (
                 <motion.li
                   key={link.to}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 30, clipPath: 'inset(100% 0 0 0)' }}
+                  animate={{ opacity: 1, y: 0, clipPath: 'inset(0% 0 0 0)' }}
                   exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: i * 0.06, duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ delay: 0.15 + i * 0.05, duration: 0.4, ease: ease.draft }}
                 >
                   <NavLink to={link.to} onClick={handleNavClick}>
                     {link.label}

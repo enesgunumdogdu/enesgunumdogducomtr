@@ -31,12 +31,14 @@ function Marquee({ items, speed = 25, className, reverse = false }) {
             key={i}
             style={{
               padding: '0.5rem 1.25rem',
-              background: 'rgba(43, 43, 43, 0.04)',
+              background: 'transparent',
               border: '1px solid var(--border-light)',
-              borderRadius: '100px',
-              fontSize: '0.85rem',
-              fontWeight: 500,
+              borderRadius: '2px',
+              fontSize: '0.8rem',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 400,
               color: 'var(--text-secondary)',
+              letterSpacing: '0.03em',
               whiteSpace: 'nowrap',
             }}
           >
@@ -79,12 +81,14 @@ function Marquee({ items, speed = 25, className, reverse = false }) {
             key={i}
             style={{
               padding: '0.6rem 1.5rem',
-              background: 'rgba(43, 43, 43, 0.04)',
+              background: 'transparent',
               border: '1px solid var(--border-light)',
-              borderRadius: '100px',
-              fontSize: '0.88rem',
-              fontWeight: 500,
+              borderRadius: '2px',
+              fontSize: '0.82rem',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 400,
               color: 'var(--text-secondary)',
+              letterSpacing: '0.03em',
               whiteSpace: 'nowrap',
               userSelect: 'none',
             }}

@@ -1,48 +1,77 @@
 import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { ease } from '../../motion/tokens'
 
 const presets = {
+  // Legacy — kept for compatibility
   fadeUp: {
-    hidden: { opacity: 0, y: 60 },
+    hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0 }
   },
   fadeDown: {
-    hidden: { opacity: 0, y: -40 },
+    hidden: { opacity: 0, y: -30 },
     visible: { opacity: 1, y: 0 }
   },
   fadeLeft: {
-    hidden: { opacity: 0, x: -60 },
+    hidden: { opacity: 0, x: -40 },
     visible: { opacity: 1, x: 0 }
   },
   fadeRight: {
-    hidden: { opacity: 0, x: 60 },
+    hidden: { opacity: 0, x: 40 },
     visible: { opacity: 1, x: 0 }
   },
   scale: {
-    hidden: { opacity: 0, scale: 0.8 },
+    hidden: { opacity: 0, scale: 0.96 },
     visible: { opacity: 1, scale: 1 }
   },
   blur: {
     hidden: { opacity: 0, filter: 'blur(10px)' },
     visible: { opacity: 1, filter: 'blur(0px)' }
+  },
+
+  // New editorial primitives
+  clipReveal: {
+    hidden: { clipPath: 'inset(100% 0 0 0)', y: 12 },
+    visible: { clipPath: 'inset(0% 0 0 0)', y: 0 }
+  },
+  inkBleed: {
+    hidden: { filter: 'blur(6px)', opacity: 0 },
+    visible: { filter: 'blur(0px)', opacity: 1 }
+  },
+  draftedLine: {
+    hidden: { scaleX: 0, opacity: 0.3 },
+    visible: { scaleX: 1, opacity: 1 }
   }
 }
 
 function ScrollReveal({
   children,
-  preset = 'fadeUp',
+  preset = 'clipReveal',
   delay = 0,
-  duration = 0.7,
+  duration = 0.6,
   once = true,
   className,
   style,
   as = 'div'
 }) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once, margin: '-80px' })
-  const animation = presets[preset] || presets.fadeUp
+  const reduced = useReducedMotion()
+  const isInView = useInView(ref, { once, margin: '-10%' })
+  const animation = presets[preset] || presets.clipReveal
 
   const Component = motion[as] || motion.div
+
+  // Reduced motion — skip to visible state instantly
+  if (reduced) {
+    return (
+      <Component ref={ref} className={className} style={style}>
+        {children}
+      </Component>
+    )
+  }
+
+  // Pick easing based on preset
+  const easeCurve = preset === 'inkBleed' ? ease.ink : preset === 'draftedLine' ? ease.draft : ease.ink
 
   return (
     <Component
@@ -54,7 +83,7 @@ function ScrollReveal({
       transition={{
         duration,
         delay,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeCurve
       }}
     >
       {children}

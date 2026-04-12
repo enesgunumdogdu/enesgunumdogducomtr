@@ -44,9 +44,9 @@ function NotFound() {
             variant="h1"
             className="not-found-title"
             sx={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 800,
-              letterSpacing: '-3px',
+              fontFamily: 'var(--font-display)',
+              fontVariationSettings: "'opsz' 144, 'wght' 300, 'SOFT' 40",
+              letterSpacing: '-0.04em',
               mb: 2,
               color: 'var(--accent)'
             }}
@@ -57,10 +57,12 @@ function NotFound() {
           <Typography
             variant="h4"
             sx={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 600,
+              fontFamily: 'var(--font-display)',
+              fontVariationSettings: "'opsz' 48, 'wght' 400",
+              fontStyle: 'italic',
               color: 'var(--text-primary)',
-              mb: 2
+              mb: 2,
+              letterSpacing: '-0.02em',
             }}
           >
             Page Not Found
@@ -74,7 +76,8 @@ function NotFound() {
               mx: 'auto',
               lineHeight: 1.8,
               mb: 4,
-              textAlign: 'center'
+              textAlign: 'center',
+              fontFamily: 'var(--font-body)',
             }}
           >
             {randomMessage}
@@ -85,19 +88,19 @@ function NotFound() {
             to="/"
             startIcon={<Home />}
             sx={{
-              background: 'var(--accent)',
-              color: '#FFFFFF',
+              background: 'var(--text-primary)',
+              color: 'var(--bg-primary)',
               px: 3,
               py: 1.25,
-              borderRadius: '3px',
-              fontSize: '0.82rem',
-              fontWeight: 600,
-              fontFamily: "'JetBrains Mono', monospace",
+              borderRadius: '2px',
+              fontSize: '0.78rem',
+              fontWeight: 500,
+              fontFamily: 'var(--font-mono)',
               textTransform: 'uppercase',
-              letterSpacing: '0.5px',
+              letterSpacing: '0.12em',
               '&:hover': {
                 background: 'var(--accent)',
-                opacity: 0.9,
+                opacity: 1,
               }
             }}
           >
@@ -105,7 +108,7 @@ function NotFound() {
           </Button>
 
           <Box sx={{ mt: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.5 }}>
-            <Typography sx={{ fontSize: '0.72rem', color: 'var(--text-dim)', fontFamily: "'JetBrains Mono', monospace", letterSpacing: '0.5px' }}>
+            <Typography sx={{ fontSize: '0.7rem', color: 'var(--text-dim)', fontFamily: 'var(--font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
               Or try one of these:
             </Typography>
             <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -116,15 +119,15 @@ function NotFound() {
                   to={link.to}
                   sx={{
                     color: 'var(--text-secondary)',
-                    fontSize: '0.78rem',
-                    fontWeight: 500,
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: '0.75rem',
+                    fontFamily: 'var(--font-mono)',
                     textTransform: 'lowercase',
                     px: 1.5,
                     py: 0.5,
                     borderRadius: '2px',
                     border: '1px solid var(--border-light)',
-                    transition: 'all 0.2s ease',
+                    letterSpacing: '0.05em',
+                    transition: 'all 0.2s var(--ease-draft)',
                     '&:hover': {
                       borderColor: 'var(--border-accent)',
                       color: 'var(--accent)',

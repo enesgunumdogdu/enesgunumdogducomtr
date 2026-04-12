@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react'
 import { Box, Typography, TextField, Button } from '@mui/material'
-import { Send, Email, GitHub, LinkedIn, CheckCircle, East } from '@mui/icons-material'
+import { CheckCircle, East } from '@mui/icons-material'
 import { motion } from 'framer-motion'
 import ReCAPTCHA from 'react-google-recaptcha'
 import ScrollReveal from '../components/animations/ScrollReveal'
 import useDocumentTitle from '../hooks/useDocumentTitle'
+import { ease } from '../motion/tokens'
 
 function Contact() {
   useDocumentTitle('Contact')
@@ -57,16 +58,18 @@ function Contact() {
   const socialLinks = [
     { label: 'enesgunumdogdu0@gmail.com', href: 'mailto:enesgunumdogdu0@gmail.com' },
     { label: 'GitHub', href: 'https://github.com/enesgunumdogdu' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enesgunumdogdu/' }
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enesgunumdogdu/' },
+    { label: 'YouTube', href: 'https://youtube.com/@enesgunumdogdu' },
   ]
 
   const inputStyles = {
     '& .MuiOutlinedInput-root': {
       background: 'var(--bg-secondary)',
-      borderRadius: '3px',
+      borderRadius: '2px',
       color: 'var(--text-primary)',
-      fontSize: '0.9rem',
-      '& fieldset': { borderColor: 'var(--border-light)', transition: 'all 0.3s ease' },
+      fontSize: '0.95rem',
+      fontFamily: 'var(--font-body)',
+      '& fieldset': { borderColor: 'var(--border-light)', transition: 'all 0.3s var(--ease-draft)' },
       '&:hover fieldset': { borderColor: 'var(--text-dim)' },
       '&.Mui-focused fieldset': { borderColor: 'var(--accent)', borderWidth: '1px' },
       '&.Mui-focused': { background: 'var(--accent-glow)' },
@@ -74,7 +77,8 @@ function Contact() {
     '& .MuiInputLabel-root': {
       color: 'var(--text-muted)',
       fontSize: '0.82rem',
-      fontFamily: "'JetBrains Mono', monospace",
+      fontFamily: 'var(--font-mono)',
+      letterSpacing: '0.05em',
       '&.Mui-focused': { color: 'var(--accent)' }
     }
   }
@@ -83,15 +87,18 @@ function Contact() {
     <Box className="page">
       <Box className="section">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          initial={{ opacity: 0, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 0.9, ease: ease.ink }}
         >
           <Box className="section-header">
             <Box className="section-label">Say Hello</Box>
-            <Typography className="section-title" sx={{ maxWidth: 500 }}>
+            <Typography
+              className="section-title"
+              sx={{ maxWidth: 640 }}
+            >
               Let's build something<br />
-              <Box component="span" sx={{ color: 'var(--accent)', fontWeight: 700 }}>worth building.</Box>
+              <Box component="em" sx={{ fontStyle: 'italic', color: 'var(--accent)' }}>worth building.</Box>
             </Typography>
             <Typography className="section-subtitle">
               I read every message. No auto-responders, no forms that go to a void.
@@ -100,15 +107,15 @@ function Contact() {
           </Box>
         </motion.div>
 
-        <Box sx={{ maxWidth: 900, mx: 'auto' }}>
+        <Box sx={{ maxWidth: 960, mx: 'auto' }}>
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 5 }}>
             {/* Form */}
-            <ScrollReveal style={{ flex: 1.4 }}>
+            <ScrollReveal style={{ flex: 1.4 }} preset="clipReveal">
               <Box
                 sx={{
                   background: 'var(--bg-secondary)',
                   border: '1px solid var(--border-subtle)',
-                  borderRadius: '3px',
+                  borderRadius: '2px',
                   p: { xs: 3, md: 4 },
                 }}
               >
@@ -131,16 +138,17 @@ function Contact() {
                     </Box>
                     <Typography
                       sx={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 600,
-                        fontSize: '1.25rem',
-                        mb: 0.5,
+                        fontFamily: 'var(--font-display)',
+                        fontVariationSettings: "'opsz' 48, 'wght' 400",
+                        fontSize: '1.5rem',
+                        fontStyle: 'italic',
+                        mb: 0.75,
                         color: 'var(--text-primary)',
                       }}
                     >
-                      Message sent!
+                      Message sent.
                     </Typography>
-                    <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+                    <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontFamily: 'var(--font-body)' }}>
                       I'll get back to you soon.
                     </Typography>
                   </Box>
@@ -169,17 +177,17 @@ function Contact() {
                         disabled={isSubmitting || !captchaValue}
                         endIcon={!isSubmitting && <East sx={{ fontSize: 14 }} />}
                         sx={{
-                          background: 'var(--accent)',
-                          color: '#FFFFFF',
+                          background: 'var(--text-primary)',
+                          color: 'var(--bg-primary)',
                           py: 1.5,
-                          borderRadius: '3px',
-                          fontSize: '0.82rem',
-                          fontWeight: 600,
-                          fontFamily: "'JetBrains Mono', monospace",
+                          borderRadius: '2px',
+                          fontSize: '0.8rem',
+                          fontWeight: 500,
+                          fontFamily: 'var(--font-mono)',
                           textTransform: 'uppercase',
-                          letterSpacing: '1px',
-                          '&:hover': { background: 'var(--accent)', opacity: 0.9 },
-                          '&:disabled': { background: 'var(--accent)', opacity: 0.4, color: '#FFFFFF' },
+                          letterSpacing: '0.12em',
+                          '&:hover': { background: 'var(--accent)', opacity: 1 },
+                          '&:disabled': { background: 'var(--text-primary)', opacity: 0.4, color: 'var(--bg-primary)' },
                         }}
                       >
                         {isSubmitting ? 'Sending...' : 'Send Message'}
@@ -190,33 +198,35 @@ function Contact() {
               </Box>
             </ScrollReveal>
 
-            {/* Socials — text links, no icons */}
-            <ScrollReveal delay={0.2} style={{ flex: 1 }}>
+            {/* Socials */}
+            <ScrollReveal delay={0.15} style={{ flex: 1 }} preset="clipReveal">
               <Box>
                 <Typography
                   sx={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 600,
-                    fontSize: '1.1rem',
+                    fontFamily: 'var(--font-display)',
+                    fontVariationSettings: "'opsz' 36, 'wght' 400",
+                    fontSize: '1.35rem',
                     mb: 1,
                     color: 'var(--text-primary)',
+                    letterSpacing: '-0.015em',
                   }}
                 >
-                  Find me elsewhere
+                  Find me <Box component="em" sx={{ fontStyle: 'italic' }}>elsewhere.</Box>
                 </Typography>
                 <Typography
                   sx={{
                     color: 'var(--text-secondary)',
-                    lineHeight: 1.8,
+                    lineHeight: 1.75,
                     mb: 3,
-                    fontSize: '0.88rem',
+                    fontSize: '0.95rem',
+                    fontFamily: 'var(--font-body)',
                   }}
                 >
                   Best way to reach me: email. I usually reply within a day,
                   faster if the project sounds interesting.
                 </Typography>
 
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.25 }}>
                   {socialLinks.map((social, index) => (
                     <Box
                       key={index}
@@ -227,14 +237,14 @@ function Contact() {
                       sx={{
                         display: 'inline-flex',
                         alignItems: 'center',
-                        fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: '0.82rem',
-                        fontWeight: 500,
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.85rem',
                         py: 1,
                         color: 'var(--text-secondary)',
                         textDecoration: 'none',
-                        transition: 'all 0.3s ease',
+                        transition: 'all 0.3s var(--ease-draft)',
                         borderBottom: '1px solid transparent',
+                        alignSelf: 'flex-start',
                         '&:hover': {
                           color: 'var(--accent)',
                           borderBottomColor: 'var(--accent)',
@@ -246,25 +256,32 @@ function Contact() {
                   ))}
                 </Box>
 
-                {/* Location & timezone */}
                 <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid var(--border-subtle)' }}>
                   <Typography
                     sx={{
-                      fontFamily: "'JetBrains Mono', monospace",
-                      fontSize: '0.68rem',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '0.62rem',
                       color: 'var(--text-dim)',
-                      letterSpacing: '1px',
+                      letterSpacing: '0.15em',
                       textTransform: 'uppercase',
                       mb: 1,
                     }}
                   >
                     Location
                   </Typography>
-                  <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.88rem' }}>
-                    Istanbul, Turkey
+                  <Typography
+                    sx={{
+                      fontFamily: 'var(--font-display)',
+                      fontVariationSettings: "'opsz' 32, 'wght' 400",
+                      fontSize: '1.1rem',
+                      color: 'var(--text-primary)',
+                      letterSpacing: '-0.015em',
+                    }}
+                  >
+                    Antalya, Turkey
                   </Typography>
-                  <Typography sx={{ color: 'var(--text-muted)', fontSize: '0.78rem', mt: 0.5 }}>
-                    UTC+3 / Turkey Time
+                  <Typography sx={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', fontSize: '0.72rem', mt: 0.5, letterSpacing: '0.05em' }}>
+                    UTC+3 · Turkey Time
                   </Typography>
                 </Box>
               </Box>
