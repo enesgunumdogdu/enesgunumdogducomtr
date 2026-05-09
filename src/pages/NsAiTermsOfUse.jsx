@@ -1,5 +1,4 @@
-import { Box, Typography, Link } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
+import LegalPage from '../components/LegalPage'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function NsAiTermsOfUse() {
@@ -47,7 +46,7 @@ function NsAiTermsOfUse() {
           ]
         },
         {
-          text: 'You may delete your account at any time from inside the App (Profile → Account → Delete Account) or by emailing enesgunumdogdu0@gmail.com.'
+          text: 'You may delete your account at any time from inside the App (Profile → Account → Delete Account) or by reaching out through our contact page.'
         }
       ]
     },
@@ -290,190 +289,14 @@ function NsAiTermsOfUse() {
   ]
 
   return (
-    <Box className="page">
-      <Box className="section">
-        <Box className="section-header">
-          <Box className="section-label">Legal</Box>
-          <Typography variant="h1" component="h1" className="hero-name hero-name-large">
-            <span className="gradient-text-animated">Terms of Use</span>
-          </Typography>
-          <Typography className="section-subtitle">
-            ns-ai · AI Photo Studio
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            background: 'rgba(17, 17, 17, 0.7)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: { xs: '20px', md: '24px' },
-            p: { xs: 3, md: 5 },
-            maxWidth: 900,
-            mx: 'auto',
-            position: 'relative',
-            overflow: 'hidden',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-            }
-          }}
-        >
-          <Typography
-            sx={{
-              color: 'rgba(255,255,255,0.5)',
-              fontSize: '0.9rem',
-              mb: 4,
-              pb: 3,
-              borderBottom: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            Effective: May 9, 2026 · Last Updated: May 9, 2026
-          </Typography>
-
-          <Typography
-            sx={{
-              color: 'rgba(255,255,255,0.85)',
-              lineHeight: 1.8,
-              mb: 4,
-              fontSize: { xs: '0.95rem', md: '1rem' }
-            }}
-          >
-            These Terms of Use ("Terms") form a binding agreement between you and Enes Günümdoğdu (sole developer), the operator of the iOS application "ns-ai · AI Photo Studio" (the "App") and the related backend services (collectively, the "Service"). By downloading, installing, signing in to, or using the App, you confirm that you have read, understood, and agreed to these Terms and to our Privacy Policy. If you do not agree, do not use the Service.
-          </Typography>
-
-          {sections.map((section, sectionIndex) => (
-            <Box key={sectionIndex} sx={{ mb: 4 }}>
-              <Typography
-                variant="h3"
-                sx={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 600,
-                  fontSize: { xs: '1.1rem', md: '1.25rem' },
-                  color: '#a855f7',
-                  mb: 2
-                }}
-              >
-                {section.title}
-              </Typography>
-
-              {section.content.map((block, blockIndex) => (
-                <Box key={blockIndex} sx={{ mb: 2 }}>
-                  {block.subtitle && (
-                    <Typography
-                      sx={{
-                        fontWeight: 600,
-                        color: 'rgba(255,255,255,0.9)',
-                        fontSize: { xs: '0.95rem', md: '1rem' },
-                        mb: 1,
-                        mt: 2
-                      }}
-                    >
-                      {block.subtitle}
-                    </Typography>
-                  )}
-
-                  {block.text && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.75)',
-                        lineHeight: 1.8,
-                        mb: block.items ? 1.5 : 0,
-                        fontSize: { xs: '0.9rem', md: '0.95rem' }
-                      }}
-                    >
-                      {block.text}
-                    </Typography>
-                  )}
-
-                  {block.items && (
-                    <Box component="ul" sx={{ m: 0, pl: 3 }}>
-                      {block.items.map((item, itemIndex) => (
-                        <Box
-                          component="li"
-                          key={itemIndex}
-                          sx={{
-                            color: 'rgba(255,255,255,0.75)',
-                            lineHeight: 1.8,
-                            mb: 0.5,
-                            fontSize: { xs: '0.9rem', md: '0.95rem' },
-                            '&::marker': {
-                              color: '#7c3aed'
-                            }
-                          }}
-                        >
-                          {item}
-                        </Box>
-                      ))}
-                    </Box>
-                  )}
-
-                  {block.note && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.6)',
-                        fontStyle: 'italic',
-                        mt: 1.5,
-                        fontSize: { xs: '0.85rem', md: '0.9rem' }
-                      }}
-                    >
-                      {block.note}
-                    </Typography>
-                  )}
-
-                  {block.contactLink && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.75)',
-                        lineHeight: 1.8,
-                        fontSize: { xs: '0.9rem', md: '0.95rem' }
-                      }}
-                    >
-                      For questions about these Terms, please visit our{' '}
-                      <Link
-                        component={RouterLink}
-                        to="/contact"
-                        sx={{
-                          color: '#a855f7',
-                          textDecoration: 'underline',
-                          '&:hover': { color: '#c084fc' }
-                        }}
-                      >
-                        contact page
-                      </Link>
-                      .
-                    </Typography>
-                  )}
-                </Box>
-              ))}
-            </Box>
-          ))}
-
-          <Box
-            sx={{
-              mt: 5,
-              pt: 3,
-              borderTop: '1px solid rgba(255,255,255,0.1)',
-              textAlign: 'center'
-            }}
-          >
-            <Typography
-              sx={{
-                color: 'rgba(255,255,255,0.4)',
-                fontSize: '0.85rem'
-              }}
-            >
-              © 2026 Enes Günümdoğdu. All rights reserved.
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+    <LegalPage
+      kind="Terms of Use"
+      appName="ns-ai · AI Photo Studio"
+      effectiveDate="May 9, 2026"
+      lastUpdated="May 9, 2026"
+      intro={`These Terms of Use ("Terms") form a binding agreement between you and Enes Günümdoğdu (sole developer), the operator of the iOS application "ns-ai · AI Photo Studio" (the "App") and the related backend services (collectively, the "Service"). By downloading, installing, signing in to, or using the App, you confirm that you have read, understood, and agreed to these Terms and to our Privacy Policy. If you do not agree, do not use the Service.`}
+      sections={sections}
+    />
   )
 }
 

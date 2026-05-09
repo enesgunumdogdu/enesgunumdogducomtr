@@ -1,5 +1,4 @@
-import { Box, Typography, Link } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
+import LegalPage from '../components/LegalPage'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function NsAiPrivacyPolicy() {
@@ -10,10 +9,10 @@ function NsAiPrivacyPolicy() {
       title: '1. Who We Are',
       content: [
         {
-          text: 'The App is operated by Enes Günümdoğdu (sole developer / data controller), based in Türkiye. You can reach us at enesgunumdogdu0@gmail.com or through https://enesgunumdogdu.com.tr/contact.'
+          text: 'The App is operated by Enes Günümdoğdu (sole developer / data controller), based in Türkiye. You can reach us through our contact page.'
         },
         {
-          text: 'If you have any questions about this policy or your personal information, please contact us at the email above. For users in the European Economic Area, the United Kingdom, and similar jurisdictions, the operator above acts as the "data controller" for your personal information.'
+          text: 'If you have any questions about this policy or your personal information, please reach out via the contact page. For users in the European Economic Area, the United Kingdom, and similar jurisdictions, the operator above acts as the "data controller" for your personal information.'
         }
       ]
     },
@@ -190,7 +189,7 @@ function NsAiPrivacyPolicy() {
       title: '9. Account Deletion',
       content: [
         {
-          text: 'You may delete your account at any time from inside the App (Profile → Account → Delete Account) or by emailing enesgunumdogdu0@gmail.com.'
+          text: 'You may delete your account at any time from inside the App (Profile → Account → Delete Account) or by reaching out through our contact page.'
         },
         {
           text: 'When you delete your account we delete or anonymize:',
@@ -234,7 +233,7 @@ function NsAiPrivacyPolicy() {
       title: '11. Children\'s Privacy',
       content: [
         {
-          text: 'The Service is not directed to children under 13 (or under the minimum age in your jurisdiction). We do not knowingly collect personal information from children. If you believe a child has provided personal information to us, please contact enesgunumdogdu0@gmail.com and we will delete it.'
+          text: 'The Service is not directed to children under 13 (or under the minimum age in your jurisdiction). We do not knowingly collect personal information from children. If you believe a child has provided personal information to us, please reach out via the contact page and we will delete it.'
         }
       ]
     },
@@ -289,208 +288,14 @@ function NsAiPrivacyPolicy() {
   ]
 
   return (
-    <Box className="page">
-      <Box className="section">
-        <Box className="section-header">
-          <Box className="section-label">Legal</Box>
-          <Typography variant="h1" component="h1" className="hero-name hero-name-large">
-            <span className="gradient-text-animated">Privacy Policy</span>
-          </Typography>
-          <Typography className="section-subtitle">
-            ns-ai · AI Photo Studio
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            background: 'rgba(17, 17, 17, 0.7)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: { xs: '20px', md: '24px' },
-            p: { xs: 3, md: 5 },
-            maxWidth: 900,
-            mx: 'auto',
-            position: 'relative',
-            overflow: 'hidden',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-            }
-          }}
-        >
-          <Typography
-            sx={{
-              color: 'rgba(255,255,255,0.5)',
-              fontSize: '0.9rem',
-              mb: 4,
-              pb: 3,
-              borderBottom: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            Effective: May 9, 2026 · Last Updated: May 9, 2026
-          </Typography>
-
-          <Typography
-            sx={{
-              color: 'rgba(255,255,255,0.85)',
-              lineHeight: 1.8,
-              mb: 4,
-              fontSize: { xs: '0.95rem', md: '1rem' }
-            }}
-          >
-            This Privacy Policy explains how we collect, use, share, and protect personal information in connection with the iOS application "ns-ai · AI Photo Studio" (the "App") and the related backend services (collectively, the "Service"). By using the Service you confirm that you have read and understood this Privacy Policy.
-          </Typography>
-
-          {sections.map((section, sectionIndex) => (
-            <Box key={sectionIndex} sx={{ mb: 4 }}>
-              <Typography
-                variant="h3"
-                sx={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 600,
-                  fontSize: { xs: '1.1rem', md: '1.25rem' },
-                  color: '#a855f7',
-                  mb: 2
-                }}
-              >
-                {section.title}
-              </Typography>
-
-              {section.content.map((block, blockIndex) => (
-                <Box key={blockIndex} sx={{ mb: 2 }}>
-                  {block.subtitle && (
-                    <Typography
-                      sx={{
-                        fontWeight: 600,
-                        color: 'rgba(255,255,255,0.9)',
-                        fontSize: { xs: '0.95rem', md: '1rem' },
-                        mb: 1,
-                        mt: 2
-                      }}
-                    >
-                      {block.subtitle}
-                    </Typography>
-                  )}
-
-                  {block.text && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.75)',
-                        lineHeight: 1.8,
-                        mb: block.items ? 1.5 : 0,
-                        fontSize: { xs: '0.9rem', md: '0.95rem' }
-                      }}
-                    >
-                      {block.text}
-                    </Typography>
-                  )}
-
-                  {block.items && (
-                    <Box component="ul" sx={{ m: 0, pl: 3 }}>
-                      {block.items.map((item, itemIndex) => (
-                        <Box
-                          component="li"
-                          key={itemIndex}
-                          sx={{
-                            color: 'rgba(255,255,255,0.75)',
-                            lineHeight: 1.8,
-                            mb: 0.5,
-                            fontSize: { xs: '0.9rem', md: '0.95rem' },
-                            '&::marker': {
-                              color: '#7c3aed'
-                            }
-                          }}
-                        >
-                          {item}
-                        </Box>
-                      ))}
-                    </Box>
-                  )}
-
-                  {block.note && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.6)',
-                        fontStyle: 'italic',
-                        mt: 1.5,
-                        fontSize: { xs: '0.85rem', md: '0.9rem' }
-                      }}
-                    >
-                      {block.note === 'contact-link' ? (
-                        <>
-                          To exercise these rights or for any questions, please visit our{' '}
-                          <Link
-                            component={RouterLink}
-                            to="/contact"
-                            sx={{
-                              color: '#a855f7',
-                              textDecoration: 'underline',
-                              '&:hover': { color: '#c084fc' }
-                            }}
-                          >
-                            contact page
-                          </Link>
-                          .
-                        </>
-                      ) : (
-                        block.note
-                      )}
-                    </Typography>
-                  )}
-
-                  {block.contactLink && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.75)',
-                        lineHeight: 1.8,
-                        fontSize: { xs: '0.9rem', md: '0.95rem' }
-                      }}
-                    >
-                      For privacy questions or to exercise your rights, please visit our{' '}
-                      <Link
-                        component={RouterLink}
-                        to="/contact"
-                        sx={{
-                          color: '#a855f7',
-                          textDecoration: 'underline',
-                          '&:hover': { color: '#c084fc' }
-                        }}
-                      >
-                        contact page
-                      </Link>
-                      .
-                    </Typography>
-                  )}
-                </Box>
-              ))}
-            </Box>
-          ))}
-
-          <Box
-            sx={{
-              mt: 5,
-              pt: 3,
-              borderTop: '1px solid rgba(255,255,255,0.1)',
-              textAlign: 'center'
-            }}
-          >
-            <Typography
-              sx={{
-                color: 'rgba(255,255,255,0.4)',
-                fontSize: '0.85rem'
-              }}
-            >
-              © 2026 Enes Günümdoğdu. All rights reserved.
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+    <LegalPage
+      kind="Privacy Policy"
+      appName="ns-ai · AI Photo Studio"
+      effectiveDate="May 9, 2026"
+      lastUpdated="May 9, 2026"
+      intro={`This Privacy Policy explains how we collect, use, share, and protect personal information in connection with the iOS application "ns-ai · AI Photo Studio" (the "App") and the related backend services (collectively, the "Service"). By using the Service you confirm that you have read and understood this Privacy Policy.`}
+      sections={sections}
+    />
   )
 }
 

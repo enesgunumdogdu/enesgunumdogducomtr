@@ -1,4 +1,4 @@
-import { Box, Typography, Link } from '@mui/material'
+import LegalPage from '../components/LegalPage'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 function CartoonWeatherTermsOfUse() {
@@ -175,197 +175,20 @@ function CartoonWeatherTermsOfUse() {
       title: '14. Contact',
       content: [
         {
-          text: 'For questions about these Terms:',
-          links: [
-            { label: 'Contact Page', url: '/contact' }
-          ]
+          contactLink: true
         }
       ]
     }
   ]
 
   return (
-    <Box className="page">
-      <Box className="section">
-        <Box className="section-header">
-          <Box className="section-label">Legal</Box>
-          <Typography variant="h1" component="h1" className="hero-name hero-name-large">
-            <span className="gradient-text-animated">Terms of Use</span>
-          </Typography>
-          <Typography className="section-subtitle">
-            Cartoon Weather
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            background: 'rgba(17, 17, 17, 0.7)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255,255,255,0.06)',
-            borderRadius: { xs: '20px', md: '24px' },
-            p: { xs: 3, md: 5 },
-            maxWidth: 900,
-            mx: 'auto',
-            position: 'relative',
-            overflow: 'hidden',
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: 'linear-gradient(135deg, #7c3aed 0%, #ec4899 100%)',
-            }
-          }}
-        >
-          <Typography
-            sx={{
-              color: 'rgba(255,255,255,0.5)',
-              fontSize: '0.9rem',
-              mb: 4,
-              pb: 3,
-              borderBottom: '1px solid rgba(255,255,255,0.1)'
-            }}
-          >
-            Last Updated: January 23, 2026
-          </Typography>
-
-          <Typography
-            sx={{
-              color: 'rgba(255,255,255,0.85)',
-              lineHeight: 1.8,
-              mb: 4,
-              fontSize: { xs: '0.95rem', md: '1rem' }
-            }}
-          >
-            Please read these Terms of Use ("Terms") carefully before using Cartoon Weather ("the App").
-          </Typography>
-
-          {sections.map((section, sectionIndex) => (
-            <Box key={sectionIndex} sx={{ mb: 4 }}>
-              <Typography
-                variant="h3"
-                sx={{
-                  fontFamily: "var(--font-display)",
-                  fontWeight: 600,
-                  fontSize: { xs: '1.1rem', md: '1.25rem' },
-                  color: '#a855f7',
-                  mb: 2
-                }}
-              >
-                {section.title}
-              </Typography>
-
-              {section.content.map((block, blockIndex) => (
-                <Box key={blockIndex} sx={{ mb: 2 }}>
-                  {block.subtitle && (
-                    <Typography
-                      sx={{
-                        fontWeight: 600,
-                        color: 'rgba(255,255,255,0.9)',
-                        fontSize: { xs: '0.95rem', md: '1rem' },
-                        mb: 1,
-                        mt: 2
-                      }}
-                    >
-                      {block.subtitle}
-                    </Typography>
-                  )}
-
-                  {block.text && (
-                    <Typography
-                      sx={{
-                        color: 'rgba(255,255,255,0.75)',
-                        lineHeight: 1.8,
-                        mb: block.items ? 1.5 : 0,
-                        fontSize: { xs: '0.9rem', md: '0.95rem' }
-                      }}
-                    >
-                      {block.text}
-                    </Typography>
-                  )}
-
-                  {block.items && (
-                    <Box component="ul" sx={{ m: 0, pl: 3 }}>
-                      {block.items.map((item, itemIndex) => (
-                        <Box
-                          component="li"
-                          key={itemIndex}
-                          sx={{
-                            color: 'rgba(255,255,255,0.75)',
-                            lineHeight: 1.8,
-                            mb: 0.5,
-                            fontSize: { xs: '0.9rem', md: '0.95rem' },
-                            '&::marker': {
-                              color: '#7c3aed'
-                            }
-                          }}
-                        >
-                          {item}
-                        </Box>
-                      ))}
-                    </Box>
-                  )}
-
-                  {block.links && (
-                    <Box component="ul" sx={{ m: 0, pl: 3 }}>
-                      {block.links.map((link, linkIndex) => (
-                        <Box
-                          component="li"
-                          key={linkIndex}
-                          sx={{
-                            lineHeight: 1.8,
-                            mb: 0.5,
-                            fontSize: { xs: '0.9rem', md: '0.95rem' },
-                            '&::marker': {
-                              color: '#7c3aed'
-                            }
-                          }}
-                        >
-                          <Link
-                            href={link.url}
-                            sx={{
-                              color: '#a855f7',
-                              textDecoration: 'none',
-                              transition: 'all 0.2s ease',
-                              '&:hover': {
-                                color: '#c084fc',
-                                textDecoration: 'underline'
-                              }
-                            }}
-                          >
-                            {link.label}
-                          </Link>
-                        </Box>
-                      ))}
-                    </Box>
-                  )}
-                </Box>
-              ))}
-            </Box>
-          ))}
-
-          <Box
-            sx={{
-              mt: 5,
-              pt: 3,
-              borderTop: '1px solid rgba(255,255,255,0.1)',
-              textAlign: 'center'
-            }}
-          >
-            <Typography
-              sx={{
-                color: 'rgba(255,255,255,0.4)',
-                fontSize: '0.85rem'
-              }}
-            >
-              © 2026 Enes Günümdoğdu. All rights reserved.
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+    <LegalPage
+      kind="Terms of Use"
+      appName="Cartoon Weather"
+      lastUpdated="January 23, 2026"
+      intro={`Please read these Terms of Use ("Terms") carefully before using Cartoon Weather ("the App").`}
+      sections={sections}
+    />
   )
 }
 
