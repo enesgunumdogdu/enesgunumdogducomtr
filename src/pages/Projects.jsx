@@ -145,7 +145,7 @@ function Projects() {
     },
     {
       title: 'ns-ai',
-      description: 'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video powered by Gemini and Kling.',
+      description: 'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video — all in one creative tool.',
       tags: ['Swift', 'SwiftUI', 'Firebase', 'AI'],
       badge: { label: 'SOON', color: '#C49A2A' },
       size: 'square',

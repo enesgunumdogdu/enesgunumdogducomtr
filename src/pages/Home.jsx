@@ -614,7 +614,7 @@ function Home() {
             {
               logo: '/logos/ns-ai.png',
               name: 'ns-ai',
-              desc: 'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video powered by Gemini and Kling.',
+              desc: 'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video — all in one creative tool.',
               tags: ['Swift', 'SwiftUI', 'Firebase', 'AI'],
               status: 'SOON',
               statusColor: '#C49A2A',
