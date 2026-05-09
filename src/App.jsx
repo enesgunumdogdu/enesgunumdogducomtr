@@ -14,6 +14,8 @@ import SeasonsPrivacyPolicy from './pages/SeasonsPrivacyPolicy'
 import SeasonsTermsOfUse from './pages/SeasonsTermsOfUse'
 import MagnetifyPrivacyPolicy from './pages/MagnetifyPrivacyPolicy'
 import MagnetifyTermsOfUse from './pages/MagnetifyTermsOfUse'
+import NsAiPrivacyPolicy from './pages/NsAiPrivacyPolicy'
+import NsAiTermsOfUse from './pages/NsAiTermsOfUse'
 import NotFound from './pages/NotFound'
 import './App.css'
 
@@ -33,6 +35,8 @@ function AnimatedRoutes() {
         <Route path="/seasons-terms-of-use" element={<PageTransition><SeasonsTermsOfUse /></PageTransition>} />
         <Route path="/magnetify-privacy-policy" element={<PageTransition><MagnetifyPrivacyPolicy /></PageTransition>} />
         <Route path="/magnetify-terms-of-use" element={<PageTransition><MagnetifyTermsOfUse /></PageTransition>} />
+        <Route path="/nsai-privacy-policy" element={<PageTransition><NsAiPrivacyPolicy /></PageTransition>} />
+        <Route path="/nsai-terms-of-use" element={<PageTransition><NsAiTermsOfUse /></PageTransition>} />
         <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
       </Routes>
     </AnimatePresence>

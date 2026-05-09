@@ -137,10 +137,18 @@ function Projects() {
     },
     {
       title: 'Magnetify',
-      description: 'Professional window manager for macOS. Drag-to-snap, 16 positions, keyboard shortcuts, workspace profiles, 33 languages.',
+      description: 'Professional window manager for macOS. Drag-to-snap, 16 positions, keyboard shortcuts, workspace profiles, 33 languages. Open source.',
       tags: ['Swift', 'SwiftUI', 'macOS', 'AppKit'],
-      badge: { label: 'SOON', color: '#C49A2A' },
+      github: 'https://github.com/enesgunumdogdu/magnetify',
+      badge: { label: 'OPEN SOURCE', color: 'var(--accent-secondary)' },
       size: 'wide',
+    },
+    {
+      title: 'ns-ai',
+      description: 'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video powered by Gemini and Kling.',
+      tags: ['Swift', 'SwiftUI', 'Firebase', 'AI'],
+      badge: { label: 'SOON', color: '#C49A2A' },
+      size: 'square',
     },
     {
       title: 'Fitness Microservice',

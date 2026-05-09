@@ -255,7 +255,7 @@ function Home() {
                     { number: '5.0', label: 'App Store', sub: 'Cartoon Weather' },
                     { number: '50K+', label: 'Views', sub: 'YouTube' },
                     { number: '25+', label: 'Projects', sub: 'Freelance' },
-                    { number: '3', label: 'Apps', sub: 'Shipped & Coming' },
+                    { number: '4', label: 'Apps', sub: 'Shipped & Coming' },
                   ].map((stat, i) => (
                     <Box key={i}>
                       <LedgerNumber
@@ -599,18 +599,28 @@ function Home() {
               tags: ['Swift', 'SwiftUI', 'WidgetKit'],
               status: 'LIVE',
               statusColor: 'var(--accent-secondary)',
+              rating: '5.0 ★',
               href: 'https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537',
             },
             {
               logo: '/logos/magnetify.png',
               name: 'Magnetify',
-              desc: 'Professional window manager for macOS. Drag-to-snap, keyboard shortcuts, workspace profiles, app rules. 33 languages.',
+              desc: 'Professional window manager for macOS. Drag-to-snap, keyboard shortcuts, workspace profiles, app rules. 33 languages. Open source.',
               tags: ['Swift', 'SwiftUI', 'macOS'],
+              status: 'OPEN SOURCE',
+              statusColor: 'var(--accent-secondary)',
+              href: 'https://github.com/enesgunumdogdu/magnetify',
+            },
+            {
+              logo: '/logos/ns-ai.png',
+              name: 'ns-ai',
+              desc: 'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video powered by Gemini and Kling.',
+              tags: ['Swift', 'SwiftUI', 'Firebase', 'AI'],
               status: 'SOON',
               statusColor: '#C49A2A',
               href: null,
             },
-          ].map((app, i) => (
+          ].map((app, i, arr) => (
             <Box key={i}>
               <ScrollReveal delay={i * 0.08} preset="clipReveal">
                 <Box
@@ -737,7 +747,7 @@ function Home() {
                   />
                 </Box>
               </ScrollReveal>
-              {i < 2 && <DraftedLine color="var(--border-subtle)" />}
+              {i < arr.length - 1 && <DraftedLine color="var(--border-subtle)" />}
             </Box>
           ))}
         </Box>
