@@ -177,7 +177,7 @@ function NsAiPrivacyPolicy() {
             'Account data: kept while your account exists.',
             'Uploaded input photos: deleted automatically once the related generation reaches a final state (completed, failed, or cancelled).',
             'Generation job records (including the prompt and parameters): automatically deleted approximately 90 days after creation, or sooner if you delete the job or your account.',
-            'Generated outputs stored for your in-app history: kept until you delete them or your account.',
+            'Generated outputs stored for your in-app history: kept until you delete them or your account, and in any case automatically deleted at the latest 180 days after creation.',
             'Credit ledger entries: retained for accounting integrity for up to ten (10) years after the related transaction, where required by law.',
             'Subscription receipts: retained for the life of the subscription and for legally required record-keeping periods.',
             'Push tokens: not collected by the current version; if push notifications are enabled in a future version, tokens would be deleted when reported invalid by APNs/FCM, when you sign out, or on account deletion.',
