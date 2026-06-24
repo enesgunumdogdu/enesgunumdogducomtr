@@ -21,11 +21,11 @@ function NsAiPrivacyPolicy() {
       content: [
         {
           items: [
-            'We collect only what we need to run the App: your account, your generation jobs, your purchases and credit balance, device push tokens, basic device and usage telemetry, and crash diagnostics.',
+            'We collect only what we need to run the App: your account, your generation jobs, your purchases and credit balance, basic device and usage telemetry, and crash diagnostics.',
             'We do NOT sell your personal information.',
             'We do NOT use your prompts, uploaded photos, or generated outputs to train AI models — ours or third parties\'.',
-            'Generations are produced by third-party AI providers (currently Google Gemini for images, Kling for video). Your prompts and any input images you upload are sent to these providers solely to fulfill your request.',
-            'You can sign in with Apple, request deletion of your account, and contact us with privacy questions at any time.'
+            'Generations are produced by third-party AI providers (currently Google Gemini and OpenAI for images; additional providers may be used for other features where available). Your prompts and any input images you upload are sent to these providers solely to fulfill your request.',
+            'You can sign in with Apple or Google, or continue as a guest; you can request deletion of your account and contact us with privacy questions at any time.'
           ]
         }
       ]
@@ -39,8 +39,8 @@ function NsAiPrivacyPolicy() {
         {
           subtitle: 'a) Account information',
           items: [
-            'Apple ID-derived user identifier (Sign in with Apple).',
-            'Email address (real or Apple-relay private email, if you choose to share it).',
+            'A user identifier from your chosen sign-in method — Sign in with Apple or Sign in with Google — or an anonymous, device-based identifier if you use the App as a guest.',
+            'Email address (real, or an Apple or Google relay / private email, if your sign-in method shares one).',
             'Display name, if provided.',
             'Authentication provider identifier.'
           ]
@@ -64,11 +64,11 @@ function NsAiPrivacyPolicy() {
           note: 'We do NOT receive or store your payment card, bank account, or full billing details. Payments are processed by Apple under Apple\'s terms and privacy policy.'
         },
         {
-          subtitle: 'd) Device and push information',
+          subtitle: 'd) Device information',
           items: [
-            'Device push notification token (APNs, exchanged via Firebase Cloud Messaging).',
             'iOS version, device model, app version, locale and timezone.',
-            'Crash reports and diagnostic logs (via Firebase Crashlytics).'
+            'Crash reports and diagnostic logs (via Firebase Crashlytics).',
+            'If and when push notifications are offered in a future version of the App and you enable them, a device push notification token (APNs, exchanged via Firebase Cloud Messaging). The current version does not send push notifications and does not collect push tokens.'
           ]
         },
         {
@@ -97,7 +97,7 @@ function NsAiPrivacyPolicy() {
             'Create, secure, and operate your account.',
             'Process your generation requests and deliver the generated outputs back to you.',
             'Calculate and enforce credit balances, charge and refund credits, and manage subscriptions.',
-            'Send transactional and feature push notifications you have opted into (e.g. "your video is ready").',
+            'If and when push notifications are offered and you opt in, send transactional and feature notifications (e.g. "your image is ready").',
             'Detect, investigate, and prevent abuse, fraud, security incidents, and violations of our Terms of Use.',
             'Diagnose crashes, fix bugs, and improve performance and reliability.',
             'Comply with legal obligations and respond to lawful requests.'
@@ -128,7 +128,7 @@ function NsAiPrivacyPolicy() {
         },
         {
           subtitle: 'a) Apple Inc.',
-          text: 'Sign in with Apple, App Store, In-App Purchases, APNs push delivery, Apple Maps, TestFlight (where applicable).'
+          text: 'Sign in with Apple, App Store, In-App Purchases, and TestFlight (where applicable). APNs push delivery would also apply if push notifications are enabled in a future version.'
         },
         {
           subtitle: 'b) Google LLC / Firebase',
@@ -139,9 +139,9 @@ function NsAiPrivacyPolicy() {
           text: 'Your prompts, parameters, and any input images you upload for a generation are sent to the AI provider that fulfills the request. Currently:',
           items: [
             'Google (Gemini "Nano Banana" image models)',
-            'Kling (video models)'
+            'OpenAI (image models)'
           ],
-          note: 'Additional providers may be added (e.g., OpenAI, Runway). When a new provider is enabled, this list will be updated.'
+          note: 'Additional providers may be added for other features where available (e.g., Kling or Runway for video). When a new provider is enabled, this list will be updated.'
         },
         {
           subtitle: 'd) Payment processing',
@@ -175,10 +175,12 @@ function NsAiPrivacyPolicy() {
           text: 'We retain personal information for as long as your account is active or as needed to provide the Service:',
           items: [
             'Account data: kept while your account exists.',
-            'Generation jobs and outputs: kept until you delete them or your account.',
+            'Uploaded input photos: deleted automatically once the related generation reaches a final state (completed, failed, or cancelled).',
+            'Generation job records (including the prompt and parameters): automatically deleted approximately 90 days after creation, or sooner if you delete the job or your account.',
+            'Generated outputs stored for your in-app history: kept until you delete them or your account.',
             'Credit ledger entries: retained for accounting integrity for up to ten (10) years after the related transaction, where required by law.',
             'Subscription receipts: retained for the life of the subscription and for legally required record-keeping periods.',
-            'Push tokens: deleted when reported invalid by APNs/FCM, when you sign out, or on account deletion.',
+            'Push tokens: not collected by the current version; if push notifications are enabled in a future version, tokens would be deleted when reported invalid by APNs/FCM, when you sign out, or on account deletion.',
             'Crash and analytics data: retained according to Firebase defaults (typically up to 90 days for raw events, longer for aggregated data).'
           ],
           note: 'When data is no longer needed, we delete or anonymize it.'
@@ -265,7 +267,7 @@ function NsAiPrivacyPolicy() {
       title: '14. Push Notifications',
       content: [
         {
-          text: 'We ask for permission to send push notifications only after your first successful generation. You can change this at any time in iOS Settings → ns-ai · AI Photo Studio → Notifications. Push tokens are deleted when reported invalid by APNs/FCM or when you sign out.'
+          text: 'The current version of the App does not send push notifications and does not collect push tokens. If push notifications are offered in a future version, they will be optional: we would ask for permission in context (for example, after a successful generation), and you could change the setting at any time in iOS Settings → ns-ai · AI Photo Studio → Notifications. If enabled, push tokens would be deleted when reported invalid by APNs/FCM, when you sign out, or on account deletion.'
         }
       ]
     },
@@ -292,7 +294,7 @@ function NsAiPrivacyPolicy() {
       kind="Privacy Policy"
       appName="ns-ai · AI Photo Studio"
       effectiveDate="May 9, 2026"
-      lastUpdated="May 9, 2026"
+      lastUpdated="June 24, 2026"
       intro={`This Privacy Policy explains how we collect, use, share, and protect personal information in connection with the iOS application "ns-ai · AI Photo Studio" (the "App") and the related backend services (collectively, the "Service"). By using the Service you confirm that you have read and understood this Privacy Policy.`}
       sections={sections}
     />

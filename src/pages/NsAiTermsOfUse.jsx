@@ -24,10 +24,9 @@ function NsAiTermsOfUse() {
           items: [
             'generate images from text prompts ("text-to-image"),',
             'transform an image you provide using a prompt ("image-to-image"),',
-            'generate short videos from text prompts ("text-to-video"),',
-            'animate a still image you provide ("image-to-video"),'
+            'and, where the feature is available, generate short videos from text prompts ("text-to-video") or animate a still image you provide ("image-to-video").'
           ],
-          note: 'using third-party AI providers (currently Google Gemini for images and Kling for video; additional providers may be added). The available features, models, providers, durations, and resolutions may change over time and may differ between regions and pricing tiers.'
+          note: 'using third-party AI providers (currently Google Gemini and OpenAI for images; video providers such as Kling may be added). Video generation may not be available in the current version or in all regions. The available features, models, providers, durations, and resolutions may change over time and may differ between regions and pricing tiers.'
         }
       ]
     },
@@ -35,7 +34,7 @@ function NsAiTermsOfUse() {
       title: '3. Account and Sign-In',
       content: [
         {
-          text: 'You access the Service through Sign in with Apple. You are responsible for maintaining the confidentiality of your Apple ID credentials and for all activity under your account. You agree to provide accurate information and to keep it up to date.'
+          text: 'You can access the Service by signing in with Apple or Google, or by continuing as a guest (an anonymous, device-based session). You are responsible for maintaining the confidentiality of your sign-in credentials and for all activity under your account. You agree to provide accurate information and to keep it up to date.'
         },
         {
           text: 'You must not:',
@@ -115,7 +114,7 @@ function NsAiTermsOfUse() {
           ]
         },
         {
-          text: 'You must also comply with the acceptable use policies of the underlying AI providers used by the Service (e.g., Google\'s Generative AI Prohibited Use Policy and Kling\'s terms). Some prompts and inputs may be rejected or filtered by these providers, by us, or by safety classifiers, and credits may be refunded to your in-app balance for content that we identify as a Service-side failure.'
+          text: 'You must also comply with the acceptable use policies of the underlying AI providers used by the Service (e.g., Google\'s Generative AI Prohibited Use Policy, OpenAI\'s usage policies, and, where applicable, Kling\'s terms). Some prompts and inputs may be rejected or filtered by these providers, by us, or by safety classifiers, and credits may be refunded to your in-app balance for content that we identify as a Service-side failure.'
         },
         {
           note: 'We may, at our sole discretion, suspend or terminate access for users who violate these rules.'
@@ -167,7 +166,7 @@ function NsAiTermsOfUse() {
       title: '8. Third-Party Services',
       content: [
         {
-          text: 'The Service relies on third-party services, including Apple, Google / Firebase, Google Gemini, Kling, and others. Your use of those services is also subject to their own terms and privacy policies. We are not responsible for the practices of third parties.'
+          text: 'The Service relies on third-party services, including Apple, Google / Firebase, Google Gemini, OpenAI, and others (and additional providers such as Kling for video where that feature is available). Your use of those services is also subject to their own terms and privacy policies. We are not responsible for the practices of third parties.'
         },
         {
           text: 'These Terms are between you and the operator. Apple is not a party to these Terms.'
@@ -293,7 +292,7 @@ function NsAiTermsOfUse() {
       kind="Terms of Use"
       appName="ns-ai · AI Photo Studio"
       effectiveDate="May 9, 2026"
-      lastUpdated="May 9, 2026"
+      lastUpdated="June 24, 2026"
       intro={`These Terms of Use ("Terms") form a binding agreement between you and Enes Günümdoğdu (sole developer), the operator of the iOS application "ns-ai · AI Photo Studio" (the "App") and the related backend services (collectively, the "Service"). By downloading, installing, signing in to, or using the App, you confirm that you have read, understood, and agreed to these Terms and to our Privacy Policy. If you do not agree, do not use the Service.`}
       sections={sections}
     />
