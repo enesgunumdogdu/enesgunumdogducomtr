@@ -84,7 +84,7 @@ const Footer = () => {
           letterSpacing: '0.08em',
         }}
       >
-        · Antalya, {new Date().getFullYear()}
+        · İstanbul, {new Date().getFullYear()}
       </Typography>
     </Box>
   )

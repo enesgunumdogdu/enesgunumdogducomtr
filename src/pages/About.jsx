@@ -1,5 +1,5 @@
 import { Box, Typography, Link } from '@mui/material'
-import { School, OpenInNew } from '@mui/icons-material'
+import { OpenInNew } from '@mui/icons-material'
 import { motion } from 'framer-motion'
 import ScrollReveal from '../components/animations/ScrollReveal'
 import DraftedLine from '../components/animations/DraftedLine'
@@ -19,6 +19,15 @@ function About() {
   ]
 
   const experiences = [
+    {
+      logo: '/logos/huawei.svg',
+      title: 'Huawei',
+      role: 'Assistant Software Developer',
+      period: '2026 — Present',
+      description: 'Joined Huawei as a full-time software developer, building production software within a large-scale engineering organization. On-site in İstanbul.',
+      tags: [],
+      link: 'https://www.huawei.com'
+    },
     {
       logo: '/logos/avevrak.ico',
       title: 'Avevrak.com',
@@ -98,7 +107,7 @@ function About() {
           >
             <span>Enes Günümdoğdu</span>
             <span style={{ color: 'var(--text-dim)' }}>/</span>
-            <span>Antalya, TR</span>
+            <span>İstanbul, TR</span>
           </Box>
         </motion.div>
 
@@ -270,6 +279,7 @@ function About() {
                     }}>
                       {exp.description}
                     </Typography>
+                    {exp.tags.length > 0 && (
                     <Box sx={{ display: 'flex', gap: 0.5, mt: 1.25, flexWrap: 'wrap' }}>
                       {exp.tags.map((tag, ti) => (
                         <Box
@@ -289,6 +299,7 @@ function About() {
                         </Box>
                       ))}
                     </Box>
+                    )}
                   </Box>
 
                   <OpenInNew
@@ -335,15 +346,21 @@ function About() {
                 width: 48,
                 height: 48,
                 borderRadius: '2px',
-                background: 'var(--accent-dim)',
+                background: 'var(--bg-secondary)',
+                border: '1px solid var(--border-light)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--accent)',
+                p: 0.75,
                 flexShrink: 0,
               }}
             >
-              <School sx={{ fontSize: 22 }} />
+              <Box
+                component="img"
+                src="/logos/erciyes.svg"
+                alt="Erciyes University"
+                sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              />
             </Box>
 
             <Box>

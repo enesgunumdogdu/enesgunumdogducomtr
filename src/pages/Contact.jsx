@@ -278,7 +278,7 @@ function Contact() {
                       letterSpacing: '-0.015em',
                     }}
                   >
-                    Antalya, Turkey
+                    İstanbul, Turkey
                   </Typography>
                   <Typography sx={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', fontSize: '0.72rem', mt: 0.5, letterSpacing: '0.05em' }}>
                     UTC+3 · Turkey Time

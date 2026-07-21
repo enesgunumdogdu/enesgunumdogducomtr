@@ -38,37 +38,6 @@ function Home() {
         <motion.div style={{ y: heroY, opacity: heroOpacity, width: '100%' }}>
           <Container maxWidth="lg">
             <Box className="hero-content" sx={{ gap: 4 }}>
-              {/* Status line */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: ease.draft }}
-              >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.72rem',
-                    color: 'var(--text-muted)',
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 6,
-                      height: 6,
-                      borderRadius: '50%',
-                      background: 'var(--accent-secondary)',
-                      boxShadow: '0 0 8px rgba(42, 111, 111, 0.4)',
-                    }}
-                  />
-                  <span>Open to work</span>
-                </Box>
-              </motion.div>
-
               {/* Name as brand — the hero */}
               <Box>
                 <motion.div
@@ -114,7 +83,7 @@ function Home() {
                 </motion.div>
               </Box>
 
-              {/* Character tagline — "Java at work. Swift after hours." */}
+              {/* Character tagline — "Software developer by day. iOS apps, for the fun of it." */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -130,7 +99,7 @@ function Home() {
                     lineHeight: 1.2,
                   }}
                 >
-                  Java at work.{' '}
+                  Software developer by day.{' '}
                   <Box
                     component="span"
                     sx={{
@@ -139,7 +108,7 @@ function Home() {
                       color: 'var(--accent)',
                     }}
                   >
-                    Swift after hours.
+                    iOS apps, for the fun of it.
                   </Box>
                 </Typography>
               </motion.div>
@@ -165,7 +134,7 @@ function Home() {
                     Cartoon Weather
                   </Box>
                   {' '}(5.0 stars, 19 languages) and 50K+ views worth of algorithm
-                  breakdowns on YouTube. Currently building microservices.
+                  breakdowns on YouTube. Currently a software developer at Huawei.
                 </Typography>
               </motion.div>
 
@@ -775,7 +744,7 @@ function Home() {
                 mb: 1.5,
               }}
             >
-              Got a project?{' '}
+              Want to talk?{' '}
               <Box
                 component={Link}
                 to="/contact"
@@ -800,7 +769,7 @@ function Home() {
                 letterSpacing: '0.08em',
               }}
             >
-              Currently taking on backend and iOS freelance work · Response usually under 24 hours
+              Always up for a conversation about backend, iOS, or algorithms · Reply usually under 24 hours
             </Typography>
           </Box>
         </ScrollReveal>
