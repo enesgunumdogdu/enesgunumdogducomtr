@@ -107,7 +107,7 @@ function Contact() {
           </Box>
         </motion.div>
 
-        <Box sx={{ maxWidth: 960, mx: 'auto' }}>
+        <Box sx={{ maxWidth: '60rem', mx: 'auto' }}>
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 5 }}>
             {/* Form */}
             <ScrollReveal style={{ flex: 1.4 }} preset="clipReveal">

@@ -202,20 +202,20 @@
 /* ==================== PAGE CONTAINER ==================== */
 .page {
   min-height: 100vh;
-  padding-top: 88px;
+  padding-top: 5.5rem;
   position: relative;
   overflow-x: hidden;
 }
 
 @media (max-width: 480px) {
   .page {
-    padding-top: 72px;
+    padding-top: 4.5rem;
   }
 }
 
 /* ==================== HERO SECTION ==================== */
 .hero {
-  min-height: calc(100vh - 88px);
+  min-height: calc(100vh - 5.5rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -227,12 +227,12 @@
 @media (max-width: 480px) {
   .hero {
     padding: 2rem 1rem;
-    min-height: calc(100vh - 72px);
+    min-height: calc(100vh - 4.5rem);
   }
 }
 
 .hero-content {
-  max-width: 1100px;
+  max-width: 68.75rem;
   width: 100%;
   position: relative;
   z-index: 1;
@@ -244,7 +244,7 @@
 /* ==================== SECTIONS ==================== */
 .section {
   padding: 7rem 2rem;
-  max-width: 1100px;
+  max-width: 68.75rem;
   margin: 0 auto;
   width: 100%;
   position: relative;
@@ -297,7 +297,7 @@
 .section-subtitle {
   font-family: var(--font-body);
   color: var(--text-secondary);
-  max-width: 550px;
+  max-width: 34.375rem;
   font-size: 1.05rem;
   line-height: 1.7;
   font-weight: 400;

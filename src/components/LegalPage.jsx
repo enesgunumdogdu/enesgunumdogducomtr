@@ -43,7 +43,7 @@ function LegalPage({ kind, appName, effectiveDate, lastUpdated, intro, sections 
         </motion.div>
 
         {/* ============ BODY ============ */}
-        <Box sx={{ maxWidth: 760, mx: 'auto' }}>
+        <Box sx={{ maxWidth: '47.5rem', mx: 'auto' }}>
           {/* Date row — looks like a ledger entry */}
           <ScrollReveal preset="draftedLine">
             <Box

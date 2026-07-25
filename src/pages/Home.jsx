@@ -36,7 +36,7 @@ function Home() {
       {/* ============ HERO ============ */}
       <Box ref={heroRef} className="hero" sx={{ position: 'relative' }}>
         <motion.div style={{ y: heroY, opacity: heroOpacity, width: '100%' }}>
-          <Container maxWidth="lg">
+          <Container maxWidth={false} disableGutters sx={{ px: 0 }}>
             <Box className="hero-content" sx={{ gap: 4 }}>
               {/* Name as brand — the hero */}
               <Box>

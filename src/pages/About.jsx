@@ -78,7 +78,7 @@ function About() {
               color: 'var(--text-primary)',
               mb: 4,
               fontFeatureSettings: "'ss01'",
-              maxWidth: 900,
+              maxWidth: '56.25rem',
             }}
           >
             A backend engineer who ships iOS apps{' '}
@@ -121,7 +121,7 @@ function About() {
               display: 'grid',
               gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
               gap: { xs: 3, md: 6 },
-              maxWidth: 920,
+              maxWidth: '57.5rem',
             }}
           >
             <Box>
@@ -338,7 +338,7 @@ function About() {
               alignItems: 'flex-start',
               gap: 3,
               py: 3,
-              maxWidth: 780,
+              maxWidth: '48.75rem',
             }}
           >
             <Box
