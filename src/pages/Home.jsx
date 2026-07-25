@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Container, Typography, useMediaQuery } from '@mui/material'
 import { GitHub, LinkedIn, East } from '@mui/icons-material'
 import ScrollReveal from '../components/animations/ScrollReveal'
 import Marquee from '../components/animations/Marquee'
@@ -16,13 +16,17 @@ function Home() {
   useDocumentTitle(null)
 
   const heroRef = useRef(null)
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start']
   })
 
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+  /* On phones the hero is taller than the viewport, so shifting it down by
+     120px only pushed the bottom of the content into the hero's overflow
+     clip. Parallax stays a desktop flourish. */
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 120])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, isMobile ? 1 : 0])
 
   const techStack = [
     'Java', 'Spring Boot', 'Python', 'TypeScript', 'Swift',
@@ -214,9 +218,13 @@ function Home() {
                 <DraftedLine delay={1.05} opacity={0.6} />
                 <Box
                   sx={{
-                    display: 'flex',
-                    gap: { xs: 3, md: 5 },
-                    flexWrap: 'wrap',
+                    display: 'grid',
+                    /* 2×2 on phones — as a wrapping flex row the fourth stat
+                       dropped alone onto a second line. */
+                    gridTemplateColumns: { xs: 'repeat(2, minmax(0, 1fr))', sm: 'repeat(4, auto)' },
+                    justifyContent: { sm: 'start' },
+                    columnGap: { xs: 2, sm: 5 },
+                    rowGap: { xs: 3, sm: 0 },
                     pt: 3,
                   }}
                 >
@@ -296,16 +304,9 @@ function Home() {
         </ScrollReveal>
 
         {/* Bento grid — no background numbers, cleaner */}
-        <StaggerChildren style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(6, 1fr)',
-          gap: '1px',
-          background: 'var(--border-light)',
-          borderRadius: '2px',
-          overflow: 'hidden',
-        }}>
+        <StaggerChildren className="bento-grid">
           {/* Backend — full width */}
-          <StaggerItem style={{ gridColumn: 'span 6' }}>
+          <StaggerItem className="bento-cell bento-cell--full">
             <Box
               sx={{
                 background: 'var(--bg-secondary)',
@@ -381,7 +382,7 @@ function Home() {
           </StaggerItem>
 
           {/* Cloud — half */}
-          <StaggerItem style={{ gridColumn: 'span 3' }}>
+          <StaggerItem className="bento-cell bento-cell--half">
             <Box
               sx={{
                 background: 'var(--bg-secondary)',
@@ -455,7 +456,7 @@ function Home() {
           </StaggerItem>
 
           {/* iOS — half */}
-          <StaggerItem style={{ gridColumn: 'span 3' }}>
+          <StaggerItem className="bento-cell bento-cell--half">
             <Box
               sx={{
                 background: 'var(--bg-secondary)',
@@ -528,14 +529,6 @@ function Home() {
             </Box>
           </StaggerItem>
         </StaggerChildren>
-
-        <style>{`
-          @media (max-width: 768px) {
-            [style*="grid-column: span 3"] {
-              grid-column: span 6 !important;
-            }
-          }
-        `}</style>
       </Box>
 
       {/* ============ SHIPPED ============ */}

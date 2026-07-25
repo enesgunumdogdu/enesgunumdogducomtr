@@ -202,32 +202,30 @@
 /* ==================== PAGE CONTAINER ==================== */
 .page {
   min-height: 100vh;
-  padding-top: 5.5rem;
+  padding-top: var(--nav-height);
   position: relative;
   overflow-x: hidden;
 }
 
-@media (max-width: 480px) {
-  .page {
-    padding-top: 4.5rem;
-  }
-}
-
 /* ==================== HERO SECTION ==================== */
+/* The hero sits on a page with padding-top: 0, so it carries the navbar
+   offset itself instead of relying on the parent. */
 .hero {
-  min-height: calc(100vh - 5.5rem);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: calc(var(--nav-height) + 1rem) 2rem 4rem;
   position: relative;
   overflow: hidden;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .hero {
-    padding: 2rem 1rem;
-    min-height: calc(100vh - 4.5rem);
+    /* Content is taller than the viewport on phones — let it size to content
+       instead of forcing a full screen and centering it into the navbar. */
+    min-height: auto;
+    padding: calc(var(--nav-height) + 1.5rem) 1.25rem 3.5rem;
   }
 }
 
@@ -307,6 +305,43 @@
 @media (max-width: 768px) {
   .section-subtitle {
     max-width: 100%;
+  }
+}
+
+/* ==================== BENTO GRID ==================== */
+.bento-grid {
+  display: grid;
+  /* minmax(0, 1fr) — plain 1fr floors at min-content and lets long words
+     push the tracks wider than the container. */
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--border-light);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.bento-cell {
+  min-width: 0;
+  display: flex;
+}
+
+/* Stretch the card to the full row height so the grid's gap colour
+   never shows through as an empty block. */
+.bento-cell > * {
+  width: 100%;
+}
+
+.bento-cell--full {
+  grid-column: span 6;
+}
+
+.bento-cell--half {
+  grid-column: span 3;
+}
+
+@media (max-width: 768px) {
+  .bento-cell--half {
+    grid-column: span 6;
   }
 }
 

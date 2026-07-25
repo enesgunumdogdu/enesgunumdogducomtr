@@ -257,7 +257,7 @@ function Projects() {
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: 'repeat(12, 1fr)' },
+            gridTemplateColumns: { xs: 'minmax(0, 1fr)', md: 'repeat(12, minmax(0, 1fr))' },
             gap: { xs: 2, md: 3 },
           }}
         >
@@ -590,7 +590,7 @@ function Projects() {
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: { xs: '1fr', lg: '1fr 280px' },
+                gridTemplateColumns: { xs: 'minmax(0, 1fr)', lg: 'minmax(0, 1fr) 280px' },
                 gap: 4,
                 mb: 5,
                 pb: 4,
@@ -717,7 +717,7 @@ function Projects() {
                 <Box sx={{ color: 'var(--text-dim)', letterSpacing: '0.1em', mb: 1, textTransform: 'uppercase', fontSize: '0.58rem' }}>
                   ── Filter receipt ──
                 </Box>
-                <Box sx={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '0.25rem 1rem', mb: 1.5 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', gap: '0.25rem 1rem', mb: 1.5 }}>
                   <span style={{ color: 'var(--text-dim)' }}>Cat</span>
                   <span>{activeCategory}</span>
                   <span style={{ color: 'var(--text-dim)' }}>Lang</span>
@@ -779,7 +779,13 @@ function Projects() {
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: { xs: '1fr 1fr', sm: 'repeat(3, 1fr)', lg: 'repeat(4, 1fr)' },
+                /* minmax(0, …) — a bare 1fr never shrinks below the longest
+                   repo name, which pushed the right column off screen. */
+                gridTemplateColumns: {
+                  xs: 'repeat(2, minmax(0, 1fr))',
+                  sm: 'repeat(3, minmax(0, 1fr))',
+                  lg: 'repeat(4, minmax(0, 1fr))',
+                },
                 gap: 1,
               }}
             >
@@ -797,7 +803,7 @@ function Projects() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ delay: Math.min(i * 0.02, 0.4), duration: 0.35, ease: ease.draft }}
-                      style={{ textDecoration: 'none' }}
+                      style={{ textDecoration: 'none', minWidth: 0 }}
                     >
                       <Box
                         sx={{
@@ -867,6 +873,7 @@ function Projects() {
                               display: '-webkit-box',
                               WebkitLineClamp: 2,
                               WebkitBoxOrient: 'vertical',
+                              overflowWrap: 'anywhere',
                             }}
                           >
                             {repo.name}
@@ -881,6 +888,7 @@ function Projects() {
                               WebkitBoxOrient: 'vertical',
                               overflow: 'hidden',
                               fontFamily: 'var(--font-body)',
+                              overflowWrap: 'anywhere',
                             }}
                           >
                             {repo.description || '—'}

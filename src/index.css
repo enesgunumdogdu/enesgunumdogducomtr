@@ -56,6 +56,16 @@
   --duration-tap: 0.18s;
   --duration-phrase: 0.45s;
   --duration-page: 0.9s;
+
+  /* Height reserved for the fixed navbar. Every page/hero top offset derives
+     from this, so the bar can never sit on top of the first heading. */
+  --nav-height: 5.5rem;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 4.5rem;
+  }
 }
 
 html {

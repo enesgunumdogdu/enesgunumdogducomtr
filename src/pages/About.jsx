@@ -22,9 +22,9 @@ function About() {
     {
       logo: '/logos/huawei.svg',
       title: 'Huawei',
-      role: 'Assistant Software Developer',
+      role: 'Assistant Software Engineer',
       period: '2026 — Present',
-      description: 'Joined Huawei as a full-time software developer, building production software within a large-scale engineering organization. On-site in İstanbul.',
+      description: 'Joined Huawei as a full-time software engineer, building production software within a large-scale engineering organization.',
       tags: [],
       link: 'https://www.huawei.com'
     },
