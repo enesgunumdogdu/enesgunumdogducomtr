@@ -1,0 +1,109 @@
+/* ==================== SITE FOOTER (ui.md §3.9, ux.md §3.2) ==================== */
+.site-footer {
+  margin-top: auto;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-8);
+  padding-bottom: calc(var(--space-6) + var(--safe-bottom));
+}
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+}
+
+.site-footer__email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+}
+
+.site-footer__email:hover {
+  color: var(--text-primary);
+}
+
+.site-footer__groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-5);
+}
+
+.site-footer__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  line-height: var(--lh-label);
+  margin-bottom: var(--space-2);
+}
+
+.site-footer__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-footer__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap-min); /* 44px rows on touch */
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  transition: color var(--duration-instant) var(--ease-out);
+}
+
+.site-footer__link:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-footer__sep {
+  color: var(--text-dim);
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border-light);
+  font-size: var(--fs-label);
+  color: var(--text-dim);
+}
+
+.site-footer__signoff {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-small);
+}
+
+.site-footer__signoff:hover {
+  color: var(--accent);
+}
+
+@media (min-width: 768px) and (pointer: fine) {
+  .site-footer__link {
+    min-height: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-footer__top {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: var(--grid-gap);
+  }
+}

@@ -1,45 +1,57 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence, MotionConfig } from 'framer-motion'
+import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/animations/PageTransition'
 import Home from './pages/Home'
-import About from './pages/About'
-import Projects from './pages/Projects'
-import Contact from './pages/Contact'
-import CartoonWeatherPrivacyPolicy from './pages/CartoonWeatherPrivacyPolicy'
-import CartoonWeatherTermsOfUse from './pages/CartoonWeatherTermsOfUse'
-import SeasonsPrivacyPolicy from './pages/SeasonsPrivacyPolicy'
-import SeasonsTermsOfUse from './pages/SeasonsTermsOfUse'
-import MagnetifyPrivacyPolicy from './pages/MagnetifyPrivacyPolicy'
-import MagnetifyTermsOfUse from './pages/MagnetifyTermsOfUse'
-import NsAiPrivacyPolicy from './pages/NsAiPrivacyPolicy'
-import NsAiTermsOfUse from './pages/NsAiTermsOfUse'
-import NotFound from './pages/NotFound'
 import './App.css'
 
-function AnimatedRoutes() {
+// Everything except Home is code-split (cto-decisions §15).
+const About = lazy(() => import('./pages/About'))
+const Projects = lazy(() => import('./pages/Projects'))
+const Contact = lazy(() => import('./pages/Contact'))
+const CartoonWeatherPrivacyPolicy = lazy(() => import('./pages/CartoonWeatherPrivacyPolicy'))
+const CartoonWeatherTermsOfUse = lazy(() => import('./pages/CartoonWeatherTermsOfUse'))
+const SeasonsPrivacyPolicy = lazy(() => import('./pages/SeasonsPrivacyPolicy'))
+const SeasonsTermsOfUse = lazy(() => import('./pages/SeasonsTermsOfUse'))
+const MagnetifyPrivacyPolicy = lazy(() => import('./pages/MagnetifyPrivacyPolicy'))
+const MagnetifyTermsOfUse = lazy(() => import('./pages/MagnetifyTermsOfUse'))
+const NsAiPrivacyPolicy = lazy(() => import('./pages/NsAiPrivacyPolicy'))
+const NsAiTermsOfUse = lazy(() => import('./pages/NsAiTermsOfUse'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+const routes = [
+  ['/', <Home />],
+  ['/about', <About />],
+  ['/projects', <Projects />],
+  ['/contact', <Contact />],
+  ['/cartoon-weather-privacy-policy', <CartoonWeatherPrivacyPolicy />],
+  ['/cartoon-weather-terms-of-use', <CartoonWeatherTermsOfUse />],
+  ['/seasons-privacy-policy', <SeasonsPrivacyPolicy />],
+  ['/seasons-terms-of-use', <SeasonsTermsOfUse />],
+  ['/magnetify-privacy-policy', <MagnetifyPrivacyPolicy />],
+  ['/magnetify-terms-of-use', <MagnetifyTermsOfUse />],
+  ['/nsai-privacy-policy', <NsAiPrivacyPolicy />],
+  ['/nsai-terms-of-use', <NsAiTermsOfUse />],
+  ['*', <NotFound />],
+]
+
+// Blank block (no spinner) while a lazy route loads.
+const RouteFallback = () => <div style={{ minHeight: '100vh' }} aria-hidden="true" />
+
+function AppRoutes() {
   const location = useLocation()
 
   return (
-    <AnimatePresence mode="wait">
+    <Suspense fallback={<RouteFallback />}>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-        <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
-        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-        <Route path="/cartoon-weather-privacy-policy" element={<PageTransition><CartoonWeatherPrivacyPolicy /></PageTransition>} />
-        <Route path="/cartoon-weather-terms-of-use" element={<PageTransition><CartoonWeatherTermsOfUse /></PageTransition>} />
-        <Route path="/seasons-privacy-policy" element={<PageTransition><SeasonsPrivacyPolicy /></PageTransition>} />
-        <Route path="/seasons-terms-of-use" element={<PageTransition><SeasonsTermsOfUse /></PageTransition>} />
-        <Route path="/magnetify-privacy-policy" element={<PageTransition><MagnetifyPrivacyPolicy /></PageTransition>} />
-        <Route path="/magnetify-terms-of-use" element={<PageTransition><MagnetifyTermsOfUse /></PageTransition>} />
-        <Route path="/nsai-privacy-policy" element={<PageTransition><NsAiPrivacyPolicy /></PageTransition>} />
-        <Route path="/nsai-terms-of-use" element={<PageTransition><NsAiTermsOfUse /></PageTransition>} />
-        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+        {routes.map(([path, page]) => (
+          <Route key={path} path={path} element={<PageTransition>{page}</PageTransition>} />
+        ))}
       </Routes>
-    </AnimatePresence>
+    </Suspense>
   )
 }
 
@@ -48,10 +60,11 @@ function App() {
     <MotionConfig reducedMotion="user">
       <Router>
         <ScrollToTop />
+        <a className="skip-link" href="#main">Skip to content</a>
         <div className="app">
           <Navbar />
-          <main>
-            <AnimatedRoutes />
+          <main id="main" tabIndex={-1}>
+            <AppRoutes />
           </main>
           <Footer />
         </div>

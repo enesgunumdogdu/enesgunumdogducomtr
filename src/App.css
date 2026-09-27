@@ -1,500 +1,692 @@
+/* ==========================================================================
+   Shared layout primitives + component classes ("Datasheet").
+   Tokens live in index.css. Mobile-first: base = phone, then min-width 768/1024.
+   Cheat-sheet for the team: scratchpad/team/foundation.md
+   ========================================================================== */
+
 .app {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 1;
 }
 
-/* ==================== NAVIGATION ==================== */
-.navbar {
+.app > main {
+  flex: 1 0 auto;
+}
+
+/* ==================== ACCESSIBILITY HELPERS ==================== */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.skip-link {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1.5rem 2rem;
-  display: flex;
-  justify-content: space-between;
+  top: calc(var(--safe-top) + var(--space-2));
+  left: calc(var(--safe-left) + var(--space-2));
+  z-index: var(--z-skip);
+  display: inline-flex;
   align-items: center;
-  background: transparent;
-  transition: all 0.4s var(--ease-draft);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  transform: translateY(calc(-100% - var(--space-6)));
+  transition: transform var(--duration-tap) var(--ease-out);
 }
 
-.navbar.scrolled {
-  padding: 0.85rem 2rem;
-  background: rgba(245, 240, 232, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-subtle);
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
-.nav-logo {
-  font-family: var(--font-display);
-  font-variation-settings: 'opsz' 32, 'wght' 500, 'SOFT' 30;
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  letter-spacing: -0.03em;
-  transition: all 0.3s var(--ease-draft);
-  font-feature-settings: 'ss01';
-}
-
-.nav-logo:hover {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  gap: 0.25rem;
-  list-style: none;
-}
-
-.nav-links a {
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-weight: 500;
-  font-size: 0.78rem;
-  transition: all 0.3s var(--ease-draft);
-  padding: 0.5rem 1rem;
-  letter-spacing: 0.05em;
-  text-transform: lowercase;
-  position: relative;
-  display: inline-block;
-}
-
-.nav-links a:hover {
-  color: var(--text-primary);
-}
-
-.nav-links a.active {
-  color: var(--text-primary);
-}
-
-.nav-links a::after {
-  display: none;
-}
-
-/* Mobile Menu */
-.mobile-overlay {
-  display: none;
-}
-
-.mobile-menu-btn {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: transparent;
-  padding: 8px;
-  border-radius: 2px;
-  transition: all 0.3s var(--ease-draft);
-}
-
-.mobile-menu-btn span {
-  width: 20px;
-  height: 1.5px;
-  background: var(--text-primary);
-  transition: all 0.3s var(--ease-draft);
-  border-radius: 1px;
-}
-
-.mobile-menu-btn.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.mobile-menu-btn.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-menu-btn.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-
-.mobile-menu-fullscreen {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 1rem 1.25rem;
-  }
-
-  .nav-logo {
-    z-index: 1002;
-  }
-
-  .mobile-menu-btn {
-    display: flex;
-    z-index: 1002;
-  }
-
-  .nav-links-desktop {
-    display: none;
-  }
-
-  .mobile-menu-fullscreen {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(245, 240, 232, 0.98);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    z-index: 1001;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .mobile-menu-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0;
-    margin: 0;
-  }
-
-  .mobile-menu-close {
-    position: absolute;
-    top: 1rem;
-    right: 1.25rem;
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    padding: 8px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-    z-index: 1;
-  }
-
-  .mobile-menu-close:hover {
-    color: var(--text-primary);
-  }
-
-  .mobile-menu-links a {
-    display: block;
-    font-family: var(--font-display);
-    font-variation-settings: 'opsz' 72, 'wght' 400, 'SOFT' 30;
-    font-size: 2.25rem;
-    padding: 0.75rem 2rem;
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color 0.3s var(--ease-draft);
-    letter-spacing: -0.02em;
-  }
-
-  .mobile-menu-links a:hover,
-  .mobile-menu-links a.active {
-    color: var(--accent);
-    font-style: italic;
-  }
-
-  .mobile-overlay {
-    display: none;
-  }
-}
-
-/* ==================== PAGE CONTAINER ==================== */
+/* ==================== PAGE / CONTAINERS ==================== */
+/* .page = route root. Carries the fixed-nav offset (+ notch in landscape). */
 .page {
   min-height: 100vh;
-  padding-top: var(--nav-height);
+  min-height: 100svh;
+  padding-top: calc(var(--nav-height) + var(--safe-top));
   position: relative;
-  overflow-x: hidden;
 }
 
-/* ==================== HERO SECTION ==================== */
-/* The hero sits on a page with padding-top: 0, so it carries the navbar
-   offset itself instead of relying on the parent. */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: calc(var(--nav-height) + 1rem) 2rem 4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-@media (max-width: 768px) {
-  .hero {
-    /* Content is taller than the viewport on phones — let it size to content
-       instead of forcing a full screen and centering it into the navbar. */
-    min-height: auto;
-    padding: calc(var(--nav-height) + 1.5rem) 1.25rem 3.5rem;
-  }
-}
-
-.hero-content {
-  max-width: 68.75rem;
+.container {
   width: 100%;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
+  margin-inline: auto;
+  padding-left: max(var(--gutter), var(--safe-left));
+  padding-right: max(var(--gutter), var(--safe-right));
 }
 
-/* ==================== SECTIONS ==================== */
+.container { max-width: var(--container-max); }
+
+/* .section = vertical rhythm + standard container width (self-contained, so
+   <section class="section"> needs no inner .container). */
 .section {
-  padding: 7rem 2rem;
-  max-width: 68.75rem;
-  margin: 0 auto;
   width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+  padding-left: max(var(--gutter), var(--safe-left));
+  padding-right: max(var(--gutter), var(--safe-right));
   position: relative;
-  z-index: 1;
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: 4rem 1.5rem;
-  }
+/* Adjacent sections share one --section-y gap (the header rule separates them). */
+.section + .section { padding-top: 0; }
+
+/* First section under the nav: no extra band of dead space (esp. mobile). */
+.page > .section:first-child { padding-top: var(--space-5); }
+
+@media (min-width: 768px) {
+  .page > .section:first-child { padding-top: var(--space-7); }
 }
 
+.section--flush-top,
+.page > .section--flush-top:first-child { padding-top: 0; }
+
+/* 4-col (mobile) / 12-col (≥768) grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  row-gap: var(--space-6);
+}
+
+.grid > * { min-width: 0; }
+
+/* ==================== RULES (hairlines) ==================== */
+.rule {
+  display: block;
+  width: 100%;
+  height: 0;
+  border: 0;
+  border-top: 1px solid var(--border-light);
+}
+
+
+/* ==================== SECTION HEADER ==================== */
+/*
+  <header class="section-header">
+    <div class="section-header__row">
+      <p class="section-label"><span class="section-index">02</span> — Selected work</p>
+      <a class="text-link">All projects →</a>          (optional aside)
+    </div>
+    <h2 class="section-title">Things I've shipped.</h2>
+    <p class="section-subtitle">Optional lede.</p>
+  </header>
+*/
 .section-header {
-  margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+
+.section-header__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-4);
+}
+
+.section-header__aside {
+  font-size: var(--fs-small);
+}
+
+/* ≥44px tap height for aside links ("All work →"), via box not font size */
+.section-header__aside a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
 }
 
 .section-label {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: var(--fs-label);
   font-weight: 500;
-  color: var(--accent);
+  line-height: var(--lh-label);
+  letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.section-label::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
-  display: inline-block;
+.section-index {
+  color: var(--accent);
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-variation-settings: 'opsz' 72, 'wght' 400, 'SOFT' 30;
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-h2);
   color: var(--text-primary);
-  font-feature-settings: 'ss01';
+  margin-top: var(--space-5);
+  max-width: 20ch;
+  text-wrap: balance;
+}
+
+/* Page-level (h1) variant — top of About / Projects / Contact / Legal */
+.section-title--page {
+  font-size: var(--fs-h1);
+  letter-spacing: var(--ls-h1);
+  max-width: 22ch;
 }
 
 .section-subtitle {
   font-family: var(--font-body);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
   color: var(--text-secondary);
-  max-width: 34.375rem;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  font-weight: 400;
-  margin-top: 1.25rem;
+  max-width: 36rem;
+  margin-top: var(--space-3);
 }
 
-@media (max-width: 768px) {
-  .section-subtitle {
-    max-width: 100%;
-  }
-}
-
-/* ==================== BENTO GRID ==================== */
-.bento-grid {
-  display: grid;
-  /* minmax(0, 1fr) — plain 1fr floors at min-content and lets long words
-     push the tracks wider than the container. */
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--border-light);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.bento-cell {
-  min-width: 0;
-  display: flex;
-}
-
-/* Stretch the card to the full row height so the grid's gap colour
-   never shows through as an empty block. */
-.bento-cell > * {
-  width: 100%;
-}
-
-.bento-cell--full {
-  grid-column: span 6;
-}
-
-.bento-cell--half {
-  grid-column: span 3;
-}
-
-@media (max-width: 768px) {
-  .bento-cell--half {
-    grid-column: span 6;
-  }
-}
-
-/* ==================== PENCIL LINE ==================== */
-.pencil-line {
-  width: 100%;
-  height: 1px;
-  background: var(--border-light);
-  border: none;
-}
-
-/* ==================== 404 PAGE ==================== */
-.not-found-page {
-  min-height: 100vh;
-  display: flex;
+/* ==================== BUTTONS ==================== */
+.btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  padding-top: 80px;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: var(--ls-body);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--duration-tap) var(--ease-out),
+    border-color var(--duration-tap) var(--ease-out),
+    color var(--duration-tap) var(--ease-out);
 }
 
-.not-found-content {
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  transition: transform var(--duration-tap) var(--ease-out);
+}
+
+.btn__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn--block { width: 100%; }
+
+/* Full-width below 480px (stacked CTA rows), natural width above */
+.btn--block-mobile { width: 100%; }
+
+@media (min-width: 480px) {
+  .btn--block-mobile { width: auto; }
+}
+
+.btn--primary {
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+  border-color: var(--bg-inverse);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+@media (hover: hover) {
+  .btn--primary:hover { background: var(--accent); border-color: var(--accent); color: var(--text-inverse); }
+  .btn--secondary:hover { background: var(--bg-secondary); }
+  .btn:hover .btn__icon { transform: translateX(3px); }
+}
+
+.btn--primary:active { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn--secondary:active { background: var(--bg-tertiary); }
+
+.btn--primary:disabled,
+.btn--primary[aria-disabled='true'] {
+  background: var(--bg-tertiary);
+  border-color: var(--bg-tertiary);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.btn--secondary:disabled,
+.btn--secondary[aria-disabled='true'] {
+  background: transparent;
+  border-color: var(--border-light);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.btn:disabled .btn__icon,
+.btn[aria-disabled='true'] .btn__icon { transform: none; }
+
+/* Text link — inline accent link, underlined (use in prose + as .btn--text) */
+.text-link,
+.btn--text {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition:
+    color var(--duration-instant) var(--ease-out),
+    text-decoration-thickness var(--duration-instant) var(--ease-out);
+}
+
+.btn--text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+  white-space: normal;
+  text-align: left;
+}
+
+.text-link:hover,
+.btn--text:hover {
+  color: var(--accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+.text-link:focus-visible,
+.btn--text:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+.btn--text:disabled,
+.btn--text[aria-disabled='true'] {
+  color: var(--text-disabled);
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+/* Quiet variant for nav/footer lists: no underline until hover */
+.text-link--quiet {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.text-link--quiet:hover {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+/* Long emails / URLs never cause horizontal scroll */
+.break-anywhere { overflow-wrap: anywhere; }
+
+/* Icon-only button/link (socials): 44×44 */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  transition:
+    color var(--duration-tap) var(--ease-out),
+    border-color var(--duration-tap) var(--ease-out);
+}
+
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.icon-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ==================== TAG (read-only stack label) ==================== */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  list-style: none;
+  padding: 0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+/* ==================== CHIP (interactive filter, use <button aria-pressed>) ==================== */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min); /* real 44px hit area (margins don't count) */
+  padding: 0 var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-tap) var(--ease-out),
+    border-color var(--duration-tap) var(--ease-out),
+    color var(--duration-tap) var(--ease-out);
+}
+
+.chip:hover {
+  border-color: var(--text-primary);
+  color: var(--text-primary);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--bg-inverse);
+  border-color: var(--bg-inverse);
+  color: var(--text-inverse);
+}
+
+.chip:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.chip:disabled {
+  color: var(--text-disabled);
+  border-color: var(--border-subtle);
+  cursor: not-allowed;
+}
+
+.chip__count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
+  opacity: 0.6;
+}
+
+/* Chip row: horizontal scroll rail on mobile, wraps at ≥768 */
+.chip-rail {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x proximity;
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+  list-style: none;
+}
+
+.chip-rail::-webkit-scrollbar { display: none; }
+.chip-rail > * { scroll-snap-align: start; }
+
+@media (min-width: 768px) {
+  .chip-rail {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}
+
+/* ==================== STATUS BADGE (LIVE / OPEN SOURCE / SOON) ==================== */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  line-height: var(--lh-label);
+  color: var(--text-secondary);
+}
+
+.status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  background: currentColor;
+}
+
+.status--live { color: var(--success); }
+.status--oss { color: var(--text-secondary); }
+.status--oss::before { background: var(--text-primary); }
+.status--soon { color: var(--text-dim); }
+.status--soon::before { background: transparent; border: 1px solid var(--text-dim); }
+
+/* ==================== APP ICON ==================== */
+.app-icon {
+  display: block;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: var(--radius-app-icon);
+  outline: 1px solid rgba(11, 11, 12, 0.08);
+  outline-offset: -1px;
+}
+
+/* ==================== FORM FIELDS ==================== */
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form-grid > .field--full { grid-column: 1 / -1; }
+}
+
+.field {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  min-width: 0;
 }
 
-.not-found-animation {
-  width: clamp(280px, 50vw, 400px);
-  height: clamp(280px, 50vw, 400px);
-  margin-bottom: 1rem;
-  transition: transform 0.3s ease;
+.field-label {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
 }
 
-.not-found-animation:hover {
-  transform: scale(1.05);
+.field-required {
+  color: var(--text-muted);
 }
 
-.not-found-animation > canvas {
-  width: 100% !important;
-  height: 100% !important;
+.field-input {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  font-family: var(--font-body);
+  font-size: 16px;            /* never below 16px — prevents iOS zoom on focus */
+  line-height: 1.4;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  appearance: none;
+  transition:
+    border-color var(--duration-instant) var(--ease-out),
+    box-shadow var(--duration-instant) var(--ease-out);
+  scroll-margin-top: calc(var(--nav-height) + var(--space-6));
 }
 
-.not-found-title {
-  font-family: var(--font-display);
-  font-variation-settings: 'opsz' 144, 'wght' 300;
-  font-size: clamp(6rem, 15vw, 12rem);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.04em;
+textarea.field-input {
+  min-height: 8rem;
+  padding: var(--space-3) var(--space-4);
+  resize: vertical;
 }
 
-.not-found-buttons {
+.field-input::placeholder { color: var(--text-dim); opacity: 1; }
+.field-input:hover { border-color: var(--text-primary); }
+
+.field-input:focus,
+.field-input:focus-visible {
+  outline: none;
+  border-color: var(--border-ink);
+  box-shadow: 0 0 0 1px var(--border-ink);
+}
+
+.field-input[aria-invalid='true'] {
+  border-color: var(--error);
+  box-shadow: 0 0 0 1px var(--error);
+}
+
+.field-input:disabled {
+  background: var(--bg-tertiary);
+  border-color: var(--border-subtle);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.field-help {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  margin-top: var(--space-2);
+}
+
+.field-error {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-1);
+  font-size: var(--fs-small);
+  color: var(--error);
+  margin-top: var(--space-2);
 }
 
-@media (max-width: 480px) {
-  .not-found-page {
-    padding: 100px 1rem 2rem;
-  }
-
-  .not-found-animation {
-    width: 250px;
-    height: 250px;
-    margin-bottom: 0.5rem;
-  }
-
-  .not-found-title {
-    font-size: 5rem;
-  }
-
-  .not-found-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
+.field-error svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 0.15em;
 }
 
-/* ==================== FOOTER ==================== */
-.footer {
-  padding: 2rem;
-  text-align: center;
+/* Submit feedback block (role=status / role=alert) */
+.form-feedback {
+  padding: var(--space-4);
+  font-size: var(--fs-small);
+  border-left: 2px solid currentColor;
+}
+
+.form-feedback--success { color: var(--success); background: var(--success-subtle); }
+.form-feedback--error { color: var(--error); background: var(--error-subtle); }
+
+/* Programmatic focus target after route change — no visible ring on <main>. */
+#main:focus {
+  outline: none;
+}
+
+/* ==================== SPEC TABLE (label / mono value rows) ==================== */
+/* <dl class="spec-table"><div class="spec-table__row"><dt class="spec-table__label">…
+   <dd class="spec-table__value">…  — or use <SpecTable rows /> */
+.spec-table {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.spec-table__row {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-block: var(--space-3);
   border-top: 1px solid var(--border-subtle);
-  margin-top: auto;
 }
 
-/* ==================== RULE SWEEP (PAGE TRANSITION) ==================== */
-.rule-sweep {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1.5px;
-  background: var(--text-primary);
-  opacity: 0.7;
-  transform-origin: left;
-  z-index: 9999;
-  pointer-events: none;
+.spec-table__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  line-height: var(--lh-label);
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-top: 0.2em;
 }
 
-/* ==================== HOVER CARD SYSTEM ==================== */
-.paper-card {
-  position: relative;
-  transition: transform 0.25s var(--ease-draft), box-shadow 0.25s var(--ease-draft);
+.spec-table__value {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
 }
 
-.paper-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(80, 60, 30, 0.08);
+@media (min-width: 768px) {
+  .spec-table__row { grid-template-columns: 7.5rem minmax(0, 1fr); }
 }
 
-.paper-card::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 1px;
-  width: 100%;
-  background: var(--text-primary);
-  opacity: 0.8;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s var(--ease-draft);
+/* ==================== CLOSING CTA (<ClosingCTA />) ==================== */
+.closing-cta .section-header { margin-bottom: 0; }
+
+.closing-cta__reply { color: var(--text-muted); }
+
+.closing-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
 }
 
-.paper-card:hover::after {
-  transform: scaleX(1);
-}
-
-/* ==================== TEXT LINK HOVER (weight shift) ==================== */
-.link-weight {
-  position: relative;
-  display: inline-block;
-  transition: font-variation-settings 0.22s var(--ease-draft), color 0.22s var(--ease-draft);
-}
-
-.link-weight::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  height: 1px;
-  width: 100%;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.22s var(--ease-draft);
-}
-
-.link-weight:hover::after {
-  transform: scaleX(1);
+/* Page h1 receives programmatic focus on route change — no ring for that. */
+#main h1[tabindex='-1']:focus {
+  outline: none;
 }

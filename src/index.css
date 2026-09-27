@@ -1,117 +1,205 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap');
+/* ==========================================================================
+   "Datasheet" design tokens + base element styles.
+   Fonts are loaded from index.html (<link>), not @import.
+   Light only (no dark mode this iteration — see cto-decisions §11).
+   ========================================================================== */
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 :root {
-  /* Simplified palette — sienna + ink + one supporting tone */
-  --accent: #C05A3D;
-  --accent-dim: rgba(192, 90, 61, 0.08);
-  --accent-glow: rgba(192, 90, 61, 0.04);
-  --accent-light: #D4674D;
-  --accent-muted: #8A4732;
-  --accent-secondary: #2A6F6F;
-  --accent-secondary-dim: rgba(42, 111, 111, 0.08);
+  color-scheme: light;
 
-  /* Warm parchment backgrounds */
-  --bg-primary: #F5F0E8;
-  --bg-secondary: #FFFFFF;
-  --bg-tertiary: #EDE8DD;
-  --bg-card: #FFFFFF;
-  --bg-card-hover: #F5F0E8;
-  --bg-elevated: #FFFFFF;
-  --parchment-deep: #E8DDC9;
+  /* ---------- Color: surfaces ---------- */
+  --bg-primary: #FFFFFF;          /* page */
+  --bg-secondary: #FAFAF9;        /* row hover, footer, code blocks */
+  --bg-tertiary: #F5F5F3;         /* filled chips, disabled fields, image wells — never a text container */
+  --bg-elevated: #FFFFFF;         /* mobile menu sheet, popovers */
+  --bg-inverse: #0B0B0C;          /* primary button, selected chip */
 
-  /* Ink text hierarchy */
-  --text-primary: #1A1A1A;
-  --text-secondary: #4A453E;
-  --text-muted: #8A8278;
-  --text-dim: #BFB9AE;
+  /* ---------- Color: text ---------- */
+  --text-primary: #0B0B0C;        /* 19.67:1 on white */
+  --text-secondary: #3D3D40;      /* 10.83:1 */
+  --text-muted: #5E5E63;          /* 6.45:1 */
+  --text-dim: #6B6B70;            /* 5.30:1 — still AA, safe for small meta */
+  --text-disabled: #A1A1A6;       /* disabled controls only */
+  --text-inverse: #FFFFFF;
 
-  /* Pencil-line borders */
-  --border-subtle: #E8E3D9;
-  --border-light: #D4CFC4;
-  --border-accent: rgba(192, 90, 61, 0.25);
+  /* ---------- Color: accent (the ONLY hue in the UI) ---------- */
+  --accent: #C43D12;              /* Signal Vermilion — 5.22:1 on white */
+  --accent-hover: #A33009;        /* 7.04:1 */
+  --accent-subtle: #FFF1EB;       /* tint fill; accent text on it = 4.73:1 */
+  --border-accent: rgba(196, 61, 18, 0.32);
 
-  /* Refined shadows — warm tint */
-  --shadow-sm: 0 1px 3px rgba(80, 60, 30, 0.04);
-  --shadow-md: 0 4px 16px rgba(80, 60, 30, 0.06);
-  --shadow-lg: 0 12px 40px rgba(80, 60, 30, 0.08);
+  /* ---------- Color: borders (hairlines) ---------- */
+  --border-subtle: #EDEDEA;       /* default hairline between rows */
+  --border-light: #DCDCD8;        /* section rules, tag outlines */
+  --border-strong: #8E8E93;       /* form fields (3.26:1, meets 1.4.11) */
+  --border-ink: #0B0B0C;          /* focused field, emphasised rule */
 
-  /* Focus ring */
-  --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent);
+  /* ---------- Color: feedback ---------- */
+  --success: #18794E;             /* 5.41:1 */
+  --success-subtle: #EEF7F2;
+  --error: #B3261E;               /* 6.54:1 */
+  --error-subtle: #FDF0EF;
 
-  /* Typography system */
-  --font-display: 'Fraunces', 'Times New Roman', serif;
-  --font-body: 'Instrument Sans', -apple-system, system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', 'Menlo', monospace;
+  /* ---------- Focus ---------- */
+  --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--text-primary);
 
-  /* Motion tokens */
-  --ease-draft: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-ink: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-paper: cubic-bezier(0.77, 0, 0.175, 1);
-  --duration-tap: 0.18s;
-  --duration-phrase: 0.45s;
-  --duration-page: 0.9s;
+  /* ---------- Typography: families ---------- */
+  --font-display: 'Schibsted Grotesk', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Hanken Grotesk', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Height reserved for the fixed navbar. Every page/hero top offset derives
-     from this, so the bar can never sit on top of the first heading. */
-  --nav-height: 5.5rem;
+  /* ---------- Typography: fluid scale (360px → 1440px viewport) ---------- */
+  --fs-display: clamp(3rem, 1.5rem + 6.667vw, 7.5rem);       /* 48 → 120 */
+  --fs-h1: clamp(2.25rem, 1.667rem + 2.593vw, 4rem);         /* 36 → 64 */
+  --fs-h2: clamp(1.75rem, 1.417rem + 1.481vw, 2.75rem);      /* 28 → 44 */
+  --fs-h3: clamp(1.25rem, 1.125rem + 0.556vw, 1.625rem);     /* 20 → 26 */
+  --fs-h4: clamp(1.0625rem, 1.021rem + 0.185vw, 1.1875rem);  /* 17 → 19 */
+  --fs-lead: clamp(1.125rem, 1.042rem + 0.370vw, 1.375rem);  /* 18 → 22 */
+  --fs-body: clamp(1rem, 0.979rem + 0.093vw, 1.0625rem);     /* 16 → 17 */
+  --fs-small: 0.875rem;                                      /* 14 */
+  --fs-label: 0.75rem;                                       /* 12 — mono label, never smaller */
+
+  --lh-display: 0.95;
+  --lh-heading: 1.08;   /* h1/h2 */
+  --lh-snug: 1.3;       /* h3/h4, lead */
+  --lh-body: 1.65;
+  --lh-label: 1.4;
+
+  --ls-display: -0.045em;
+  --ls-h1: -0.035em;
+  --ls-h2: -0.025em;
+  --ls-h3: -0.015em;
+  --ls-body: 0;
+  --ls-label: 0.08em;   /* mono uppercase labels */
+
+  --fw-display: 700;    /* Schibsted; name in hero may go 800 */
+  --fw-heading: 600;
+  --fw-body: 400;
+  --fw-strong: 600;
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-1: 0.25rem;   /* 4 */
+  --space-2: 0.5rem;    /* 8 */
+  --space-3: 0.75rem;   /* 12 */
+  --space-4: 1rem;      /* 16 */
+  --space-5: 1.5rem;    /* 24 */
+  --space-6: 2rem;      /* 32 */
+  --space-7: 3rem;      /* 48 */
+  --space-8: 4rem;      /* 64 */
+  --space-9: 6rem;      /* 96 */
+  --space-10: 8rem;     /* 128 */
+  --section-y: clamp(4rem, 2.667rem + 5.926vw, 8rem);        /* 64 → 128 */
+
+  /* ---------- Layout ---------- */
+  --container-max: 72rem;       /* 1152 — main grid */
+  --container-wide: 80rem;      /* 1280 — hero / full-bleed rules */
+  --container-prose: 42.5rem;   /* 680 ≈ 70ch — legal, about prose */
+  --gutter: clamp(1rem, 0.5rem + 2.222vw, 2.5rem);           /* 16 → 40; never < 16px */
+  --grid-gap: clamp(1rem, 0.667rem + 1.481vw, 2rem);         /* 16 → 32 */
+  --grid-cols: 4;               /* 12 at ≥768px */
+  --tap-min: 44px;              /* minimum hit area */
+
+  --nav-height: 3.5rem;         /* 56 mobile, 64 at ≥768px */
+
+  /* Safe-area insets (need viewport-fit=cover, set in index.html) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* ---------- Radii (deliberately tiny) ---------- */
+  --radius-0: 0;
+  --radius-sm: 2px;             /* buttons, inputs, tags */
+  --radius-md: 4px;             /* images, screenshot frames — max for UI */
+  --radius-app-icon: 22.37%;    /* real iOS app icons only */
+  --radius-full: 999px;         /* status dots only */
+
+  /* ---------- Shadows (almost none) ---------- */
+  --shadow-sm: 0 1px 0 rgba(11, 11, 12, 0.06);
+  --shadow-md: 0 1px 2px rgba(11, 11, 12, 0.06), 0 8px 24px rgba(11, 11, 12, 0.06);
+
+  /* ---------- Z-index ---------- */
+  --z-nav: 1000;
+  --z-menu: 1001;       /* mobile sheet */
+  --z-skip: 1200;       /* skip link sits above the nav */
+
+  /* ---------- Motion (max 320ms anywhere — cto-decisions §4) ---------- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);       /* default for enters/hovers */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);    /* sheets, route changes */
+  --duration-instant: 120ms;    /* color, underline */
+  --duration-tap: 180ms;        /* buttons, chips */
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) {
   :root {
-    --nav-height: 4.5rem;
+    --nav-height: 4rem;         /* 64 */
+    --grid-cols: 12;
   }
 }
 
+/* ==================== BASE ==================== */
 html {
   scroll-behavior: smooth;
-  font-optical-sizing: auto;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
   /* Fluid root font — the single scaling knob for the whole layout.
-     Stays at the user's base size (≈16px) up to 1600px viewport, so mobile
-     and normal desktop are unchanged. Above 1600px it ramps up to 1.5× on
-     ultrawide / 4K screens, so every rem-based size (type, spacing, and the
-     container max-widths below) grows proportionally instead of looking tiny. */
+     Stays at the user's base size (≈16px) up to 1600px viewport; above that it
+     ramps up to 1.5× on ultrawide / 4K screens so rem-based sizes grow too. */
   font-size: clamp(100%, calc(100% + (100vw - 1600px) * 0.0059), 150%);
+  /* Anchored sections never hide under the fixed nav */
+  scroll-padding-top: calc(var(--nav-height) + var(--safe-top) + var(--space-4));
 }
 
 body {
   font-family: var(--font-body);
-  font-size: 1.0625rem;
-  font-weight: 400;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
   background: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.65;
   min-height: 100vh;
-  overflow-x: hidden;
+  min-height: 100svh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-variant-numeric: tabular-nums;
   text-rendering: optimizeLegibility;
-}
-
-/* Subtle grain — parchment feel */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-  pointer-events: none;
-  z-index: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #root {
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-heading);
+  color: var(--text-primary);
+  overflow-wrap: break-word;
+}
+
+/* Long tokens (URLs, emails, slash-joined words) wrap instead of widening
+   the layout viewport on phones. */
+p, li, dd, dt, td, th, summary, figcaption, blockquote, label {
+  overflow-wrap: break-word;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -120,41 +208,45 @@ a {
 }
 
 button {
-  font-family: inherit;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
   border: none;
+  background: none;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+strong,
+b {
+  font-weight: var(--fw-strong);
+}
+
+/* ==================== FOCUS ==================== */
+/* Ink ring (never accent, so it can't be confused with error). */
+:focus {
   outline: none;
 }
 
-/* Focus states */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-[tabindex]:focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-  border-radius: 2px;
+:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
-.gradient-text,
-.gradient-text-animated,
-.gradient-text-shimmer {
-  color: var(--accent);
+/* ==================== SELECTION / SCROLLBAR ==================== */
+::selection {
+  background: var(--accent-subtle);
+  color: var(--text-primary);
 }
 
-.mono {
-  font-family: var(--font-mono);
-  font-feature-settings: 'zero';
-}
-
-.serif {
-  font-family: var(--font-display);
-}
-
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -163,39 +255,28 @@ textarea:focus-visible,
 
 ::-webkit-scrollbar-thumb {
   background: var(--border-light);
-  border-radius: 2px;
+  border-radius: var(--radius-sm);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--text-dim);
 }
 
-/* Selection */
-::selection {
-  background: rgba(192, 90, 61, 0.18);
-  color: var(--text-primary);
+/* ==================== UTILITIES ==================== */
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'zero' 1;
+  font-variant-numeric: tabular-nums;
 }
 
-/* TypeWriter */
-.typewriter {
-  display: inline;
-}
 
-.typewriter-cursor {
-  display: inline-block;
-  color: var(--accent);
-  animation: blink 1s step-end infinite;
-  font-weight: 300;
-  margin-left: 2px;
-}
-
-@keyframes blink {
-  from, to { opacity: 1; }
-  50% { opacity: 0; }
-}
 
 /* ==================== REDUCED MOTION ==================== */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
@@ -203,10 +284,5 @@ textarea:focus-visible,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .typewriter-cursor {
-    animation: none;
-    opacity: 1;
   }
 }

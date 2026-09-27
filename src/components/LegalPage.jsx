@@ -1,283 +1,245 @@
-import { Box, Typography, Link } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import ScrollReveal from './animations/ScrollReveal'
-import DraftedLine from './animations/DraftedLine'
-import { ease } from '../motion/tokens'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { ExternalLink, SectionHeader } from './ui'
+import { apps } from '../data/site'
+import '../pages/LegalPage.css'
+
+// Props API is a contract with the 8 read-only legal data files:
+//   kind, appName, effectiveDate?, lastUpdated, intro, sections[]
+//   section = { title, content: [{ subtitle?, text?, items?[], note?, contactLink? }] }
+//   note === 'contact-link' renders the contact-page sentence.
+
+const slugify = (s) =>
+  s
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+
+// "3. Information We Collect" → { num: '3.', text: 'Information We Collect' }
+const splitNumber = (title) => {
+  const m = title.match(/^(\d+(?:\.\d+)*\.?)\s+(.+)$/)
+  return m ? { num: m[1], text: m[2] } : { num: null, text: title }
+}
+
+function ContactPageLink() {
+  return (
+    <Link to="/contact" className="text-link">
+      contact page
+    </Link>
+  )
+}
+
+function LegalBlock({ block, isPrivacy }) {
+  return (
+    <>
+      {block.subtitle && <h3 className="legal-h3">{block.subtitle}</h3>}
+      {block.text && <p>{block.text}</p>}
+      {block.items && (
+        <ul className="legal-list">
+          {block.items.map((item, i) => (
+            <li key={i}>{item}</li>
+          ))}
+        </ul>
+      )}
+      {block.note && (
+        <p className="legal-note">
+          {block.note === 'contact-link' ? (
+            <>
+              To exercise these rights or for any questions, please visit our <ContactPageLink />.
+            </>
+          ) : (
+            block.note
+          )}
+        </p>
+      )}
+      {block.contactLink && (
+        <p>
+          {isPrivacy
+            ? 'For privacy questions or to exercise your rights, please visit our '
+            : 'For questions about these Terms, please visit our '}
+          <ContactPageLink />.
+        </p>
+      )}
+    </>
+  )
+}
 
 function LegalPage({ kind, appName, effectiveDate, lastUpdated, intro, sections }) {
   const isPrivacy = kind.toLowerCase().includes('privacy')
-  const headWord = kind.split(' ')[0]
-  const tailWord = kind.split(' ').slice(1).join(' ')
+  const app = apps.find((a) => a.legal.appName === appName)
+  const sibling = app
+    ? isPrivacy
+      ? { to: app.legal.terms, label: 'Terms of Use' }
+      : { to: app.legal.privacy, label: 'Privacy Policy' }
+    : null
+  const appLink = app?.appStoreUrl || app?.href || null
+
+  // Stable, unique anchor ids from section titles (number stripped).
+  const toc = useMemo(() => {
+    const seen = {}
+    return sections.map((section) => {
+      const { num, text } = splitNumber(section.title)
+      let id = slugify(text) || 'section'
+      seen[id] = (seen[id] || 0) + 1
+      if (seen[id] > 1) id = `${id}-${seen[id]}`
+      return { id, num, text }
+    })
+  }, [sections])
+
+  const [activeId, setActiveId] = useState(null)
+  const { hash } = useLocation()
+
+  // Deep links (/nsai-privacy-policy#retention) must land on first load.
+  useEffect(() => {
+    if (!hash) return undefined
+    const id = decodeURIComponent(hash.slice(1))
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ block: 'start' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [hash])
+
+  // Current-section highlight for the TOC.
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return undefined
+    const headings = toc.map((t) => document.getElementById(t.id)).filter(Boolean)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting)
+        if (visible.length) {
+          visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+          setActiveId(visible[0].target.id)
+        }
+      },
+      { rootMargin: '-72px 0px -65% 0px', threshold: 0 },
+    )
+    headings.forEach((h) => observer.observe(h))
+    return () => observer.disconnect()
+  }, [toc])
+
+  const tocList = (
+    <ol className="legal-toc__list">
+      {toc.map((t) => (
+        <li key={t.id}>
+          <a
+            href={`#${t.id}`}
+            className="legal-toc__link"
+            aria-current={activeId === t.id ? 'location' : undefined}
+          >
+            {t.num && <span className="legal-toc__num">§{t.num.replace(/\.$/, '')}</span>}
+            <span>{t.text}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  )
 
   return (
-    <Box className="page">
-      <Box className="section">
-        {/* ============ HEADER ============ */}
-        <motion.div
-          initial={{ opacity: 0, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 0.9, ease: ease.ink }}
-        >
-          <Box className="section-header">
-            <Box className="section-label">§ Legal · {appName}</Box>
-            <Typography className="section-title">
-              {headWord}{' '}
-              <Box
-                component="em"
-                sx={{
-                  fontStyle: 'italic',
-                  fontVariationSettings: "'opsz' 72, 'wght' 500",
-                  color: 'var(--accent)',
-                }}
-              >
-                {tailWord.toLowerCase()}.
-              </Box>
-            </Typography>
-            <Typography className="section-subtitle">
-              {isPrivacy
-                ? 'How we handle your information.'
-                : 'The agreement between you and the operator.'}
-            </Typography>
-          </Box>
-        </motion.div>
+    <div className="page">
+      <div className="section legal">
+        <div className="legal-layout">
+          {/* Desktop TOC (≥1024, sticky) */}
+          <nav className="legal-toc legal-toc--rail" aria-label="On this page">
+            <p className="legal-toc__title">On this page</p>
+            {tocList}
+          </nav>
 
-        {/* ============ BODY ============ */}
-        <Box sx={{ maxWidth: '47.5rem', mx: 'auto' }}>
-          {/* Date row — looks like a ledger entry */}
-          <ScrollReveal preset="draftedLine">
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'baseline',
-                flexWrap: 'wrap',
-                gap: 1,
-                pb: 2,
-                mb: 4,
-                borderBottom: '1px solid var(--border-light)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.7rem',
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-              }}
-            >
+          <article className="legal-article" aria-labelledby="legal-title">
+            {app && (
+              <p className="legal-app">
+                <img
+                  className="app-icon legal-app__icon"
+                  src={app.icon}
+                  alt=""
+                  width="32"
+                  height="32"
+                  decoding="async"
+                />
+                {appLink ? (
+                  <ExternalLink href={appLink} className="text-link text-link--quiet" newTabHint>
+                    {app.name}
+                  </ExternalLink>
+                ) : (
+                  <span>{app.name}</span>
+                )}
+              </p>
+            )}
+
+            <SectionHeader
+              as="h1"
+              id="legal-title"
+              label={`Legal / ${appName}`}
+              title={
+                <>
+                  {kind}
+                  <span className="visually-hidden"> — {appName}</span>
+                </>
+              }
+              lede={isPrivacy ? 'How we handle your information.' : 'The agreement between you and the operator.'}
+              className="legal-header"
+            />
+
+            <dl className="legal-dates">
               {effectiveDate && (
-                <Box sx={{ color: 'var(--text-muted)' }}>
-                  Effective <span style={{ color: 'var(--text-secondary)' }}>{effectiveDate}</span>
-                </Box>
+                <div>
+                  <dt>Effective</dt>
+                  <dd>{effectiveDate}</dd>
+                </div>
               )}
-              <Box sx={{ color: 'var(--text-dim)', letterSpacing: '0.1em' }}>
-                Last updated <span style={{ color: 'var(--text-secondary)' }}>{lastUpdated}</span>
-              </Box>
-            </Box>
-          </ScrollReveal>
+              <div>
+                <dt>Last updated</dt>
+                <dd>{lastUpdated}</dd>
+              </div>
+            </dl>
 
-          {/* Intro */}
-          <ScrollReveal preset="inkBleed">
-            <Typography
-              sx={{
-                fontFamily: 'var(--font-display)',
-                fontVariationSettings: "'opsz' 24, 'wght' 400",
-                color: 'var(--text-primary)',
-                lineHeight: 1.6,
-                fontSize: { xs: '1.05rem', md: '1.15rem' },
-                letterSpacing: '-0.01em',
-                mb: 5,
-              }}
-            >
-              {intro}
-            </Typography>
-          </ScrollReveal>
+            {sibling && (
+              <p className="legal-sibling">
+                Also:{' '}
+                <Link to={sibling.to} className="text-link">
+                  {sibling.label}
+                </Link>
+              </p>
+            )}
 
-          {/* Sections */}
-          {sections.map((section, sectionIndex) => (
-            <ScrollReveal key={sectionIndex} preset="clipReveal" delay={Math.min(sectionIndex * 0.02, 0.2)}>
-              <Box sx={{ mb: 5 }}>
-                <Typography
-                  component="h2"
-                  sx={{
-                    fontFamily: 'var(--font-display)',
-                    fontVariationSettings: "'opsz' 36, 'wght' 400",
-                    fontSize: { xs: '1.4rem', md: '1.65rem' },
-                    color: 'var(--text-primary)',
-                    letterSpacing: '-0.025em',
-                    lineHeight: 1.15,
-                    mb: 2.5,
-                  }}
-                >
-                  {section.title}
-                </Typography>
+            {/* Mobile / tablet TOC (<1024, collapsed) */}
+            <details className="legal-toc legal-toc--details">
+              <summary>
+                Contents <span className="legal-toc__count">({toc.length})</span>
+              </summary>
+              <nav aria-label="On this page">{tocList}</nav>
+            </details>
 
-                {section.content.map((block, blockIndex) => (
-                  <Box key={blockIndex} sx={{ mb: 2 }}>
-                    {block.subtitle && (
-                      <Typography
-                        sx={{
-                          fontFamily: 'var(--font-display)',
-                          fontVariationSettings: "'opsz' 24, 'wght' 500",
-                          fontStyle: 'italic',
-                          color: 'var(--accent)',
-                          fontSize: { xs: '1rem', md: '1.05rem' },
-                          letterSpacing: '-0.01em',
-                          mt: 2.5,
-                          mb: 1,
-                        }}
-                      >
-                        {block.subtitle}
-                      </Typography>
-                    )}
+            <div className="legal-prose">
+              <p className="legal-intro">{intro}</p>
 
-                    {block.text && (
-                      <Typography
-                        sx={{
-                          fontFamily: 'var(--font-body)',
-                          color: 'var(--text-secondary)',
-                          lineHeight: 1.75,
-                          mb: block.items ? 1.25 : 0,
-                          fontSize: { xs: '0.95rem', md: '1rem' },
-                        }}
-                      >
-                        {block.text}
-                      </Typography>
-                    )}
+              {sections.map((section, i) => (
+                <section key={toc[i].id} aria-labelledby={toc[i].id}>
+                  <h2 id={toc[i].id} className="legal-h2">
+                    {toc[i].num && <span className="legal-h2__num">{toc[i].num} </span>}
+                    {toc[i].text}
+                  </h2>
+                  {section.content.map((block, j) => (
+                    <LegalBlock key={j} block={block} isPrivacy={isPrivacy} />
+                  ))}
+                </section>
+              ))}
+            </div>
 
-                    {block.items && (
-                      <Box
-                        component="ul"
-                        sx={{
-                          m: 0,
-                          pl: 0,
-                          listStyle: 'none',
-                        }}
-                      >
-                        {block.items.map((item, itemIndex) => (
-                          <Box
-                            component="li"
-                            key={itemIndex}
-                            sx={{
-                              fontFamily: 'var(--font-body)',
-                              color: 'var(--text-secondary)',
-                              lineHeight: 1.75,
-                              mb: 0.75,
-                              fontSize: { xs: '0.95rem', md: '1rem' },
-                              pl: '1.25rem',
-                              position: 'relative',
-                              '&::before': {
-                                content: '""',
-                                position: 'absolute',
-                                left: 0,
-                                top: '0.7em',
-                                width: '0.5rem',
-                                height: '1px',
-                                background: 'var(--accent)',
-                              },
-                            }}
-                          >
-                            {item}
-                          </Box>
-                        ))}
-                      </Box>
-                    )}
-
-                    {block.note && (
-                      <Typography
-                        sx={{
-                          fontFamily: 'var(--font-body)',
-                          color: 'var(--text-muted)',
-                          fontStyle: 'italic',
-                          mt: 1.5,
-                          fontSize: { xs: '0.88rem', md: '0.92rem' },
-                          lineHeight: 1.7,
-                          pl: 2,
-                          borderLeft: '2px solid var(--border-light)',
-                        }}
-                      >
-                        {block.note === 'contact-link' ? (
-                          <>
-                            To exercise these rights or for any questions, please visit our{' '}
-                            <Link
-                              component={RouterLink}
-                              to="/contact"
-                              sx={{
-                                color: 'var(--accent)',
-                                fontStyle: 'italic',
-                                textDecoration: 'none',
-                                borderBottom: '1px solid var(--border-accent)',
-                                transition: 'border-color 0.3s var(--ease-draft)',
-                                '&:hover': { borderColor: 'var(--accent)' },
-                              }}
-                            >
-                              contact page
-                            </Link>
-                            .
-                          </>
-                        ) : (
-                          block.note
-                        )}
-                      </Typography>
-                    )}
-
-                    {block.contactLink && (
-                      <Typography
-                        sx={{
-                          fontFamily: 'var(--font-body)',
-                          color: 'var(--text-secondary)',
-                          lineHeight: 1.75,
-                          fontSize: { xs: '0.95rem', md: '1rem' },
-                        }}
-                      >
-                        {isPrivacy
-                          ? 'For privacy questions or to exercise your rights, please visit our '
-                          : 'For questions about these Terms, please visit our '}
-                        <Link
-                          component={RouterLink}
-                          to="/contact"
-                          sx={{
-                            color: 'var(--accent)',
-                            fontStyle: 'italic',
-                            fontFamily: 'var(--font-display)',
-                            fontVariationSettings: "'wght' 500",
-                            textDecoration: 'none',
-                            borderBottom: '1px solid var(--border-accent)',
-                            transition: 'border-color 0.3s var(--ease-draft)',
-                            '&:hover': { borderColor: 'var(--accent)' },
-                          }}
-                        >
-                          contact page
-                        </Link>
-                        .
-                      </Typography>
-                    )}
-                  </Box>
-                ))}
-              </Box>
-            </ScrollReveal>
-          ))}
-
-          {/* Footer signature */}
-          <DraftedLine color="var(--border-light)" />
-          <Box
-            sx={{
-              mt: 3,
-              pt: 1,
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: 1,
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.68rem',
-              color: 'var(--text-dim)',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-            }}
-          >
-            <span>© {new Date().getFullYear()} Enes Günümdoğdu</span>
-            <span>{appName}</span>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+            <footer className="legal-sign">
+              <span>© {new Date().getFullYear()} Enes Günümdoğdu</span>
+              <span>{appName}</span>
+            </footer>
+            <p className="legal-top">
+              <a href="#legal-title" className="text-link text-link--quiet">
+                <span aria-hidden="true">↑ </span>Back to top
+              </a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </div>
   )
 }
 

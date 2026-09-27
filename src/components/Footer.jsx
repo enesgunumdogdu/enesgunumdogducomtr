@@ -1,92 +1,68 @@
-import { Box, Typography, Link } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { person, socials, navLinks } from '../data/site'
+import './Footer.css'
 
-const Footer = () => {
+const year = new Date().getFullYear()
+
+function Footer() {
   return (
-    <Box
-      component="footer"
-      sx={{
-        py: 3,
-        mt: 'auto',
-        borderTop: '1px solid var(--border-subtle)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 0.75,
-        flexWrap: 'wrap',
-      }}
-    >
-      <Typography
-        sx={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.7rem',
-          color: 'var(--text-muted)',
-          letterSpacing: '0.08em',
-        }}
-      >
-        Designed with
-      </Typography>
-      <Box
-        component="span"
-        aria-label="love"
-        role="img"
-        sx={{
-          fontSize: '0.85rem',
-          lineHeight: 1,
-          color: '#7B3FA8',
-          display: 'inline-block',
-          transform: 'translateY(-1px)',
-          filter: 'hue-rotate(0deg)',
-        }}
-      >
-        {/* Purple heart SVG so color renders consistently across platforms */}
-        <Box
-          component="svg"
-          viewBox="0 0 24 24"
-          sx={{ width: 14, height: 14, display: 'block', fill: '#7B3FA8' }}
-        >
-          <path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6.5 5.5 5.5 0 0 1 21.5 12c-2.5 4.5-9.5 9-9.5 9z" />
-        </Box>
-      </Box>
-      <Typography
-        sx={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.7rem',
-          color: 'var(--text-muted)',
-          letterSpacing: '0.08em',
-        }}
-      >
-        by
-      </Typography>
-      <Link
-        href="https://enesgunumdogdu.com.tr"
-        target="_blank"
-        rel="noopener noreferrer"
-        underline="none"
-        sx={{
-          fontFamily: 'var(--font-display)',
-          fontVariationSettings: "'opsz' 24, 'wght' 500",
-          fontStyle: 'italic',
-          fontSize: '0.88rem',
-          color: 'var(--text-primary)',
-          transition: 'color 0.3s var(--ease-draft)',
-          '&:hover': {
-            color: 'var(--accent)',
-          },
-        }}
-      >
-        3nes
-      </Link>
-      <Typography
-        sx={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.7rem',
-          color: 'var(--text-dim)',
-          letterSpacing: '0.08em',
-        }}
-      >
-        · İstanbul, {new Date().getFullYear()}
-      </Typography>
-    </Box>
+    <footer className="site-footer">
+      <div className="container">
+        <div className="site-footer__top">
+          <div className="site-footer__cta">
+            <p className="site-footer__label">Email</p>
+            <a href={person.emailHref} className="site-footer__email mono break-anywhere">
+              Email me <span aria-hidden="true">→</span>
+            </a>
+          </div>
+
+          <nav className="site-footer__groups" aria-label="Footer">
+            <div className="site-footer__group">
+              <h2 className="site-footer__label">Pages</h2>
+              <ul className="site-footer__list">
+                {navLinks.map((l) => (
+                  <li key={l.to}>
+                    <Link to={l.to} className="site-footer__link">{l.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="site-footer__group">
+              <h2 className="site-footer__label">Elsewhere</h2>
+              <ul className="site-footer__list">
+                {socials.map((s) => (
+                  <li key={s.id}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="site-footer__link"
+                    >
+                      {s.label} <span aria-hidden="true">↗</span>
+                      <span className="visually-hidden"> (opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+          </nav>
+        </div>
+
+        <div className="site-footer__bottom mono">
+          <p>
+            © {year} {person.name} · {person.location} · UTC+3
+          </p>
+          <p>
+            Designed by{' '}
+            <Link to="/" className="site-footer__signoff">
+              {person.signoff}
+            </Link>
+          </p>
+        </div>
+      </div>
+    </footer>
   )
 }
 

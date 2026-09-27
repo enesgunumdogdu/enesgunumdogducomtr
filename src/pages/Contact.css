@@ -1,0 +1,182 @@
+/* Contact page (Dev B). Tokens from index.css only. */
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'direct'
+    'form'
+    'elsewhere';
+  gap: var(--space-7);
+}
+
+.contact-direct { grid-area: direct; }
+.contact-form-wrap { grid-area: form; }
+.contact-elsewhere { grid-area: elsewhere; }
+
+@media (min-width: 1024px) {
+  .contact-layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-areas:
+      'direct form'
+      'elsewhere form';
+    grid-template-rows: auto 1fr;
+    column-gap: var(--grid-gap);
+    row-gap: var(--space-7);
+    align-items: start;
+  }
+}
+
+.contact-direct,
+.contact-elsewhere,
+.contact-form-wrap {
+  min-width: 0;
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-4);
+}
+
+.contact-h2 {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h3);
+  line-height: var(--lh-snug);
+  margin-bottom: var(--space-3);
+}
+
+.contact-form-wrap .contact-h2 {
+  margin-bottom: var(--space-5);
+}
+
+.contact-lead {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-secondary);
+  max-width: 34rem;
+}
+
+/* Large tappable email, wraps at 320px instead of overflowing */
+.contact-email {
+  margin-top: var(--space-5);
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.5rem);
+  font-weight: var(--fw-heading);
+  line-height: var(--lh-snug);
+}
+
+.contact-email .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-block: var(--space-1);
+}
+
+.contact-copy {
+  margin-top: var(--space-3);
+}
+
+.contact-links {
+  list-style: none;
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.contact-link {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap-min);
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: color var(--duration-instant) var(--ease-out);
+}
+
+.contact-link__label {
+  font-weight: 500;
+}
+
+.contact-link__handle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.contact-link__arrow {
+  color: var(--text-dim);
+}
+
+@media (hover: hover) {
+  .contact-link:hover,
+  .contact-link:hover .contact-link__arrow {
+    color: var(--accent);
+  }
+}
+
+.contact-facts {
+  margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.contact-facts > div {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.contact-facts dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.contact-facts dd {
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+}
+
+.contact-facts dd.contact-facts__mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+}
+
+/* reCAPTCHA: compact (164px) under 400px via JS; this guards any overflow. */
+.contact-captcha {
+  max-width: 100%;
+  min-height: 78px;
+}
+
+.contact-error {
+  margin-bottom: var(--space-4);
+}
+
+.contact-error .text-link {
+  color: inherit;
+}
+
+.contact-success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--fs-body);
+}
+
+.contact-success:focus {
+  outline: none;
+}
+
+.contact-success:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.contact-success__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-heading);
+}

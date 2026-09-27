@@ -1,0 +1,79 @@
+/* ==================== 404 (ui.md §3.11) ==================== */
+.not-found {
+  display: flex;
+}
+
+.not-found__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100svh - var(--nav-height) - var(--safe-top));
+  padding-block: var(--space-8);
+}
+
+.not-found__log {
+  max-width: 100%;
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.not-found__method {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.not-found__status {
+  color: var(--accent);
+}
+
+.not-found__code {
+  margin-top: var(--space-4);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(6rem, 3rem + 20vw, 16rem);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-display);
+  color: var(--text-primary);
+}
+
+.not-found__lead {
+  margin-top: var(--space-5);
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+}
+
+
+.not-found__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  width: 100%;
+  margin-top: var(--space-6);
+}
+
+.not-found__more {
+  margin-top: var(--space-7);
+}
+
+.not-found__more-label {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.not-found__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+  list-style: none;
+}
+
+.not-found__links .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+}

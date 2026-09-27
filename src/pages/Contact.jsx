@@ -1,36 +1,132 @@
-import { useState, useRef } from 'react'
-import { Box, Typography, TextField, Button } from '@mui/material'
-import { CheckCircle, East } from '@mui/icons-material'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
-import ScrollReveal from '../components/animations/ScrollReveal'
+import ErrorOutline from '@mui/icons-material/ErrorOutline'
+import { Button, ExternalLink, SectionHeader } from '../components/ui'
+import { contactLinks, person } from '../data/site'
 import useDocumentTitle from '../hooks/useDocumentTitle'
-import { ease } from '../motion/tokens'
+import './Contact.css'
+
+// Netlify form contract — keep in sync with the hidden form in index.html:
+// form-name "contact", fields name/email/subject/message, honeypot bot-field,
+// g-recaptcha-response. Do not rename.
+const RECAPTCHA_SITE_KEY = '6Lfnw0osAAAAAJkVJJkdS9R2oFWznsihBAtf7xWf'
+const COMPACT_QUERY = '(max-width: 399.98px)'
+const MESSAGE_MAX = 5000
+const MESSAGE_COUNTER_FROM = 4000
+
+const EMPTY = { name: '', email: '', subject: '', message: '' }
+const FIELDS = ['name', 'email', 'subject', 'message']
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+const validate = (field, value) => {
+  const v = value.trim()
+  switch (field) {
+    case 'name':
+      return v ? '' : 'Enter your name.'
+    case 'email':
+      if (!v) return 'Enter your email address.'
+      return EMAIL_RE.test(v) ? '' : 'Enter a valid email address, like name@example.com.'
+    case 'subject':
+      return v ? '' : 'Enter a subject.'
+    case 'message':
+      return v ? '' : 'Write a message.'
+    default:
+      return ''
+  }
+}
+
+const getCompact = () =>
+  typeof window !== 'undefined' && typeof window.matchMedia === 'function'
+    ? window.matchMedia(COMPACT_QUERY).matches
+    : false
+
+function FieldError({ id, children }) {
+  if (!children) return null
+  return (
+    <p id={id} className="field-error">
+      <ErrorOutline aria-hidden="true" focusable="false" />
+      <span>{children}</span>
+    </p>
+  )
+}
 
 function Contact() {
   useDocumentTitle('Contact')
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [formData, setFormData] = useState(EMPTY)
+  const [errors, setErrors] = useState({})
+  const [touched, setTouched] = useState({})
+  const [status, setStatus] = useState('idle') // idle | submitting | success | error
+  const [sentTo, setSentTo] = useState(null)
   const [captchaValue, setCaptchaValue] = useState(null)
+  const [captchaError, setCaptchaError] = useState('')
+  const [compact, setCompact] = useState(getCompact)
+  const [copied, setCopied] = useState(false)
+
   const recaptchaRef = useRef(null)
+  const successRef = useRef(null)
+  const fieldRefs = useRef({})
+
+  // Compact reCAPTCHA (164px) below 400px so the 304px widget never overflows at 320.
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return undefined
+    const mql = window.matchMedia(COMPACT_QUERY)
+    const onChange = (e) => {
+      setCompact(e.matches)
+      setCaptchaValue(null) // widget remounts with the new size; old token is gone
+    }
+    mql.addEventListener('change', onChange)
+    return () => mql.removeEventListener('change', onChange)
+  }, [])
+
+  useEffect(() => {
+    if (status === 'success') successRef.current?.focus()
+  }, [status])
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setFormData((d) => ({ ...d, [name]: value }))
+    if (touched[name] && errors[name]) {
+      setErrors((er) => ({ ...er, [name]: validate(name, value) }))
+    }
+  }
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target
+    // Only validate on blur once the user has typed something or already submitted.
+    if (!value && !touched[name]) return
+    setTouched((t) => ({ ...t, [name]: true }))
+    setErrors((er) => ({ ...er, [name]: validate(name, value) }))
+  }
+
+  const handleCaptcha = (value) => {
+    setCaptchaValue(value)
+    if (value) setCaptchaError('')
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) return
-    if (!captchaValue) return
+    if (status === 'submitting') return
 
-    setIsSubmitting(true)
+    const nextErrors = {}
+    FIELDS.forEach((f) => {
+      const msg = validate(f, formData[f])
+      if (msg) nextErrors[f] = msg
+    })
+    setErrors(nextErrors)
+    setTouched({ name: true, email: true, subject: true, message: true })
+
+    const firstInvalid = FIELDS.find((f) => nextErrors[f])
+    if (firstInvalid) {
+      fieldRefs.current[firstInvalid]?.focus()
+      return
+    }
+    if (!captchaValue) {
+      setCaptchaError("Please confirm you're not a robot.")
+      return
+    }
+
+    setStatus('submitting')
     try {
       const response = await fetch('/', {
         method: 'POST',
@@ -38,258 +134,322 @@ function Contact() {
         body: new URLSearchParams({
           'form-name': 'contact',
           'g-recaptcha-response': captchaValue,
-          ...formData
-        }).toString()
+          ...formData,
+        }).toString(),
       })
+      if (!response.ok) throw new Error(`Form endpoint responded ${response.status}`)
 
-      if (response.ok) {
-        setSubmitted(true)
-        setFormData({ name: '', email: '', subject: '', message: '' })
-        setCaptchaValue(null)
-        recaptchaRef.current?.reset()
-        setTimeout(() => setSubmitted(false), 4000)
-      }
+      setSentTo({ name: formData.name.trim() })
+      setFormData(EMPTY)
+      setTouched({})
+      setErrors({})
+      setStatus('success')
     } catch (error) {
       console.error('Form submission error:', error)
-    }
-    setIsSubmitting(false)
-  }
-
-  const socialLinks = [
-    { label: 'Email', href: 'mailto:enesgunumdogdu0@gmail.com' },
-    { label: 'GitHub', href: 'https://github.com/enesgunumdogdu' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/enesgunumdogdu/' },
-    { label: 'YouTube', href: 'https://youtube.com/@enesgunumdogdu' },
-  ]
-
-  const inputStyles = {
-    '& .MuiOutlinedInput-root': {
-      background: 'var(--bg-secondary)',
-      borderRadius: '2px',
-      color: 'var(--text-primary)',
-      fontSize: '0.95rem',
-      fontFamily: 'var(--font-body)',
-      '& fieldset': { borderColor: 'var(--border-light)', transition: 'all 0.3s var(--ease-draft)' },
-      '&:hover fieldset': { borderColor: 'var(--text-dim)' },
-      '&.Mui-focused fieldset': { borderColor: 'var(--accent)', borderWidth: '1px' },
-      '&.Mui-focused': { background: 'var(--accent-glow)' },
-    },
-    '& .MuiInputLabel-root': {
-      color: 'var(--text-muted)',
-      fontSize: '0.82rem',
-      fontFamily: 'var(--font-mono)',
-      letterSpacing: '0.05em',
-      '&.Mui-focused': { color: 'var(--accent)' }
+      setStatus('error')
+    } finally {
+      // Tokens are single-use: always require a fresh captcha for the next attempt.
+      setCaptchaValue(null)
+      recaptchaRef.current?.reset()
     }
   }
+
+  const sendAnother = () => {
+    setStatus('idle')
+    setSentTo(null)
+  }
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(person.email)
+      setCopied(true)
+    } catch {
+      setCopied(false)
+    }
+  }
+
+  const describedBy = (field, extra) =>
+    [errors[field] && touched[field] ? `${field}-error` : null, extra].filter(Boolean).join(' ') || undefined
+
+  const invalid = (field) => (errors[field] && touched[field] ? true : undefined)
+
+  const submitting = status === 'submitting'
+  const messageLength = formData.message.length
 
   return (
-    <Box className="page">
-      <Box className="section">
-        <motion.div
-          initial={{ opacity: 0, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 0.9, ease: ease.ink }}
-        >
-          <Box className="section-header">
-            <Box className="section-label">Say Hello</Box>
-            <Typography
-              className="section-title"
-              sx={{ maxWidth: 640 }}
-            >
-              Let's build something<br />
-              <Box component="em" sx={{ fontStyle: 'italic', color: 'var(--accent)' }}>worth building.</Box>
-            </Typography>
-            <Typography className="section-subtitle">
-              I read every message. No auto-responders, no forms that go to a void.
-              If you write, I'll write back.
-            </Typography>
-          </Box>
-        </motion.div>
+    <div className="page">
+      <section className="section" aria-labelledby="contact-title">
+        <SectionHeader
+          as="h1"
+          id="contact-title"
+          label="Say hello"
+          title="Let's build something worth building."
+          lede="I read every message. No auto-responders, no forms that go to a void. If you write, I'll write back."
+        />
 
-        <Box sx={{ maxWidth: '60rem', mx: 'auto' }}>
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 5 }}>
-            {/* Form */}
-            <ScrollReveal style={{ flex: 1.4 }} preset="clipReveal">
-              <Box
-                sx={{
-                  background: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-subtle)',
-                  borderRadius: '2px',
-                  p: { xs: 3, md: 4 },
-                }}
+        <div className="contact-layout">
+          {/* ---------- Direct channels ---------- */}
+          <div className="contact-direct">
+            <h2 className="contact-h2">Email me</h2>
+            <p className="contact-lead">
+              Best way to reach me: email. I usually reply within a day, faster if the project sounds
+              interesting.
+            </p>
+
+            <p className="contact-email">
+              <ExternalLink href={person.emailHref} className="text-link break-anywhere">
+                Send an email
+              </ExternalLink>
+            </p>
+            <div className="contact-copy">
+              <Button variant="secondary" onClick={copyEmail}>
+                {copied ? 'Copied' : 'Copy address'}
+              </Button>
+              <span className="visually-hidden" aria-live="polite">
+                {copied ? 'Email address copied to clipboard' : ''}
+              </span>
+            </div>
+          </div>
+
+          {/* ---------- Elsewhere + facts (after the form on mobile) ---------- */}
+          <div className="contact-elsewhere">
+            <h2 className="contact-h2">Find me elsewhere.</h2>
+            <ul className="contact-links" aria-label="Contact links">
+              {/* Email is the big link above; the list keeps the three socials. */}
+              {contactLinks.filter((link) => link.id !== 'email').map((link) => (
+                <li key={link.id}>
+                  <ExternalLink href={link.href} className="contact-link" newTabHint>
+                    <span className="contact-link__label">{link.label}</span>
+                    <span className="contact-link__handle">{link.handle}</span>
+                    <span className="contact-link__arrow" aria-hidden="true">
+                      ↗
+                    </span>
+                  </ExternalLink>
+                </li>
+              ))}
+            </ul>
+
+            <dl className="contact-facts">
+              <div>
+                <dt>Location</dt>
+                <dd>{person.locationLong}</dd>
+              </div>
+              <div>
+                <dt>Time zone</dt>
+                <dd className="contact-facts__mono">{person.timezone}</dd>
+              </div>
+              <div>
+                <dt>Response</dt>
+                <dd>{person.replyTime}</dd>
+              </div>
+            </dl>
+          </div>
+
+          {/* ---------- Form ---------- */}
+          <div className="contact-form-wrap">
+            <h2 className="contact-h2" id="contact-form-title">
+              Send a message
+            </h2>
+
+            {status === 'success' ? (
+              <div
+                ref={successRef}
+                tabIndex={-1}
+                role="status"
+                className="form-feedback form-feedback--success contact-success"
               >
-                {submitted ? (
-                  <Box sx={{ textAlign: 'center', py: 6 }}>
-                    <Box
-                      sx={{
-                        width: 64,
-                        height: 64,
-                        borderRadius: '50%',
-                        background: 'var(--accent)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        mx: 'auto',
-                        mb: 3,
-                      }}
-                    >
-                      <CheckCircle sx={{ fontSize: 32, color: '#FFFFFF' }} />
-                    </Box>
-                    <Typography
-                      sx={{
-                        fontFamily: 'var(--font-display)',
-                        fontVariationSettings: "'opsz' 48, 'wght' 400",
-                        fontSize: '1.5rem',
-                        fontStyle: 'italic',
-                        mb: 0.75,
-                        color: 'var(--text-primary)',
-                      }}
-                    >
-                      Message sent.
-                    </Typography>
-                    <Typography sx={{ color: 'var(--text-secondary)', fontSize: '0.9rem', fontFamily: 'var(--font-body)' }}>
-                      I'll get back to you soon.
-                    </Typography>
-                  </Box>
-                ) : (
-                  <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={handleSubmit}>
-                    <input type="hidden" name="form-name" value="contact" />
-                    <p style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-                      <label>
-                        Don't fill this out if you're human:
-                        <input name="bot-field" tabIndex={-1} autoComplete="off" />
-                      </label>
-                    </p>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-                        <TextField fullWidth label="Name" name="name" value={formData.name} onChange={handleChange} required sx={inputStyles} />
-                        <TextField fullWidth label="Email" name="email" type="email" value={formData.email} onChange={handleChange} required sx={inputStyles} />
-                      </Box>
-                      <TextField fullWidth label="Subject" name="subject" value={formData.subject} onChange={handleChange} required sx={inputStyles} />
-                      <TextField fullWidth label="Message" name="message" value={formData.message} onChange={handleChange} required multiline rows={5} sx={inputStyles} />
-                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <ReCAPTCHA ref={recaptchaRef} sitekey="6Lfnw0osAAAAAJkVJJkdS9R2oFWznsihBAtf7xWf" onChange={setCaptchaValue} theme="light" />
-                      </Box>
-                      <Button
-                        type="submit"
-                        fullWidth
-                        disabled={isSubmitting || !captchaValue}
-                        endIcon={!isSubmitting && <East sx={{ fontSize: 14 }} />}
-                        sx={{
-                          background: 'var(--text-primary)',
-                          color: 'var(--bg-primary)',
-                          py: 1.5,
-                          borderRadius: '2px',
-                          fontSize: '0.8rem',
-                          fontWeight: 500,
-                          fontFamily: 'var(--font-mono)',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.12em',
-                          '&:hover': { background: 'var(--accent)', opacity: 1 },
-                          '&:disabled': { background: 'var(--text-primary)', opacity: 0.4, color: 'var(--bg-primary)' },
-                        }}
-                      >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                      </Button>
-                    </Box>
-                  </form>
-                )}
-              </Box>
-            </ScrollReveal>
+                <p className="contact-success__title">Message sent.</p>
+                <p>
+                  {sentTo?.name ? `Thanks, ${sentTo.name}. ` : ''}I'll get back to you soon.
+                </p>
+                <Button variant="text" onClick={sendAnother}>
+                  Send another message
+                </Button>
+              </div>
+            ) : (
+              <form
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit}
+                noValidate
+                aria-labelledby="contact-form-title"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="visually-hidden" aria-hidden="true">
+                  <label>
+                    Don't fill this out if you're human:
+                    <input name="bot-field" tabIndex={-1} autoComplete="off" />
+                  </label>
+                </p>
 
-            {/* Socials */}
-            <ScrollReveal delay={0.15} style={{ flex: 1 }} preset="clipReveal">
-              <Box>
-                <Typography
-                  sx={{
-                    fontFamily: 'var(--font-display)',
-                    fontVariationSettings: "'opsz' 36, 'wght' 400",
-                    fontSize: '1.35rem',
-                    mb: 1,
-                    color: 'var(--text-primary)',
-                    letterSpacing: '-0.015em',
-                  }}
-                >
-                  Find me <Box component="em" sx={{ fontStyle: 'italic' }}>elsewhere.</Box>
-                </Typography>
-                <Typography
-                  sx={{
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.75,
-                    mb: 3,
-                    fontSize: '0.95rem',
-                    fontFamily: 'var(--font-body)',
-                  }}
-                >
-                  Best way to reach me: email. I usually reply within a day,
-                  faster if the project sounds interesting.
-                </Typography>
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.25 }}>
-                  {socialLinks.map((social, index) => (
-                    <Box
-                      key={index}
-                      component="a"
-                      href={social.href}
-                      target={social.href.startsWith('mailto') ? undefined : '_blank'}
-                      rel={social.href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
-                      sx={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.85rem',
-                        py: 1,
-                        color: 'var(--text-secondary)',
-                        textDecoration: 'none',
-                        transition: 'all 0.3s var(--ease-draft)',
-                        borderBottom: '1px solid transparent',
-                        alignSelf: 'flex-start',
-                        '&:hover': {
-                          color: 'var(--accent)',
-                          borderBottomColor: 'var(--accent)',
-                        }
+                <div className="form-grid">
+                  <div className="field">
+                    <label className="field-label" htmlFor="contact-name">
+                      Name<span className="field-required" aria-hidden="true"> *</span>
+                    </label>
+                    <input
+                      ref={(el) => {
+                        fieldRefs.current.name = el
                       }}
-                    >
-                      {social.label}
-                    </Box>
-                  ))}
-                </Box>
+                      id="contact-name"
+                      className="field-input"
+                      type="text"
+                      name="name"
+                      autoComplete="name"
+                      autoCapitalize="words"
+                      enterKeyHint="next"
+                      required
+                      aria-required="true"
+                      aria-invalid={invalid('name')}
+                      aria-describedby={describedBy('name')}
+                      value={formData.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <FieldError id="name-error">{touched.name && errors.name}</FieldError>
+                  </div>
 
-                <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid var(--border-subtle)' }}>
-                  <Typography
-                    sx={{
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '0.62rem',
-                      color: 'var(--text-dim)',
-                      letterSpacing: '0.15em',
-                      textTransform: 'uppercase',
-                      mb: 1,
-                    }}
-                  >
-                    Location
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: 'var(--font-display)',
-                      fontVariationSettings: "'opsz' 32, 'wght' 400",
-                      fontSize: '1.1rem',
-                      color: 'var(--text-primary)',
-                      letterSpacing: '-0.015em',
-                    }}
-                  >
-                    İstanbul, Turkey
-                  </Typography>
-                  <Typography sx={{ fontFamily: 'var(--font-mono)', color: 'var(--text-muted)', fontSize: '0.72rem', mt: 0.5, letterSpacing: '0.05em' }}>
-                    UTC+3 · Turkey Time
-                  </Typography>
-                </Box>
-              </Box>
-            </ScrollReveal>
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+                  <div className="field">
+                    <label className="field-label" htmlFor="contact-email">
+                      Email<span className="field-required" aria-hidden="true"> *</span>
+                    </label>
+                    <input
+                      ref={(el) => {
+                        fieldRefs.current.email = el
+                      }}
+                      id="contact-email"
+                      className="field-input"
+                      type="email"
+                      name="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      autoCapitalize="off"
+                      spellCheck="false"
+                      enterKeyHint="next"
+                      required
+                      aria-required="true"
+                      aria-invalid={invalid('email')}
+                      aria-describedby={describedBy('email')}
+                      value={formData.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <FieldError id="email-error">{touched.email && errors.email}</FieldError>
+                  </div>
+
+                  <div className="field field--full">
+                    <label className="field-label" htmlFor="contact-subject">
+                      Subject<span className="field-required" aria-hidden="true"> *</span>
+                    </label>
+                    <input
+                      ref={(el) => {
+                        fieldRefs.current.subject = el
+                      }}
+                      id="contact-subject"
+                      className="field-input"
+                      type="text"
+                      name="subject"
+                      autoComplete="off"
+                      enterKeyHint="next"
+                      required
+                      aria-required="true"
+                      aria-invalid={invalid('subject')}
+                      aria-describedby={describedBy('subject')}
+                      value={formData.subject}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <FieldError id="subject-error">{touched.subject && errors.subject}</FieldError>
+                  </div>
+
+                  <div className="field field--full">
+                    <label className="field-label" htmlFor="contact-message">
+                      Message<span className="field-required" aria-hidden="true"> *</span>
+                    </label>
+                    <textarea
+                      ref={(el) => {
+                        fieldRefs.current.message = el
+                      }}
+                      id="contact-message"
+                      className="field-input"
+                      name="message"
+                      rows={6}
+                      maxLength={MESSAGE_MAX}
+                      autoComplete="off"
+                      required
+                      aria-required="true"
+                      aria-invalid={invalid('message')}
+                      aria-describedby={describedBy(
+                        'message',
+                        messageLength >= MESSAGE_COUNTER_FROM ? 'message-count' : null,
+                      )}
+                      value={formData.message}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <FieldError id="message-error">{touched.message && errors.message}</FieldError>
+                    {messageLength >= MESSAGE_COUNTER_FROM && (
+                      <p id="message-count" className="field-help">
+                        {messageLength} / {MESSAGE_MAX} characters
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="field field--full">
+                    <div className="contact-captcha">
+                      <ReCAPTCHA
+                        key={compact ? 'compact' : 'normal'}
+                        ref={recaptchaRef}
+                        sitekey={RECAPTCHA_SITE_KEY}
+                        onChange={handleCaptcha}
+                        onExpired={() => setCaptchaValue(null)}
+                        theme="light"
+                        size={compact ? 'compact' : 'normal'}
+                      />
+                    </div>
+                    <div aria-live="polite">
+                      {captchaError ? (
+                        <FieldError id="captcha-help">{captchaError}</FieldError>
+                      ) : (
+                        !captchaValue && (
+                          <p id="captcha-help" className="field-help">
+                            Complete the captcha to send.
+                          </p>
+                        )
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="field field--full">
+                    {status === 'error' && (
+                      <div role="alert" className="form-feedback form-feedback--error contact-error">
+                        Couldn't send your message. Your text is still here — try again, or{' '}
+                        <ExternalLink href={person.emailHref} className="text-link break-anywhere">
+                          email me directly
+                        </ExternalLink>
+                        .
+                      </div>
+                    )}
+                    <Button
+                      type="submit"
+                      blockMobile
+                      arrow={!submitting}
+                      aria-busy={submitting || undefined}
+                      aria-disabled={submitting || !captchaValue ? 'true' : undefined}
+                      aria-describedby={!captchaValue ? 'captcha-help' : undefined}
+                    >
+                      {submitting ? 'Sending…' : 'Send message'}
+                    </Button>
+                  </div>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
 

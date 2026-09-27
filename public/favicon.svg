@@ -1,24 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Warm parchment background with rounded corners -->
-  <rect width="100" height="100" rx="16" fill="#F5F0E8"/>
-
-  <!-- Editorial corner marks (top-left and bottom-right printer's marks) -->
-  <path d="M 12 18 L 12 12 L 18 12" stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="square"/>
-  <path d="M 82 88 L 88 88 L 88 82" stroke="#2B2B2B" stroke-width="1.5" fill="none" stroke-linecap="square"/>
-
-  <!-- The "3" character in Space Grotesk-like bold -->
-  <text
-    x="50"
-    y="50"
-    font-family="'Space Grotesk', 'Helvetica Neue', sans-serif"
-    font-weight="700"
-    font-size="64"
-    fill="#2B2B2B"
-    text-anchor="middle"
-    dominant-baseline="central"
-    letter-spacing="-2"
-  >3</text>
-
-  <!-- Burnt sienna accent underline — the "earned color" pencil-line motif -->
-  <rect x="32" y="78" width="36" height="3" fill="#C05A3D"/>
+  <!-- Datasheet mark: ink square, geometric "E" (paths, no font dependency),
+       vermilion full stop — echoes the hero "Enes Günümdoğdu." -->
+  <rect width="100" height="100" rx="8" fill="#0B0B0C"/>
+  <path d="M24 22h42v12H38v10h24v12H38v10h28v12H24z" fill="#FFFFFF"/>
+  <rect x="70" y="66" width="12" height="12" fill="#C43D12"/>
 </svg>

@@ -1,438 +1,173 @@
-import { Box, Typography, Link } from '@mui/material'
-import { OpenInNew } from '@mui/icons-material'
-import { motion } from 'framer-motion'
-import ScrollReveal from '../components/animations/ScrollReveal'
-import DraftedLine from '../components/animations/DraftedLine'
-import Marquee from '../components/animations/Marquee'
+import { ClosingCTA, ExternalLink, SectionHeader, SpecTable, TagList } from '../components/ui'
+import { experiences, person, socials } from '../data/site'
 import useDocumentTitle from '../hooks/useDocumentTitle'
-import { ease } from '../motion/tokens'
+import './About.css'
+
+// Skills, grouped for scanning (ui.md anti-slop #8: no marquee). 24 items total,
+// same set and spelling as before.
+const skillGroups = [
+  { label: 'Languages', items: ['Java', 'Python', 'TypeScript', 'C#', 'Swift', 'SQL', 'PLSQL'] },
+  { label: 'Backend', items: ['Spring Boot', 'Spring Security', 'Spring Cloud'] },
+  { label: 'Frontend', items: ['React', 'Vue.js'] },
+  { label: 'Data', items: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch'] },
+  { label: 'Infra', items: ['Docker', 'GCP', 'RabbitMQ', 'Terraform'] },
+  { label: 'Tools', items: ['Git', 'Swagger', 'Postman'] },
+]
+
+function TimelineItem({ period, current, logo, logoSize = [32, 32], logoAlt, company, role, children, tags, tagLabel, link, linkLabel }) {
+  return (
+    <li className="timeline-item">
+      <p className="timeline-item__period">
+        {period}
+        {current && <span className="timeline-item__now">Now</span>}
+      </p>
+      <div>
+        <div className="timeline-item__head">
+          <span className="logo-box">
+            <img src={logo} alt={logoAlt} width={logoSize[0]} height={logoSize[1]} loading="lazy" decoding="async" />
+          </span>
+          <h3 className="timeline-item__company">{company}</h3>
+        </div>
+        <p className="timeline-item__role">{role}</p>
+        <p className="timeline-item__desc">{children}</p>
+        <TagList tags={tags} label={tagLabel} />
+        {link && (
+          <p className="timeline-item__link">
+            <ExternalLink href={link} newTabHint>
+              {linkLabel} <span aria-hidden="true">↗</span>
+            </ExternalLink>
+          </p>
+        )}
+      </div>
+    </li>
+  )
+}
 
 function About() {
   useDocumentTitle('About')
 
-  const allSkills = [
-    'Java', 'Python', 'TypeScript', 'C#', 'Swift', 'SQL', 'PLSQL',
-    'Spring Boot', 'Spring Security', 'Spring Cloud', 'React', 'Vue.js',
-    'PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Elasticsearch',
-    'Docker', 'GCP', 'RabbitMQ', 'Terraform',
-    'Git', 'Swagger', 'Postman'
-  ]
-
-  const experiences = [
-    {
-      logo: '/logos/huawei.svg',
-      title: 'Huawei',
-      role: 'Assistant Software Engineer',
-      period: '2026 — Present',
-      description: 'Joined Huawei as a full-time Assistant Software Engineer, building production software within a large-scale engineering organization.',
-      tags: [],
-      link: 'https://www.huawei.com'
-    },
-    {
-      logo: '/logos/avevrak.ico',
-      title: 'Avevrak.com',
-      role: 'Software Developer',
-      period: '2025',
-      description: 'Built an AI-powered document generation system using LLMs and vector search. Cloud pipelines on GCP with 95% accuracy in automated tagging.',
-      tags: ['GCP', 'Python', 'LLM', 'FAISS'],
-      link: 'https://avevrak.com'
-    },
-    {
-      logo: '/logos/toucancodelabs.png',
-      title: 'Toucan Code Labs',
-      role: 'Software Developer',
-      period: '2023 — 2024',
-      description: 'Developed microservices for the RoboNimbus mobile platform. Designed RESTful APIs and improved system reliability through performance optimization.',
-      tags: ['Microservices', 'Mobile', 'API'],
-      link: 'https://toucancodelabs.com'
-    },
-    {
-      logo: '/logos/bionluk.png',
-      title: 'Bionluk.com',
-      role: 'Freelance Developer',
-      period: '2021 — 2025',
-      description: 'Completed 25+ client projects ranging from backend APIs to full-stack web applications. Specialized in Java, Python, and custom solutions.',
-      tags: ['Freelance', 'Java', 'Python'],
-      link: 'https://bionluk.com/enesgunumdogdu'
-    }
-  ]
-
   return (
-    <Box className="page">
-      {/* Hero */}
-      <Box className="section" sx={{ pb: 4 }}>
-        <motion.div
-          initial={{ opacity: 0, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 0.9, ease: ease.ink }}
-        >
-          <Box className="section-label">About</Box>
-          <Typography
-            component="h1"
-            sx={{
-              fontFamily: 'var(--font-display)',
-              fontVariationSettings: "'opsz' 144, 'wght' 300, 'SOFT' 40",
-              fontSize: 'clamp(2.5rem, 7vw, 5rem)',
-              lineHeight: 1.05,
-              letterSpacing: '-0.035em',
-              color: 'var(--text-primary)',
-              mb: 4,
-              fontFeatureSettings: "'ss01'",
-              maxWidth: '56.25rem',
-            }}
-          >
-            A backend engineer who ships iOS apps{' '}
-            <Box component="em" sx={{ fontStyle: 'italic', fontVariationSettings: "'wght' 400", color: 'var(--text-muted)' }}>
-              on weekends
-            </Box>
-            {' '}and teaches algorithms{' '}
-            <Box component="em" sx={{ fontStyle: 'italic', fontVariationSettings: "'wght' 400", color: 'var(--accent)' }}>
-              on YouTube.
-            </Box>
-          </Typography>
+    <div className="page">
+      {/* ---------- Intro ---------- */}
+      <section className="section" aria-labelledby="about-title">
+        <div className="about-intro">
+          <div>
+            <SectionHeader
+              as="h1"
+              id="about-title"
+              label="About"
+              title="A backend engineer who ships iOS apps on weekends and teaches algorithms on YouTube."
+            />
+            <p className="about-meta">
+              <span>
+                {person.currentPosition.title} at {person.currentPosition.company}
+              </span>
+              <span className="about-meta__sep" aria-hidden="true">/</span>
+              <span>{person.location}</span>
+            </p>
+            <div className="about-bio">
+              <p>
+                Backend developer specialized in Java and the Spring Boot ecosystem. I build scalable
+                microservices, design event-driven architectures, and work with cloud platforms like GCP.
+              </p>
+              <p>
+                In my spare time I build native iOS apps with Swift and create educational content about
+                Data Structures &amp; Algorithms on YouTube with 50,000+ views. I have a keen interest in AI
+                and ML.
+              </p>
+            </div>
+          </div>
 
-          {/* Role metadata */}
-          <Box
-            sx={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.72rem',
-              color: 'var(--text-muted)',
-              letterSpacing: '0.08em',
-              display: 'flex',
-              gap: 2,
-              flexWrap: 'wrap',
-              mb: 5,
-              textTransform: 'uppercase',
-            }}
-          >
-            <span>Enes Günümdoğdu</span>
-            <span style={{ color: 'var(--text-dim)' }}>/</span>
-            <span>İstanbul, TR</span>
-          </Box>
-        </motion.div>
+          <aside className="about-now" aria-labelledby="about-now-title">
+            <h2 id="about-now-title" className="about-now__title">Now</h2>
+            <dl>
+              <div>
+                <dt>Role</dt>
+                <dd>
+                  {person.currentPosition.title} at {person.currentPosition.company}
+                </dd>
+              </div>
+              <div>
+                <dt>Based</dt>
+                <dd>{person.locationLong}</dd>
+              </div>
+              <div>
+                <dt>Time</dt>
+                <dd>{person.timezone}</dd>
+              </div>
+              <div>
+                <dt>Elsewhere</dt>
+                <dd className="about-now__links">
+                  {socials.map((s) => (
+                    <ExternalLink key={s.id} href={s.href} newTabHint>
+                      {s.label}
+                    </ExternalLink>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: ease.draft }}
-        >
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-              gap: { xs: 3, md: 6 },
-              maxWidth: '57.5rem',
-            }}
-          >
-            <Box>
-              {/* Drop cap paragraph */}
-              <Typography
-                sx={{
-                  color: 'var(--text-primary)',
-                  lineHeight: 1.8,
-                  fontSize: '1.05rem',
-                  fontFamily: 'var(--font-body)',
-                  '&::first-letter': {
-                    fontFamily: 'var(--font-display)',
-                    fontVariationSettings: "'opsz' 144, 'wght' 300",
-                    fontSize: '4.5em',
-                    float: 'left',
-                    lineHeight: 0.85,
-                    paddingRight: '0.12em',
-                    paddingTop: '0.05em',
-                    color: 'var(--accent)',
-                  }
-                }}
-              >
-                Backend developer specialized in Java and the Spring Boot ecosystem.
-                I build scalable microservices, design event-driven architectures,
-                and work with cloud platforms like GCP.
-              </Typography>
-            </Box>
-            <Typography
-              sx={{
-                color: 'var(--text-secondary)',
-                lineHeight: 1.8,
-                fontSize: '1.05rem',
-                fontFamily: 'var(--font-body)',
-              }}
+      {/* ---------- Experience ---------- */}
+      <section className="section section--flush-top" aria-labelledby="experience-title">
+        <SectionHeader index="01" label="Experience" title="The receipts." id="experience-title" />
+        <ol className="timeline">
+          {experiences.map((exp) => (
+            <TimelineItem
+              key={exp.company}
+              period={exp.period}
+              current={exp.current}
+              logo={exp.logo}
+              logoSize={exp.logoSize}
+              logoAlt={`${exp.company} logo`}
+              company={exp.company}
+              role={exp.role}
+              tags={exp.tags}
+              tagLabel={`${exp.company} stack`}
+              link={exp.link}
+              linkLabel={exp.linkLabel}
             >
-              In my spare time I build native iOS apps with Swift and create
-              educational content about Data Structures &amp; Algorithms on YouTube
-              with <Box component="span" sx={{ color: 'var(--text-primary)', fontStyle: 'italic', fontFamily: 'var(--font-display)' }}>50,000+ views.</Box> I have a keen interest in AI and ML.
-            </Typography>
-          </Box>
-        </motion.div>
-      </Box>
-
-      {/* Tech Stack Marquee */}
-      <Box sx={{ py: 5, borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
-        <Marquee items={allSkills} speed={50} />
-      </Box>
-
-      {/* Experience */}
-      <Box className="section">
-        <ScrollReveal preset="inkBleed">
-          <Box className="section-header">
-            <Box className="section-label">§ 01 — Experience</Box>
-            <Typography className="section-title">
-              The <Box component="em" sx={{ fontStyle: 'italic', color: 'var(--accent)' }}>receipts.</Box>
-            </Typography>
-          </Box>
-        </ScrollReveal>
-
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          {experiences.map((exp, index) => (
-            <ScrollReveal key={index} delay={index * 0.08} preset="clipReveal">
-              <Link
-                href={exp.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                underline="none"
-                sx={{ display: 'block' }}
-              >
-                <Box
-                  sx={{
-                    display: 'grid',
-                    gridTemplateColumns: { xs: '1fr', md: '56px 1fr auto' },
-                    alignItems: { xs: 'flex-start', md: 'center' },
-                    gap: { xs: 2, md: 3 },
-                    py: 4,
-                    px: { xs: 0, md: 2 },
-                    borderBottom: '1px solid var(--border-subtle)',
-                    transition: 'all 0.3s var(--ease-draft)',
-                    '&:hover': {
-                      px: { md: 3 },
-                      '& .exp-title': {
-                        color: 'var(--accent)',
-                        fontVariationSettings: "'opsz' 48, 'wght' 500",
-                      },
-                      '& .exp-arrow': { opacity: 1, transform: 'translateX(4px)' },
-                    }
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: '2px',
-                      background: 'var(--bg-secondary)',
-                      border: '1px solid var(--border-light)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      p: 0.75,
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      src={exp.logo}
-                      alt={exp.title}
-                      sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                    />
-                  </Box>
-
-                  <Box>
-                    <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 0.75, flexWrap: 'wrap' }}>
-                      <Typography
-                        className="exp-title"
-                        sx={{
-                          fontFamily: 'var(--font-display)',
-                          fontVariationSettings: "'opsz' 48, 'wght' 400",
-                          fontSize: '1.4rem',
-                          color: 'var(--text-primary)',
-                          transition: 'all 0.3s var(--ease-draft)',
-                          letterSpacing: '-0.02em',
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        {exp.title}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontFamily: 'var(--font-mono)',
-                          fontSize: '0.68rem',
-                          color: 'var(--text-dim)',
-                          letterSpacing: '0.1em',
-                        }}
-                      >
-                        {exp.period}
-                      </Typography>
-                    </Box>
-                    <Typography sx={{
-                      color: 'var(--text-muted)',
-                      fontSize: '0.78rem',
-                      mb: 1,
-                      fontFamily: 'var(--font-mono)',
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                    }}>
-                      {exp.role}
-                    </Typography>
-                    <Typography sx={{
-                      color: 'var(--text-secondary)',
-                      fontSize: '0.95rem',
-                      lineHeight: 1.7,
-                      maxWidth: 580,
-                      fontFamily: 'var(--font-body)',
-                    }}>
-                      {exp.description}
-                    </Typography>
-                    {exp.tags.length > 0 && (
-                    <Box sx={{ display: 'flex', gap: 0.5, mt: 1.25, flexWrap: 'wrap' }}>
-                      {exp.tags.map((tag, ti) => (
-                        <Box
-                          key={ti}
-                          sx={{
-                            fontFamily: 'var(--font-mono)',
-                            px: 1,
-                            py: 0.3,
-                            fontSize: '0.62rem',
-                            color: 'var(--text-muted)',
-                            border: '1px solid var(--border-light)',
-                            borderRadius: '2px',
-                            letterSpacing: '0.05em',
-                          }}
-                        >
-                          {tag}
-                        </Box>
-                      ))}
-                    </Box>
-                    )}
-                  </Box>
-
-                  <OpenInNew
-                    className="exp-arrow"
-                    sx={{
-                      fontSize: 16,
-                      color: 'var(--text-dim)',
-                      opacity: 0,
-                      transition: 'all 0.3s var(--ease-draft)',
-                      display: { xs: 'none', md: 'block' },
-                    }}
-                  />
-                </Box>
-              </Link>
-            </ScrollReveal>
+              {exp.description}
+            </TimelineItem>
           ))}
-        </Box>
-      </Box>
+        </ol>
+      </section>
 
-      {/* Education */}
-      <Box className="section" sx={{ pt: 0 }}>
-        <ScrollReveal preset="inkBleed">
-          <Box className="section-header">
-            <Box className="section-label">§ 02 — Education</Box>
-            <Typography className="section-title">
-              Where it <Box component="em" sx={{ fontStyle: 'italic', color: 'var(--accent)' }}>started.</Box>
-            </Typography>
-          </Box>
-        </ScrollReveal>
-
-        <ScrollReveal delay={0.08} preset="clipReveal">
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: '56px 1fr' },
-              alignItems: 'flex-start',
-              gap: 3,
-              py: 3,
-              maxWidth: '48.75rem',
-            }}
+      {/* ---------- Education ---------- */}
+      <section className="section section--flush-top" aria-labelledby="education-title">
+        <SectionHeader index="02" label="Education" title="Where it started." id="education-title" />
+        <ul className="timeline">
+          <TimelineItem
+            period="2021 — 2025"
+            logo="/logos/erciyes.svg"
+            logoAlt="Erciyes University logo"
+            company="Erciyes University"
+            role="Computer Engineering"
+            tags={['Computer Engineering', 'AI/ML', 'TUBITAK 2209-A']}
+            tagLabel="Education topics"
           >
-            <Box
-              sx={{
-                width: 48,
-                height: 48,
-                borderRadius: '2px',
-                background: 'var(--bg-secondary)',
-                border: '1px solid var(--border-light)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                p: 0.75,
-                flexShrink: 0,
-              }}
-            >
-              <Box
-                component="img"
-                src="/logos/erciyes.svg"
-                alt="Erciyes University"
-                sx={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              />
-            </Box>
+            During university, I convinced TUBITAK (Turkey's NSF equivalent) to fund a project where I
+            trained ML models to paint in the style of deceased Turkish artists. The idea was simple:{' '}
+            <span className="timeline-item__emph">what if Osman Hamdi Bey could paint Istanbul in 2026?</span>{' '}
+            The implementation was not simple.
+          </TimelineItem>
+        </ul>
+      </section>
 
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1.5, mb: 0.75, flexWrap: 'wrap' }}>
-                <Typography
-                  sx={{
-                    fontFamily: 'var(--font-display)',
-                    fontVariationSettings: "'opsz' 48, 'wght' 400",
-                    fontSize: '1.4rem',
-                    color: 'var(--text-primary)',
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1.1,
-                  }}
-                >
-                  Erciyes University
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.68rem',
-                    color: 'var(--text-dim)',
-                    letterSpacing: '0.1em',
-                  }}
-                >
-                  2021 — 2025
-                </Typography>
-              </Box>
-              <Typography sx={{
-                color: 'var(--text-muted)',
-                fontSize: '0.78rem',
-                mb: 1,
-                fontFamily: 'var(--font-mono)',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-              }}>
-                Computer Engineering
-              </Typography>
-              <Typography sx={{
-                color: 'var(--text-secondary)',
-                fontSize: '0.95rem',
-                lineHeight: 1.7,
-                maxWidth: 580,
-                fontFamily: 'var(--font-body)',
-              }}>
-                During university, I convinced TUBITAK (Turkey's NSF equivalent) to fund a project
-                where I trained ML models to paint in the style of deceased Turkish artists. The idea
-                was simple: <Box component="span" sx={{ fontStyle: 'italic', fontFamily: 'var(--font-display)', color: 'var(--text-primary)' }}>what if Osman Hamdi Bey could paint Istanbul in 2026?</Box> The implementation was not simple.
-              </Typography>
-              <Box sx={{ display: 'flex', gap: 0.5, mt: 1.25, flexWrap: 'wrap' }}>
-                {['Computer Engineering', 'AI/ML', 'TUBITAK 2209-A'].map((tag, i) => (
-                  <Box
-                    key={i}
-                    sx={{
-                      fontFamily: 'var(--font-mono)',
-                      px: 1,
-                      py: 0.3,
-                      fontSize: '0.62rem',
-                      color: 'var(--text-muted)',
-                      border: '1px solid var(--border-light)',
-                      borderRadius: '2px',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    {tag}
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        </ScrollReveal>
-      </Box>
-    </Box>
+      {/* ---------- Skills ---------- */}
+      <section className="section section--flush-top" aria-labelledby="skills-title">
+        <SectionHeader index="03" label="Skills" title="What I work with." id="skills-title" />
+        <SpecTable
+          label="Skills by area"
+          rows={skillGroups.map((g) => ({ label: g.label, value: g.items }))}
+        />
+      </section>
+
+      {/* ---------- Closing CTA (shared) ---------- */}
+      <ClosingCTA index="04" className="section--flush-top" />
+    </div>
   )
 }
 
