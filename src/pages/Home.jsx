@@ -138,7 +138,7 @@ function Home() {
                     Cartoon Weather
                   </Box>
                   {' '}(5.0 stars, 19 languages) and 50K+ views worth of algorithm
-                  breakdowns on YouTube. Currently a software developer at Huawei.
+                  breakdowns on YouTube. Currently an Assistant Software Engineer at Huawei.
                 </Typography>
               </motion.div>
 

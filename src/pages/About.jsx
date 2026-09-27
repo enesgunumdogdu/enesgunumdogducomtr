@@ -24,7 +24,7 @@ function About() {
       title: 'Huawei',
       role: 'Assistant Software Engineer',
       period: '2026 — Present',
-      description: 'Joined Huawei as a full-time software engineer, building production software within a large-scale engineering organization.',
+      description: 'Joined Huawei as a full-time Assistant Software Engineer, building production software within a large-scale engineering organization.',
       tags: [],
       link: 'https://www.huawei.com'
     },
