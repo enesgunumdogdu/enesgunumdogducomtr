@@ -20,6 +20,8 @@ const MagnetifyPrivacyPolicy = lazy(() => import('./pages/MagnetifyPrivacyPolicy
 const MagnetifyTermsOfUse = lazy(() => import('./pages/MagnetifyTermsOfUse'))
 const NsAiPrivacyPolicy = lazy(() => import('./pages/NsAiPrivacyPolicy'))
 const NsAiTermsOfUse = lazy(() => import('./pages/NsAiTermsOfUse'))
+const InvitePrivacyPolicy = lazy(() => import('./pages/InvitePrivacyPolicy'))
+const InviteTermsOfUse = lazy(() => import('./pages/InviteTermsOfUse'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const routes = [
@@ -35,6 +37,8 @@ const routes = [
   ['/magnetify-terms-of-use', <MagnetifyTermsOfUse />],
   ['/nsai-privacy-policy', <NsAiPrivacyPolicy />],
   ['/nsai-terms-of-use', <NsAiTermsOfUse />],
+  ['/invite-privacy-policy', <InvitePrivacyPolicy />],
+  ['/invite-terms-of-use', <InviteTermsOfUse />],
   ['*', <NotFound />],
 ]
 
