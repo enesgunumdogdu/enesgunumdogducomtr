@@ -1,20 +1,17 @@
 // Home page content (carried over verbatim from the previous Home.jsx; only the
 // presentation changed). Shared identity/apps live in ./site.js.
 
-export const hero = {
-  tagline: ['Software engineer by day.', 'iOS apps, for the fun of it.'],
-  // Sub-copy, sentence order changed so role + Huawei read first on mobile.
-  // Original: "Backend engineer and iOS developer. The guy behind Cartoon Weather
-  // (5.0 stars, 19 languages) and 50K+ views worth of algorithm breakdowns on
-  // YouTube. Currently an Assistant Software Engineer at Huawei."
-  cta: { label: "See what I've shipped", to: '/projects' },
-}
+// Statement under the hero (words light up on scroll). Kept free of
+// day-job/after-hours framing: everything on the site is presented as personal
+// work, independent of the current employer.
+export const statement =
+  'I like software that stays calm: backend services that hold up under load, and small apps that do one thing well. This site collects what I have made so far, from Java and Spring Boot systems to apps for Apple platforms and algorithm lessons on YouTube.'
 
 export const stats = [
-  { number: '5.0', suffix: '', label: 'App Store', sub: 'Cartoon Weather' },
-  { number: '50K', suffix: '+', label: 'Views', sub: 'YouTube' },
-  { number: '25', suffix: '+', label: 'Projects', sub: 'Freelance' },
-  { number: '4', suffix: '', label: 'Apps', sub: 'Shipped & Coming' },
+  { value: '5.0', label: 'App Store rating, Cartoon Weather' },
+  { value: '50K+', label: 'YouTube views' },
+  { value: '25+', label: 'Freelance projects, 2021 to 2025' },
+  { value: '4', label: 'Personal apps' },
 ]
 
 // "How I build" lanes (formerly the bento grid).
@@ -22,22 +19,22 @@ export const lanes = [
   {
     index: '01',
     area: 'Backend Systems',
-    title: 'Microservices that talk to each other without drama.',
-    body: "Event-driven architectures that handle the 3am spike you didn't plan for. Java and Spring Boot, because some things just work.",
+    title: 'Systems that stay calm under load.',
+    body: 'Microservices, message queues and the plumbing between them. Mostly Java and Spring Boot, with PostgreSQL and Redis underneath.',
     tags: ['Java', 'Spring Boot', 'PostgreSQL', 'RabbitMQ', 'Keycloak', 'Redis'],
   },
   {
     index: '02',
     area: 'Cloud & DevOps',
-    title: 'I containerize everything.',
-    body: 'Not because it\'s trendy — because I got tired of "works on my machine" conversations.',
+    title: 'Everything in a container.',
+    body: 'Reproducible builds and deploys, so the code behaves the same on every machine it runs on.',
     tags: ['Docker', 'GCP', 'Terraform', 'CI/CD'],
   },
   {
     index: '03',
-    area: 'iOS Apps',
-    title: 'I build the apps I wish existed.',
-    body: 'A weather app with cartoon characters because weather apps are boring.',
+    area: 'Apple Platforms',
+    title: 'Small apps with a point of view.',
+    body: 'Native Swift and SwiftUI. A weather app with cartoon characters, a season tracker, a window manager for the Mac.',
     tags: ['Swift', 'SwiftUI', 'WidgetKit', 'iOS'],
   },
 ]

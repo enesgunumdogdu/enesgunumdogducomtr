@@ -170,7 +170,7 @@ function LegalPage({ kind, appName, effectiveDate, lastUpdated, intro, sections 
             <SectionHeader
               as="h1"
               id="legal-title"
-              label={`Legal / ${appName}`}
+              label="Legal"
               title={
                 <>
                   {kind}

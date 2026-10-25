@@ -182,9 +182,9 @@ function Contact() {
         <SectionHeader
           as="h1"
           id="contact-title"
-          label="Say hello"
-          title="Let's build something worth building."
-          lede="I read every message. No auto-responders, no forms that go to a void. If you write, I'll write back."
+          label="Contact"
+          title="Say hello."
+          lede="Questions about an app, a video or something on this site. I read every message and reply myself."
         />
 
         <div className="contact-layout">
@@ -233,10 +233,6 @@ function Contact() {
               <div>
                 <dt>Location</dt>
                 <dd>{person.locationLong}</dd>
-              </div>
-              <div>
-                <dt>Time zone</dt>
-                <dd className="contact-facts__mono">{person.timezone}</dd>
               </div>
               <div>
                 <dt>Response</dt>

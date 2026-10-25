@@ -56,24 +56,17 @@ function About() {
               as="h1"
               id="about-title"
               label="About"
-              title="A backend engineer who ships iOS apps on weekends and teaches algorithms on YouTube."
+              title="Backend systems, apps for Apple platforms and algorithm videos."
             />
-            <p className="about-meta">
-              <span>
-                {person.currentPosition.title} at {person.currentPosition.company}
-              </span>
-              <span className="about-meta__sep" aria-hidden="true">/</span>
-              <span>{person.location}</span>
-            </p>
             <div className="about-bio">
               <p>
-                Backend developer specialized in Java and the Spring Boot ecosystem. I build scalable
-                microservices, design event-driven architectures, and work with cloud platforms like GCP.
+                I&rsquo;m a software engineer. On the backend I work mostly in Java and the Spring Boot
+                ecosystem: microservices, event-driven architectures and cloud platforms like GCP.
               </p>
               <p>
-                In my spare time I build native iOS apps with Swift and create educational content about
-                Data Structures &amp; Algorithms on YouTube with 50,000+ views. I have a keen interest in AI
-                and ML.
+                I also make native apps for iOS and macOS with Swift, and publish videos about data
+                structures and algorithms on YouTube, now past 50,000 views. AI and machine learning are
+                the next thing I&rsquo;m digging into.
               </p>
             </div>
           </div>
@@ -90,10 +83,6 @@ function About() {
               <div>
                 <dt>Based</dt>
                 <dd>{person.locationLong}</dd>
-              </div>
-              <div>
-                <dt>Time</dt>
-                <dd>{person.timezone}</dd>
               </div>
               <div>
                 <dt>Elsewhere</dt>

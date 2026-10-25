@@ -10,9 +10,6 @@ export const otherProjects = [
       'Cloud-native fitness platform with Spring Cloud, OAuth2 via Keycloak, AI-powered recommendations.',
     tags: ['Java', 'Spring Boot', 'RabbitMQ', 'Keycloak'],
     github: 'https://github.com/enesgunumdogdu/fitness-microservice',
-    live: 'https://aeg.fitness',
-    status: 'live',
-    statusLabel: 'LIVE',
   },
   {
     id: 'guzel-hatirla',
@@ -23,7 +20,7 @@ export const otherProjects = [
     github: 'https://github.com/enesgunumdogdu/guzelhatirlacom',
     live: 'https://guzelhatirla.com',
     status: 'live',
-    statusLabel: 'LIVE',
+    statusLabel: 'Live',
   },
   {
     id: 'hospital-management',

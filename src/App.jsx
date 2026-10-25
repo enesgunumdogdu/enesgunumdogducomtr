@@ -5,6 +5,9 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import PageTransition from './components/animations/PageTransition'
+import Preloader from './components/Preloader'
+import Cursor from './components/Cursor'
+import { useSmoothScroll } from './motion/smoothScroll'
 import Home from './pages/Home'
 import './App.css'
 
@@ -60,10 +63,14 @@ function AppRoutes() {
 }
 
 function App() {
+  useSmoothScroll()
+
   return (
     <MotionConfig reducedMotion="user">
       <Router>
         <ScrollToTop />
+        <Preloader />
+        <Cursor />
         <a className="skip-link" href="#main">Skip to content</a>
         <div className="app">
           <Navbar />

@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ease, duration } from '../motion/tokens'
 import { person, socials, navLinks } from '../data/site'
 import SocialIcon from './ui/SocialIcon'
+import { getLenis } from '../motion/smoothScroll'
 import './Navbar.css'
 
 const desktopLinks = navLinks.filter((l) => l.to !== '/') // Work / About / Contact
@@ -66,7 +67,7 @@ function Navbar() {
     setIsOpen(false)
   }, [])
 
-  // Hairline under the bar once the page has scrolled.
+  // Frosted bar once the page has scrolled.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
@@ -80,12 +81,14 @@ function Navbar() {
     const lockedPath = window.location.pathname
     const toggle = toggleRef.current
     const y = lockScroll()
+    getLenis()?.stop()
     setBackgroundInert(true)
     const first = sheetRef.current?.querySelector('a[href]')
     first?.focus({ preventScroll: true })
 
     return () => {
       setBackgroundInert(false)
+      getLenis()?.start()
       // Navigated away: ScrollToTop owns the scroll position, don't restore.
       unlockScroll(window.location.pathname === lockedPath ? y : null)
       if (returnFocus.current) toggle?.focus({ preventScroll: true })
@@ -157,7 +160,10 @@ function Navbar() {
                 <NavLink to={link.to} className="site-nav__link">
                   {({ isActive }) => (
                     <>
-                      {link.label}
+                      <span className="site-nav__text">{link.label}</span>
+                      <span className="site-nav__clone" aria-hidden="true">
+                        {link.label}
+                      </span>
                       {isActive && (
                         <motion.span
                           layoutId="nav-indicator"
@@ -183,8 +189,9 @@ function Navbar() {
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
           onClick={() => (isOpen ? close(true) : open())}
         >
-          <span className="menu-toggle__line" aria-hidden="true" />
-          <span className="menu-toggle__line" aria-hidden="true" />
+          <span className="menu-toggle__text" aria-hidden="true">
+            {isOpen ? 'Close' : 'Menu'}
+          </span>
         </button>
       </div>
 
@@ -198,13 +205,13 @@ function Navbar() {
             transition={{ duration: duration.page, ease: ease.inOut }}
           >
             <nav aria-label="Primary">
-              <ol className="menu-sheet__list">
+              <ul className="menu-sheet__list">
                 {navLinks.map((link, i) => (
                   <motion.li
                     key={link.to}
-                    initial={{ opacity: 0, y: 8 }}
+                    initial={{ opacity: 0, y: '60%' }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.03 * i, duration: 0.2, ease: ease.out }}
+                    transition={{ delay: 0.15 + 0.06 * i, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   >
                     <NavLink
                       to={link.to}
@@ -212,14 +219,11 @@ function Navbar() {
                       className="menu-sheet__link"
                       onClick={() => close(false)}
                     >
-                      <span className="menu-sheet__index" aria-hidden="true">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
                       <span className="menu-sheet__label">{link.label}</span>
                     </NavLink>
                   </motion.li>
                 ))}
-              </ol>
+              </ul>
             </nav>
 
             <div className="menu-sheet__footer">
@@ -241,7 +245,7 @@ function Navbar() {
                   </li>
                 ))}
               </ul>
-              <p className="menu-sheet__location mono">{person.location}</p>
+              <p className="menu-sheet__location">{person.location}</p>
             </div>
           </motion.div>
         )}

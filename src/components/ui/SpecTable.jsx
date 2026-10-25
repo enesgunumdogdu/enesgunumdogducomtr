@@ -3,7 +3,7 @@
 //
 //   <SpecTable rows={[{ label: 'Backend', value: ['Java', 'Spring Boot'] }]} />
 //
-// value: string or string[] (joined with " · "). label: optional aria-label.
+// value: string or string[] (joined with ", "). label: optional aria-label.
 function SpecTable({ rows = [], label, className = '' }) {
   return (
     <dl className={`spec-table ${className}`.trim()} aria-label={label}>
@@ -11,7 +11,7 @@ function SpecTable({ rows = [], label, className = '' }) {
         <div key={row.label} className="spec-table__row">
           <dt className="spec-table__label">{row.label}</dt>
           <dd className="spec-table__value">
-            {Array.isArray(row.value) ? row.value.join(' · ') : row.value}
+            {Array.isArray(row.value) ? row.value.join(', ') : row.value}
           </dd>
         </div>
       ))}

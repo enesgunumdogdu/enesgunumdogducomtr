@@ -53,7 +53,7 @@ function NotFound() {
         </div>
 
         <nav className="not-found__more" aria-label="Other pages">
-          <p className="not-found__more-label mono">Or try one of these:</p>
+          <p className="not-found__more-label">Or try one of these:</p>
           <ul className="not-found__links">
             {quickLinks.map((l) => (
               <li key={l.to}>

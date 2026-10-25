@@ -1,109 +1,116 @@
-/* ==================== SITE FOOTER (ui.md §3.9, ux.md §3.2) ==================== */
+/* ==================== SITE FOOTER (ink) ==================== */
 .site-footer {
-  margin-top: auto;
-  background: var(--bg-primary);
-  border-top: 1px solid var(--border-light);
-  padding-top: var(--space-8);
-  padding-bottom: calc(var(--space-6) + var(--safe-bottom));
+  position: relative;
+  padding-top: var(--space-9);
+  padding-bottom: calc(var(--space-5) + var(--safe-bottom));
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
 }
 
 .site-footer__top {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-7);
+  gap: var(--space-8);
 }
 
-.site-footer__email {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: var(--tap-min);
-  font-size: var(--fs-small);
-  color: var(--text-secondary);
+@media (min-width: 1024px) {
+  .site-footer__top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    align-items: start;
+  }
 }
 
-.site-footer__email:hover {
-  color: var(--text-primary);
+.site-footer__intro {
+  max-width: 26rem;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-snug);
+  color: rgba(233, 233, 228, 0.8);
+  text-wrap: pretty;
 }
 
 .site-footer__groups {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-6) var(--space-5);
+  gap: var(--space-6);
 }
 
 .site-footer__label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-small);
   font-weight: 500;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--text-dim);
+  font-variation-settings: 'wdth' 100;
   line-height: var(--lh-label);
-  margin-bottom: var(--space-2);
+  color: rgba(233, 233, 228, 0.55);
 }
 
 .site-footer__list {
   list-style: none;
-  display: flex;
-  flex-direction: column;
 }
 
 .site-footer__link {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
-  min-height: var(--tap-min); /* 44px rows on touch */
-  font-size: var(--fs-small);
-  color: var(--text-secondary);
+  gap: 0.35em;
+  min-height: 40px;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--text-inverse);
   transition: color var(--duration-instant) var(--ease-out);
 }
 
 .site-footer__link:hover {
-  color: var(--text-primary);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  color: #8d97ff;
 }
 
-.site-footer__sep {
-  color: var(--text-dim);
+.site-footer__link:focus-visible,
+.site-footer__top-btn:focus-visible,
+.site-footer__signoff:focus-visible {
+  outline: 2px solid var(--text-inverse);
+  outline-offset: 2px;
+}
+
+/* Full-width wordmark; size set by useFitText */
+.site-footer__name {
+  margin-top: var(--space-9);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 125;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.8;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.site-footer__name span {
+  display: inline-block;
 }
 
 .site-footer__bottom {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-2) var(--space-5);
-  margin-top: var(--space-7);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--border-light);
-  font-size: var(--fs-label);
-  color: var(--text-dim);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(233, 233, 228, 0.18);
+  font-size: var(--fs-small);
+  color: rgba(233, 233, 228, 0.6);
 }
 
 .site-footer__signoff {
+  color: var(--text-inverse);
+  font-weight: 600;
+}
+
+.site-footer__signoff:hover { color: #8d97ff; }
+
+.site-footer__top-btn {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-min);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--text-inverse);
 }
 
-.site-footer__signoff:hover {
-  color: var(--accent);
-}
-
-@media (min-width: 768px) and (pointer: fine) {
-  .site-footer__link {
-    min-height: 32px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .site-footer__top {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--grid-gap);
-  }
-}
+.site-footer__top-btn:hover { color: #8d97ff; }

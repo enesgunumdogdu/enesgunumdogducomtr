@@ -1,38 +1,80 @@
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import useDocumentTitle from '../hooks/useDocumentTitle'
-import { ease, duration, stagger, variants } from '../motion/tokens'
-import { person, socials, apps, experiences } from '../data/site'
-import { hero, stats, lanes, techStack } from '../data/home'
+import useFitText from '../hooks/useFitText'
+import { introDelay } from '../motion/intro'
+import { person, apps, experiences } from '../data/site'
+import { statement, stats, lanes, techStack } from '../data/home'
 import Button from '../components/ui/Button'
 import SectionHeader from '../components/ui/SectionHeader'
 import ClosingCTA from '../components/ui/ClosingCTA'
-import SpecTable from '../components/ui/SpecTable'
+import Magnetic from '../components/ui/Magnetic'
+import Marquee from '../components/ui/Marquee'
+import ScrollWords from '../components/ui/ScrollWords'
 import { TagList } from '../components/ui/Tag'
-import SocialIcon from '../components/ui/SocialIcon'
+import HeroInk from '../components/hero/HeroInk'
 import './Home.css'
 
 const STATUS_CLASS = { live: 'status--live', oss: 'status--oss', soon: 'status--soon' }
 const [firstName, lastName] = person.name.split(' ')
 const [currentJob] = experiences
-const recentJobs = experiences.slice(0, 3)
-const stackRows = techStack.map((g) => ({ label: g.group, value: g.items }))
+const stackItems = techStack.flatMap((g) => g.items)
+const EASE = [0.16, 1, 0.3, 1]
 
-// One-shot load fade for the hero only (≤320ms, 60ms stagger). Nothing is
-// ever hidden behind a scroll trigger.
-const heroItem = (i) => ({
-  variants: variants.fadeLift,
-  initial: 'hidden',
-  animate: 'shown',
-  transition: { duration: duration.phrase, ease: ease.out, delay: i * stagger },
+// The one orchestrated moment: the name rises out of its line boxes, then the
+// supporting copy settles, then the ink layer takes over the name.
+const nameLine = (i) => ({
+  initial: { y: '110%' },
+  animate: { y: '0%' },
+  transition: { duration: 1.2, ease: EASE, delay: introDelay + i * 0.08 },
 })
 
-// One row per app. The whole row is a single link when the app has a
-// destination; "Soon" is a static row with no arrow.
-function AppRow({ app }) {
-  const meta = [app.ratingLabel, app.languages && `${app.languages} languages`, app.platform]
-    .filter(Boolean)
-    .join(' · ')
+const rise = (i) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 1, ease: EASE, delay: introDelay + 0.45 + i * 0.08 },
+})
+
+// Floating app preview that trails the pointer over the work list (mouse only).
+function useTrailingPreview() {
+  const ref = useRef(null)
+  const reduced = useReducedMotion()
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el || reduced || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return undefined
+    let x = window.innerWidth / 2
+    let y = window.innerHeight / 2
+    let tx = x
+    let ty = y
+    let frame
+    const onMove = (e) => {
+      tx = e.clientX
+      ty = e.clientY
+    }
+    const loop = () => {
+      const dx = tx - x
+      x += dx * 0.12
+      y += (ty - y) * 0.12
+      const tilt = Math.max(Math.min(dx * 0.05, 12), -12)
+      el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%) rotate(${tilt}deg)`
+      frame = requestAnimationFrame(loop)
+    }
+    window.addEventListener('pointermove', onMove, { passive: true })
+    frame = requestAnimationFrame(loop)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('pointermove', onMove)
+    }
+  }, [reduced])
+
+  return ref
+}
+
+function AppRow({ app, onHover }) {
+  const meta = [app.platform, app.ratingLabel, app.languages && `${app.languages} languages`].filter(Boolean)
 
   const content = (
     <>
@@ -45,30 +87,43 @@ function AppRow({ app }) {
         decoding="async"
         className="app-icon home-app__icon"
       />
-      <div className="home-app__main">
-        <div className="home-app__head">
-          <h3 className="home-app__name">{app.name}</h3>
+      <h3 className="home-app__name">
+        <span className="home-app__name-text">{app.name}</span>
+      </h3>
+      <p className="home-app__desc">{app.summary}</p>
+      <ul className="home-app__meta" aria-label={`${app.name} details`}>
+        <li>
           <span className={`status ${STATUS_CLASS[app.status]}`}>{app.statusLabel}</span>
-        </div>
-        <p className="home-app__meta mono">{meta}</p>
-      </div>
-      <div className="home-app__body">
-        {app.pullquote && <p className="home-app__quote">{app.pullquote}</p>}
-        <p className="home-app__desc">{app.summary}</p>
-        <TagList tags={app.tags} label={`${app.name} stack`} />
-      </div>
-      {app.href ? (
-        <span className="home-app__arrow" aria-hidden="true">→</span>
-      ) : (
-        <span className="home-app__arrow" aria-hidden="true" />
-      )}
+        </li>
+        {meta.map((m) => (
+          <li key={m}>{m}</li>
+        ))}
+      </ul>
       {app.href && <span className="visually-hidden">{app.linkLabel} (opens in a new tab)</span>}
     </>
   )
 
-  if (!app.href) return <div className="home-app">{content}</div>
+  const hover = {
+    onPointerEnter: () => onHover(app.id),
+    onPointerLeave: () => onHover(null),
+  }
+
+  if (!app.href) {
+    return (
+      <div className="home-app" {...hover}>
+        {content}
+      </div>
+    )
+  }
   return (
-    <a href={app.href} target="_blank" rel="noopener noreferrer" className="home-app is-link">
+    <a
+      href={app.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="home-app is-link"
+      data-cursor="Open"
+      {...hover}
+    >
       {content}
     </a>
   )
@@ -76,87 +131,92 @@ function AppRow({ app }) {
 
 function Home() {
   useDocumentTitle(null)
+  const nameRef = useRef(null)
+  const [inkReady, setInkReady] = useState(false)
+  const [activeApp, setActiveApp] = useState(null)
+  const previewRef = useTrailingPreview()
+  const onInkReady = useCallback((ready) => setInkReady(ready), [])
+  useFitText(nameRef)
+
+  const preview = apps.find((a) => a.id === activeApp)
 
   return (
     <div className="page home">
       {/* ============ HERO ============ */}
-      <section className="home-hero container" aria-labelledby="home-title">
-        <div className="home-hero__grid">
-          <div className="home-hero__main">
-            <motion.p className="home-hero__eyebrow" {...heroItem(0)}>
-              {currentJob.role} at {currentJob.company}{' '}
-              <span className="home-hero__nowrap">· {person.location}</span>
+      <section className={`hero${inkReady ? ' is-ink' : ''}`} aria-labelledby="home-title">
+        <HeroInk nameRef={nameRef} startAfter={introDelay + 1.5} onReady={onInkReady} />
+
+        <div className="hero__inner container">
+          <div className="hero__top">
+            <motion.p className="hero__intro" {...rise(0)}>
+              Software engineer. I like building things end to end, from the server to the
+              screen.
             </motion.p>
-
-            <motion.h1 id="home-title" className="home-hero__name" {...heroItem(1)}>
-              {firstName}{' '}
-              <span className="home-hero__nowrap">
-                {lastName}
-                <span className="home-hero__dot">.</span>
-              </span>
-            </motion.h1>
-
-            <motion.p className="home-hero__role" {...heroItem(2)}>
-              <strong>Backend engineer &amp; iOS developer.</strong> {hero.tagline[0]}{' '}
-              {hero.tagline[1]}
-            </motion.p>
-
-            <motion.p className="home-hero__lead" {...heroItem(3)}>
-              The guy behind <strong>Cartoon Weather</strong> (5.0 stars, 19 languages) and 50K+
-              views worth of algorithm breakdowns on YouTube.
-            </motion.p>
-
-            <motion.div className="home-hero__actions" {...heroItem(4)}>
-              <Button to={hero.cta.to} arrow>
-                {hero.cta.label}
-              </Button>
-              <Link to="/contact" className="btn btn--text">
-                Contact <span aria-hidden="true">→</span>
-              </Link>
-              <ul className="home-socials" aria-label="Elsewhere">
-                {socials.map((s) => (
-                  <li key={s.id}>
-                    <a
-                      href={s.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="icon-btn"
-                      aria-label={`${s.label} (opens in a new tab)`}
-                    >
-                      <SocialIcon id={s.id} />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            <motion.dl className="hero__facts" {...rise(1)}>
+              <div>
+                <dt>Now</dt>
+                <dd>
+                  {currentJob.role} at {currentJob.company}
+                </dd>
+              </div>
+            </motion.dl>
           </div>
 
-        </div>
+          <div className="hero__bottom">
+            <motion.div className="hero__actions" {...rise(2)}>
+              <Magnetic>
+                <Button to="/projects" data-cursor="Work">
+                  See my work
+                </Button>
+              </Magnetic>
+              <a href="#statement" className="hero__scroll">
+                <span className="hero__scroll-line" aria-hidden="true" />
+                Scroll
+              </a>
+            </motion.div>
 
-        <ul className="home-stats" aria-label="In numbers">
-          {stats.map((s) => (
-            <li key={s.label} className="home-stats__cell">
-              <span className="home-stats__number">
-                {s.number}
-                {s.suffix && <span className="home-stats__suffix">{s.suffix}</span>}
+            <h1 id="home-title" className="hero__name" ref={nameRef} lang="tr">
+              <span className="hero__line">
+                <motion.span className="hero__word" data-fit data-ink-word {...nameLine(0)}>
+                  {firstName}
+                </motion.span>
               </span>
-              <span className="home-stats__label mono">{s.label}</span>
-              <span className="home-stats__sub">{s.sub}</span>
-            </li>
-          ))}
-        </ul>
+              <span className="hero__line">
+                <motion.span className="hero__word" data-fit data-ink-word {...nameLine(1)}>
+                  {lastName}
+                </motion.span>
+              </span>
+            </h1>
+          </div>
+        </div>
       </section>
 
-      {/* ============ SHIPPED ============ */}
-      <section className="section" aria-labelledby="work-title">
+      {/* ============ STATEMENT ============ */}
+      <section id="statement" className="section home-statement" aria-label="About">
+        <ScrollWords className="home-statement__text" text={statement} />
+        <div className="home-statement__foot">
+          <ul className="home-stats" aria-label="In numbers">
+            {stats.map((s) => (
+              <li key={s.label} className="home-stats__item">
+                <span className="home-stats__value">{s.value}</span>
+                <span className="home-stats__label">{s.label}</span>
+              </li>
+            ))}
+          </ul>
+          <Link to="/about" className="text-link home-statement__link">
+            More about me
+          </Link>
+        </div>
+      </section>
+
+      {/* ============ SELECTED APPS ============ */}
+      <section className="section home-work" aria-labelledby="work-title">
         <SectionHeader
-          index="01"
-          label="Shipped"
-          title="Apps people download."
+          title="Selected apps"
           id="work-title"
           aside={
             <Link to="/projects" className="text-link">
-              All work <span aria-hidden="true">→</span>
+              All work
             </Link>
           }
         />
@@ -164,85 +224,106 @@ function Home() {
         <ul className="home-applist">
           {apps.map((app) => (
             <li key={app.id}>
-              <AppRow app={app} />
+              <AppRow app={app} onHover={setActiveApp} />
             </li>
           ))}
         </ul>
+
+        {createPortal(
+          <div
+          ref={previewRef}
+          className={`home-preview${preview ? ' is-visible' : ''}`}
+          style={preview ? { '--preview-tint': preview.tint } : undefined}
+          aria-hidden="true"
+        >
+          {apps.map((app) => (
+            <img
+              key={app.id}
+              src={app.icon}
+              alt=""
+              width="256"
+              height="256"
+              loading="lazy"
+              decoding="async"
+              className={`home-preview__icon${app.id === activeApp ? ' is-active' : ''}`}
+            />
+          ))}
+          </div>,
+          document.body,
+        )}
+      </section>
+
+      {/* ============ STACK MARQUEE ============ */}
+      <section className="home-marquee" aria-label="Tech stack">
+        <Marquee
+          items={stackItems}
+          duration={55}
+          label="Technologies I work with"
+          renderItem={(item) => (
+            <span className="home-marquee__item">
+              {item}
+              <span className="home-marquee__sep" aria-hidden="true" />
+            </span>
+          )}
+        />
       </section>
 
       {/* ============ HOW I BUILD ============ */}
-      <section className="section" aria-labelledby="build-title">
-        <SectionHeader
-          index="02"
-          label="How I build"
-          title="Three lanes, one developer."
-          id="build-title"
-        />
+      <section className="section home-lanes-section" aria-labelledby="build-title">
+        <SectionHeader title="What I work on" id="build-title" />
 
-        <ol className="home-lanes">
+        <ul className="home-lanes">
           {lanes.map((lane) => (
             <li key={lane.index} className="home-lane">
-              <p className="home-lane__area mono">
-                <span className="home-lane__index">{lane.index}</span> / {lane.area}
-              </p>
+              <p className="home-lane__area">{lane.area}</p>
               <h3 className="home-lane__title">{lane.title}</h3>
               <p className="home-lane__body">{lane.body}</p>
               <TagList tags={lane.tags} label={`${lane.area} stack`} />
             </li>
           ))}
-        </ol>
-
-        <div className="home-stack">
-          <h3 className="home-stack__title mono">Stack</h3>
-          <SpecTable rows={stackRows} />
-        </div>
+        </ul>
       </section>
 
-      {/* ============ EXPERIENCE SNAPSHOT ============ */}
+      {/* ============ EXPERIENCE ============ */}
       <section className="section" aria-labelledby="exp-title">
         <SectionHeader
-          index="03"
-          label="Background"
           title="Experience"
           id="exp-title"
           aside={
             <Link to="/about" className="text-link">
-              Full background <span aria-hidden="true">→</span>
+              Full background
             </Link>
           }
         />
 
         <ul className="home-exp">
-          {recentJobs.map((job) => (
-            <li key={job.company} className="home-exp__row">
-              <span className="home-exp__logo">
-                <img
-                  src={job.logo}
-                  alt=""
-                  width={job.logoSize[0]}
-                  height={job.logoSize[1]}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </span>
-              <span className="home-exp__company">
-                <a href={job.link} target="_blank" rel="noopener noreferrer" className="home-exp__link">
-                  {job.company}
-                  <span className="visually-hidden"> (opens in a new tab)</span>
-                </a>
-              </span>
-              <span className="home-exp__role">{job.role}</span>
-              <span className="home-exp__period mono">
-                {job.period}
-                {job.current && <span className="home-exp__now">Now</span>}
-              </span>
+          {experiences.map((job) => (
+            <li key={job.company}>
+              <a
+                href={job.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="home-exp__row"
+                data-cursor="Visit"
+              >
+                <span className="home-exp__period">
+                  {job.period}
+                  {job.current && <span className="home-exp__now">Now</span>}
+                </span>
+                <span className="home-exp__company">{job.company}</span>
+                <span className="home-exp__role">{job.role}</span>
+                <span className="home-exp__arrow" aria-hidden="true">
+                  ↗
+                </span>
+                <span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
             </li>
           ))}
         </ul>
       </section>
 
       {/* ============ CONTACT ============ */}
-      <ClosingCTA index="04" />
+      <ClosingCTA />
     </div>
   )
 }

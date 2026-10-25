@@ -1,4 +1,4 @@
-/* ==================== 404 (ui.md §3.11) ==================== */
+/* ==================== 404 ==================== */
 .not-found {
   display: flex;
 }
@@ -7,21 +7,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  text-align: center;
   min-height: calc(100svh - var(--nav-height) - var(--safe-top));
   padding-block: var(--space-8);
 }
 
 .not-found__log {
   max-width: 100%;
+  padding: var(--space-1) var(--space-4);
   font-size: var(--fs-small);
   color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
   overflow-wrap: anywhere;
 }
 
 .not-found__method {
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .not-found__status {
@@ -29,26 +33,30 @@
 }
 
 .not-found__code {
-  margin-top: var(--space-4);
+  margin-top: var(--space-5);
   font-family: var(--font-display);
+  font-weight: 700;
   font-weight: 800;
-  font-size: clamp(6rem, 3rem + 20vw, 16rem);
+  font-variation-settings: 'wdth' 125;
+  font-size: clamp(7rem, 2rem + 26vw, 24rem);
   letter-spacing: var(--ls-display);
-  line-height: var(--lh-display);
+  line-height: 0.8;
   color: var(--text-primary);
 }
 
 .not-found__lead {
-  margin-top: var(--space-5);
+  margin-top: var(--space-6);
+  max-width: 30rem;
   font-size: var(--fs-lead);
   line-height: var(--lh-snug);
   color: var(--text-secondary);
+  text-wrap: balance;
 }
-
 
 .not-found__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-3);
   width: 100%;
   margin-top: var(--space-6);
@@ -59,15 +67,14 @@
 }
 
 .not-found__more-label {
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--text-dim);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
 }
 
 .not-found__links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0 var(--space-5);
   list-style: none;
 }

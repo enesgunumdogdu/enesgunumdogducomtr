@@ -33,8 +33,8 @@ function AppBlock({ app, index }) {
   const titleId = `app-${app.id}-title`
   return (
     <article className="work-app" aria-labelledby={titleId}>
-      {/* Brand tint comes from site.js (the only allowed per-app colour). */}
-      <div className="work-app__field" style={{ '--app-tint': app.tint }}>
+      {/* Glow colour comes from site.js (sampled from the app icon). */}
+      <div className="work-app__field" style={{ '--app-color': app.color, '--app-tint': app.tint }}>
         <img
           className="app-icon work-app__icon"
           src={app.icon}
@@ -47,7 +47,6 @@ function AppBlock({ app, index }) {
       </div>
 
       <div className="work-app__body">
-        <p className="work-app__index">{String(index + 1).padStart(2, '0')}</p>
         <div className="work-app__titlerow">
           <h3 id={titleId} className="work-app__title">
             {app.name}
@@ -55,7 +54,7 @@ function AppBlock({ app, index }) {
           <p className={`status status--${app.status}`}>{app.statusLabel}</p>
         </div>
 
-        {app.pullquote && <p className="work-app__quote">“{app.pullquote}”</p>}
+        {app.pullquote && <p className="work-app__quote">{app.pullquote}</p>}
         <p className="work-app__desc">{app.description}</p>
 
         <AppMeta app={app} />
@@ -63,8 +62,8 @@ function AppBlock({ app, index }) {
 
         <div className="work-app__actions">
           {app.href && (
-            <Button href={app.href} variant="secondary" arrow>
-              {app.linkLabel}
+            <Button href={app.href} variant="secondary">
+              {app.linkLabel} <span aria-hidden="true">↗</span>
               <span className="visually-hidden"> (opens in a new tab)</span>
             </Button>
           )}

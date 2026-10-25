@@ -12,7 +12,7 @@ function LanguageBar({ distribution, repoCount }) {
         What I actually write, by volume.
       </h3>
       <p className="lang-volume__sub">
-        Across {repoCount} public repositories · {distribution.length} languages
+        Across {repoCount} public repositories in {distribution.length} languages
       </p>
 
       <div className="lang-bar" aria-hidden="true">
@@ -31,7 +31,7 @@ function LanguageBar({ distribution, repoCount }) {
             <span className="lang-legend__swatch" style={{ background: colorForRank(rank) }} aria-hidden="true" />
             <span className="lang-legend__name">{lang}</span>
             <span className="lang-legend__count">
-              {count} · {Math.round(pct)}%
+              {count} ({Math.round(pct)}%)
             </span>
           </li>
         ))}

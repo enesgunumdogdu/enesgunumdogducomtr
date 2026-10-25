@@ -9,12 +9,11 @@ import RepoList from './projects/RepoList'
 import useGithubRepos from './projects/useGithubRepos'
 import './Projects.css'
 
-// Indices match the section headers below (01–04; 05 is the closing CTA).
 const jumpLinks = [
-  { href: '#apps', index: '01', label: 'Apps' },
-  { href: '#backend', index: '02', label: 'Backend & web' },
-  { href: '#teaching', index: '03', label: 'Teaching' },
-  { href: '#oss', index: '04', label: 'Open source' },
+  { href: '#apps', label: 'Apps' },
+  { href: '#backend', label: 'Backend & web' },
+  { href: '#teaching', label: 'Teaching' },
+  { href: '#oss', label: 'Open source' },
 ]
 
 function Projects() {
@@ -55,7 +54,7 @@ function Projects() {
   )
 
   const ready = !loading && !error
-  const pageLabel = ready && repos.length ? `Work / ${repos.length} repositories` : 'Work'
+  const pageLabel = ready && repos.length ? `Work and ${repos.length} public repositories` : 'Work'
 
   return (
     <div className="page">
@@ -65,17 +64,14 @@ function Projects() {
           as="h1"
           id="work-title"
           label={pageLabel}
-          title="Things I've built and shipped."
-          lede="A mix of backend systems, iOS apps, and open-source projects."
+          title="Things I've made."
+          lede="Personal projects: apps, backend systems and open-source code."
         />
         <nav aria-label="On this page">
           <ul className="work-jump">
             {jumpLinks.map((l) => (
               <li key={l.href}>
-                <a href={l.href}>
-                  <span className="work-jump__index">{l.index}</span>
-                  {l.label}
-                </a>
+                <a href={l.href}>{l.label}</a>
               </li>
             ))}
           </ul>
@@ -122,7 +118,7 @@ function Projects() {
       </section>
 
       {/* ---------- Closing CTA (shared) ---------- */}
-      <ClosingCTA index="05" title="Want to collaborate?" id="work-cta-title" className="section--flush-top" />
+      <ClosingCTA id="work-cta-title" className="section--flush-top" />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 const BASE = 'Enes Günümdoğdu'
-const DEFAULT_TITLE = `${BASE} | Backend Engineer & iOS Developer` // matches index.html
+const DEFAULT_TITLE = `${BASE} | Software Engineer` // matches index.html
 
 function useDocumentTitle(title) {
   useEffect(() => {

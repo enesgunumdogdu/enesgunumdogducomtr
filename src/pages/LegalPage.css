@@ -1,4 +1,5 @@
-/* LegalPage (Dev B) — ui.md §3.10. Readability first, zero entrance motion. */
+/* ==================== LEGAL PAGES ==================== */
+/* Readability first, zero entrance motion. */
 
 .legal-layout {
   display: grid;
@@ -55,15 +56,11 @@
 }
 
 .legal-dates dt {
-  font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
   color: var(--text-dim);
 }
 
 .legal-dates dd {
-  font-family: var(--font-mono);
   font-size: var(--fs-small);
   font-variant-numeric: tabular-nums;
   color: var(--text-primary);
@@ -94,7 +91,7 @@
   align-items: baseline;
   padding-block: var(--space-3);
   padding-left: var(--space-3);
-  border-left: 2px solid transparent;
+  border-left: 2px solid var(--border-subtle);
   font-size: var(--fs-small);
   line-height: var(--lh-snug);
   color: var(--text-muted);
@@ -108,21 +105,19 @@
 .legal-toc__link[aria-current='location'] {
   color: var(--text-primary);
   border-left-color: var(--accent);
+  box-shadow: -6px 0 12px -6px var(--accent);
 }
 
 .legal-toc__num {
-  font-family: var(--font-mono);
   font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
   color: var(--text-dim);
   min-width: 2.25rem;
   flex-shrink: 0;
 }
 
 .legal-toc__title {
-  font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
   color: var(--text-dim);
   margin-bottom: var(--space-3);
 }
@@ -141,10 +136,7 @@
   display: flex;
   align-items: center;
   min-height: var(--tap-min);
-  font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
   color: var(--text-secondary);
   cursor: pointer;
 }
@@ -234,10 +226,9 @@
 }
 
 .legal-h2__num {
-  font-family: var(--font-mono);
-  font-size: 0.8em;
-  font-weight: 400;
-  color: var(--text-dim);
+  font-weight: 500;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
 }
 
 .legal-h3 {
@@ -271,10 +262,11 @@
 }
 
 .legal-note {
-  margin-top: var(--space-3);
-  padding-left: var(--space-4);
-  border-left: 2px solid var(--border-light);
-  color: var(--text-muted);
+  margin-top: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
 }
 
 .legal-prose .text-link,
@@ -295,10 +287,7 @@
   margin-top: var(--space-8);
   padding-top: var(--space-4);
   border-top: 1px solid var(--border-light);
-  font-family: var(--font-mono);
   font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
   color: var(--text-dim);
 }
 
@@ -324,9 +313,14 @@
     max-width: none;
   }
 
+  body,
   .legal-prose,
   .legal-intro,
-  .legal-note {
-    color: var(--text-primary);
+  .legal-note,
+  .legal-h2,
+  .legal-h3,
+  .section-title {
+    color: #000 !important;
+    background: #fff !important;
   }
 }

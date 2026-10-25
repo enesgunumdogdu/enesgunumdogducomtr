@@ -1,7 +1,6 @@
 /* ==========================================================================
-   Shared layout primitives + component classes ("Datasheet").
-   Tokens live in index.css. Mobile-first: base = phone, then min-width 768/1024.
-   Cheat-sheet for the team: scratchpad/team/foundation.md
+   Shared layout primitives + component classes ("Concrete").
+   Tokens live in index.css. Mobile-first: base = phone, then 768 / 1024.
    ========================================================================== */
 
 .app {
@@ -10,6 +9,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow-x: clip; /* decorative overhangs never widen the page */
 }
 
 .app > main {
@@ -37,13 +37,12 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-min);
-  padding: 0 var(--space-4);
+  padding: 0 var(--space-5);
   background: var(--bg-inverse);
   color: var(--text-inverse);
-  font-family: var(--font-body);
   font-size: var(--fs-small);
   font-weight: 600;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   transform: translateY(calc(-100% - var(--space-6)));
   transition: transform var(--duration-tap) var(--ease-out);
 }
@@ -54,7 +53,6 @@
 }
 
 /* ==================== PAGE / CONTAINERS ==================== */
-/* .page = route root. Carries the fixed-nav offset (+ notch in landscape). */
 .page {
   min-height: 100vh;
   min-height: 100svh;
@@ -64,15 +62,12 @@
 
 .container {
   width: 100%;
+  max-width: var(--container-max);
   margin-inline: auto;
   padding-left: max(var(--gutter), var(--safe-left));
   padding-right: max(var(--gutter), var(--safe-right));
 }
 
-.container { max-width: var(--container-max); }
-
-/* .section = vertical rhythm + standard container width (self-contained, so
-   <section class="section"> needs no inner .container). */
 .section {
   width: 100%;
   max-width: var(--container-max);
@@ -84,20 +79,17 @@
   position: relative;
 }
 
-/* Adjacent sections share one --section-y gap (the header rule separates them). */
 .section + .section { padding-top: 0; }
 
-/* First section under the nav: no extra band of dead space (esp. mobile). */
-.page > .section:first-child { padding-top: var(--space-5); }
+.page > .section:first-child { padding-top: var(--space-8); }
 
 @media (min-width: 768px) {
-  .page > .section:first-child { padding-top: var(--space-7); }
+  .page > .section:first-child { padding-top: var(--space-10); }
 }
 
 .section--flush-top,
 .page > .section--flush-top:first-child { padding-top: 0; }
 
-/* 4-col (mobile) / 12-col (≥768) grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
@@ -107,7 +99,6 @@
 
 .grid > * { min-width: 0; }
 
-/* ==================== RULES (hairlines) ==================== */
 .rule {
   display: block;
   width: 100%;
@@ -116,112 +107,144 @@
   border-top: 1px solid var(--border-light);
 }
 
-
 /* ==================== SECTION HEADER ==================== */
-/*
-  <header class="section-header">
-    <div class="section-header__row">
-      <p class="section-label"><span class="section-index">02</span> — Selected work</p>
-      <a class="text-link">All projects →</a>          (optional aside)
-    </div>
-    <h2 class="section-title">Things I've shipped.</h2>
-    <p class="section-subtitle">Optional lede.</p>
-  </header>
-*/
+/* Wide uppercase title; a short context line (link / count) to its right. */
 .section-header {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--border-light);
-  padding-top: var(--space-4);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
   margin-bottom: var(--space-7);
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header > .section-subtitle { grid-column: 1 / -1; }
 }
 
 .section-header__row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-2) var(--space-4);
+}
+
+/* Phones: an aside link ("All work") reads after the title. */
+.section-header__row:not(:has(.section-label)) { order: 3; }
+
+@media (min-width: 768px) {
+  .section-header__row {
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
+    padding-bottom: 0.4em;
+  }
+
+  .section-header__row:has(.section-label) {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    justify-content: flex-start;
+    padding-bottom: 0;
+  }
 }
 
 .section-header__aside {
   font-size: var(--fs-small);
 }
 
-/* ≥44px tap height for aside links ("All work →"), via box not font size */
 .section-header__aside a {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-min);
 }
 
+/* Page context line on page (h1) headers */
 .section-label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-small);
   font-weight: 500;
   line-height: var(--lh-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
 
-.section-index {
-  color: var(--accent);
+.section-label::before {
+  content: '';
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--accent);
 }
 
 .section-title {
   font-family: var(--font-display);
   font-size: var(--fs-h2);
-  font-weight: var(--fw-heading);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 125;
   line-height: var(--lh-heading);
   letter-spacing: var(--ls-h2);
+  text-transform: uppercase;
   color: var(--text-primary);
-  margin-top: var(--space-5);
-  max-width: 20ch;
+  max-width: 16ch;
   text-wrap: balance;
 }
 
-/* Page-level (h1) variant — top of About / Projects / Contact / Legal */
 .section-title--page {
   font-size: var(--fs-h1);
   letter-spacing: var(--ls-h1);
-  max-width: 22ch;
+  max-width: 14ch;
 }
 
 .section-subtitle {
-  font-family: var(--font-body);
   font-size: var(--fs-lead);
   line-height: var(--lh-snug);
   color: var(--text-secondary);
   max-width: 36rem;
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
+  text-wrap: pretty;
 }
 
 /* ==================== BUTTONS ==================== */
 .btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 48px;
-  padding: 0 var(--space-5);
+  min-height: 52px;
+  padding: 0 var(--space-6);
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.2;
-  letter-spacing: var(--ls-body);
   text-align: center;
-  text-decoration: none;
   white-space: nowrap;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   cursor: pointer;
   user-select: none;
   transition:
-    background-color var(--duration-tap) var(--ease-out),
+    color var(--duration-slow) var(--ease-expo),
     border-color var(--duration-tap) var(--ease-out),
-    color var(--duration-tap) var(--ease-out);
+    background-color var(--duration-tap) var(--ease-out);
+}
+
+/* Fill that rises from the bottom on hover */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  transform: translateY(101%);
+  transition: transform var(--duration-slow) var(--ease-expo);
 }
 
 .btn:focus-visible {
@@ -241,8 +264,6 @@
 }
 
 .btn--block { width: 100%; }
-
-/* Full-width below 480px (stacked CTA rows), natural width above */
 .btn--block-mobile { width: 100%; }
 
 @media (min-width: 480px) {
@@ -255,51 +276,54 @@
   border-color: var(--bg-inverse);
 }
 
+.btn--primary::before { background: var(--accent); }
+
 .btn--secondary {
   background: transparent;
   color: var(--text-primary);
   border-color: var(--text-primary);
 }
 
+.btn--secondary::before { background: var(--text-primary); }
+
 @media (hover: hover) {
-  .btn--primary:hover { background: var(--accent); border-color: var(--accent); color: var(--text-inverse); }
-  .btn--secondary:hover { background: var(--bg-secondary); }
+  .btn:hover::before { transform: translateY(0); }
+  .btn--primary:hover { border-color: var(--accent); }
+  .btn--secondary:hover { color: var(--text-inverse); }
   .btn:hover .btn__icon { transform: translateX(3px); }
 }
 
-.btn--primary:active { background: var(--accent-hover); border-color: var(--accent-hover); }
-.btn--secondary:active { background: var(--bg-tertiary); }
+.btn--primary:active { background: var(--accent-hover); }
 
 .btn--primary:disabled,
 .btn--primary[aria-disabled='true'] {
   background: var(--bg-tertiary);
   border-color: var(--bg-tertiary);
-  color: var(--text-disabled);
+  color: var(--text-dim);
   cursor: not-allowed;
 }
 
 .btn--secondary:disabled,
 .btn--secondary[aria-disabled='true'] {
-  background: transparent;
   border-color: var(--border-light);
   color: var(--text-disabled);
   cursor: not-allowed;
 }
 
+.btn:disabled::before,
+.btn[aria-disabled='true']::before { display: none; }
+
 .btn:disabled .btn__icon,
 .btn[aria-disabled='true'] .btn__icon { transform: none; }
 
-/* Text link — inline accent link, underlined (use in prose + as .btn--text) */
+/* Inline link: ink text with a 1px rule that wipes out and back in on hover */
 .text-link,
 .btn--text {
-  color: var(--accent);
+  color: var(--text-primary);
   font-weight: 500;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-  transition:
-    color var(--duration-instant) var(--ease-out),
-    text-decoration-thickness var(--duration-instant) var(--ease-out);
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px;
+  transition: color var(--duration-instant) var(--ease-out);
 }
 
 .btn--text {
@@ -309,48 +333,59 @@
   min-height: var(--tap-min);
   padding: 0;
   border: 0;
-  background: none;
+  border-radius: 0;
+  background-position: 0 calc(100% - 10px);
   font-size: inherit;
   white-space: normal;
   text-align: left;
+  overflow: visible;
 }
 
-.text-link:hover,
-.btn--text:hover {
-  color: var(--accent-hover);
-  text-decoration-thickness: 2px;
+.btn--text::before { display: none; }
+
+@media (hover: hover) {
+  .text-link:hover {
+    color: var(--accent);
+    animation: link-wipe var(--duration-slow) var(--ease-expo);
+  }
+
+  .btn--text:hover { color: var(--accent); }
+}
+
+@keyframes link-wipe {
+  0% { background-size: 100% 1px; background-position: 100% 100%; }
+  45% { background-size: 0 1px; background-position: 100% 100%; }
+  46% { background-size: 0 1px; background-position: 0 100%; }
+  100% { background-size: 100% 1px; background-position: 0 100%; }
 }
 
 .text-link:focus-visible,
 .btn--text:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
-  border-radius: var(--radius-sm);
+  border-radius: 2px;
 }
 
 .btn--text:disabled,
 .btn--text[aria-disabled='true'] {
   color: var(--text-disabled);
-  text-decoration: none;
+  background: none;
   cursor: not-allowed;
 }
 
-/* Quiet variant for nav/footer lists: no underline until hover */
 .text-link--quiet {
   color: var(--text-secondary);
-  text-decoration: none;
+  background-size: 0 1px;
 }
 
 .text-link--quiet:hover {
   color: var(--text-primary);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
+  background-size: 100% 1px;
 }
 
-/* Long emails / URLs never cause horizontal scroll */
 .break-anywhere { overflow-wrap: anywhere; }
 
-/* Icon-only button/link (socials): 44×44 */
+/* Icon-only link (socials): 44×44 circle */
 .icon-btn {
   display: inline-flex;
   align-items: center;
@@ -358,13 +393,14 @@
   width: var(--tap-min);
   height: var(--tap-min);
   flex-shrink: 0;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   background: transparent;
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
+  border-radius: 50%;
   transition:
     color var(--duration-tap) var(--ease-out),
-    border-color var(--duration-tap) var(--ease-out);
+    border-color var(--duration-tap) var(--ease-out),
+    background-color var(--duration-tap) var(--ease-out);
 }
 
 .icon-btn svg {
@@ -373,7 +409,8 @@
 }
 
 .icon-btn:hover {
-  color: var(--text-primary);
+  color: var(--text-inverse);
+  background: var(--text-primary);
   border-color: var(--text-primary);
 }
 
@@ -394,32 +431,30 @@
 .tag {
   display: inline-flex;
   align-items: center;
-  height: 24px;
-  padding: 0 var(--space-2);
-  font-family: var(--font-mono);
+  height: 26px;
+  padding: 0 var(--space-3);
   font-size: var(--fs-label);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   white-space: nowrap;
 }
 
-/* ==================== CHIP (interactive filter, use <button aria-pressed>) ==================== */
+/* ==================== CHIP (interactive filter) ==================== */
 .chip {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: var(--tap-min); /* real 44px hit area (margins don't count) */
-  padding: 0 var(--space-3);
-  font-family: var(--font-body);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
   font-size: var(--fs-small);
   font-weight: 500;
   color: var(--text-secondary);
   background: transparent;
   border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   white-space: nowrap;
   flex-shrink: 0;
   cursor: pointer;
@@ -452,13 +487,11 @@
 }
 
 .chip__count {
-  font-family: var(--font-mono);
   font-size: var(--fs-label);
   font-variant-numeric: tabular-nums;
   opacity: 0.6;
 }
 
-/* Chip row: horizontal scroll rail on mobile, wraps at ≥768 */
 .chip-rail {
   display: flex;
   gap: var(--space-2);
@@ -482,33 +515,36 @@
   }
 }
 
-/* ==================== STATUS BADGE (LIVE / OPEN SOURCE / SOON) ==================== */
+/* ==================== STATUS (Live / Open source / Soon) ==================== */
 .status {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  font-family: var(--font-mono);
+  gap: 0.5em;
   font-size: var(--fs-label);
-  font-weight: 500;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  line-height: var(--lh-label);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
   color: var(--text-secondary);
 }
 
 .status::before {
   content: '';
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   flex-shrink: 0;
   background: currentColor;
 }
 
 .status--live { color: var(--success); }
-.status--oss { color: var(--text-secondary); }
-.status--oss::before { background: var(--text-primary); }
-.status--soon { color: var(--text-dim); }
-.status--soon::before { background: transparent; border: 1px solid var(--text-dim); }
+.status--live::before { border-radius: 50%; animation: status-pulse 2s var(--ease-out) infinite; }
+.status--oss { color: var(--text-primary); }
+.status--soon { color: var(--accent); }
+.status--soon::before { background: transparent; border: 1.5px solid currentColor; }
+
+@keyframes status-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(19, 112, 63, 0.45); }
+  60% { box-shadow: 0 0 0 6px rgba(19, 112, 63, 0); }
+}
 
 /* ==================== APP ICON ==================== */
 .app-icon {
@@ -518,7 +554,7 @@
   flex-shrink: 0;
   object-fit: cover;
   border-radius: var(--radius-app-icon);
-  outline: 1px solid rgba(11, 11, 12, 0.08);
+  outline: 1px solid rgba(13, 13, 13, 0.08);
   outline-offset: -1px;
 }
 
@@ -526,7 +562,7 @@
 .form-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
 @media (min-width: 768px) {
@@ -541,29 +577,29 @@
 }
 
 .field-label {
-  font-family: var(--font-body);
   font-size: var(--fs-small);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
 }
 
 .field-required {
-  color: var(--text-muted);
+  color: var(--accent);
 }
 
+/* Underline fields: one ink rule, cobalt when focused */
 .field-input {
   display: block;
   width: 100%;
-  min-height: 48px;
-  padding: 0 var(--space-4);
-  font-family: var(--font-body);
-  font-size: 16px;            /* never below 16px — prevents iOS zoom on focus */
+  min-height: 52px;
+  padding: 0;
+  font-size: 18px; /* ≥16px: no iOS zoom on focus */
   line-height: 1.4;
   color: var(--text-primary);
-  background: var(--bg-primary);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--border-strong);
+  border-radius: 0;
   appearance: none;
   transition:
     border-color var(--duration-instant) var(--ease-out),
@@ -572,29 +608,28 @@
 }
 
 textarea.field-input {
-  min-height: 8rem;
-  padding: var(--space-3) var(--space-4);
+  min-height: 9rem;
+  padding: var(--space-3) 0;
   resize: vertical;
 }
 
 .field-input::placeholder { color: var(--text-dim); opacity: 1; }
-.field-input:hover { border-color: var(--text-primary); }
+.field-input:hover { border-bottom-color: var(--text-primary); }
 
 .field-input:focus,
 .field-input:focus-visible {
   outline: none;
-  border-color: var(--border-ink);
-  box-shadow: 0 0 0 1px var(--border-ink);
+  border-bottom-color: var(--accent);
+  box-shadow: 0 1px 0 0 var(--accent);
 }
 
 .field-input[aria-invalid='true'] {
-  border-color: var(--error);
-  box-shadow: 0 0 0 1px var(--error);
+  border-bottom-color: var(--error);
+  box-shadow: 0 1px 0 0 var(--error);
 }
 
 .field-input:disabled {
-  background: var(--bg-tertiary);
-  border-color: var(--border-subtle);
+  border-bottom-color: var(--border-subtle);
   color: var(--text-disabled);
   cursor: not-allowed;
 }
@@ -621,72 +656,245 @@ textarea.field-input {
   margin-top: 0.15em;
 }
 
-/* Submit feedback block (role=status / role=alert) */
 .form-feedback {
-  padding: var(--space-4);
+  padding: var(--space-4) var(--space-5);
   font-size: var(--fs-small);
-  border-left: 2px solid currentColor;
+  border-left: 3px solid currentColor;
 }
 
 .form-feedback--success { color: var(--success); background: var(--success-subtle); }
 .form-feedback--error { color: var(--error); background: var(--error-subtle); }
 
-/* Programmatic focus target after route change — no visible ring on <main>. */
 #main:focus {
   outline: none;
 }
 
-/* ==================== SPEC TABLE (label / mono value rows) ==================== */
-/* <dl class="spec-table"><div class="spec-table__row"><dt class="spec-table__label">…
-   <dd class="spec-table__value">…  — or use <SpecTable rows /> */
+/* ==================== SPEC TABLE (label / value rows) ==================== */
 .spec-table {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  border-bottom: 1px solid var(--border-subtle);
+  border-top: 1px solid var(--text-primary);
 }
 
 .spec-table__row {
   display: grid;
-  grid-template-columns: 6.5rem minmax(0, 1fr);
-  gap: var(--space-4);
-  padding-block: var(--space-3);
-  border-top: 1px solid var(--border-subtle);
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .spec-table__label {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  line-height: var(--lh-label);
-  text-transform: uppercase;
-  color: var(--text-dim);
-  padding-top: 0.2em;
-}
-
-.spec-table__value {
-  font-family: var(--font-mono);
   font-size: var(--fs-small);
-  line-height: var(--lh-body);
+  font-weight: 600;
+  line-height: var(--lh-label);
   color: var(--text-primary);
 }
 
-@media (min-width: 768px) {
-  .spec-table__row { grid-template-columns: 7.5rem minmax(0, 1fr); }
+.spec-table__value {
+  font-size: var(--fs-body);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+}
+
+@media (min-width: 640px) {
+  .spec-table__row {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: baseline;
+  }
 }
 
 /* ==================== CLOSING CTA (<ClosingCTA />) ==================== */
-.closing-cta .section-header { margin-bottom: 0; }
+.closing-cta {
+  padding-bottom: calc(var(--section-y) * 0.8);
+}
 
-.closing-cta__reply { color: var(--text-muted); }
+.closing-cta .section-header {
+  display: block;
+  margin-bottom: 0;
+}
+
+.closing-cta .section-title {
+  font-size: clamp(3.25rem, 0.5rem + 11.5vw, 13rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  max-width: none;
+}
+
+.closing-cta .section-subtitle {
+  margin-top: var(--space-6);
+}
+
+.closing-cta__reply {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-body);
+  color: var(--text-muted);
+}
 
 .closing-cta__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-6);
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
 }
 
-/* Page h1 receives programmatic focus on route change — no ring for that. */
 #main h1[tabindex='-1']:focus {
   outline: none;
+}
+
+/* ==================== MAGNETIC WRAPPER ==================== */
+.magnetic {
+  display: inline-flex;
+  will-change: transform;
+}
+
+/* ==================== CUSTOM CURSOR (fine pointers only) ==================== */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transition:
+    width var(--duration-slow) var(--ease-expo),
+    height var(--duration-slow) var(--ease-expo),
+    margin var(--duration-slow) var(--ease-expo),
+    opacity var(--duration-tap) var(--ease-out),
+    background-color var(--duration-tap) var(--ease-out);
+  will-change: transform;
+}
+
+.cursor.is-visible { opacity: 1; }
+
+.cursor.is-link {
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+}
+
+.cursor.is-label {
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+  background: var(--accent);
+  mix-blend-mode: normal;
+}
+
+.cursor.is-text { opacity: 0; }
+
+.cursor__label {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 112;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity var(--duration-tap) var(--ease-out),
+    transform var(--duration-slow) var(--ease-expo);
+}
+
+.cursor.is-label .cursor__label {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==================== ROUTE CURTAIN ==================== */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-curtain);
+  pointer-events: none;
+  background: var(--bg-inverse);
+  transform-origin: 50% 0%;
+}
+
+/* ==================== PRELOADER ==================== */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-loader);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:
+    calc(var(--safe-top) + var(--space-5))
+    max(var(--gutter), var(--safe-right))
+    calc(var(--safe-bottom) + var(--space-5))
+    max(var(--gutter), var(--safe-left));
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+}
+
+.preloader__top {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.preloader__count {
+  font-size: clamp(6rem, 3rem + 18vw, 18rem);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 125;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  text-align: right;
+}
+
+.preloader__bar {
+  height: 2px;
+  margin-top: var(--space-5);
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+
+/* ==================== MARQUEE ==================== */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+}
+
+.marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--marquee-gap, 2rem);
+  padding-right: var(--marquee-gap, 2rem);
+  list-style: none;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+
+.marquee--reverse .marquee__track { animation-direction: reverse; }
+
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; flex-wrap: wrap; }
+  .marquee__track[aria-hidden='true'] { display: none; }
+}
+
+/* ==================== SCROLL WORDS (statement reveal) ==================== */
+.scroll-words__word {
+  display: inline-block;
+  text-indent: 0; /* the paragraph's indent must not repeat per word */
 }

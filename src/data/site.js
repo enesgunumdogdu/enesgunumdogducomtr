@@ -9,8 +9,8 @@ export const person = {
   name: 'Enes Günümdoğdu',
   shortName: 'Enes',
   signoff: '3nes', // footer sign-off only (cto-decisions §1)
-  role: 'Backend Engineer & iOS Developer',
-  roleLine: 'Backend engineer · iOS developer', // mono hero/meta label
+  role: 'Software Engineer',
+  roleLine: 'Software engineer',
   currentPosition: { title: 'Assistant Software Engineer', company: 'Huawei' },
   // Never rendered as visible text; assembled from parts so the plain address
   // isn't sitting in the bundle for scrapers.
@@ -18,7 +18,6 @@ export const person = {
   get emailHref() { return `mailto:${this.email}` },
   location: 'İstanbul, TR', // short form (nav sheet, footer, meta)
   locationLong: 'İstanbul, Turkey', // Contact location block
-  timezone: 'UTC+3 · Turkey Time',
   replyTime: 'Reply usually under 24 hours',
 }
 
@@ -69,7 +68,7 @@ export const apps = [
     icon: '/logos/opt/cartoon-weather.webp',
     platform: 'iOS',
     status: 'live',
-    statusLabel: 'LIVE',
+    statusLabel: 'Live',
     rating: '5.0',
     ratingLabel: '5.0 ★',
     languages: 19,
@@ -97,7 +96,7 @@ export const apps = [
     icon: '/logos/opt/seasons.webp',
     platform: 'iOS', // per SeasonsTermsOfUse: "available on iOS devices"
     status: 'live',
-    statusLabel: 'LIVE',
+    statusLabel: 'Live',
     rating: '5.0',
     ratingLabel: '5.0 ★',
     description:
@@ -123,7 +122,7 @@ export const apps = [
     icon: '/logos/opt/magnetify.webp',
     platform: 'macOS',
     status: 'oss',
-    statusLabel: 'OPEN SOURCE',
+    statusLabel: 'Open source',
     languages: 33,
     description:
       'Professional window manager for macOS. Drag-to-snap, 16 positions, keyboard shortcuts, workspace profiles, 33 languages. Open source.',
@@ -151,7 +150,7 @@ export const apps = [
     icon: '/logos/opt/ns-ai.webp',
     platform: 'iOS',
     status: 'soon',
-    statusLabel: 'SOON',
+    statusLabel: 'Soon',
     description:
       'AI Photo Studio for iOS. Text-to-image, image-to-image, text-to-video, and image-to-video — all in one creative tool.',
     summary:
@@ -188,8 +187,7 @@ export const experiences = [
     role: 'Assistant Software Engineer',
     period: '2026 — Present',
     current: true,
-    description:
-      'Joined Huawei as a full-time Assistant Software Engineer, building production software within a large-scale engineering organization.',
+    description: 'Software development for wearable devices.',
     tags: [],
     link: 'https://www.huawei.com',
     linkLabel: 'huawei.com',
@@ -235,8 +233,8 @@ export const experiences = [
 // Shared closing call-to-action copy (<ClosingCTA />, Home + About).
 export const closingCta = {
   label: 'Contact',
-  title: "Want to talk? I'm listening.",
-  lede: 'Always up for a conversation about backend, iOS, or algorithms',
+  title: "Let's talk",
+  lede: 'Questions about an app, feedback on a video, or a conversation about backend, iOS or algorithms. My inbox is open.',
   reply: person.replyTime, // 'Reply usually under 24 hours'
 }
 

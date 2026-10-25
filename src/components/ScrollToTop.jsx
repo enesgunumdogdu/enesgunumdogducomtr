@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
+import { getLenis } from '../motion/smoothScroll'
 
 // On every route change: jump (not smooth-scroll) to the top and move focus to
 // the new page's <h1> (falls back to <main id="main">), so keyboard and
@@ -11,7 +12,9 @@ function ScrollToTop() {
   const prev = useRef(pathname)
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    const lenis = getLenis()
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+    else window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     if (prev.current === pathname) return
     prev.current = pathname
 

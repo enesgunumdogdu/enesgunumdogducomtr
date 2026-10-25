@@ -1,4 +1,4 @@
-/* Contact page (Dev B). Tokens from index.css only. */
+/* ==================== CONTACT ==================== */
 
 .contact-layout {
   display: grid;
@@ -7,7 +7,7 @@
     'direct'
     'form'
     'elsewhere';
-  gap: var(--space-7);
+  gap: var(--space-8);
 }
 
 .contact-direct { grid-area: direct; }
@@ -21,8 +21,8 @@
       'direct form'
       'elsewhere form';
     grid-template-rows: auto 1fr;
-    column-gap: var(--grid-gap);
-    row-gap: var(--space-7);
+    column-gap: var(--space-8);
+    row-gap: var(--space-8);
     align-items: start;
   }
 }
@@ -31,19 +31,29 @@
 .contact-elsewhere,
 .contact-form-wrap {
   min-width: 0;
-  border-top: 1px solid var(--border-light);
-  padding-top: var(--space-4);
+}
+
+/* The form sits on a raised panel, so it reads as one object. */
+.contact-form-wrap {
+  padding: var(--space-6) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+}
+
+@media (min-width: 768px) {
+  .contact-form-wrap { padding: var(--space-7); }
 }
 
 .contact-h2 {
   font-size: var(--fs-h3);
+  font-variation-settings: 'wdth' 112;
   letter-spacing: var(--ls-h3);
   line-height: var(--lh-snug);
   margin-bottom: var(--space-3);
 }
 
 .contact-form-wrap .contact-h2 {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
 }
 
 .contact-lead {
@@ -53,13 +63,15 @@
   max-width: 34rem;
 }
 
-/* Large tappable email, wraps at 320px instead of overflowing */
 .contact-email {
   margin-top: var(--space-5);
   font-family: var(--font-display);
-  font-size: clamp(1.125rem, 0.95rem + 0.9vw, 1.5rem);
-  font-weight: var(--fw-heading);
-  line-height: var(--lh-snug);
+  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 125;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-h2);
+  line-height: 1.05;
 }
 
 .contact-email .text-link {
@@ -67,16 +79,18 @@
   align-items: center;
   min-height: var(--tap-min);
   padding-block: var(--space-1);
+  font-weight: inherit;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
 }
 
 .contact-copy {
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
 }
 
 .contact-links {
   list-style: none;
-  margin-top: var(--space-2);
-  border-top: 1px solid var(--border-subtle);
+  margin-top: var(--space-3);
 }
 
 .contact-link {
@@ -84,11 +98,15 @@
   grid-template-columns: 6rem minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--space-3);
-  min-height: var(--tap-min);
+  min-height: 56px;
   padding-block: var(--space-2);
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-primary);
   transition: color var(--duration-instant) var(--ease-out);
+}
+
+.contact-links li:first-child .contact-link {
+  border-top: 1px solid var(--border-subtle);
 }
 
 .contact-link__label {
@@ -96,20 +114,24 @@
 }
 
 .contact-link__handle {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
+  font-size: var(--fs-small);
   color: var(--text-muted);
   overflow-wrap: anywhere;
 }
 
 .contact-link__arrow {
   color: var(--text-dim);
+  transition: transform var(--duration-tap) var(--ease-out);
 }
 
 @media (hover: hover) {
   .contact-link:hover,
   .contact-link:hover .contact-link__arrow {
     color: var(--accent);
+  }
+
+  .contact-link:hover .contact-link__arrow {
+    transform: translate(2px, -2px);
   }
 }
 
@@ -127,11 +149,8 @@
 }
 
 .contact-facts dt {
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  color: var(--text-dim);
+  font-size: var(--fs-small);
+  color: var(--text-muted);
 }
 
 .contact-facts dd {
@@ -139,15 +158,11 @@
   color: var(--text-primary);
 }
 
-.contact-facts dd.contact-facts__mono {
-  font-family: var(--font-mono);
-  font-size: var(--fs-small);
-}
-
 /* reCAPTCHA: compact (164px) under 400px via JS; this guards any overflow. */
 .contact-captcha {
   max-width: 100%;
   min-height: 78px;
+  overflow: hidden;
 }
 
 .contact-error {
@@ -171,7 +186,7 @@
 }
 
 .contact-success:focus-visible {
-  outline: 2px solid var(--text-primary);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 

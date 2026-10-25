@@ -1,7 +1,8 @@
 /* ==========================================================================
-   "Datasheet" design tokens + base element styles.
-   Fonts are loaded from index.html (<link>), not @import.
-   Light only (no dark mode this iteration — see cto-decisions §11).
+   "Concrete" design tokens + base element styles.
+   Light concrete paper, true ink, one cobalt signal colour.
+   One variable family (Archivo) does everything: wide and heavy for display,
+   normal width for reading. Fonts are loaded from index.html.
    ========================================================================== */
 
 *,
@@ -16,154 +17,172 @@
   color-scheme: light;
 
   /* ---------- Color: surfaces ---------- */
-  --bg-primary: #FFFFFF;          /* page */
-  --bg-secondary: #FAFAF9;        /* row hover, footer, code blocks */
-  --bg-tertiary: #F5F5F3;         /* filled chips, disabled fields, image wells — never a text container */
-  --bg-elevated: #FFFFFF;         /* mobile menu sheet, popovers */
-  --bg-inverse: #0B0B0C;          /* primary button, selected chip */
+  --bg-primary: #E9E9E4;          /* concrete paper (page) */
+  --bg-secondary: #E0E0DA;        /* rows on hover, footer */
+  --bg-tertiary: #D5D5CE;         /* chips, skeletons, wells */
+  --bg-elevated: #E9E9E4;         /* mobile menu sheet */
+  --bg-inverse: #0D0D0D;          /* ink: primary button, cursor, curtain */
 
   /* ---------- Color: text ---------- */
-  --text-primary: #0B0B0C;        /* 19.67:1 on white */
-  --text-secondary: #3D3D40;      /* 10.83:1 */
-  --text-muted: #5E5E63;          /* 6.45:1 */
-  --text-dim: #6B6B70;            /* 5.30:1 — still AA, safe for small meta */
-  --text-disabled: #A1A1A6;       /* disabled controls only */
-  --text-inverse: #FFFFFF;
+  --text-primary: #0D0D0D;        /* 16.6:1 on paper */
+  --text-secondary: #3A3A37;      /* 9.9:1 */
+  --text-muted: #5C5C57;          /* 5.6:1 */
+  --text-dim: #676761;            /* 4.7:1 — small meta only */
+  --text-disabled: #9E9E97;
+  --text-inverse: #E9E9E4;
 
-  /* ---------- Color: accent (the ONLY hue in the UI) ---------- */
-  --accent: #C43D12;              /* Signal Vermilion — 5.22:1 on white */
-  --accent-hover: #A33009;        /* 7.04:1 */
-  --accent-subtle: #FFF1EB;       /* tint fill; accent text on it = 4.73:1 */
-  --border-accent: rgba(196, 61, 18, 0.32);
+  /* ---------- Color: accent (cobalt — the only hue) ---------- */
+  --accent: #2B3BFF;              /* 6.1:1 on paper */
+  --accent-hover: #1C27C9;
+  --accent-subtle: rgba(43, 59, 255, 0.1);
+  --border-accent: rgba(43, 59, 255, 0.4);
 
-  /* ---------- Color: borders (hairlines) ---------- */
-  --border-subtle: #EDEDEA;       /* default hairline between rows */
-  --border-light: #DCDCD8;        /* section rules, tag outlines */
-  --border-strong: #8E8E93;       /* form fields (3.26:1, meets 1.4.11) */
-  --border-ink: #0B0B0C;          /* focused field, emphasised rule */
+  /* ---------- Color: borders ---------- */
+  --border-subtle: rgba(13, 13, 13, 0.1);
+  --border-light: rgba(13, 13, 13, 0.18);
+  --border-strong: rgba(13, 13, 13, 0.5);   /* form fields (≥3:1) */
+  --border-ink: #0D0D0D;
 
   /* ---------- Color: feedback ---------- */
-  --success: #18794E;             /* 5.41:1 */
-  --success-subtle: #EEF7F2;
-  --error: #B3261E;               /* 6.54:1 */
-  --error-subtle: #FDF0EF;
+  --success: #13703F;
+  --success-subtle: rgba(19, 112, 63, 0.1);
+  --error: #B4231A;
+  --error-subtle: rgba(180, 35, 26, 0.08);
 
   /* ---------- Focus ---------- */
-  --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--text-primary);
+  --focus-ring: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent);
 
-  /* ---------- Typography: families ---------- */
-  --font-display: 'Schibsted Grotesk', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Hanken Grotesk', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* ---------- Typography ---------- */
+  --font-display: 'Archivo', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Archivo', ui-sans-serif, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* ---------- Typography: fluid scale (360px → 1440px viewport) ---------- */
-  --fs-display: clamp(3rem, 1.5rem + 6.667vw, 7.5rem);       /* 48 → 120 */
-  --fs-h1: clamp(2.25rem, 1.667rem + 2.593vw, 4rem);         /* 36 → 64 */
-  --fs-h2: clamp(1.75rem, 1.417rem + 1.481vw, 2.75rem);      /* 28 → 44 */
-  --fs-h3: clamp(1.25rem, 1.125rem + 0.556vw, 1.625rem);     /* 20 → 26 */
+  /* Fluid scale (360px → 1440px viewport) */
+  --fs-display: 13.4vw;                                       /* name: fills the width */
+  --fs-h1: clamp(2.75rem, 1.833rem + 4.074vw, 5.5rem);       /* 44 → 88 */
+  --fs-h2: clamp(2.25rem, 1.5rem + 3.333vw, 4.5rem);         /* 36 → 72 */
+  --fs-h3: clamp(1.375rem, 1.208rem + 0.741vw, 1.875rem);    /* 22 → 30 */
   --fs-h4: clamp(1.0625rem, 1.021rem + 0.185vw, 1.1875rem);  /* 17 → 19 */
-  --fs-lead: clamp(1.125rem, 1.042rem + 0.370vw, 1.375rem);  /* 18 → 22 */
+  --fs-lead: clamp(1.1875rem, 1.042rem + 0.648vw, 1.625rem); /* 19 → 26 */
   --fs-body: clamp(1rem, 0.979rem + 0.093vw, 1.0625rem);     /* 16 → 17 */
-  --fs-small: 0.875rem;                                      /* 14 */
-  --fs-label: 0.75rem;                                       /* 12 — mono label, never smaller */
+  --fs-small: 0.875rem;
+  --fs-label: 0.8125rem;
 
-  --lh-display: 0.95;
-  --lh-heading: 1.08;   /* h1/h2 */
-  --lh-snug: 1.3;       /* h3/h4, lead */
-  --lh-body: 1.65;
-  --lh-label: 1.4;
+  --lh-display: 0.82;
+  --lh-heading: 0.95;
+  --lh-snug: 1.3;
+  --lh-body: 1.6;
+  --lh-label: 1.35;
 
-  --ls-display: -0.045em;
+  --ls-display: -0.02em;
   --ls-h1: -0.035em;
-  --ls-h2: -0.025em;
-  --ls-h3: -0.015em;
+  --ls-h2: -0.03em;
+  --ls-h3: -0.02em;
   --ls-body: 0;
-  --ls-label: 0.08em;   /* mono uppercase labels */
+  --ls-label: 0;
 
-  --fw-display: 700;    /* Schibsted; name in hero may go 800 */
-  --fw-heading: 600;
+  /* Width axis: wide for display, normal for reading */
+  --wdth-display: 125;
+  --wdth-heading: 112;
+
+  --fw-display: 800;
+  --fw-heading: 700;
   --fw-body: 400;
   --fw-strong: 600;
 
   /* ---------- Spacing (4px base) ---------- */
-  --space-1: 0.25rem;   /* 4 */
-  --space-2: 0.5rem;    /* 8 */
-  --space-3: 0.75rem;   /* 12 */
-  --space-4: 1rem;      /* 16 */
-  --space-5: 1.5rem;    /* 24 */
-  --space-6: 2rem;      /* 32 */
-  --space-7: 3rem;      /* 48 */
-  --space-8: 4rem;      /* 64 */
-  --space-9: 6rem;      /* 96 */
-  --space-10: 8rem;     /* 128 */
-  --section-y: clamp(4rem, 2.667rem + 5.926vw, 8rem);        /* 64 → 128 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --section-y: clamp(5rem, 3.333rem + 7.407vw, 10rem);       /* 80 → 160 */
 
   /* ---------- Layout ---------- */
-  --container-max: 72rem;       /* 1152 — main grid */
-  --container-wide: 80rem;      /* 1280 — hero / full-bleed rules */
-  --container-prose: 42.5rem;   /* 680 ≈ 70ch — legal, about prose */
-  --gutter: clamp(1rem, 0.5rem + 2.222vw, 2.5rem);           /* 16 → 40; never < 16px */
-  --grid-gap: clamp(1rem, 0.667rem + 1.481vw, 2rem);         /* 16 → 32 */
-  --grid-cols: 4;               /* 12 at ≥768px */
-  --tap-min: 44px;              /* minimum hit area */
+  --container-max: 90rem;       /* 1440: award sites run edge to edge */
+  --container-wide: 100rem;
+  --container-prose: 42.5rem;
+  --gutter: clamp(1rem, 0.333rem + 2.963vw, 3rem);           /* 16 → 48 */
+  --grid-gap: clamp(1rem, 0.667rem + 1.481vw, 2rem);
+  --grid-cols: 4;
+  --tap-min: 44px;
 
-  --nav-height: 3.5rem;         /* 56 mobile, 64 at ≥768px */
+  --nav-height: 4rem;
 
-  /* Safe-area insets (need viewport-fit=cover, set in index.html) */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
 
-  /* ---------- Radii (deliberately tiny) ---------- */
+  /* ---------- Radii ---------- */
   --radius-0: 0;
-  --radius-sm: 2px;             /* buttons, inputs, tags */
-  --radius-md: 4px;             /* images, screenshot frames — max for UI */
-  --radius-app-icon: 22.37%;    /* real iOS app icons only */
-  --radius-full: 999px;         /* status dots only */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-app-icon: 22.37%;
+  --radius-full: 999px;
 
-  /* ---------- Shadows (almost none) ---------- */
-  --shadow-sm: 0 1px 0 rgba(11, 11, 12, 0.06);
-  --shadow-md: 0 1px 2px rgba(11, 11, 12, 0.06), 0 8px 24px rgba(11, 11, 12, 0.06);
+  --shadow-sm: 0 1px 0 rgba(13, 13, 13, 0.06);
+  --shadow-md: 0 30px 60px -30px rgba(13, 13, 13, 0.35);
 
   /* ---------- Z-index ---------- */
   --z-nav: 1000;
-  --z-menu: 1001;       /* mobile sheet */
-  --z-skip: 1200;       /* skip link sits above the nav */
+  --z-menu: 1001;
+  --z-curtain: 1100;
+  --z-cursor: 1150;
+  --z-skip: 1200;
+  --z-loader: 1300;
 
-  /* ---------- Motion (max 320ms anywhere — cto-decisions §4) ---------- */
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);       /* default for enters/hovers */
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);    /* sheets, route changes */
-  --duration-instant: 120ms;    /* color, underline */
-  --duration-tap: 180ms;        /* buttons, chips */
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-instant: 120ms;
+  --duration-tap: 220ms;
+  --duration-slow: 700ms;
 }
 
 @media (min-width: 768px) {
   :root {
-    --nav-height: 4rem;         /* 64 */
+    --nav-height: 4.5rem;
     --grid-cols: 12;
   }
 }
 
 /* ==================== BASE ==================== */
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* Fluid root font — the single scaling knob for the whole layout.
-     Stays at the user's base size (≈16px) up to 1600px viewport; above that it
-     ramps up to 1.5× on ultrawide / 4K screens so rem-based sizes grow too. */
   font-size: clamp(100%, calc(100% + (100vw - 1600px) * 0.0059), 150%);
-  /* Anchored sections never hide under the fixed nav */
   scroll-padding-top: calc(var(--nav-height) + var(--safe-top) + var(--space-4));
+  background: var(--bg-primary);
+}
+
+/* Lenis owns smooth scrolling; native smooth would fight it. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
 body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   font-weight: var(--fw-body);
+  font-variation-settings: 'wdth' 100;
   line-height: var(--lh-body);
-  letter-spacing: var(--ls-body);
   background: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
@@ -185,20 +204,24 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: var(--fw-heading);
+  font-variation-settings: 'wdth' var(--wdth-heading);
   line-height: var(--lh-heading);
   color: var(--text-primary);
   overflow-wrap: break-word;
 }
 
-/* Long tokens (URLs, emails, slash-joined words) wrap instead of widening
-   the layout viewport on phones. */
 p, li, dd, dt, td, th, summary, figcaption, blockquote, label {
   overflow-wrap: break-word;
 }
 
 img,
-video {
+video,
+svg {
   max-width: 100%;
+}
+
+img,
+video {
   height: auto;
 }
 
@@ -225,41 +248,28 @@ select {
 strong,
 b {
   font-weight: var(--fw-strong);
+  color: var(--text-primary);
 }
 
 /* ==================== FOCUS ==================== */
-/* Ink ring (never accent, so it can't be confused with error). */
 :focus {
   outline: none;
 }
 
 :focus-visible {
-  outline: 2px solid var(--text-primary);
-  outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* ==================== SELECTION / SCROLLBAR ==================== */
 ::selection {
-  background: var(--accent-subtle);
-  color: var(--text-primary);
+  background: var(--accent);
+  color: #fff;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border-light);
-  border-radius: var(--radius-sm);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--text-dim);
+html {
+  scrollbar-color: var(--text-primary) var(--bg-primary);
+  scrollbar-width: thin;
 }
 
 /* ==================== UTILITIES ==================== */
@@ -269,14 +279,8 @@ b {
   font-variant-numeric: tabular-nums;
 }
 
-
-
 /* ==================== REDUCED MOTION ==================== */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
