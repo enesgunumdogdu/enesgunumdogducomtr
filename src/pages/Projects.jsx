@@ -10,10 +10,10 @@ import useGithubRepos from './projects/useGithubRepos'
 import './Projects.css'
 
 const jumpLinks = [
-  { href: '#apps', label: 'Apps' },
   { href: '#backend', label: 'Backend & web' },
   { href: '#teaching', label: 'Teaching' },
   { href: '#oss', label: 'Open source' },
+  { href: '#side-projects', label: 'Side projects' },
 ]
 
 function Projects() {
@@ -65,7 +65,7 @@ function Projects() {
           id="work-title"
           label={pageLabel}
           title="Things I've made."
-          lede="Personal projects: apps, backend systems and open-source code."
+          lede="Backend systems, open-source code, teaching and a few side projects."
         />
         <nav aria-label="On this page">
           <ul className="work-jump">
@@ -78,7 +78,6 @@ function Projects() {
         </nav>
       </section>
 
-      <FeaturedApps />
       <BackendProjects />
       <Teaching />
 
@@ -116,6 +115,8 @@ function Projects() {
           totalCount={repos.length}
         />
       </section>
+
+      <FeaturedApps />
 
       {/* ---------- Closing CTA (shared) ---------- */}
       <ClosingCTA id="work-cta-title" className="section--flush-top" />

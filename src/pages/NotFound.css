@@ -36,9 +36,7 @@
   margin-top: var(--space-5);
   font-family: var(--font-display);
   font-weight: 700;
-  font-weight: 800;
-  font-variation-settings: 'wdth' 125;
-  font-size: clamp(7rem, 2rem + 26vw, 24rem);
+  font-size: clamp(6rem, 3rem + 14vw, 14rem);
   letter-spacing: var(--ls-display);
   line-height: 0.8;
   color: var(--text-primary);

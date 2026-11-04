@@ -56,7 +56,10 @@ export const navLinks = [
                   and the AppKit tag).
   - summary     : Home.jsx copy, kept verbatim for content parity (shorter card
                   text). Magnetify summary = Projects copy (drift resolved).
-  - tags        : Projects.jsx tags (used on Home too; "19 languages" is shown as meta).
+  - tags        : stack tags (shown on the Work page).
+  - Presentation: these are side projects, shown platform-neutral and kept
+    modest (no store badges or ratings in the UI). `href`/`linkLabel` is a plain
+    text link; `legal` routes must stay reachable (footer + Work page).
   - status      : 'live' | 'oss' | 'soon' → .status--live/.status--oss/.status--soon
   - tint        : flat light field behind the icon; color = sampled icon average.
   - legal       : routes of the in-app privacy/terms pages (URLs are a contract).
@@ -77,11 +80,11 @@ export const apps = [
       '7 animated character themes with full-screen video wallpapers. Multi-location tracking, widgets, AQI, 19 languages.',
     summary:
       '7 animated character themes, full-screen video wallpapers, multi-location tracking. 19 languages.',
-    tags: ['Swift', 'iOS', 'SwiftUI'],
+    tags: ['Swift', 'SwiftUI'],
     appStoreUrl: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
     githubUrl: null,
     href: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
-    linkLabel: 'View on App Store',
+    linkLabel: 'App page',
     color: '#74B2E4',
     tint: '#EEF5FB',
     legal: {
@@ -107,7 +110,7 @@ export const apps = [
     appStoreUrl: 'https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537',
     githubUrl: null,
     href: 'https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537',
-    linkLabel: 'View on App Store',
+    linkLabel: 'App page',
     color: '#816B30',
     tint: '#EFEDE6',
     legal: {
@@ -135,7 +138,7 @@ export const apps = [
     appStoreUrl: null,
     githubUrl: 'https://github.com/enesgunumdogdu/magnetify',
     href: 'https://github.com/enesgunumdogdu/magnetify',
-    linkLabel: 'View on GitHub',
+    linkLabel: 'Source code',
     color: '#194369',
     tint: '#E3E8ED',
     legal: {
@@ -183,7 +186,7 @@ export const apps = [
       'Invitations for weddings, birthdays and every celebration, made in a minute. 22 designs, free to start, two one-time purchases and no subscription. 19 languages.',
     summary:
       'Invitation maker with 3D & artistic designs. Weddings, birthdays and every celebration, made in a minute. 22 designs, no subscription.',
-    tags: ['Swift', 'SwiftUI', 'iOS'],
+    tags: ['Swift', 'SwiftUI'],
     appStoreUrl: null,
     githubUrl: null,
     href: null,
@@ -262,7 +265,7 @@ export const experiences = [
 export const closingCta = {
   label: 'Contact',
   title: "Let's talk",
-  lede: 'Questions about an app, feedback on a video, or a conversation about backend, iOS or algorithms. My inbox is open.',
+  lede: 'Questions about my work, feedback on a video, or a conversation about mobile, backend or algorithms. My inbox is open',
   reply: person.replyTime, // 'Reply usually under 24 hours'
 }
 

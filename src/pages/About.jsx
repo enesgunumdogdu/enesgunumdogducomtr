@@ -56,7 +56,7 @@ function About() {
               as="h1"
               id="about-title"
               label="About"
-              title="Backend systems, apps for Apple platforms and algorithm videos."
+              title="Backend systems, small apps and algorithm videos."
             />
             <div className="about-bio">
               <p>
@@ -64,7 +64,7 @@ function About() {
                 ecosystem: microservices, event-driven architectures and cloud platforms like GCP.
               </p>
               <p>
-                I also make native apps for iOS and macOS with Swift, and publish videos about data
+                In my own time I build small native apps and tools, and publish videos about data
                 structures and algorithms on YouTube, now past 50,000 views. AI and machine learning are
                 the next thing I&rsquo;m digging into.
               </p>

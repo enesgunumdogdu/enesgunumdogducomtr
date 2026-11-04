@@ -1,50 +1,24 @@
-import { Button, SectionHeader, TagList } from '../../components/ui'
+import { Link } from 'react-router-dom'
+import { ExternalLink, SectionHeader, TagList } from '../../components/ui'
 import { apps } from '../../data/site'
 
-function AppMeta({ app }) {
-  // Platform row only when site.js sources it (null = unsourced, hidden).
-  const rows = app.platform ? [{ key: 'Platform', value: app.platform }] : []
-  if (app.rating) {
-    rows.push({
-      key: 'Rating',
-      value: (
-        <>
-          <span aria-hidden="true">{app.rating} ★</span>
-          <span className="visually-hidden">Rated {app.rating} out of 5 on the App Store</span>
-        </>
-      ),
-    })
-  }
-  if (app.languages) rows.push({ key: 'Languages', value: app.languages })
+// Personal side projects, kept compact and platform-neutral: no store badges
+// or ratings. Each entry links its privacy policy and terms of use (app
+// review and users rely on these URLs) plus an optional plain external link.
 
-  return (
-    <dl className="work-meta">
-      {rows.map((row) => (
-        <div key={row.key}>
-          <dt>{row.key}</dt>
-          <dd>{row.value}</dd>
-        </div>
-      ))}
-    </dl>
-  )
-}
-
-function AppBlock({ app, index }) {
+function SideProject({ app }) {
   const titleId = `app-${app.id}-title`
   return (
     <article className="work-app" aria-labelledby={titleId}>
-      {/* Glow colour comes from site.js (sampled from the app icon). */}
-      <div className="work-app__field" style={{ '--app-color': app.color, '--app-tint': app.tint }}>
-        <img
-          className="app-icon work-app__icon"
-          src={app.icon}
-          alt=""
-          width="96"
-          height="96"
-          loading={index === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-        />
-      </div>
+      <img
+        className="app-icon work-app__icon"
+        src={app.icon}
+        alt=""
+        width="56"
+        height="56"
+        loading="lazy"
+        decoding="async"
+      />
 
       <div className="work-app__body">
         <div className="work-app__titlerow">
@@ -54,20 +28,28 @@ function AppBlock({ app, index }) {
           <p className={`status status--${app.status}`}>{app.statusLabel}</p>
         </div>
 
-        {app.pullquote && <p className="work-app__quote">{app.pullquote}</p>}
         <p className="work-app__desc">{app.description}</p>
-
-        <AppMeta app={app} />
         <TagList tags={app.tags} label={`${app.name} stack`} />
 
-        <div className="work-app__actions">
+        <ul className="work-app__links" aria-label={`${app.name} links`}>
           {app.href && (
-            <Button href={app.href} variant="secondary">
-              {app.linkLabel} <span aria-hidden="true">↗</span>
-              <span className="visually-hidden"> (opens in a new tab)</span>
-            </Button>
+            <li>
+              <ExternalLink href={app.href} newTabHint>
+                {app.linkLabel} <span aria-hidden="true">↗</span>
+              </ExternalLink>
+            </li>
           )}
-        </div>
+          <li>
+            <Link to={app.legal.privacy} className="text-link text-link--quiet">
+              Privacy policy
+            </Link>
+          </li>
+          <li>
+            <Link to={app.legal.terms} className="text-link text-link--quiet">
+              Terms of use
+            </Link>
+          </li>
+        </ul>
       </div>
     </article>
   )
@@ -75,11 +57,15 @@ function AppBlock({ app, index }) {
 
 function FeaturedApps() {
   return (
-    <section id="apps" className="section section--flush-top" aria-labelledby="apps-title">
-      <SectionHeader index="01" label="Apps" title="iOS and macOS apps." id="apps-title" />
+    <section id="side-projects" className="section section--flush-top" aria-labelledby="apps-title">
+      <SectionHeader
+        title="Side projects."
+        id="apps-title"
+        lede="Small apps I make in my own time, each with its own privacy policy and terms."
+      />
       <div className="work-apps">
-        {apps.map((app, i) => (
-          <AppBlock key={app.id} app={app} index={i} />
+        {apps.map((app) => (
+          <SideProject key={app.id} app={app} />
         ))}
       </div>
     </section>

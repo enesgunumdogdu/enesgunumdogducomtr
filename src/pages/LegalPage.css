@@ -62,7 +62,6 @@
 
 .legal-dates dd {
   font-size: var(--fs-small);
-  font-variant-numeric: tabular-nums;
   color: var(--text-primary);
   margin-top: var(--space-1);
 }
@@ -105,7 +104,6 @@
 .legal-toc__link[aria-current='location'] {
   color: var(--text-primary);
   border-left-color: var(--accent);
-  box-shadow: -6px 0 12px -6px var(--accent);
 }
 
 .legal-toc__num {
@@ -228,7 +226,6 @@
 .legal-h2__num {
   font-weight: 500;
   color: var(--accent);
-  font-variant-numeric: tabular-nums;
 }
 
 .legal-h3 {

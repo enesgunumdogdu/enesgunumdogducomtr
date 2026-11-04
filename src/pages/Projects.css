@@ -41,137 +41,75 @@
   box-shadow: var(--focus-ring);
 }
 
-/* ---------- App cards ---------- */
+/* ---------- Side projects (compact) ---------- */
 .work-apps {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 @media (min-width: 900px) {
-  .work-apps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-6);
-  }
+  .work-apps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .work-app {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
   min-width: 0;
-  overflow: hidden;
+  padding: var(--space-5);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  background: var(--bg-secondary);
-}
-
-/* Icon on a glow sampled from the app's own colour. */
-.work-app__field {
-  --glow: var(--app-color, #2B3BFF);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 7;
-  background:
-    radial-gradient(circle, rgba(13, 13, 13, 0.14) 1px, transparent 1.4px) 0 0 / 14px 14px,
-    var(--app-tint, var(--bg-secondary));
-  border-bottom: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
 .app-icon.work-app__icon {
-  width: 80px;
-  height: 80px;
-  box-shadow: 0 20px 50px -12px color-mix(in srgb, var(--glow) 60%, transparent);
-  transition: transform var(--duration-slow) var(--ease-expo);
-}
-
-@media (hover: hover) {
-  .work-app:hover .work-app__icon {
-    transform: translateY(-4px) rotate(-4deg) scale(1.05);
-  }
-}
-
-#apps .section-header {
-  margin-bottom: var(--space-6);
+  width: 48px;
+  height: 48px;
 }
 
 .work-app__body {
   display: flex;
   flex-direction: column;
+  gap: var(--space-3);
   flex: 1;
   min-width: 0;
-  padding: var(--space-5);
-}
-
-@media (min-width: 768px) {
-  .work-app__body { padding: var(--space-6); }
-  .app-icon.work-app__icon { width: 96px; height: 96px; }
 }
 
 .work-app__titlerow {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-3);
+  gap: var(--space-1) var(--space-3);
 }
 
 .work-app__title {
-  font-size: var(--fs-h3);
-  font-variation-settings: 'wdth' 120;
-  letter-spacing: var(--ls-h3);
-  line-height: 1.15;
-}
-
-.work-app__quote {
-  font-family: var(--font-display);
   font-size: var(--fs-h4);
-  font-style: italic;
-  line-height: var(--lh-snug);
-  color: var(--text-primary);
-  margin-top: var(--space-4);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 .work-app__desc {
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
+  font-size: var(--fs-small);
+  line-height: 1.55;
   color: var(--text-secondary);
-  margin-top: var(--space-3);
   text-wrap: pretty;
 }
 
-.work-meta {
+.work-app__links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3) var(--space-6);
-  margin-block: var(--space-5) var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--border-subtle);
+  gap: 0 var(--space-5);
+  list-style: none;
+  font-size: var(--fs-small);
 }
 
-.work-meta dt {
-  font-size: var(--fs-label);
-  color: var(--text-muted);
-}
-
-.work-meta dd {
-  font-size: var(--fs-body);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-primary);
-}
-
-.work-app__actions {
-  display: flex;
-  flex-wrap: wrap;
+.work-app__links a {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-3) var(--space-5);
-  margin-top: auto;
-  padding-top: var(--space-5);
+  min-height: var(--tap-min);
 }
-
-.work-app__actions:empty { display: none; }
 
 /* ---------- Backend & web rows ---------- */
 .work-list {
@@ -199,9 +137,9 @@
 
 .work-row__title {
   font-size: var(--fs-h3);
-  font-variation-settings: 'wdth' 120;
+  font-weight: 650;
   letter-spacing: var(--ls-h3);
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .work-row__desc {
@@ -251,8 +189,7 @@
   padding: var(--space-6);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  background:
-    var(--bg-secondary);
+  background: var(--bg-elevated);
 }
 
 .work-teaching .work-row__tags {
@@ -262,8 +199,7 @@
 .work-teaching__metric {
   font-family: var(--font-display);
   font-weight: 700;
-  font-variation-settings: 'wdth' 125;
-  font-size: clamp(4rem, 2.5rem + 6vw, 8rem);
+  font-size: clamp(3.5rem, 2.5rem + 4.5vw, 6rem);
   letter-spacing: var(--ls-display);
   line-height: 0.85;
   font-variant-numeric: tabular-nums;

@@ -1,50 +1,40 @@
-// Home page content (carried over verbatim from the previous Home.jsx; only the
-// presentation changed). Shared identity/apps live in ./site.js.
+// Home page content. Shared identity/apps/experience live in ./site.js.
+//
+// Order of emphasis: a neutral personal profile and his own projects first,
+// personal apps kept modest and platform-neutral, the day job limited to the
+// single line the site already had. Every claim here is sourced from the rest
+// of the site (About, Work page, experience entries).
 
-// Statement under the hero (words light up on scroll). Kept free of
-// day-job/after-hours framing: everything on the site is presented as personal
-// work, independent of the current employer.
+// One-line hero intro under the name.
+export const heroIntro =
+  'Software engineer. I like building things end to end: backend services, mobile apps and the small tools in between.'
+
+// Short paragraph after the hero.
 export const statement =
-  'I like software that stays calm: backend services that hold up under load, and small apps that do one thing well. This site collects what I have made so far, from Java and Spring Boot systems to apps for Apple platforms and algorithm lessons on YouTube.'
+  'I like software that stays calm: services that hold up under load and small apps that do one thing well. This site collects what I have made so far, from Java and Spring Boot systems to side projects, open-source code and algorithm lessons on YouTube.'
 
-export const stats = [
-  { value: '5.0', label: 'App Store rating, Cartoon Weather' },
-  { value: '50K+', label: 'YouTube views' },
-  { value: '25+', label: 'Freelance projects, 2021 to 2025' },
-  { value: '5', label: 'Personal apps' },
-]
-
-// "How I build" lanes (formerly the bento grid).
+// "What I work on" areas. Not a sequence, so no numbering.
 export const lanes = [
   {
-    index: '01',
-    area: 'Backend Systems',
-    title: 'Systems that stay calm under load.',
-    body: 'Microservices, message queues and the plumbing between them. Mostly Java and Spring Boot, with PostgreSQL and Redis underneath.',
-    tags: ['Java', 'Spring Boot', 'PostgreSQL', 'RabbitMQ', 'Keycloak', 'Redis'],
+    id: 'backend',
+    area: 'Backend systems',
+    title: 'Services that stay calm under load.',
+    body: 'Microservices, message queues and the plumbing between them. Mostly Java and Spring Boot, with PostgreSQL and Redis underneath, shipped in containers.',
+    tags: ['Java', 'Spring Boot', 'PostgreSQL', 'RabbitMQ', 'Docker', 'GCP'],
   },
   {
-    index: '02',
-    area: 'Cloud & DevOps',
-    title: 'Everything in a container.',
-    body: 'Reproducible builds and deploys, so the code behaves the same on every machine it runs on.',
-    tags: ['Docker', 'GCP', 'Terraform', 'CI/CD'],
-  },
-  {
-    index: '03',
-    area: 'Apple Platforms',
+    id: 'apps',
+    area: 'Mobile & apps',
     title: 'Small apps with a point of view.',
-    body: 'Native Swift and SwiftUI. A weather app with cartoon characters, a season tracker, a window manager for the Mac.',
-    tags: ['Swift', 'SwiftUI', 'WidgetKit', 'iOS'],
+    body: 'Native apps and desktop tools I build in my own time: a weather app with cartoon characters, a season tracker, an invitation maker, a window manager.',
+    tags: ['Mobile', 'Native UI', 'Widgets'],
+  },
+  {
+    id: 'teaching',
+    area: 'Teaching',
+    title: 'Algorithms, explained plainly.',
+    body: 'Videos on data structures and algorithms for students and developers, past 50,000 views.',
+    tags: ['YouTube', 'DSA'],
+    link: 'youtube',
   },
 ]
-
-// Full tech stack (all 20 items from the old marquee), grouped for scanning.
-export const techStack = [
-  { group: 'Backend', items: ['Java', 'Spring Boot', 'Spring Cloud', 'Microservices', 'REST APIs', 'Keycloak', 'RabbitMQ', 'Python'] },
-  { group: 'Data', items: ['PostgreSQL', 'MongoDB', 'Redis', 'Elasticsearch'] },
-  { group: 'Apps & web', items: ['Swift', 'SwiftUI', 'TypeScript', 'React', 'Vue.js'] },
-  { group: 'Infra', items: ['Docker', 'GCP', 'Terraform'] },
-]
-
-

@@ -46,7 +46,6 @@
 
 .contact-h2 {
   font-size: var(--fs-h3);
-  font-variation-settings: 'wdth' 112;
   letter-spacing: var(--ls-h3);
   line-height: var(--lh-snug);
   margin-bottom: var(--space-3);
@@ -66,10 +65,8 @@
 .contact-email {
   margin-top: var(--space-5);
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
-  font-weight: 800;
-  font-variation-settings: 'wdth' 125;
-  text-transform: uppercase;
+  font-size: clamp(1.625rem, 1.2rem + 1.8vw, 2.5rem);
+  font-weight: 650;
   letter-spacing: var(--ls-h2);
   line-height: 1.05;
 }

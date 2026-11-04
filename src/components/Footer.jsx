@@ -1,8 +1,6 @@
-import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { person, socials, navLinks } from '../data/site'
+import { person, socials, navLinks, apps } from '../data/site'
 import { getLenis } from '../motion/smoothScroll'
-import useFitText from '../hooks/useFitText'
 import './Footer.css'
 
 const year = new Date().getFullYear()
@@ -14,17 +12,17 @@ const backToTop = () => {
 }
 
 function Footer() {
-  const nameRef = useRef(null)
-  useFitText(nameRef)
-
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="site-footer__top">
-          <p className="site-footer__intro">
-            This is my personal site. The apps, code and videos here are my own projects, and any
-            views are my own.
-          </p>
+          <div className="site-footer__about">
+            <p className="site-footer__name">{person.name}</p>
+            <p className="site-footer__intro">
+              This is my personal site. The apps, code and videos here are my own projects, and any
+              views are my own.
+            </p>
+          </div>
 
           <nav className="site-footer__groups" aria-label="Footer">
             <div className="site-footer__group">
@@ -58,12 +56,25 @@ function Footer() {
                 </li>
               </ul>
             </div>
+
+            <div className="site-footer__group site-footer__group--legal">
+              <h2 className="site-footer__label">App privacy and terms</h2>
+              <ul className="site-footer__legal">
+                {apps.map((app) => (
+                  <li key={app.id}>
+                    <span className="site-footer__legal-name">{app.name}</span>
+                    <Link to={app.legal.privacy} className="site-footer__legal-link">
+                      Privacy<span className="visually-hidden"> policy for {app.name}</span>
+                    </Link>
+                    <Link to={app.legal.terms} className="site-footer__legal-link">
+                      Terms<span className="visually-hidden"> of use for {app.name}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </nav>
         </div>
-
-        <p className="site-footer__name" ref={nameRef} aria-hidden="true">
-          <span data-fit>{person.name}</span>
-        </p>
 
         <div className="site-footer__bottom">
           <p>

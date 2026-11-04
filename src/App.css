@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Shared layout primitives + component classes ("Concrete").
+   Shared layout primitives + component classes.
    Tokens live in index.css. Mobile-first: base = phone, then 768 / 1024.
    ========================================================================== */
 
@@ -108,7 +108,7 @@
 }
 
 /* ==================== SECTION HEADER ==================== */
-/* Wide uppercase title; a short context line (link / count) to its right. */
+/* Sentence-case title; a short context line (link / count) to its right. */
 .section-header {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -176,28 +176,28 @@
 
 .section-label::before {
   content: '';
-  width: 0.55rem;
-  height: 0.55rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
   background: var(--accent);
 }
 
 .section-title {
   font-family: var(--font-display);
   font-size: var(--fs-h2);
-  font-weight: 800;
-  font-variation-settings: 'wdth' 125;
+  font-weight: var(--fw-heading);
   line-height: var(--lh-heading);
   letter-spacing: var(--ls-h2);
-  text-transform: uppercase;
   color: var(--text-primary);
-  max-width: 16ch;
+  max-width: 22ch;
   text-wrap: balance;
 }
 
 .section-title--page {
   font-size: var(--fs-h1);
+  font-weight: var(--fw-display);
   letter-spacing: var(--ls-h1);
-  max-width: 14ch;
+  max-width: 18ch;
 }
 
 .section-subtitle {
@@ -218,8 +218,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 52px;
-  padding: 0 var(--space-6);
+  min-height: 48px;
+  padding: 0 var(--space-5);
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 600;
@@ -277,19 +277,20 @@
 }
 
 .btn--primary::before { background: var(--accent); }
+.btn--primary:hover { color: var(--accent-ink); }
 
 .btn--secondary {
   background: transparent;
   color: var(--text-primary);
-  border-color: var(--text-primary);
+  border-color: var(--border-strong);
 }
 
-.btn--secondary::before { background: var(--text-primary); }
+.btn--secondary::before { background: var(--bg-tertiary); }
 
 @media (hover: hover) {
   .btn:hover::before { transform: translateY(0); }
   .btn--primary:hover { border-color: var(--accent); }
-  .btn--secondary:hover { color: var(--text-inverse); }
+  .btn--secondary:hover { border-color: var(--text-primary); }
   .btn:hover .btn__icon { transform: translateX(3px); }
 }
 
@@ -316,14 +317,17 @@
 .btn:disabled .btn__icon,
 .btn[aria-disabled='true'] .btn__icon { transform: none; }
 
-/* Inline link: ink text with a 1px rule that wipes out and back in on hover */
-.text-link,
-.btn--text {
+/* Inline link: ink text with a quiet underline that takes the accent on hover */
+.text-link {
   color: var(--text-primary);
   font-weight: 500;
-  text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 100% 1px;
-  transition: color var(--duration-instant) var(--ease-out);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 0.25em;
+  transition:
+    color var(--duration-instant) var(--ease-out),
+    text-decoration-color var(--duration-instant) var(--ease-out);
 }
 
 .btn--text {
@@ -334,29 +338,26 @@
   padding: 0;
   border: 0;
   border-radius: 0;
-  background-position: 0 calc(100% - 10px);
+  color: var(--text-primary);
+  font-weight: 500;
   font-size: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 0.25em;
   white-space: normal;
   text-align: left;
   overflow: visible;
+  background: none;
 }
 
 .btn--text::before { display: none; }
 
 @media (hover: hover) {
-  .text-link:hover {
+  .text-link:hover,
+  .btn--text:hover {
     color: var(--accent);
-    animation: link-wipe var(--duration-slow) var(--ease-expo);
+    text-decoration-color: currentColor;
   }
-
-  .btn--text:hover { color: var(--accent); }
-}
-
-@keyframes link-wipe {
-  0% { background-size: 100% 1px; background-position: 100% 100%; }
-  45% { background-size: 0 1px; background-position: 100% 100%; }
-  46% { background-size: 0 1px; background-position: 0 100%; }
-  100% { background-size: 100% 1px; background-position: 0 100%; }
 }
 
 .text-link:focus-visible,
@@ -375,12 +376,7 @@
 
 .text-link--quiet {
   color: var(--text-secondary);
-  background-size: 0 1px;
-}
-
-.text-link--quiet:hover {
-  color: var(--text-primary);
-  background-size: 100% 1px;
+  text-decoration-color: var(--border-light);
 }
 
 .break-anywhere { overflow-wrap: anywhere; }
@@ -532,13 +528,14 @@
   width: 7px;
   height: 7px;
   flex-shrink: 0;
+  border-radius: 50%;
   background: currentColor;
 }
 
 .status--live { color: var(--success); }
-.status--live::before { border-radius: 50%; animation: status-pulse 2s var(--ease-out) infinite; }
-.status--oss { color: var(--text-primary); }
-.status--soon { color: var(--accent); }
+.status--live::before { animation: status-pulse 2.4s var(--ease-out) 3; }
+.status--oss { color: var(--text-secondary); }
+.status--soon { color: var(--text-muted); }
 .status--soon::before { background: transparent; border: 1.5px solid currentColor; }
 
 @keyframes status-pulse {
@@ -554,7 +551,7 @@
   flex-shrink: 0;
   object-fit: cover;
   border-radius: var(--radius-app-icon);
-  outline: 1px solid rgba(13, 13, 13, 0.08);
+  outline: 1px solid var(--border-subtle);
   outline-offset: -1px;
 }
 
@@ -715,10 +712,18 @@ textarea.field-input {
   margin-bottom: 0;
 }
 
+.closing-cta::before {
+  content: '';
+  display: block;
+  margin-bottom: var(--space-7);
+  border-top: 1px solid var(--border-light);
+}
+
 .closing-cta .section-title {
-  font-size: clamp(3.25rem, 0.5rem + 11.5vw, 13rem);
-  line-height: 0.85;
-  letter-spacing: -0.04em;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-display);
+  line-height: 1;
+  letter-spacing: var(--ls-h1);
   max-width: none;
 }
 
