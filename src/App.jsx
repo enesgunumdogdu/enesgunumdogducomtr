@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -23,8 +23,8 @@ const MagnetifyPrivacyPolicy = lazy(() => import('./pages/MagnetifyPrivacyPolicy
 const MagnetifyTermsOfUse = lazy(() => import('./pages/MagnetifyTermsOfUse'))
 const NsAiPrivacyPolicy = lazy(() => import('./pages/NsAiPrivacyPolicy'))
 const NsAiTermsOfUse = lazy(() => import('./pages/NsAiTermsOfUse'))
-const InvitePrivacyPolicy = lazy(() => import('./pages/InvitePrivacyPolicy'))
-const InviteTermsOfUse = lazy(() => import('./pages/InviteTermsOfUse'))
+const DavetlyPrivacyPolicy = lazy(() => import('./pages/DavetlyPrivacyPolicy'))
+const DavetlyTermsOfUse = lazy(() => import('./pages/DavetlyTermsOfUse'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const routes = [
@@ -40,8 +40,12 @@ const routes = [
   ['/magnetify-terms-of-use', <MagnetifyTermsOfUse />],
   ['/nsai-privacy-policy', <NsAiPrivacyPolicy />],
   ['/nsai-terms-of-use', <NsAiTermsOfUse />],
-  ['/invite-privacy-policy', <InvitePrivacyPolicy />],
-  ['/invite-terms-of-use', <InviteTermsOfUse />],
+  ['/davetly-privacy-policy', <DavetlyPrivacyPolicy />],
+  ['/davetly-terms-of-use', <DavetlyTermsOfUse />],
+  // Invite was renamed to Davetly; older app builds still link to these URLs.
+  // public/_redirects sends them on with a 301, this covers client-side navigation.
+  ['/invite-privacy-policy', <Navigate to="/davetly-privacy-policy" replace />],
+  ['/invite-terms-of-use', <Navigate to="/davetly-terms-of-use" replace />],
   ['*', <NotFound />],
 ]
 
