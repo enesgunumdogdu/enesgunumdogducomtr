@@ -57,9 +57,9 @@ export const navLinks = [
   - summary     : Home.jsx copy, kept verbatim for content parity (shorter card
                   text). Magnetify summary = Projects copy (drift resolved).
   - tags        : stack tags (shown on the Work page).
-  - Presentation: these are side projects, shown platform-neutral and kept
-    modest (no store badges or ratings in the UI). `href`/`linkLabel` is a plain
-    text link; `legal` routes must stay reachable (footer + Work page).
+  - Presentation: side projects. Live apps link their App Store page
+    (`href`/`linkLabel`, rendered as a store button); open-source ones link
+    their source. `legal` routes must stay reachable (Work page cards).
   - status      : 'live' | 'oss' | 'soon' → .status--live/.status--oss/.status--soon
   - tint        : flat light field behind the icon; color = sampled icon average.
   - legal       : routes of the in-app privacy/terms pages (URLs are a contract).
@@ -84,7 +84,7 @@ export const apps = [
     appStoreUrl: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
     githubUrl: null,
     href: 'https://apps.apple.com/tr/app/cartoon-weather-fun-forecast/id6757344541',
-    linkLabel: 'App page',
+    linkLabel: 'View on the App Store',
     color: '#74B2E4',
     tint: '#EEF5FB',
     legal: {
@@ -110,7 +110,7 @@ export const apps = [
     appStoreUrl: 'https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537',
     githubUrl: null,
     href: 'https://apps.apple.com/us/app/seasons-solstice-tracker/id6758998537',
-    linkLabel: 'App page',
+    linkLabel: 'View on the App Store',
     color: '#816B30',
     tint: '#EFEDE6',
     legal: {
@@ -138,7 +138,7 @@ export const apps = [
     appStoreUrl: null,
     githubUrl: 'https://github.com/enesgunumdogdu/magnetify',
     href: 'https://github.com/enesgunumdogdu/magnetify',
-    linkLabel: 'Source code',
+    linkLabel: 'View source on GitHub',
     color: '#194369',
     tint: '#E3E8ED',
     legal: {

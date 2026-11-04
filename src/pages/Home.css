@@ -3,193 +3,217 @@
    ========================================================================== */
 
 /* ==================== HERO ==================== */
+/* The name is the hero: sized by useFitText so "Günümdoğdu" spans the full
+   container width, with a teal full stop as the mark. */
 .hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-7);
-  align-items: center;
-  padding-top: var(--space-8);
+  padding-top: clamp(2.5rem, 1rem + 5vw, 5.5rem);
   padding-bottom: var(--space-8);
 }
 
+.hero__name {
+  font-weight: 800;
+  line-height: 0.84;
+  letter-spacing: -0.065em;
+  color: var(--text-primary);
+  /* fallback before useFitText measures */
+  font-size: clamp(3.5rem, 1rem + 15vw, 13rem);
+}
+
+.hero__line {
+  display: block;
+  overflow: hidden;
+  /* room for descenders and the breve on ğ inside the clipped line box */
+  padding-block: 0.06em 0.2em;
+  margin-block: -0.06em -0.2em;
+}
+
+.hero__word {
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 0.04em;
+}
+
+.hero__dot {
+  display: inline-block;
+  width: 0.17em;
+  height: 0.17em;
+  margin-left: 0.04em;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: baseline;
+}
+
+.hero__foot {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 2px solid var(--text-primary);
+}
+
 @media (min-width: 900px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr) auto;
+  .hero__foot {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--space-9);
-    min-height: min(46rem, calc(100svh - var(--nav-height)));
-    padding-top: var(--space-9);
-    padding-bottom: var(--space-9);
+    margin-top: var(--space-8);
   }
 }
 
-.hero__name {
-  font-size: var(--fs-display);
-  font-weight: var(--fw-display);
-  line-height: var(--lh-display);
-  letter-spacing: var(--ls-display);
-  color: var(--text-primary);
-}
-
-.hero__name span {
-  display: inline-block;
-}
-
-/* Surname on its own line from tablet up; a long Turkish name wraps nicely. */
-@media (min-width: 600px) {
-  .hero__name span + span { display: block; }
-}
-
 .hero__intro {
-  max-width: 34rem;
-  margin-top: var(--space-6);
-  font-size: var(--fs-lead);
-  line-height: var(--lh-snug);
-  letter-spacing: -0.01em;
-  color: var(--text-secondary);
+  max-width: 32rem;
+  font-size: clamp(1.375rem, 1.125rem + 1.11vw, 2.125rem);
+  font-weight: 500;
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
   text-wrap: pretty;
+}
+
+.hero__side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.hero__facts {
+  display: grid;
+  gap: var(--space-3);
+  font-size: var(--fs-small);
+}
+
+.hero__facts > div {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.hero__facts dt {
+  color: var(--text-muted);
+}
+
+.hero__facts dd {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  margin-top: var(--space-7);
 }
 
-.hero__now {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-6);
-  font-size: var(--fs-small);
-  color: var(--text-muted);
+/* ==================== WHAT I WORK ON (teal band) ==================== */
+.band-lead {
+  margin-bottom: var(--space-9);
 }
 
-.hero__now-dot {
-  width: 8px;
-  height: 8px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-subtle);
-}
-
-.hero__dial {
-  justify-self: start;
-}
-
-@media (min-width: 900px) {
-  .hero__dial { justify-self: end; }
-}
-
-/* ==================== DIAL (İstanbul time) ==================== */
-.dial {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-@media (min-width: 900px) {
-  .dial {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-}
-
-.dial__face {
-  display: block;
-  width: clamp(7.5rem, 4rem + 13vw, 17rem);
-  height: auto;
-  overflow: visible;
-  filter: drop-shadow(0 10px 18px rgba(23, 25, 28, 0.1));
-}
-
-.dial__bezel {
-  fill: var(--bg-inverse);
-}
-
-.dial__plate {
-  fill: var(--bg-elevated);
-}
-
-.dial__tick {
-  stroke: var(--text-disabled);
-  stroke-width: 1;
-  stroke-linecap: round;
-}
-
-.dial__tick--hour {
-  stroke: var(--text-primary);
-  stroke-width: 2;
-}
-
-.dial__tick--quarter {
-  stroke: var(--text-primary);
-  stroke-width: 3.5;
-}
-
-.dial__digits {
-  font-family: var(--font-mono);
-  font-size: 14px;
+.band-lead__text {
+  max-width: 54rem;
+  font-size: clamp(1.5rem, 1.167rem + 1.48vw, 2.5rem);
   font-weight: 500;
-  letter-spacing: 0.06em;
-  fill: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.dial__hand {
-  stroke-linecap: round;
-}
-
-.dial__hand--hour {
-  stroke: var(--text-primary);
-  stroke-width: 6;
-}
-
-.dial__hand--minute {
-  stroke: var(--text-primary);
-  stroke-width: 4;
-}
-
-.dial__hand--second {
-  stroke: var(--accent);
-  stroke-width: 1.75;
-}
-
-.dial__pin {
-  fill: var(--accent);
-  stroke: var(--bg-elevated);
-  stroke-width: 1.5;
-}
-
-.dial__caption {
-  font-size: var(--fs-label);
-  color: var(--text-muted);
-}
-
-/* ==================== STATEMENT ==================== */
-.section.home-statement {
-  padding-top: 0;
-}
-
-.home-statement__text {
-  max-width: 46rem;
-  font-size: clamp(1.375rem, 1.167rem + 0.926vw, 2rem);
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--band-text);
   text-wrap: pretty;
-  padding-top: var(--space-7);
-  border-top: 1px solid var(--border-light);
 }
 
-.home-statement__link {
+.band-lead__link {
   margin-top: var(--space-5);
 }
 
-/* ==================== WHAT I WORK ON ==================== */
-.home-lanes {
+.lanes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .lanes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.lane {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--band-border);
+}
+
+.lane:first-child { border-top: 0; padding-top: 0; }
+
+@media (min-width: 900px) {
+  .lane {
+    padding: 0 var(--space-6);
+    border-top: 0;
+    border-left: 1px solid var(--band-border);
+  }
+
+  .lane:first-child { padding-left: 0; border-left: 0; }
+  .lane:last-child { padding-right: 0; }
+}
+
+.lane__area {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--band-accent);
+}
+
+.lane__title {
+  font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--band-text);
+  text-wrap: balance;
+}
+
+.lane__body {
+  color: var(--band-muted);
+  text-wrap: pretty;
+  margin-bottom: var(--space-2);
+}
+
+.lane .tag-list {
+  margin-top: auto;
+}
+
+.lane__link {
+  font-size: var(--fs-small);
+}
+
+/* ==================== THINGS I'VE MADE ==================== */
+.home-subhead {
+  font-size: var(--fs-h4);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.home-subhead-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-9);
+}
+
+.home-subhead-link {
+  font-size: var(--fs-small);
+  margin-bottom: var(--space-4);
+}
+
+.proj-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
@@ -197,51 +221,72 @@
 }
 
 @media (min-width: 900px) {
-  .home-lanes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .proj-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-.home-lane {
+.proj-card {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-6) var(--space-5);
+  padding: var(--space-6) var(--space-5) var(--space-4);
   background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
+  border-top: 3px solid var(--text-primary);
+  border-radius: var(--radius-sm) var(--radius-sm) var(--radius-lg) var(--radius-lg);
+  transition:
+    border-color var(--duration-tap) var(--ease-out),
+    transform var(--duration-slow) var(--ease-expo);
 }
 
-.home-lane__area {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  color: var(--accent);
+@media (hover: hover) {
+  .proj-card:hover {
+    border-top-color: var(--accent);
+    transform: translateY(-4px);
+  }
 }
 
-.home-lane__title {
+.proj-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+}
+
+.proj-card__title {
   font-size: var(--fs-h3);
-  font-weight: var(--fw-heading);
-  line-height: 1.2;
-  letter-spacing: var(--ls-h3);
-  text-wrap: balance;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
-.home-lane__body {
+.proj-card__desc {
+  font-size: var(--fs-small);
+  line-height: 1.55;
   color: var(--text-secondary);
   text-wrap: pretty;
-  margin-bottom: var(--space-2);
 }
 
-.home-lane .tag-list {
+.proj-card .tag-list {
   margin-top: auto;
 }
 
-.home-lane__link {
+.proj-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  list-style: none;
   font-size: var(--fs-small);
+}
+
+.proj-card__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
 }
 
 /* ==================== EXPERIENCE ==================== */
 .home-exp {
   list-style: none;
-  border-top: 1px solid var(--border-light);
 }
 
 .home-exp li {
@@ -266,16 +311,16 @@
 
 @media (min-width: 768px) {
   .home-exp__row {
-    grid-template-columns: 11rem minmax(0, 1.2fr) minmax(0, 1fr) auto;
+    grid-template-columns: 11rem minmax(0, 1.3fr) minmax(0, 1fr) auto;
     grid-template-areas: 'period company role arrow';
-    padding: var(--space-5) var(--space-4);
+    padding: var(--space-6) var(--space-4);
     margin-inline: calc(-1 * var(--space-4));
   }
 }
 
 @media (hover: hover) {
-  .home-exp__row:hover { background: var(--bg-secondary); }
-  .home-exp__row:hover .home-exp__arrow { color: var(--accent); transform: translate(2px, -2px); }
+  .home-exp__row:hover { background: var(--bg-elevated); }
+  .home-exp__row:hover .home-exp__arrow { color: var(--accent); transform: translate(3px, -3px); }
 }
 
 .home-exp__row:focus-visible {
@@ -288,28 +333,26 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-label);
+  font-size: var(--fs-small);
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
 }
 
 .home-exp__now {
   padding: 2px 8px;
-  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-subtle);
+  color: var(--accent-ink);
+  background: var(--accent);
   border-radius: var(--radius-full);
 }
 
 .home-exp__company {
   grid-area: company;
-  font-size: var(--fs-h3);
-  font-weight: 600;
-  letter-spacing: var(--ls-h3);
-  line-height: 1.2;
+  font-size: clamp(1.375rem, 1.167rem + 0.926vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
 }
 
 .home-exp__role {
@@ -319,140 +362,9 @@
 
 .home-exp__arrow {
   grid-area: arrow;
+  font-size: 1.25rem;
   color: var(--text-muted);
   transition:
     color var(--duration-tap) var(--ease-out),
     transform var(--duration-tap) var(--ease-out);
-}
-
-/* ==================== PROJECTS ==================== */
-.home-subhead {
-  font-size: var(--fs-h4);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-  color: var(--text-primary);
-  margin-bottom: var(--space-4);
-}
-
-.home-subhead-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-5);
-  margin-top: var(--space-8);
-}
-
-.home-subhead-link {
-  font-size: var(--fs-small);
-  margin-bottom: var(--space-4);
-}
-
-.home-projs {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-4);
-  list-style: none;
-}
-
-@media (min-width: 900px) {
-  .home-projs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-.home-proj {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-5);
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-}
-
-.home-proj__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1) var(--space-3);
-}
-
-.home-proj__title {
-  font-size: var(--fs-h4);
-  font-weight: 650;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
-}
-
-.home-proj__desc {
-  font-size: var(--fs-small);
-  line-height: 1.55;
-  color: var(--text-secondary);
-  text-wrap: pretty;
-}
-
-.home-proj .tag-list {
-  margin-top: auto;
-}
-
-.home-proj__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  list-style: none;
-  font-size: var(--fs-small);
-}
-
-.home-proj__links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap-min);
-}
-
-/* ---------- Side projects (compact) ---------- */
-.home-sides {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-2) var(--space-6);
-  list-style: none;
-}
-
-@media (min-width: 768px) {
-  .home-sides { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-.home-side {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  padding-block: var(--space-4);
-  border-top: 1px solid var(--border-subtle);
-}
-
-.home-side__icon {
-  width: 44px;
-  height: 44px;
-}
-
-.home-side__body {
-  min-width: 0;
-}
-
-.home-side__name {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-1) var(--space-3);
-  font-size: var(--fs-h4);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-
-.home-side__desc {
-  margin-top: var(--space-1);
-  font-size: var(--fs-small);
-  line-height: 1.5;
-  color: var(--text-muted);
-  text-wrap: pretty;
 }

@@ -40,6 +40,17 @@
   --accent-subtle: rgba(11, 110, 96, 0.09);
   --border-accent: rgba(11, 110, 96, 0.4);
 
+  /* ---------- Color: bands (full-bleed sections) ---------- */
+  --band-bg: #0B5D53;             /* deep teal band */
+  --band-text: #F2FBF8;           /* 7.6:1 on band */
+  --band-muted: rgba(242, 251, 248, 0.78);
+  --band-accent: #9FEBD8;         /* mint: numerals, rules */
+  --band-border: rgba(242, 251, 248, 0.2);
+  --ink-bg: #17191C;              /* graphite band (closing CTA) */
+  --ink-text: #F4F5F2;
+  --ink-muted: rgba(244, 245, 242, 0.7);
+  --ink-border: rgba(244, 245, 242, 0.16);
+
   /* ---------- Color: borders ---------- */
   --border-subtle: rgba(23, 25, 28, 0.08);
   --border-light: rgba(23, 25, 28, 0.14);
@@ -172,6 +183,16 @@
     --accent-ink: #0C2A25;
     --accent-subtle: rgba(76, 201, 176, 0.12);
     --border-accent: rgba(76, 201, 176, 0.45);
+
+    --band-bg: #0E433C;
+    --band-text: #EAF8F4;
+    --band-muted: rgba(234, 248, 244, 0.75);
+    --band-accent: #7FE0C9;
+    --band-border: rgba(234, 248, 244, 0.16);
+    --ink-bg: #22292E;
+    --ink-text: #ECEEEA;
+    --ink-muted: rgba(236, 238, 234, 0.7);
+    --ink-border: rgba(236, 238, 234, 0.14);
 
     --border-subtle: rgba(236, 238, 234, 0.08);
     --border-light: rgba(236, 238, 234, 0.15);

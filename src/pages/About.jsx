@@ -155,7 +155,7 @@ function About() {
       </section>
 
       {/* ---------- Closing CTA (shared) ---------- */}
-      <ClosingCTA index="04" className="section--flush-top" />
+      <ClosingCTA />
     </div>
   )
 }

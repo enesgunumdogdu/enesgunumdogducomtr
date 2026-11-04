@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
-import { person, socials, navLinks, apps } from '../data/site'
+import { person, socials, navLinks } from '../data/site'
 import { getLenis } from '../motion/smoothScroll'
 import './Footer.css'
 
-const year = new Date().getFullYear()
+// Fixed copyright line, shown on every page (owner's wording).
+const COPYRIGHT = '© 2026 Enes Günümdoğdu'
 
 const backToTop = () => {
   const lenis = getLenis()
@@ -57,28 +58,12 @@ function Footer() {
               </ul>
             </div>
 
-            <div className="site-footer__group site-footer__group--legal">
-              <h2 className="site-footer__label">App privacy and terms</h2>
-              <ul className="site-footer__legal">
-                {apps.map((app) => (
-                  <li key={app.id}>
-                    <span className="site-footer__legal-name">{app.name}</span>
-                    <Link to={app.legal.privacy} className="site-footer__legal-link">
-                      Privacy<span className="visually-hidden"> policy for {app.name}</span>
-                    </Link>
-                    <Link to={app.legal.terms} className="site-footer__legal-link">
-                      Terms<span className="visually-hidden"> of use for {app.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </nav>
         </div>
 
         <div className="site-footer__bottom">
           <p>
-            © {year} {person.name}
+            {COPYRIGHT}
           </p>
           <p>
             Designed and built by{' '}

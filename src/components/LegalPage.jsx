@@ -228,7 +228,7 @@ function LegalPage({ kind, appName, effectiveDate, lastUpdated, intro, sections 
             </div>
 
             <footer className="legal-sign">
-              <span>© {new Date().getFullYear()} Enes Günümdoğdu</span>
+              <span>© 2026 Enes Günümdoğdu</span>
               <span>{appName}</span>
             </footer>
             <p className="legal-top">

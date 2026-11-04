@@ -1,16 +1,16 @@
 import { person, closingCta } from '../../data/site'
 import Button from './Button'
-import SectionHeader from './SectionHeader'
 
-// The closing call-to-action at the end of Home, About and Work: "Let's
-// talk", the lede, then "Email me" (mailto) and "Contact form" (/contact).
+// The closing call-to-action at the end of Home, About and Work, set on a
+// full-bleed graphite band: a large "Let's talk", the lede, then "Email me"
+// (mailto) and "Contact form" (/contact).
 //
 //   <ClosingCTA />
-//   <ClosingCTA title="Custom title" lede="Custom lede." />
+//   <ClosingCTA index="04" title="Custom title" lede="Custom lede." />
 //
-// props: label, title, lede, id (heading id; default 'closing-title'),
-//        className (extra section classes). `index` is accepted and ignored.
-function ClosingCTA({ label = closingCta.label, title = closingCta.title, lede, id = 'closing-title', className = '' }) {
+// props: title, lede, id (heading id; default 'closing-title'), index
+// (optional chapter numeral, Home only), className (extra section classes).
+function ClosingCTA({ title = closingCta.title, lede, id = 'closing-title', index, className = '' }) {
   const ledeNode = lede ?? (
     <>
       {closingCta.lede}.
@@ -19,15 +19,29 @@ function ClosingCTA({ label = closingCta.label, title = closingCta.title, lede, 
   )
 
   return (
-    <section className={`section closing-cta ${className}`.trim()} aria-labelledby={id}>
-      <SectionHeader label={label} title={title} lede={ledeNode} id={id} />
-      <div className="closing-cta__actions">
-        <Button href={person.emailHref}>Email me</Button>
-        <Button to="/contact" variant="secondary">
-          Contact form
-        </Button>
-      </div>
-    </section>
+    <div className="band band--ink">
+      <section className={`section closing-cta ${className}`.trim()} aria-labelledby={id}>
+        {index && (
+          <span className="closing-cta__index" aria-hidden="true">
+            {index}
+          </span>
+        )}
+        <h2 id={id} className="closing-cta__title">
+          {title}
+        </h2>
+        <div className="closing-cta__row">
+          <p className="closing-cta__lede">{ledeNode}</p>
+          <div className="closing-cta__actions">
+            <Button href={person.emailHref} variant="accent">
+              Email me
+            </Button>
+            <Button to="/contact" variant="ghost">
+              Contact form
+            </Button>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
 
