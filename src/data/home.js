@@ -11,7 +11,7 @@ export const stats = [
   { value: '5.0', label: 'App Store rating, Cartoon Weather' },
   { value: '50K+', label: 'YouTube views' },
   { value: '25+', label: 'Freelance projects, 2021 to 2025' },
-  { value: '4', label: 'Personal apps' },
+  { value: '5', label: 'Personal apps' },
 ]
 
 // "How I build" lanes (formerly the bento grid).

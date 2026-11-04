@@ -24,6 +24,7 @@ function DavetlyPrivacyPolicy() {
           items: [
             'Usage Data: We use Google Firebase Analytics to collect anonymous usage data, such as app opens, the screens you view, and feature events (for example, that the purchase screen was viewed or that an export was completed). This data never contains the text or photos of your invitations.',
             'Device Information: Device model, operating system version, app version, and language are collected with usage data.',
+            'Crash Reports: We use Google Firebase Crashlytics to collect crash reports when the App crashes. A crash report contains the stack trace of the crash, device model, operating system version, app version, and an identifier for your installation. Crash reports are not linked to your identity, never contain the text or photos of your invitations, and are used only to find and fix crashes.',
             'Approximate Location: Firebase may derive your approximate country from your IP address. The App does not use GPS and does not access your precise location.',
             'App Identifiers: Firebase and RevenueCat generate random identifiers for your installation. They are not linked to your name, email address, or Apple ID.'
           ]
@@ -54,7 +55,7 @@ function DavetlyPrivacyPolicy() {
             'Provide the App\'s features, including designs, previews, and exports',
             'Verify and restore your in-app purchases',
             'Understand how the App is used and improve it',
-            'Find and fix technical problems',
+            'Find and fix crashes and other technical problems, using Crashlytics crash reports',
             'Respond to your support requests'
           ]
         }
@@ -75,7 +76,7 @@ function DavetlyPrivacyPolicy() {
           items: [
             'Your invitations and photos stay on your device and are removed when you delete them or delete the App',
             'The App has no accounts and no sign-in',
-            'Usage and purchase data are sent over encrypted connections to the services listed below'
+            'Usage, crash, and purchase data are sent over encrypted connections to the services listed below'
           ]
         }
       ]
@@ -87,6 +88,7 @@ function DavetlyPrivacyPolicy() {
           text: 'We use the following third-party services:',
           items: [
             'Firebase Analytics (Google): Anonymous usage statistics',
+            'Firebase Crashlytics (Google): Crash reports',
             'RevenueCat: Purchase verification and purchase analytics',
             'Apple App Store / StoreKit: In-app purchase processing'
           ],
@@ -137,6 +139,7 @@ function DavetlyPrivacyPolicy() {
           items: [
             'Invitations and photos remain on your device until you delete them or delete the App',
             'Anonymous analytics data is retained by Firebase for up to 14 months',
+            'Crash reports are retained by Firebase Crashlytics for up to 90 days',
             'Purchase history is kept by Apple and RevenueCat'
           ]
         }
@@ -146,7 +149,7 @@ function DavetlyPrivacyPolicy() {
       title: '10. International Data Transfers',
       content: [
         {
-          text: 'Usage and purchase data may be processed in countries other than your own by the service providers listed above. These providers use appropriate safeguards for such transfers.'
+          text: 'Usage, crash, and purchase data may be processed in countries other than your own by the service providers listed above. These providers use appropriate safeguards for such transfers.'
         }
       ]
     },

@@ -34,8 +34,10 @@ function DavetlyTermsOfUse() {
         {
           subtitle: '3.2 Davetly Plus and Davetly Pro',
           items: [
-            'Davetly Plus and Davetly Pro are one-time, non-consumable in-app purchases that unlock additional designs and features',
-            'What each purchase includes and its price in your local currency are shown in the App before you buy',
+            'Davetly Plus and Davetly Pro are one-time, non-consumable in-app purchases',
+            'Davetly Plus unlocks every design except the photo designs, and exports images without the "Made with Davetly" mark',
+            'Davetly Pro includes everything in Davetly Plus, and adds print-ready PDF export (A5, A6, and 5×7) and the photo designs',
+            'The price of each purchase in your local currency is shown in the App before you buy',
             'There are no subscriptions and nothing renews automatically: you pay once and keep what you bought'
           ]
         },
@@ -104,7 +106,7 @@ function DavetlyTermsOfUse() {
       title: '7. Third-Party Services',
       content: [
         {
-          text: 'The App uses third-party services including Firebase Analytics (Google), RevenueCat, and Apple\'s App Store. Your use of the App is also subject to these providers\' terms.'
+          text: 'The App uses third-party services including Firebase Analytics and Firebase Crashlytics (Google), RevenueCat, and Apple\'s App Store. Your use of the App is also subject to these providers\' terms.'
         }
       ]
     },

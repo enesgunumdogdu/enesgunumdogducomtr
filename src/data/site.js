@@ -168,6 +168,34 @@ export const apps = [
       terms: '/nsai-terms-of-use',
     },
   },
+  {
+    id: 'davetly',
+    name: 'Davetly',
+    icon: '/logos/opt/davetly.webp',
+    platform: 'iOS',
+    // In TestFlight; switch to 'live' and set appStoreUrl/href once it is on
+    // the App Store: https://apps.apple.com/app/id6823938078
+    status: 'soon',
+    statusLabel: 'Soon',
+    languages: 19,
+    pullquote: 'Invitation maker with 3D & artistic designs.',
+    description:
+      'Invitations for weddings, birthdays and every celebration, made in a minute. 22 designs, free to start, two one-time purchases and no subscription. 19 languages.',
+    summary:
+      'Invitation maker with 3D & artistic designs. Weddings, birthdays and every celebration, made in a minute. 22 designs, no subscription.',
+    tags: ['Swift', 'SwiftUI', 'iOS'],
+    appStoreUrl: null,
+    githubUrl: null,
+    href: null,
+    linkLabel: null,
+    color: '#C957A3',
+    tint: '#F8EAF4',
+    legal: {
+      appName: 'Davetly',
+      privacy: '/davetly-privacy-policy',
+      terms: '/davetly-terms-of-use',
+    },
+  },
 ]
 
 // Flat list for the footer "Legal" group / sitemap.
