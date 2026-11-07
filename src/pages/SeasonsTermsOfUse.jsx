@@ -28,10 +28,10 @@ function SeasonsTermsOfUse() {
           subtitle: 'a) Free Features',
           text: 'The App provides core functionality at no cost, including:',
           items: [
-            'Real-time season progress tracking',
-            'Moon phase information',
-            'Home screen and lock screen widgets (default theme)',
-            'Season change notifications',
+            'Real-time season and year progress tracking',
+            'Today\'s sunrise, sunset, day length and moon phase',
+            'All Home Screen, Lock Screen and StandBy widgets (Classic theme)',
+            'Season change and halfway-through-the-season notifications',
             'Hemisphere selection for 85+ countries'
           ]
         },
@@ -39,15 +39,17 @@ function SeasonsTermsOfUse() {
           subtitle: 'b) Seasons Pro (Premium Subscription)',
           text: 'Additional features are available through a paid subscription:',
           items: [
-            'Monthly Plan: $0.99/month (with a 3-day free trial for eligible users)',
-            'Annual Plan: $9.99/year'
-          ]
+            'Annual Plan: $9.99/year (US price)',
+            'Monthly Plan: $2.99/month (US price)'
+          ],
+          note: 'Both plans include a 3-day free trial for eligible new subscribers. Prices vary by country and region; the exact price in your currency is shown in the App and on the Apple purchase sheet before you confirm.'
         },
         {
           text: 'Premium features include:',
           items: [
-            'Access to all premium visual themes (Frost, Bloom, Dusk, Ember)',
-            'All future premium themes'
+            'Premium visual themes (Frost, Bloom, Dusk, Ember) for the App and its widgets',
+            'Upcoming sky events: full moons, solstices and equinoxes, with countdowns and details',
+            'Full moon and solstice/equinox reminders'
           ]
         }
       ]
@@ -66,7 +68,7 @@ function SeasonsTermsOfUse() {
         {
           subtitle: 'b) Free Trial',
           items: [
-            'Eligible users may receive a 3-day free trial for the monthly plan.',
+            'Eligible new subscribers may receive a 3-day free trial on the annual or monthly plan.',
             'If you do not cancel before the trial ends, your subscription will automatically convert to a paid subscription.',
             'Free trial eligibility is determined by Apple and may only be used once per Apple ID.'
           ]
@@ -75,7 +77,8 @@ function SeasonsTermsOfUse() {
           subtitle: 'c) Managing Subscriptions',
           items: [
             'You can manage or cancel your subscription at any time through your device\'s Settings > Apple ID > Subscriptions.',
-            'Cancellation takes effect at the end of the current billing period. You will retain access to premium features until that date.',
+            'Seasons Pro subscribers can also open Manage Subscription from the App\'s Settings screen.',
+            'Cancellation takes effect at the end of the current billing period. You will retain access to premium features until that date. After that, premium themes revert to the Classic theme.',
             'No refunds will be provided for the unused portion of a subscription period.'
           ]
         },
@@ -202,7 +205,7 @@ function SeasonsTermsOfUse() {
     <LegalPage
       kind="Terms of Use"
       appName="Seasons"
-      lastUpdated="March 13, 2026"
+      lastUpdated="November 7, 2026"
       intro={`Please read these Terms of Use ("Terms") carefully before using the Seasons app ("App") developed by Enes Günümdoğdu ("we", "us", or "our"). By downloading, installing, or using the App, you agree to be bound by these Terms. If you do not agree, do not use the App.`}
       sections={sections}
     />

@@ -22,8 +22,8 @@ function SeasonsPrivacyPolicy() {
           subtitle: 'b) Automatically Collected Information',
           items: [
             'Crash data: We use Firebase Crashlytics to collect anonymous crash reports and non-fatal error logs. This helps us identify and fix bugs. Crash data is not linked to your identity.',
-            'Analytics data: We use Firebase Analytics to collect anonymous usage data such as app opens, feature usage (theme changes, settings views), and purchase events. This data is not linked to your identity and is used solely to improve the App.',
-            'Purchase data: When you subscribe to Seasons Pro, your purchase is processed through Apple\'s App Store and managed by RevenueCat. We receive anonymous subscription status information (active, expired, trial) but do NOT have access to your payment details, Apple ID, or any personally identifiable information.'
+            'Analytics data: We use Firebase Analytics to collect anonymous usage data such as app opens, feature usage (theme changes, settings views, paywall views), which kinds of widgets you have added, whether notifications are turned on, and purchase events. This data is not linked to your identity and is used solely to improve the App.',
+            'Purchase data: When you subscribe to Seasons Pro, your purchase is processed through Apple\'s App Store and managed by RevenueCat. We receive anonymous subscription status information (active, expired, trial) but do NOT have access to your payment details, Apple ID, or any personally identifiable information. To understand which in-app screens lead to a subscription, the anonymous Firebase app instance ID is shared with RevenueCat; it is not linked to your identity.'
           ]
         },
         {
@@ -164,7 +164,7 @@ function SeasonsPrivacyPolicy() {
     <LegalPage
       kind="Privacy Policy"
       appName="Seasons"
-      lastUpdated="March 13, 2026"
+      lastUpdated="November 7, 2026"
       intro={`Enes Günümdoğdu ("we", "us", or "our") built the Seasons app ("App") as a commercial application. This Privacy Policy explains how we collect, use, and protect your information when you use our App. By using the App, you agree to the collection and use of information in accordance with this Privacy Policy.`}
       sections={sections}
     />
