@@ -199,6 +199,34 @@ export const apps = [
       terms: '/davetly-terms-of-use',
     },
   },
+  {
+    id: 'lumora',
+    name: 'Lumora',
+    icon: '/logos/opt/lumora.webp',
+    platform: 'iOS',
+    // In development; switch to 'live' and set appStoreUrl/href once it is on
+    // the App Store: https://apps.apple.com/app/id6832055930
+    status: 'soon',
+    statusLabel: 'Soon',
+    languages: 19,
+    pullquote: 'Photo editor with hand-crafted presets.',
+    description:
+      'Photo editor for iPhone and iPad with hand-crafted presets. Your photos never leave your device: no account, no watermark. Lumora Pro monthly or lifetime. 19 languages.',
+    summary:
+      'Photo editor with hand-crafted presets. Edits stay on your device, no account and no watermark. Lumora Pro monthly or lifetime.',
+    tags: ['Swift', 'SwiftUI'],
+    appStoreUrl: null,
+    githubUrl: null,
+    href: null,
+    linkLabel: null,
+    color: '#6E4F9A',
+    tint: '#EFEAF5',
+    legal: {
+      appName: 'Lumora',
+      privacy: '/lumora-privacy-policy',
+      terms: '/lumora-terms-of-use',
+    },
+  },
 ]
 
 // Flat list for the footer "Legal" group / sitemap.
