@@ -22,6 +22,8 @@ const NsAiPrivacyPolicy = lazy(() => import('./pages/NsAiPrivacyPolicy'))
 const NsAiTermsOfUse = lazy(() => import('./pages/NsAiTermsOfUse'))
 const DavetlyPrivacyPolicy = lazy(() => import('./pages/DavetlyPrivacyPolicy'))
 const DavetlyTermsOfUse = lazy(() => import('./pages/DavetlyTermsOfUse'))
+const LumoraPrivacyPolicy = lazy(() => import('./pages/LumoraPrivacyPolicy'))
+const LumoraTermsOfUse = lazy(() => import('./pages/LumoraTermsOfUse'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 const routes = [
@@ -39,6 +41,8 @@ const routes = [
   ['/nsai-terms-of-use', <NsAiTermsOfUse />],
   ['/davetly-privacy-policy', <DavetlyPrivacyPolicy />],
   ['/davetly-terms-of-use', <DavetlyTermsOfUse />],
+  ['/lumora-privacy-policy', <LumoraPrivacyPolicy />],
+  ['/lumora-terms-of-use', <LumoraTermsOfUse />],
   // Invite was renamed to Davetly; older app builds still link to these URLs.
   // public/_redirects sends them on with a 301, this covers client-side navigation.
   ['/invite-privacy-policy', <Navigate to="/davetly-privacy-policy" replace />],
