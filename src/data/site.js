@@ -219,8 +219,8 @@ export const apps = [
     githubUrl: null,
     href: null,
     linkLabel: null,
-    color: '#6E4F9A',
-    tint: '#EFEAF5',
+    color: '#CDA972',
+    tint: '#F3EEE6',
     legal: {
       appName: 'Lumora',
       privacy: '/lumora-privacy-policy',
